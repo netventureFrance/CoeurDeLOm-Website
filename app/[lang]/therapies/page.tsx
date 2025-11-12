@@ -83,7 +83,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-7xl mx-auto mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-7xl mx-auto mb-40">
           {therapies.map((therapy, index) => (
             <a
               key={therapy.title}
