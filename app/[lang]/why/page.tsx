@@ -26,35 +26,19 @@ export default async function WhyPage({ params }: { params: Promise<{ lang: stri
   const features = [
     {
       key: 'holistic',
-      icon: (
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-        </svg>
-      ),
+      image: '/PourquoiExpertiseHolistique.png',
     },
     {
       key: 'ancestral',
-      icon: (
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-        </svg>
-      ),
+      image: '/PourquoiTechniquesAncestrales.png',
     },
     {
       key: 'personalized',
-      icon: (
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-        </svg>
-      ),
+      image: '/PourquoiAccompagnement.png',
     },
     {
       key: 'environment',
-      icon: (
-        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-        </svg>
-      ),
+      image: '/PourquoiCadre%20Guerison.png',
     },
   ];
 
@@ -80,10 +64,12 @@ export default async function WhyPage({ params }: { params: Promise<{ lang: stri
               className="bg-white rounded-3xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 border border-purple-100/50 hover:-translate-y-2"
             >
               <div className="flex flex-col items-center text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-purple-200/40 to-pink-200/40 rounded-full flex items-center justify-center mb-6">
-                  <div className="text-purple-600">
-                    {feature.icon}
-                  </div>
+                <div className="w-32 h-32 mb-6">
+                  <img
+                    src={feature.image}
+                    alt={why[feature.key].title}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <h2 className="text-2xl font-bold text-primary mb-4">
                   {why[feature.key].title}
