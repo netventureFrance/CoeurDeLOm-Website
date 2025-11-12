@@ -70,16 +70,16 @@ export default function HeroSection({ subtitle }: HeroSectionProps) {
 
           {/* Main Title */}
           <h1
-            className={`text-7xl md:text-8xl bg-gradient-to-r from-purple-600 via-pink-400 to-cyan-500 bg-clip-text text-transparent font-light tracking-wider transition-all duration-500 ease-out relative ${
-              isHovering ? 'scale-105 animate-gradient-shift' : ''
+            className={`text-7xl md:text-8xl text-purple-900 font-normal tracking-wide transition-all duration-500 ease-out relative ${
+              isHovering ? 'scale-105' : ''
             }`}
             style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: "'Dancing Script', cursive",
               transform: isHovering ? 'translateY(-5px) rotateX(5deg)' : 'translateY(0) rotateX(0)',
               textShadow: isHovering ? '0 10px 30px rgba(124, 58, 237, 0.4)' : 'none',
             }}
           >
-            CŒUR DE L'OM
+            Cœur de l'Om
           </h1>
 
           {/* Decorative elements */}
