@@ -129,6 +129,16 @@ export async function getBlogPosts(language: string, limit?: number): Promise<Bl
       const excerptField = `Excerpt_${language.toUpperCase()}` as keyof typeof record.fields;
       const contentField = `Content_${language.toUpperCase()}` as keyof typeof record.fields;
 
+      // Parse tags - handle both string (comma-separated) and array
+      let tags: string[] | undefined;
+      if (record.fields.Tags) {
+        if (typeof record.fields.Tags === 'string') {
+          tags = record.fields.Tags.split(',').map((tag: string) => tag.trim());
+        } else if (Array.isArray(record.fields.Tags)) {
+          tags = record.fields.Tags;
+        }
+      }
+
       return {
         id: record.id,
         slug: record.fields.Slug as string,
@@ -136,7 +146,7 @@ export async function getBlogPosts(language: string, limit?: number): Promise<Bl
         excerpt: (record.fields[excerptField] as string) || (record.fields.Excerpt_FR as string),
         content: (record.fields[contentField] as string) || (record.fields.Content_FR as string),
         category: record.fields.Category as string | undefined,
-        tags: record.fields.Tags as string[] | undefined,
+        tags,
         featuredImage: record.fields.Featured_Image ? (record.fields.Featured_Image as any)[0]?.url : undefined,
         author: record.fields.Author as string,
         publishedDate: record.fields.Published_Date as string,
@@ -168,6 +178,16 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
     const excerptField = `Excerpt_${language.toUpperCase()}` as keyof typeof record.fields;
     const contentField = `Content_${language.toUpperCase()}` as keyof typeof record.fields;
 
+    // Parse tags - handle both string (comma-separated) and array
+    let tags: string[] | undefined;
+    if (record.fields.Tags) {
+      if (typeof record.fields.Tags === 'string') {
+        tags = record.fields.Tags.split(',').map((tag: string) => tag.trim());
+      } else if (Array.isArray(record.fields.Tags)) {
+        tags = record.fields.Tags;
+      }
+    }
+
     return {
       id: record.id,
       slug: record.fields.Slug as string,
@@ -175,7 +195,7 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
       excerpt: (record.fields[excerptField] as string) || (record.fields.Excerpt_FR as string),
       content: (record.fields[contentField] as string) || (record.fields.Content_FR as string),
       category: record.fields.Category as string | undefined,
-      tags: record.fields.Tags as string[] | undefined,
+      tags,
       featuredImage: record.fields.Featured_Image ? (record.fields.Featured_Image as any)[0]?.url : undefined,
       author: record.fields.Author as string,
       publishedDate: record.fields.Published_Date as string,
