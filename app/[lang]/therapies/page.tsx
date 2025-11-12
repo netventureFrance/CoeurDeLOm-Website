@@ -89,7 +89,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
               key={therapy.title}
               className={`${therapy.rotation} hover:rotate-0 hover:scale-110 transition-all duration-500 cursor-pointer group`}
             >
-              <div className="relative w-full aspect-square rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl bg-white/80 backdrop-blur-sm border border-gray-100/50">
+              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-lg group-hover:shadow-2xl bg-white/80 backdrop-blur-sm border border-gray-100/50">
                 {/* Image - Now prominent */}
                 {therapy.image && (
                   <div className="absolute inset-0 p-4 flex items-center justify-center">
@@ -131,12 +131,12 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
               <div className="grid md:grid-cols-3 gap-8 items-start">
                 {/* Image */}
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-200/20 via-pink-200/20 to-cyan-200/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative bg-white/90 rounded-2xl p-6 shadow-sm group-hover:shadow-md transition-all duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-200/20 via-pink-200/20 to-cyan-200/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative bg-white/90 rounded-full p-6 shadow-sm group-hover:shadow-md transition-all duration-500 aspect-square">
                     <img
                       src={therapy.image}
                       alt={therapy.title}
-                      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                 </div>
