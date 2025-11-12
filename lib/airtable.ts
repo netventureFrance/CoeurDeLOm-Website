@@ -29,6 +29,7 @@ export interface NewsPromo {
   endDate?: string;
   status: string;
   language: string;
+  featuredImage?: string;
 }
 
 export interface BlogPost {
@@ -97,6 +98,7 @@ export async function getNewsPromos(language: string): Promise<NewsPromo[]> {
       endDate: record.fields.End_Date as string | undefined,
       status: record.fields.Status as string,
       language: record.fields.Language as string,
+      featuredImage: record.fields.Featured_Image ? (record.fields.Featured_Image as any)[0]?.url : undefined,
     }));
   } catch (error) {
     console.error('Error fetching news/promos:', error);

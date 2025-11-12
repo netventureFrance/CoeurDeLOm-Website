@@ -34,17 +34,18 @@ After importing, you need to adjust some field types:
 
 #### News_Promos Table:
 1. Click on the `Link` field header → "Customize field type" → Change to "URL"
-2. Click on `Language` → "Customize field type" → Change to "Single select"
-3. Click on `Start_Date` → "Customize field type" → Change to "Date"
-4. Click on `End_Date` → "Customize field type" → Change to "Date"
-5. Click on `Status` → "Customize field type" → Change to "Single select"
+2. Click on the `Featured_Image` field → "Customize field type" → Change to "Attachment"
+3. Click on `Language` → "Customize field type" → Change to "Single select"
+4. Click on `Start_Date` → "Customize field type" → Change to "Date"
+5. Click on `End_Date` → "Customize field type" → Change to "Date"
+6. Click on `Status` → "Customize field type" → Change to "Single select"
 
 #### Blog Posts Table:
 1. Click on `Category` → "Customize field type" → Change to "Single line text"
 2. Click on `Tags` → "Customize field type" → Change to "Multiple select" (Airtable will parse the comma-separated values)
-3. Click on `Published_Date` → "Customize field type" → Change to "Date"
-4. Click on `Status` → "Customize field type" → Change to "Single select"
-5. Optionally, add a `Featured_Image` field of type "Attachment" (this needs to be added manually as it can't be imported via CSV)
+3. Click on the `Featured_Image` field → "Customize field type" → Change to "Attachment"
+4. Click on `Published_Date` → "Customize field type" → Change to "Date"
+5. Click on `Status` → "Customize field type" → Change to "Single select"
 
 ### Step 3: Verify the Data
 
@@ -113,7 +114,13 @@ Topics covered:
 ## Next Steps
 
 After importing:
-1. Add Featured Images to blog posts (manually upload via Airtable)
+1. **Add Featured Images** to blog posts and news/promos:
+   - Click on any record in your table
+   - Click on the `Featured_Image` field
+   - Click "Add attachment" or drag and drop an image file
+   - Supported formats: JPG, PNG, GIF, WebP
+   - Recommended size: 1200x630px for optimal display
+   - The website will automatically display these images when present
 2. Customize the content to match your needs
 3. Add more records as needed
 4. The website will automatically fetch and display the data

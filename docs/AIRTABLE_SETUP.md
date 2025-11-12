@@ -86,10 +86,11 @@ This guide will help you set up your Airtable base for the Coeur de l'OM website
 1. `Title` - Single line text
 2. `Content` - Long text
 3. `Link` - URL (optional)
-4. `Language` - Single select (Options: "FR", "DE", "EN")
-5. `Start_Date` - Date
-6. `End_Date` - Date (optional - leave blank for no end date)
-7. `Status` - Single select (Options: "Active", "Inactive")
+4. `Featured_Image` - Attachment (optional - for visual appeal)
+5. `Language` - Single select (Options: "FR", "DE", "EN")
+6. `Start_Date` - Date
+7. `End_Date` - Date (optional - leave blank for no end date)
+8. `Status` - Single select (Options: "Active", "Inactive")
 
 **Sample Record:**
 - Title: `Nouvelle séance de méditation`
