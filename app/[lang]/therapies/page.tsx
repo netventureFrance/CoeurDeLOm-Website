@@ -89,7 +89,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
               key={therapy.title}
               className={`${therapy.rotation} hover:rotate-0 hover:scale-110 transition-all duration-500 cursor-pointer group`}
             >
-              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-lg group-hover:shadow-2xl bg-white/80 backdrop-blur-sm border border-gray-100/50">
+              <div className="relative w-full aspect-square rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl bg-white/80 backdrop-blur-sm border border-gray-100/50">
                 {/* Image - Now prominent */}
                 {therapy.image && (
                   <div className="absolute inset-0 p-4 flex items-center justify-center">
