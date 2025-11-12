@@ -1,5 +1,21 @@
 import { type Locale, getDictionary } from '@/lib/i18n';
 import ContactForm from '@/components/ContactForm';
+import { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+
+  return {
+    title: "Contact & Rendez-vous - Réservez votre consultation",
+    description: "Prenez rendez-vous pour une consultation en naturopathie, soins vibratoires ou méditation. Cabinet Cœur de l'OM en France. Réservation en ligne disponible.",
+    keywords: ["prendre rendez-vous", "réservation", "consultation naturopathie", "contact", "cabinet France", "rendez-vous en ligne", "Valérie Heydlauf"],
+    openGraph: {
+      title: "Contact & Rendez-vous | Cœur de l'OM",
+      description: "Réservez votre consultation en naturopathie, soins vibratoires ou méditation. Cabinet en France.",
+      images: ['/Coeur-de-lOm-Alpha-Kopie.png'],
+    },
+  };
+}
 
 export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

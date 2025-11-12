@@ -1,6 +1,22 @@
 import Link from 'next/link';
 import { type Locale, getDictionary, type Dictionary } from '@/lib/i18n';
 import { getBlogPosts, getCategories } from '@/lib/blog';
+import { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+
+  return {
+    title: "Blog - Bien-être, Spiritualité & Naturopathie",
+    description: "Articles et conseils sur la naturopathie, les soins énergétiques, la méditation et le bien-être holistique. Découvrez les secrets d'une vie équilibrée et harmonieuse.",
+    keywords: ["blog naturopathie", "articles bien-être", "spiritualité", "conseils santé naturelle", "méditation", "développement personnel", "énergétique", "vie holistique"],
+    openGraph: {
+      title: "Blog - Bien-être & Naturopathie | Cœur de l'OM",
+      description: "Articles et conseils sur la naturopathie, les soins énergétiques, la méditation et le bien-être holistique.",
+      images: ['/Coeur-de-lOm-Alpha-Kopie.png'],
+    },
+  };
+}
 
 export default async function BlogPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

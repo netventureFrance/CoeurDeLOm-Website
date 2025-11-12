@@ -1,4 +1,20 @@
 import { type Locale, getDictionary } from '@/lib/i18n';
+import { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+
+  return {
+    title: "Mes Soins - Reiki, Chromobio-Énergie, Méditation & Soins Vibratoires",
+    description: "Découvrez mes approches thérapeutiques : Reiki, soins vibratoires, Chromobio-Énergie, méditation guidée et massage Amma. Thérapies douces et énergétiques pour votre bien-être holistique.",
+    keywords: ["Reiki", "Chromobio-Énergie", "soins vibratoires", "méditation", "massage Amma", "thérapies énergétiques", "bien-être holistique", "soins naturels", "harmonisation énergétique"],
+    openGraph: {
+      title: "Mes Soins - Thérapies Énergétiques | Cœur de l'OM",
+      description: "Reiki, soins vibratoires, Chromobio-Énergie, méditation guidée et massage Amma pour votre harmonisation énergétique et votre bien-être.",
+      images: ['/Coeur-de-lOm-Alpha-Kopie.png'],
+    },
+  };
+}
 
 export default async function TherapiesPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
