@@ -44,5 +44,66 @@
     "save": "Save",
     "cancel": "Cancel",
     "back": "Back"
+  },
+  "therapies": {
+    "title": "MY THERAPIES",
+    "subtitle": "Discover the different therapeutic approaches I offer for your well-being and energetic harmonization.",
+    "bookAppointment": "Book an appointment",
+    "benefits": "Benefits",
+    "reiki": {
+      "title": "REIKI",
+      "description": "Reiki is a Japanese energy therapy that uses universal life energy to promote physical, emotional, mental and spiritual healing. During a session, the practitioner places their hands on or above the receiver's body to channel this energy, eliminate blockages and restore harmony.",
+      "benefits": [
+        "Reduction of stress and tension",
+        "Pain relief",
+        "Improved sleep",
+        "Emotional support",
+        "Non-invasive practice accessible to all"
+      ]
+    },
+    "vibratory": {
+      "title": "VIBRATORY HEALING",
+      "description": "Vibratory healing offers a holistic approach using sound, light and energy vibrations to balance body, mind and soul. Based on universal frequencies, these techniques including singing bowls, mantras and chromobioenergy reduce stress, improve sleep, relieve pain and increase energy.",
+      "benefits": [
+        "Stress reduction",
+        "Improved sleep",
+        "Pain relief",
+        "Increased energy",
+        "Personalized session according to your needs"
+      ]
+    },
+    "meditation": {
+      "title": "MEDITATION",
+      "description": "Meditation uses various techniques such as mindfulness, guided and transcendental meditation, as well as mantras like the OM sound, to promote relaxation, self-awareness and emotional healing. It reduces stress, anxiety and depression, improves concentration and mental clarity, and promotes inner peace.",
+      "benefits": [
+        "Reduction of stress, anxiety and depression",
+        "Improved concentration",
+        "Mental clarity",
+        "Promotion of inner peace",
+        "Natural approach suitable for everyone"
+      ]
+    },
+    "chromobio": {
+      "title": "CHROMOBIOENERGY",
+      "description": "ChromoBioEnergy uses color as mysterious music to reharmonize our body and mind. Each person is born with a unique capital of colors, and this method, adapted to individual needs, treats various imbalances. Thanks to the chromoemotional tests developed by Evelyne Monsallier, the dissonances of your inner melody are detected and corrected.",
+      "benefits": [
+        "Body and mind reharmonization",
+        "Treatment of individual imbalances",
+        "Personalized chromoemotional tests",
+        "Particularly effective method",
+        "Maintenance of good health"
+      ]
+    },
+    "amma": {
+      "title": "AMMA MASSAGE",
+      "description": "Energetic seated massage of Japanese origin that works on energy meridians to release tension and promote energy circulation.",
+      "benefits": [
+        "Release of muscle tension",
+        "Improved energy circulation",
+        "Stress reduction",
+        "Quick revitalization",
+        "Accessible in corporate settings"
+      ]
+    }
   }
 }

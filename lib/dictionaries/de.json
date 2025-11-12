@@ -44,5 +44,66 @@
     "save": "Speichern",
     "cancel": "Abbrechen",
     "back": "Zurück"
+  },
+  "therapies": {
+    "title": "MEINE BEHANDLUNGEN",
+    "subtitle": "Entdecken Sie die verschiedenen therapeutischen Ansätze, die ich für Ihr Wohlbefinden und Ihre energetische Harmonisierung anbiete.",
+    "bookAppointment": "Termin buchen",
+    "benefits": "Vorteile",
+    "reiki": {
+      "title": "REIKI",
+      "description": "Reiki ist eine japanische Energietherapie, die die universelle Lebensenergie nutzt, um körperliche, emotionale, mentale und spirituelle Heilung zu fördern. Während einer Sitzung legt der Praktizierende seine Hände auf oder über den Körper des Empfängers, um diese Energie zu kanalisieren, Blockaden zu lösen und die Harmonie wiederherzustellen.",
+      "benefits": [
+        "Abbau von Stress und Spannungen",
+        "Schmerzlinderung",
+        "Verbesserung des Schlafs",
+        "Emotionale Unterstützung",
+        "Nicht-invasive Praxis für alle zugänglich"
+      ]
+    },
+    "vibratory": {
+      "title": "SCHWINGUNGSTHERAPIE",
+      "description": "Die Schwingungstherapie bietet einen ganzheitlichen Ansatz durch die Nutzung von Klang-, Licht- und Energieschwingungen, um Körper, Geist und Seele auszugleichen. Basierend auf universellen Frequenzen reduzieren diese Techniken, einschließlich Klangschalen, Mantras und Chromobioenergie, Stress, verbessern den Schlaf, lindern Schmerzen und steigern die Energie.",
+      "benefits": [
+        "Stressabbau",
+        "Verbesserung des Schlafs",
+        "Schmerzlinderung",
+        "Energiesteigerung",
+        "Personalisierte Sitzung nach Ihren Bedürfnissen"
+      ]
+    },
+    "meditation": {
+      "title": "MEDITATION",
+      "description": "Die Meditation nutzt verschiedene Techniken wie Achtsamkeit, geführte und transzendentale Meditation sowie Mantras wie den OM-Klang, um Entspannung, Selbstbewusstsein und emotionale Heilung zu fördern. Sie reduziert Stress, Angst und Depression, verbessert die Konzentration und geistige Klarheit und fördert den inneren Frieden.",
+      "benefits": [
+        "Abbau von Stress, Angst und Depression",
+        "Verbesserung der Konzentration",
+        "Geistige Klarheit",
+        "Förderung des inneren Friedens",
+        "Natürlicher Ansatz für alle geeignet"
+      ]
+    },
+    "chromobio": {
+      "title": "CHROMOBIOENERGIE",
+      "description": "Die ChromoBioEnergie nutzt Farben wie eine geheimnisvolle Musik, um Körper und Geist zu harmonisieren. Jeder Mensch wird mit einem einzigartigen Kapital an Farben geboren, und diese auf individuelle Bedürfnisse zugeschnittene Methode behandelt verschiedene Ungleichgewichte. Dank der von Evelyne Monsallier entwickelten chromoemotionalen Tests werden die Dissonanzen Ihrer inneren Melodie erkannt und korrigiert.",
+      "benefits": [
+        "Harmonisierung von Körper und Geist",
+        "Behandlung individueller Ungleichgewichte",
+        "Personalisierte chromoemotionale Tests",
+        "Besonders wirksame Methode",
+        "Erhaltung guter Gesundheit"
+      ]
+    },
+    "amma": {
+      "title": "AMMA-MASSAGE",
+      "description": "Energetische Sitzmassage japanischen Ursprungs, die an den Energiemeridanen arbeitet, um Spannungen zu lösen und die Energiezirkulation zu fördern.",
+      "benefits": [
+        "Lösung von Muskelverspannungen",
+        "Verbesserung der Energiezirkulation",
+        "Stressabbau",
+        "Schnelle Revitalisierung",
+        "Im Unternehmen zugänglich"
+      ]
+    }
   }
 }
