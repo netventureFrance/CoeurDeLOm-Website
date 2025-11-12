@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { type Locale, getDictionary, type Dictionary } from '@/lib/i18n';
-import { getBlogPosts, getCategories } from '@/lib/blog';
+import { getBlogPosts } from '@/lib/airtable';
+import { getCategories } from '@/lib/blog';
 import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
@@ -22,7 +23,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const dict = await getDictionary(lang as Locale);
   const blog = dict.blog as Dictionary;
-  const posts = await getBlogPosts(lang as Locale);
+  const posts = await getBlogPosts(lang);
   const categories = await getCategories(lang as Locale);
 
   return (

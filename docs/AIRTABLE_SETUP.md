@@ -80,7 +80,27 @@ This guide will help you set up your Airtable base for the Coeur de l'OM website
 | psychologie | Psychologie | Psychologie | Psychology | #E9427A |
 | astrosante | Astrosanté | Astrogesundheit | Astrohealth | #F7C14B |
 
-### Table 4: Contact Submissions
+### Table 4: News_Promos
+
+**Fields:**
+1. `Title` - Single line text
+2. `Content` - Long text
+3. `Link` - URL (optional)
+4. `Language` - Single select (Options: "FR", "DE", "EN")
+5. `Start_Date` - Date
+6. `End_Date` - Date (optional - leave blank for no end date)
+7. `Status` - Single select (Options: "Active", "Inactive")
+
+**Sample Record:**
+- Title: `Nouvelle séance de méditation`
+- Content: `Rejoignez-nous pour une séance de méditation collective tous les mercredis soirs.`
+- Link: `/fr/meditation`
+- Language: `FR`
+- Start_Date: `2025-01-15`
+- End_Date: (blank or future date)
+- Status: `Active`
+
+### Table 5: Contact Submissions
 
 **Fields:**
 1. `Name` - Single line text
@@ -90,7 +110,7 @@ This guide will help you set up your Airtable base for the Coeur de l'OM website
 5. `Submitted_Date` - Date (with time)
 6. `Status` - Single select (Options: "New", "Read", "Replied")
 
-### Table 5: Navigation
+### Table 6: Navigation
 
 **Fields:**
 1. `Label_FR` - Single line text
@@ -109,7 +129,7 @@ This guide will help you set up your Airtable base for the Coeur de l'OM website
 | Blog | Blog | Blog | /blog | 4 |
 | Contact | Kontakt | Contact | /contact | 5 |
 
-### Table 6: UI Translations
+### Table 7: UI Translations
 
 **Fields:**
 1. `Key` - Single line text
@@ -125,7 +145,7 @@ This guide will help you set up your Airtable base for the Coeur de l'OM website
 | blog.read_more | Lire la suite | Weiterlesen | Read more | blog |
 | common.loading | Chargement... | Laden... | Loading... | common |
 
-### Table 7: Site Settings
+### Table 8: Site Settings
 
 **Fields:**
 1. `Setting_Name` - Single line text

@@ -20,7 +20,7 @@ export default function HeroSection({ subtitle }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 pt-24 relative overflow-hidden">
+    <section className="min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 pt-24 pb-12 relative overflow-hidden">
       {/* Interactive animated background blobs */}
       <div
         className="absolute w-96 h-96 bg-cyan/10 rounded-full mix-blend-normal filter blur-3xl animate-blob transition-all duration-1000 ease-out"
@@ -56,10 +56,10 @@ export default function HeroSection({ subtitle }: HeroSectionProps) {
         </>
       )}
 
-      <div className="container mx-auto px-8 py-20 text-center max-w-5xl relative z-10">
+      <div className="container mx-auto px-8 py-8 text-center max-w-5xl relative z-10">
         {/* Main Title with Interactive Effects */}
         <div
-          className="relative inline-block mb-12"
+          className="relative inline-block mb-6"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
@@ -95,13 +95,6 @@ export default function HeroSection({ subtitle }: HeroSectionProps) {
         <p className="text-2xl md:text-3xl text-gray-600 font-light leading-relaxed max-w-4xl mx-auto animate-fade-in">
           {subtitle}
         </p>
-
-        {/* Floating scroll indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-gray-300/50 rounded-full flex justify-center">
-            <div className="w-1.5 h-3 bg-gradient-to-b from-purple-400/60 to-cyan-400/60 rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
       </div>
 
       <style jsx>{`
