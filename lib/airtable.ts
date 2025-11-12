@@ -109,12 +109,17 @@ export async function getNewsPromos(language: string): Promise<NewsPromo[]> {
  */
 export async function getBlogPosts(language: string, limit?: number): Promise<BlogPost[]> {
   try {
+    const selectOptions: any = {
+      filterByFormula: `AND({Status} = 'Published')`,
+      sort: [{ field: 'Published_Date', direction: 'desc' }],
+    };
+
+    if (limit) {
+      selectOptions.maxRecords = limit;
+    }
+
     const records = await base('Blog Posts')
-      .select({
-        filterByFormula: `AND({Status} = 'Published')`,
-        sort: [{ field: 'Published_Date', direction: 'desc' }],
-        maxRecords: limit,
-      })
+      .select(selectOptions)
       .all();
 
     return records.map((record) => {
