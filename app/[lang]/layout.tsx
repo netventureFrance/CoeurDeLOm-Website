@@ -18,10 +18,10 @@ export default async function LangLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const dict = await getDictionary(lang);
+  const dict = await getDictionary(lang as Locale);
 
   return (
     <html lang={lang}>
@@ -31,9 +31,9 @@ export default async function LangLayout({
         <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <Header lang={lang} dict={dict} />
+        <Header lang={lang as Locale} dict={dict} />
         {children}
-        <Footer lang={lang} dict={dict} />
+        <Footer lang={lang as Locale} dict={dict} />
       </body>
     </html>
   );

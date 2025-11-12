@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { type Locale, type Dictionary } from '@/lib/i18n';
 
 export default function ContactForm({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+  const contact = dict.contact as any;
+  const common = dict.common as any;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -44,7 +47,7 @@ export default function ContactForm({ lang, dict }: { lang: Locale; dict: Dictio
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-          {dict.contact.name}
+          {contact.name}
         </label>
         <input
           type="text"
@@ -58,7 +61,7 @@ export default function ContactForm({ lang, dict }: { lang: Locale; dict: Dictio
 
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-          {dict.contact.email}
+          {contact.email}
         </label>
         <input
           type="email"
@@ -72,7 +75,7 @@ export default function ContactForm({ lang, dict }: { lang: Locale; dict: Dictio
 
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-          {dict.contact.message}
+          {contact.message}
         </label>
         <textarea
           id="message"
@@ -89,18 +92,18 @@ export default function ContactForm({ lang, dict }: { lang: Locale; dict: Dictio
         disabled={status === 'loading'}
         className="w-full btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {status === 'loading' ? dict.common.loading : dict.contact.send}
+        {status === 'loading' ? common.loading : contact.send}
       </button>
 
       {status === 'success' && (
         <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800">
-          {dict.contact.success}
+          {contact.success}
         </div>
       )}
 
       {status === 'error' && (
         <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
-          {dict.contact.error}
+          {contact.error}
         </div>
       )}
     </form>

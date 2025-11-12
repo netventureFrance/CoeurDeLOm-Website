@@ -7,14 +7,15 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const nav = dict.nav as any;
 
   const navItems = [
-    { href: `/${lang}/about`, label: dict.nav.about },
-    { href: `/${lang}/therapies`, label: dict.nav.therapies },
+    { href: `/${lang}/about`, label: nav.about },
+    { href: `/${lang}/therapies`, label: nav.therapies },
     { href: `/${lang}/about#pourquoi`, label: 'Pourquoi Cœur de l\'Om' },
-    { href: `/${lang}/contact`, label: dict.nav.appointment },
-    { href: `/${lang}/faq`, label: dict.nav.faq },
-    { href: `/${lang}/blog`, label: dict.nav.blog },
+    { href: `/${lang}/contact`, label: nav.appointment },
+    { href: `/${lang}/faq`, label: nav.faq },
+    { href: `/${lang}/blog`, label: nav.blog },
   ];
 
   return (

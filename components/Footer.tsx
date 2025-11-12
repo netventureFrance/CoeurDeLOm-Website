@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { type Locale, type Dictionary } from '@/lib/i18n';
 
 export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+  const footer = dict.footer as any;
+  const nav = dict.nav as any;
   const currentYear = new Date().getFullYear();
 
   return (
@@ -10,7 +12,7 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* About */}
           <div>
-            <h3 className="text-xl font-bold mb-4">{dict.footer.about}</h3>
+            <h3 className="text-xl font-bold mb-4">{footer.about}</h3>
             <p className="text-gray-300 leading-relaxed">
               Coeur de l'OM - Un espace dédié au bien-être, à la méditation et à la spiritualité.
             </p>
@@ -18,31 +20,31 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
 
           {/* Links */}
           <div>
-            <h3 className="text-xl font-bold mb-4">{dict.footer.links}</h3>
+            <h3 className="text-xl font-bold mb-4">{footer.links}</h3>
             <ul className="space-y-2">
               <li>
                 <Link href={`/${lang}`} className="text-gray-300 hover:text-cyan transition-colors">
-                  {dict.nav.home}
+                  {nav.home}
                 </Link>
               </li>
               <li>
                 <Link href={`/${lang}/about`} className="text-gray-300 hover:text-cyan transition-colors">
-                  {dict.nav.about}
+                  {nav.about}
                 </Link>
               </li>
               <li>
                 <Link href={`/${lang}/therapies`} className="text-gray-300 hover:text-cyan transition-colors">
-                  {dict.nav.therapies}
+                  {nav.therapies}
                 </Link>
               </li>
               <li>
                 <Link href={`/${lang}/blog`} className="text-gray-300 hover:text-cyan transition-colors">
-                  {dict.nav.blog}
+                  {nav.blog}
                 </Link>
               </li>
               <li>
                 <Link href={`/${lang}/contact`} className="text-gray-300 hover:text-cyan transition-colors">
-                  {dict.nav.contact}
+                  {nav.contact}
                 </Link>
               </li>
             </ul>
@@ -89,14 +91,14 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
         {/* Bottom Bar */}
         <div className="border-t border-white border-opacity-20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-300 text-sm">
-            {dict.footer.copyright.replace('2025', currentYear.toString())}
+            {footer.copyright.replace('2025', currentYear.toString())}
           </p>
           <div className="flex gap-6 text-sm">
             <Link href={`/${lang}/legal`} className="text-gray-300 hover:text-cyan transition-colors">
-              {dict.footer.legal}
+              {footer.legal}
             </Link>
             <Link href={`/${lang}/privacy`} className="text-gray-300 hover:text-cyan transition-colors">
-              {dict.footer.privacy}
+              {footer.privacy}
             </Link>
           </div>
         </div>

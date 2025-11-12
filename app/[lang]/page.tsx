@@ -3,10 +3,10 @@ import { getDictionary, type Locale } from "@/lib/i18n";
 export default async function Home({
   params,
 }: {
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const dict = await getDictionary(lang);
+  const dict = await getDictionary(lang as Locale);
 
   return (
     <main className="min-h-screen bg-gray-50">

@@ -1,9 +1,9 @@
 import { type Locale, getDictionary } from '@/lib/i18n';
 import ContactForm from '@/components/ContactForm';
 
-export default async function ContactPage({ params }: { params: Promise<{ lang: Locale }> }) {
+export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  const dict = await getDictionary(lang);
+  const dict = await getDictionary(lang as Locale);
 
   return (
     <main className="min-h-screen pt-24 pb-12">
@@ -12,7 +12,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-primary">
-              {dict.contact.title}
+              {(dict.contact as any).title}
             </h1>
             <div className="h-1 w-24 bg-gradient-rainbow mx-auto mb-8"></div>
           </div>
@@ -20,7 +20,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white rounded-3xl shadow-xl p-8">
-              <ContactForm lang={lang} dict={dict} />
+              <ContactForm lang={lang as Locale} dict={dict} />
             </div>
 
             {/* Contact Info & Cal.com */}

@@ -1,12 +1,13 @@
 import Link from 'next/link';
-import { type Locale, getDictionary } from '@/lib/i18n';
+import { type Locale, getDictionary, type Dictionary } from '@/lib/i18n';
 import { getBlogPosts, getCategories } from '@/lib/blog';
 
-export default async function BlogPage({ params }: { params: Promise<{ lang: Locale }> }) {
+export default async function BlogPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  const dict = await getDictionary(lang);
-  const posts = await getBlogPosts(lang);
-  const categories = await getCategories(lang);
+  const dict = await getDictionary(lang as Locale);
+  const blog = dict.blog as Dictionary;
+  const posts = await getBlogPosts(lang as Locale);
+  const categories = await getCategories(lang as Locale);
 
   return (
     <main className="min-h-screen pt-32 pb-20">
@@ -14,7 +15,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: Loc
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="font-bold mb-8 text-primary">
-            {dict.blog.title}
+            {blog.title as string}
           </h1>
           <div className="h-1 w-24 bg-gradient-rainbow mx-auto"></div>
         </div>
@@ -23,7 +24,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: Loc
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-3xl shadow-lg p-6 sticky top-24">
-              <h3 className="text-xl font-bold mb-4 text-primary">{dict.blog.categories}</h3>
+              <h3 className="text-xl font-bold mb-4 text-primary">{blog.categories as string}</h3>
               <ul className="space-y-2">
                 <li>
                   <Link
@@ -55,7 +56,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: Loc
           <div className="lg:col-span-3">
             {posts.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-gray-600 text-lg">{dict.blog.noArticles}</p>
+                <p className="text-gray-600 text-lg">{blog.noArticles as string}</p>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 gap-8">
@@ -92,7 +93,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: Loc
                         href={`/${lang}/blog/${post.slug}`}
                         className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
                       >
-                        {dict.blog.readMore}
+                        {blog.readMore as string}
                         <svg
                           className="w-5 h-5"
                           fill="none"
