@@ -59,6 +59,36 @@
     "cancel": "Annuler",
     "back": "Retour"
   },
+  "faq": {
+    "title": "QUESTIONS FRÉQUENTES",
+    "subtitle": "Trouvez les réponses aux questions les plus courantes sur nos soins et pratiques.",
+    "questions": [
+      {
+        "question": "Qu'est-ce que la Chromobio-Énergie ?",
+        "answer": "La ChromoBioÉnergie est une méthode thérapeutique qui utilise les couleurs et leurs fréquences vibratoires pour harmoniser le corps et l'esprit. Développée par Evelyne Monsallier, elle permet de détecter et corriger les déséquilibres énergétiques grâce aux tests chromoémotionnels."
+      },
+      {
+        "question": "Comment se déroule une séance de Reiki ?",
+        "answer": "Une séance de Reiki dure généralement entre 60 et 90 minutes. Vous êtes allongé, habillé, dans un environnement calme. Le praticien pose ses mains sur ou au-dessus de différentes parties de votre corps pour canaliser l'énergie universelle. La séance favorise la détente profonde et la libération des blocages énergétiques."
+      },
+      {
+        "question": "Les soins vibratoires sont-ils compatibles avec un traitement médical ?",
+        "answer": "Oui, les soins vibratoires sont complémentaires et ne remplacent pas un traitement médical. Ils peuvent être pratiqués en parallèle de la médecine conventionnelle pour soutenir le processus de guérison naturel du corps."
+      },
+      {
+        "question": "Faut-il une préparation particulière avant une séance ?",
+        "answer": "Il est recommandé de porter des vêtements confortables et d'éviter les repas lourds juste avant la séance. Venez avec un esprit ouvert et disponible pour accueillir les énergies de guérison."
+      },
+      {
+        "question": "Combien de séances sont nécessaires ?",
+        "answer": "Le nombre de séances varie selon les besoins individuels et les objectifs recherchés. Certaines personnes ressentent des bienfaits dès la première séance, tandis que d'autres préfèrent un accompagnement sur plusieurs semaines. Nous discutons ensemble du meilleur programme pour vous."
+      },
+      {
+        "question": "Proposez-vous des séances de groupe pour la méditation ?",
+        "answer": "Oui, mon cabinet comprend un espace de méditation où j'accueille ponctuellement de petits groupes pour des pratiques guidées et des expériences de reconnexion à soi."
+      }
+    ]
+  },
   "therapies": {
     "title": "MES SOINS",
     "subtitle": "Découvrez les différentes approches thérapeutiques que je propose pour votre bien-être et votre harmonisation énergétique.",

@@ -59,6 +59,36 @@
     "cancel": "Abbrechen",
     "back": "Zurück"
   },
+  "faq": {
+    "title": "HÄUFIG GESTELLTE FRAGEN",
+    "subtitle": "Finden Sie Antworten auf die häufigsten Fragen zu unseren Behandlungen und Praktiken.",
+    "questions": [
+      {
+        "question": "Was ist Chromobioenergie?",
+        "answer": "ChromoBioEnergie ist eine therapeutische Methode, die Farben und ihre Schwingungsfrequenzen nutzt, um Körper und Geist zu harmonisieren. Entwickelt von Evelyne Monsallier, ermöglicht sie die Erkennung und Korrektur energetischer Ungleichgewichte durch chromoemotionale Tests."
+      },
+      {
+        "question": "Wie läuft eine Reiki-Sitzung ab?",
+        "answer": "Eine Reiki-Sitzung dauert in der Regel zwischen 60 und 90 Minuten. Sie liegen bekleidet in einer ruhigen Umgebung. Der Praktizierende legt seine Hände auf oder über verschiedene Körperteile, um die universelle Energie zu kanalisieren. Die Sitzung fördert tiefe Entspannung und die Lösung energetischer Blockaden."
+      },
+      {
+        "question": "Sind Schwingungstherapien mit medizinischer Behandlung vereinbar?",
+        "answer": "Ja, Schwingungstherapien sind komplementär und ersetzen keine medizinische Behandlung. Sie können parallel zur konventionellen Medizin praktiziert werden, um den natürlichen Heilungsprozess des Körpers zu unterstützen."
+      },
+      {
+        "question": "Ist eine besondere Vorbereitung vor einer Sitzung erforderlich?",
+        "answer": "Es wird empfohlen, bequeme Kleidung zu tragen und schwere Mahlzeiten kurz vor der Sitzung zu vermeiden. Kommen Sie mit offenem und verfügbarem Geist, um die Heilungsenergien zu empfangen."
+      },
+      {
+        "question": "Wie viele Sitzungen sind erforderlich?",
+        "answer": "Die Anzahl der Sitzungen variiert je nach individuellen Bedürfnissen und angestrebten Zielen. Einige Menschen spüren bereits nach der ersten Sitzung Vorteile, während andere eine Begleitung über mehrere Wochen bevorzugen. Wir besprechen gemeinsam das beste Programm für Sie."
+      },
+      {
+        "question": "Bieten Sie Gruppensitzungen für Meditation an?",
+        "answer": "Ja, mein Praxisraum umfasst einen Meditationsraum, in dem ich gelegentlich kleine Gruppen für geführte Praktiken und Erfahrungen der Wiederverbindung mit sich selbst empfange."
+      }
+    ]
+  },
   "therapies": {
     "title": "MEINE BEHANDLUNGEN",
     "subtitle": "Entdecken Sie die verschiedenen therapeutischen Ansätze, die ich für Ihr Wohlbefinden und Ihre energetische Harmonisierung anbiete.",

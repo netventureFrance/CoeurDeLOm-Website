@@ -59,6 +59,36 @@
     "cancel": "Cancel",
     "back": "Back"
   },
+  "faq": {
+    "title": "FREQUENTLY ASKED QUESTIONS",
+    "subtitle": "Find answers to the most common questions about our treatments and practices.",
+    "questions": [
+      {
+        "question": "What is ChromoBioEnergy?",
+        "answer": "ChromoBioEnergy is a therapeutic method that uses colors and their vibrational frequencies to harmonize body and mind. Developed by Evelyne Monsallier, it allows the detection and correction of energetic imbalances through chromoemotional tests."
+      },
+      {
+        "question": "How does a Reiki session work?",
+        "answer": "A Reiki session typically lasts between 60 and 90 minutes. You lie down, clothed, in a calm environment. The practitioner places their hands on or above different parts of your body to channel universal energy. The session promotes deep relaxation and the release of energy blockages."
+      },
+      {
+        "question": "Are vibratory treatments compatible with medical treatment?",
+        "answer": "Yes, vibratory treatments are complementary and do not replace medical treatment. They can be practiced alongside conventional medicine to support the body's natural healing process."
+      },
+      {
+        "question": "Is special preparation required before a session?",
+        "answer": "It is recommended to wear comfortable clothing and avoid heavy meals just before the session. Come with an open and available mind to receive healing energies."
+      },
+      {
+        "question": "How many sessions are needed?",
+        "answer": "The number of sessions varies according to individual needs and desired goals. Some people feel benefits from the first session, while others prefer support over several weeks. We discuss together the best program for you."
+      },
+      {
+        "question": "Do you offer group sessions for meditation?",
+        "answer": "Yes, my practice includes a meditation space where I occasionally welcome small groups for guided practices and experiences of reconnection with oneself."
+      }
+    ]
+  },
   "therapies": {
     "title": "MY THERAPIES",
     "subtitle": "Discover the different therapeutic approaches I offer for your well-being and energetic harmonization.",
