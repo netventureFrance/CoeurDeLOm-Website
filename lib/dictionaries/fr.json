@@ -109,6 +109,25 @@
       }
     ]
   },
+  "why": {
+    "title": "POURQUOI CŒUR DE L'OM ?",
+    "holistic": {
+      "title": "EXPERTISE HOLISTIQUE",
+      "description": "Approche thérapeutique intégrant corps, esprit et âme pour un bien-être global."
+    },
+    "ancestral": {
+      "title": "TECHNIQUES ANCESTRALES",
+      "description": "Médecine Traditionnelle Chinoise, Reiki et Chromobioénergie pour un rééquilibrage efficace des énergies."
+    },
+    "personalized": {
+      "title": "ACCOMPAGNEMENT PERSONNALISÉ",
+      "description": "Séances sur mesure adaptées à vos besoins spécifiques pour un résultat optimal."
+    },
+    "environment": {
+      "title": "CADRE PROPICE À LA GUÉRISON",
+      "description": "Environnement serein et harmonieux favorisant un travail en profondeur."
+    }
+  },
   "therapies": {
     "title": "MES SOINS",
     "subtitle": "Découvrez les différentes approches thérapeutiques que je propose pour votre bien-être et votre harmonisation énergétique.",

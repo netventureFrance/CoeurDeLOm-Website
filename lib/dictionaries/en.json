@@ -109,6 +109,25 @@
       }
     ]
   },
+  "why": {
+    "title": "WHY CŒUR DE L'OM ?",
+    "holistic": {
+      "title": "HOLISTIC EXPERTISE",
+      "description": "Therapeutic approach integrating body, mind and soul for overall well-being."
+    },
+    "ancestral": {
+      "title": "ANCESTRAL TECHNIQUES",
+      "description": "Traditional Chinese Medicine, Reiki and Chromobioenergy for effective energy rebalancing."
+    },
+    "personalized": {
+      "title": "PERSONALIZED SUPPORT",
+      "description": "Tailor-made sessions adapted to your specific needs for optimal results."
+    },
+    "environment": {
+      "title": "HEALING-FRIENDLY ENVIRONMENT",
+      "description": "Serene and harmonious environment promoting deep work."
+    }
+  },
   "therapies": {
     "title": "MY THERAPIES",
     "subtitle": "Discover the different therapeutic approaches I offer for your well-being and energetic harmonization.",
