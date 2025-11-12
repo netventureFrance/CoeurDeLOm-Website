@@ -22,7 +22,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
   const about = dict.about as any;
 
   return (
-    <main className="min-h-screen pt-32 pb-20 bg-white">
+    <main className="min-h-screen pt-40 pb-20 bg-white">
       <div className="container mx-auto px-8">
         {/* Hero Section with Profile */}
         <section className="mb-32">

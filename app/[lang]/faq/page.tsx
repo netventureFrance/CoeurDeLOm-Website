@@ -23,7 +23,7 @@ export default async function FAQPage({ params }: { params: Promise<{ lang: stri
   const faq = dict.faq as any;
 
   return (
-    <main className="min-h-screen pt-32 pb-20 bg-gradient-to-br from-white via-purple-50/20 to-cyan-50/20">
+    <main className="min-h-screen pt-40 pb-20 bg-gradient-to-br from-white via-purple-50/20 to-cyan-50/20">
       <div className="container mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-20 max-w-4xl mx-auto">
