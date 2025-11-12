@@ -84,10 +84,11 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
 
         {/* Cards Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-7xl mx-auto mb-20">
-          {therapies.map((therapy) => (
-            <div
+          {therapies.map((therapy, index) => (
+            <a
               key={therapy.title}
-              className={`${therapy.rotation} hover:rotate-0 hover:scale-110 transition-all duration-500 cursor-pointer group`}
+              href={`#therapy-${index}`}
+              className={`${therapy.rotation} hover:rotate-0 hover:scale-110 transition-all duration-500 cursor-pointer group block`}
             >
               <div className="relative w-full aspect-square rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl bg-white border border-gray-100/50">
                 {/* Image - Circular masked */}
@@ -102,14 +103,14 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   </div>
                 )}
 
-                {/* Title overlay */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white/95 via-white/90 to-transparent p-4 pt-8">
+                {/* Title overlay - Only visible on hover */}
+                <div className="absolute inset-0 bg-white/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
                   <h3 className="text-sm md:text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600/80 via-pink-500/80 to-cyan-600/80 text-center">
                     {therapy.title}
                   </h3>
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
@@ -118,7 +119,8 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
           {therapies.map((therapy, index) => (
             <div
               key={therapy.title}
-              className={`bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100/50 group ${
+              id={`therapy-${index}`}
+              className={`bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100/50 group scroll-mt-32 ${
                 index % 2 === 0 ? 'hover:translate-x-2' : 'hover:-translate-x-2'
               }`}
             >
