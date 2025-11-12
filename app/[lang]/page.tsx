@@ -1,4 +1,5 @@
 import { getDictionary, type Locale } from "@/lib/i18n";
+import HeroSection from "@/components/HeroSection";
 
 export default async function Home({
   params,
@@ -11,22 +12,8 @@ export default async function Home({
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero Section with Soft Light Background */}
-      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 pt-24 relative overflow-hidden">
-        {/* Soft animated background blobs */}
-        <div className="absolute top-20 left-20 w-96 h-96 bg-cyan/10 rounded-full mix-blend-normal filter blur-3xl animate-blob"></div>
-        <div className="absolute top-40 right-20 w-96 h-96 bg-purple-300/10 rounded-full mix-blend-normal filter blur-3xl animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-20 left-1/2 w-96 h-96 bg-pink-200/10 rounded-full mix-blend-normal filter blur-3xl animate-blob animation-delay-4000"></div>
-
-        <div className="container mx-auto px-8 py-20 text-center max-w-5xl relative z-10">
-          <h1 className="text-7xl md:text-8xl mb-12 bg-gradient-to-r from-purple-400/80 via-pink-300/80 to-cyan-400/80 bg-clip-text text-transparent font-normal tracking-wide" style={{ fontFamily: "'Satisfy', cursive" }}>
-            Cœur de l'Om
-          </h1>
-          <p className="text-2xl md:text-3xl text-gray-600 font-light leading-relaxed max-w-4xl mx-auto">
-            {home.subtitle}
-          </p>
-        </div>
-      </section>
+      {/* Hero Section with Interactive Effects */}
+      <HeroSection subtitle={home.subtitle} />
 
       {/* Services Preview with Soft Cards */}
       <section className="py-32 bg-white">
