@@ -132,11 +132,12 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                 {/* Image */}
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-200/20 via-pink-200/20 to-cyan-200/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative bg-white/90 rounded-full p-6 shadow-sm group-hover:shadow-md transition-all duration-500 aspect-square">
+                  <div className="relative bg-white rounded-full p-6 shadow-sm group-hover:shadow-md transition-all duration-500 aspect-square overflow-hidden">
                     <img
                       src={therapy.image}
                       alt={therapy.title}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      style={{ clipPath: 'circle(50% at center)' }}
                     />
                   </div>
                 </div>
