@@ -61,7 +61,7 @@ export default async function WhyPage({ params }: { params: Promise<{ lang: stri
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="font-bold mb-8 text-primary">
+          <h1 className="font-bold mb-8 text-purple-900">
             {why.title as string}
           </h1>
           <div className="h-1 w-24 bg-gradient-rainbow mx-auto"></div>

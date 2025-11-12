@@ -26,7 +26,7 @@ export default async function Home({
       {/* Services Preview with Soft Cards */}
       <section className="py-32 bg-white">
         <div className="container mx-auto px-8">
-          <h2 className="text-5xl md:text-6xl font-bold text-center mb-20 bg-gradient-to-r from-purple-300/70 via-pink-300/70 to-cyan-300/70 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-bold text-center mb-20 text-purple-900">
             {home.practicesTitle}
           </h2>
           <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">

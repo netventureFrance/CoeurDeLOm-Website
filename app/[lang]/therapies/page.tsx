@@ -69,7 +69,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       <div className="container mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-20">
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-purple-400/80 via-pink-300/80 to-cyan-400/80 bg-clip-text text-transparent">{t.title}</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-8 text-purple-900">{t.title}</h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
             {t.subtitle}
           </p>
@@ -136,7 +136,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
 
                 {/* Content */}
                 <div className="md:col-span-2 space-y-6">
-                  <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600/80 via-pink-500/80 to-cyan-600/80 bg-clip-text text-transparent">
+                  <h2 className="text-4xl font-bold text-purple-900">
                     {therapy.title}
                   </h2>
                   <p className="text-lg text-gray-700 leading-relaxed">

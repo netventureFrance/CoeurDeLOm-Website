@@ -27,7 +27,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-primary">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-purple-900">
               {(dict.contact as any).title}
             </h1>
             <div className="h-1 w-24 bg-gradient-rainbow mx-auto mb-8"></div>

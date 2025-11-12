@@ -29,7 +29,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
           <div className="grid md:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
             {/* Text Content */}
             <div className="space-y-8">
-              <h1 className="text-5xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-purple-300/70 via-pink-300/70 to-cyan-300/70 bg-clip-text text-transparent">{about.title}</h1>
+              <h1 className="text-5xl md:text-6xl font-bold mb-8 text-purple-900">{about.title}</h1>
               <div className="space-y-6 text-lg leading-relaxed bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm border border-gray-100/50">
                 <p className="text-gray-600">
                   {about.paragraph1}
@@ -66,7 +66,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
 
         {/* Diplomas Section */}
         <section id="diplomes" className="max-w-5xl mx-auto">
-          <h2 className="text-5xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-300/70 via-pink-300/70 to-cyan-300/70 bg-clip-text text-transparent">{about.diplomasTitle}</h2>
+          <h2 className="text-5xl md:text-6xl font-bold text-center mb-16 text-purple-900">{about.diplomasTitle}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-gradient-to-br from-cyan-50/80 to-blue-50/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-cyan-100/50 hover:shadow-md transition-all hover:-translate-y-1">
               <div className="w-16 h-16 bg-gradient-to-br from-cyan-200/50 to-blue-200/50 rounded-full mb-6 flex items-center justify-center backdrop-blur-sm">

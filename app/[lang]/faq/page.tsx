@@ -27,7 +27,7 @@ export default async function FAQPage({ params }: { params: Promise<{ lang: stri
       <div className="container mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-20 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-purple-400/80 via-pink-300/80 to-cyan-400/80 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-bold mb-8 text-purple-900">
             {faq.title}
           </h1>
           <p className="text-xl text-gray-700 leading-relaxed">
