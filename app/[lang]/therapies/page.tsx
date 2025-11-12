@@ -94,11 +94,11 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
   ];
 
   return (
-    <main className="min-h-screen bg-gray-50 pt-32 pb-20">
+    <main className="min-h-screen bg-gradient-to-br from-white via-purple-50/20 to-cyan-50/20 pt-32 pb-20">
       <div className="container mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-20">
-          <h1 className="text-cyan mb-8">MES SOINS</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-purple-400/80 via-pink-300/80 to-cyan-400/80 bg-clip-text text-transparent">MES SOINS</h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
             Découvrez les différentes approches thérapeutiques que je propose pour votre bien-être et votre harmonisation énergétique.
           </p>
@@ -109,28 +109,32 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
           {therapies.map((therapy) => (
             <div
               key={therapy.title}
-              className={`${therapy.rotation} hover:scale-105 transition-all duration-300 cursor-pointer group`}
+              className={`${therapy.rotation} hover:rotate-0 hover:scale-110 transition-all duration-500 cursor-pointer group`}
             >
-              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
-                {/* Gradient Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${therapy.gradient} opacity-90`}></div>
-
-                {/* Optional: Background Image */}
+              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-lg group-hover:shadow-2xl bg-white/80 backdrop-blur-sm border border-gray-100/50">
+                {/* Image - Now prominent */}
                 {therapy.image && (
-                  <div
-                    className="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-30"
-                    style={{ backgroundImage: `url(${therapy.image})` }}
-                  ></div>
+                  <div className="absolute inset-0 p-4 flex items-center justify-center">
+                    <img
+                      src={therapy.image}
+                      alt={therapy.title}
+                      className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
                 )}
 
-                {/* Ethereal Effects */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                <div className="absolute top-0 right-0 w-20 h-20 bg-white/20 rounded-full blur-2xl"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+                {/* Subtle gradient glow on hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${therapy.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
 
-                {/* Content */}
-                <div className="relative h-full flex flex-col justify-end p-6 text-white">
-                  <h3 className="text-xl md:text-2xl font-bold drop-shadow-lg">{therapy.title}</h3>
+                {/* Soft blur effects on hover */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200/0 to-cyan-200/0 group-hover:from-purple-200/30 group-hover:to-cyan-200/30 rounded-full blur-3xl transition-all duration-500"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tl from-pink-200/0 to-purple-200/0 group-hover:from-pink-200/30 group-hover:to-purple-200/30 rounded-full blur-3xl transition-all duration-500"></div>
+
+                {/* Title overlay */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white/95 via-white/90 to-transparent p-6 pt-12 backdrop-blur-sm">
+                  <h3 className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600/80 via-pink-500/80 to-cyan-600/80">
+                    {therapy.title}
+                  </h3>
                 </div>
               </div>
             </div>
@@ -138,31 +142,64 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
         </div>
 
         {/* Detailed Descriptions */}
-        <div className="max-w-5xl mx-auto space-y-16">
-          {therapies.map((therapy) => (
-            <div key={therapy.title} className="bg-white rounded-2xl p-8 shadow-sm">
-              <h2 className="text-3xl font-bold mb-4 text-cyan">{therapy.title}</h2>
-              <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                {therapy.description}
-              </p>
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold">Bienfaits</h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  {therapy.benefits?.map((benefit, idx) => (
-                    <li key={idx}>{benefit}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-6">
-                <a
-                  href={`/${lang}/contact`}
-                  className="inline-flex items-center gap-2 text-cyan font-semibold hover:gap-3 transition-all"
-                >
-                  Prendre rendez-vous
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </a>
+        <div className="max-w-6xl mx-auto space-y-16">
+          {therapies.map((therapy, index) => (
+            <div
+              key={therapy.title}
+              className={`bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100/50 group ${
+                index % 2 === 0 ? 'hover:translate-x-2' : 'hover:-translate-x-2'
+              }`}
+            >
+              <div className="grid md:grid-cols-3 gap-8 items-start">
+                {/* Image */}
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-200/20 via-pink-200/20 to-cyan-200/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative bg-white/90 rounded-2xl p-6 shadow-sm group-hover:shadow-md transition-all duration-500">
+                    <img
+                      src={therapy.image}
+                      alt={therapy.title}
+                      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="md:col-span-2 space-y-6">
+                  <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600/80 via-pink-500/80 to-cyan-600/80 bg-clip-text text-transparent">
+                    {therapy.title}
+                  </h2>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    {therapy.description}
+                  </p>
+
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-gray-800">Bienfaits</h3>
+                    <ul className="space-y-3">
+                      {therapy.benefits?.map((benefit, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-purple-200/50 to-cyan-200/50 flex items-center justify-center mt-0.5">
+                            <svg className="w-3.5 h-3.5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </span>
+                          <span className="text-gray-700">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="pt-4">
+                    <a
+                      href={`/${lang}/contact`}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-100/60 to-cyan-100/60 hover:from-purple-200/80 hover:to-cyan-200/80 text-purple-700 font-semibold rounded-full transition-all duration-300 hover:gap-3 hover:shadow-md"
+                    >
+                      Prendre rendez-vous
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
