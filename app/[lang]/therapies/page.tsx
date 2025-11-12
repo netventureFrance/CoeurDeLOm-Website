@@ -65,7 +65,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
   ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-white via-purple-50/20 to-cyan-50/20 pt-40 pb-20">
+    <main className="min-h-screen bg-gradient-to-br from-white via-purple-50/20 to-cyan-50/20 pt-32 pb-20">
       <div className="container mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-20">
