@@ -11,9 +11,22 @@
   },
   "home": {
     "title": "Coeur de l'OM",
-    "subtitle": "Well-being, Meditation and Spirituality",
+    "subtitle": "Discover the effectiveness of vibratory healing to release tension and promote a fluid flow of energy.",
     "discover": "Discover",
-    "appointment": "Book Appointment"
+    "appointment": "Book Appointment",
+    "practicesTitle": "OUR PRACTICES",
+    "meditation": {
+      "title": "MEDITATION",
+      "description": "Guided sessions to find inner calm and mental clarity."
+    },
+    "spirituality": {
+      "title": "SPIRITUALITY",
+      "description": "Guidance on the path of awakening and reconnection with oneself."
+    },
+    "therapies": {
+      "title": "GENTLE THERAPIES",
+      "description": "Energy healing and naturopathy to harmonize body and mind."
+    }
   },
   "contact": {
     "title": "Contact Us",

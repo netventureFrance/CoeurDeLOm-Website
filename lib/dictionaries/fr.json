@@ -11,9 +11,22 @@
   },
   "home": {
     "title": "Coeur de l'OM",
-    "subtitle": "Bien-être, méditation et spiritualité",
+    "subtitle": "Découvrez l'efficacité des soins vibratoires pour libérer les tensions et favoriser une circulation fluide de l'énergie.",
     "discover": "Découvrir",
-    "appointment": "Prendre RDV"
+    "appointment": "Prendre RDV",
+    "practicesTitle": "NOS PRATIQUES",
+    "meditation": {
+      "title": "MÉDITATION",
+      "description": "Séances guidées pour retrouver le calme intérieur et la clarté mentale."
+    },
+    "spirituality": {
+      "title": "SPIRITUALITÉ",
+      "description": "Accompagnement sur le chemin de l'éveil et de la reconnexion à soi."
+    },
+    "therapies": {
+      "title": "THÉRAPIES DOUCES",
+      "description": "Soins énergétiques et naturopathie pour harmoniser corps et esprit."
+    }
   },
   "contact": {
     "title": "Contactez-nous",

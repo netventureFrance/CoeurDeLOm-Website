@@ -11,9 +11,22 @@
   },
   "home": {
     "title": "Coeur de l'OM",
-    "subtitle": "Wohlbefinden, Meditation und Spiritualität",
+    "subtitle": "Entdecken Sie die Wirksamkeit der Schwingungstherapie, um Verspannungen zu lösen und einen fließenden Energiefluss zu fördern.",
     "discover": "Entdecken",
-    "appointment": "Termin buchen"
+    "appointment": "Termin buchen",
+    "practicesTitle": "UNSERE PRAKTIKEN",
+    "meditation": {
+      "title": "MEDITATION",
+      "description": "Geführte Sitzungen, um innere Ruhe und geistige Klarheit wiederzufinden."
+    },
+    "spirituality": {
+      "title": "SPIRITUALITÄT",
+      "description": "Begleitung auf dem Weg des Erwachens und der Wiederverbindung mit sich selbst."
+    },
+    "therapies": {
+      "title": "SANFTE THERAPIEN",
+      "description": "Energetische Behandlungen und Naturheilkunde zur Harmonisierung von Körper und Geist."
+    }
   },
   "contact": {
     "title": "Kontaktieren Sie uns",
