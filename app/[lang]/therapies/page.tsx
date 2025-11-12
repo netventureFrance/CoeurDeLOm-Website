@@ -89,28 +89,22 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
               key={therapy.title}
               className={`${therapy.rotation} hover:rotate-0 hover:scale-110 transition-all duration-500 cursor-pointer group`}
             >
-              <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-lg group-hover:shadow-2xl bg-white/80 backdrop-blur-sm border border-gray-100/50">
-                {/* Image - Now prominent */}
+              <div className="relative w-full aspect-square rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl bg-white border border-gray-100/50">
+                {/* Image - Circular masked */}
                 {therapy.image && (
-                  <div className="absolute inset-0 p-4 flex items-center justify-center">
+                  <div className="absolute inset-0 p-6 flex items-center justify-center">
                     <img
                       src={therapy.image}
                       alt={therapy.title}
-                      className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      style={{ clipPath: 'circle(50% at center)' }}
                     />
                   </div>
                 )}
 
-                {/* Subtle gradient glow on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${therapy.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-
-                {/* Soft blur effects on hover */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200/0 to-cyan-200/0 group-hover:from-purple-200/30 group-hover:to-cyan-200/30 rounded-full blur-3xl transition-all duration-500"></div>
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tl from-pink-200/0 to-purple-200/0 group-hover:from-pink-200/30 group-hover:to-purple-200/30 rounded-full blur-3xl transition-all duration-500"></div>
-
                 {/* Title overlay */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white/95 via-white/90 to-transparent p-6 pt-12 backdrop-blur-sm">
-                  <h3 className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600/80 via-pink-500/80 to-cyan-600/80">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white/95 via-white/90 to-transparent p-4 pt-8">
+                  <h3 className="text-sm md:text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600/80 via-pink-500/80 to-cyan-600/80 text-center">
                     {therapy.title}
                   </h3>
                 </div>
