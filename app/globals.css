@@ -32,7 +32,6 @@ h1 {
   font-size: 56px;
   line-height: 1.2;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: -0.02em;
 }
 
@@ -40,7 +39,6 @@ h2 {
   font-size: 48px;
   line-height: 1.2;
   font-weight: 700;
-  text-transform: uppercase;
 }
 
 h3 {
