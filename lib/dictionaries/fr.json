@@ -14,17 +14,17 @@
     "subtitle": "Découvrez l'efficacité des soins vibratoires pour libérer les tensions et favoriser une circulation fluide de l'énergie.",
     "discover": "Découvrir",
     "appointment": "Prendre RDV",
-    "practicesTitle": "NOS PRATIQUES",
+    "practicesTitle": "Nos pratiques",
     "meditation": {
-      "title": "MÉDITATION",
+      "title": "Méditation",
       "description": "Séances guidées pour retrouver le calme intérieur et la clarté mentale."
     },
     "spirituality": {
-      "title": "SPIRITUALITÉ",
+      "title": "Spiritualité",
       "description": "Accompagnement sur le chemin de l'éveil et de la reconnexion à soi."
     },
     "therapies": {
-      "title": "THÉRAPIES DOUCES",
+      "title": "Thérapies douces",
       "description": "Soins énergétiques et naturopathie pour harmoniser corps et esprit."
     }
   },
@@ -38,12 +38,12 @@
     "error": "Une erreur s'est produite. Veuillez réessayer."
   },
   "about": {
-    "title": "QUI SUIS-JE?",
+    "title": "Qui suis-je ?",
     "paragraph1": "Formée en Allemagne il y a plus de vingt ans, j'ai toujours perçu la naturopathie comme un art d'unir le corps, l'énergie et la conscience. Au fil du temps, ma pratique s'est ouverte aux soins vibratoires, à la méditation et à une approche intérieure du soin, où l'écoute devient un acte de guérison et d'éveil.",
     "paragraph2": "J'accompagne chaque personne selon son rythme, dans un espace bienveillant où le corps retrouve son intelligence naturelle, le cœur sa clarté et l'âme son alignement.",
     "paragraph3": "Mon cabinet comprend également un espace de méditation, lieu de ressourcement et de partage, où j'accueille ponctuellement de petits groupes pour des pratiques guidées et des expériences de reconnexion à soi. J'aurai joie à vous accueillir et à vous accompagner vers un état de présence, d'harmonie et de vitalité intérieure.",
     "diplomasButton": "Diplômes & Formations",
-    "diplomasTitle": "DIPLÔMES & FORMATIONS",
+    "diplomasTitle": "Diplômes & formations",
     "naturopathy": {
       "title": "Naturopathie",
       "description": "Heilpraktikerin\nAllemagne, 2004"
@@ -80,7 +80,7 @@
     "back": "Retour"
   },
   "faq": {
-    "title": "QUESTIONS FRÉQUENTES",
+    "title": "Questions fréquentes",
     "subtitle": "Trouvez les réponses aux questions les plus courantes sur nos soins et pratiques.",
     "questions": [
       {
@@ -110,31 +110,31 @@
     ]
   },
   "why": {
-    "title": "POURQUOI CŒUR DE L'OM ?",
+    "title": "Pourquoi Cœur de l'Om ?",
     "holistic": {
-      "title": "EXPERTISE HOLISTIQUE",
+      "title": "Expertise holistique",
       "description": "Approche thérapeutique intégrant corps, esprit et âme pour un bien-être global."
     },
     "ancestral": {
-      "title": "TECHNIQUES ANCESTRALES",
+      "title": "Techniques ancestrales",
       "description": "Médecine Traditionnelle Chinoise, Reiki et Chromobioénergie pour un rééquilibrage efficace des énergies."
     },
     "personalized": {
-      "title": "ACCOMPAGNEMENT PERSONNALISÉ",
+      "title": "Accompagnement personnalisé",
       "description": "Séances sur mesure adaptées à vos besoins spécifiques pour un résultat optimal."
     },
     "environment": {
-      "title": "CADRE PROPICE À LA GUÉRISON",
+      "title": "Cadre propice à la guérison",
       "description": "Environnement serein et harmonieux favorisant un travail en profondeur."
     }
   },
   "therapies": {
-    "title": "MES SOINS",
+    "title": "Mes soins",
     "subtitle": "Découvrez les différentes approches thérapeutiques que je propose pour votre bien-être et votre harmonisation énergétique.",
     "bookAppointment": "Prendre rendez-vous",
     "benefits": "Bienfaits",
     "reiki": {
-      "title": "REIKI",
+      "title": "Reiki",
       "description": "Le Reiki est une thérapie énergétique japonaise qui utilise l'énergie vitale universelle pour favoriser la guérison physique, émotionnelle, mentale et spirituelle. Lors d'une séance, le praticien place ses mains sur ou au-dessus du corps du receveur pour canaliser cette énergie, éliminer les blocages et rétablir l'harmonie.",
       "benefits": [
         "Réduction du stress et des tensions",
@@ -145,7 +145,7 @@
       ]
     },
     "vibratory": {
-      "title": "SOINS VIBRATOIRES",
+      "title": "Soins vibratoires",
       "description": "Les soins vibratoires offrent une approche holistique en utilisant les vibrations sonores, lumineuses et énergétiques pour équilibrer corps, esprit et âme. Basées sur les fréquences universelles, ces techniques incluant le son des bols chantants, les mantras et la chromobioénergie réduisent le stress, améliorent le sommeil, soulagent la douleur et augmentent l'énergie.",
       "benefits": [
         "Réduction du stress",
@@ -156,7 +156,7 @@
       ]
     },
     "meditation": {
-      "title": "MÉDITATION",
+      "title": "Méditation",
       "description": "La méditation utilise diverses techniques telles que la pleine conscience, la méditation guidée et transcendantale, ainsi que les mantras comme le son OM, pour favoriser la relaxation, la conscience de soi et la guérison émotionnelle. Elle réduit le stress, l'anxiété et la dépression, améliore la concentration et la clarté mentale, et promeut la paix intérieure.",
       "benefits": [
         "Réduction du stress, anxiété et dépression",
@@ -167,7 +167,7 @@
       ]
     },
     "chromobio": {
-      "title": "CHROMOBIOÉNERGIE",
+      "title": "ChromobioÉnergie",
       "description": "La ChromoBioÉnergie utilise la couleur comme une musique mystérieuse pour réharmoniser notre corps et esprit. Chaque personne naît avec un capital unique de couleurs, et cette méthode, adaptée aux besoins individuels, traite divers déséquilibres. Grâce aux tests chromoémotionnels développés par Evelyne Monsallier, les dissonances de votre mélodie intérieure sont détectées et corrigées.",
       "benefits": [
         "Réharmonisation corps et esprit",
@@ -178,7 +178,7 @@
       ]
     },
     "amma": {
-      "title": "MASSAGE AMMA",
+      "title": "Massage Amma",
       "description": "Massage assis énergétique d'origine japonaise qui travaille sur les méridiens d'énergie pour libérer les tensions et favoriser la circulation énergétique.",
       "benefits": [
         "Libération des tensions musculaires",
