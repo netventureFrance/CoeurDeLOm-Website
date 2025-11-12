@@ -4,7 +4,7 @@ export type Locale = (typeof locales)[number]
 export const defaultLocale: Locale = 'fr'
 
 export interface Dictionary {
-  [key: string]: string | Dictionary
+  [key: string]: string | string[] | Dictionary
 }
 
 const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
