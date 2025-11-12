@@ -37,6 +37,26 @@
     "success": "Merci! Votre message a été envoyé.",
     "error": "Une erreur s'est produite. Veuillez réessayer."
   },
+  "about": {
+    "title": "QUI SUIS-JE?",
+    "paragraph1": "Formée en Allemagne il y a plus de vingt ans, j'ai toujours perçu la naturopathie comme un art d'unir le corps, l'énergie et la conscience. Au fil du temps, ma pratique s'est ouverte aux soins vibratoires, à la méditation et à une approche intérieure du soin, où l'écoute devient un acte de guérison et d'éveil.",
+    "paragraph2": "J'accompagne chaque personne selon son rythme, dans un espace bienveillant où le corps retrouve son intelligence naturelle, le cœur sa clarté et l'âme son alignement.",
+    "paragraph3": "Mon cabinet comprend également un espace de méditation, lieu de ressourcement et de partage, où j'accueille ponctuellement de petits groupes pour des pratiques guidées et des expériences de reconnexion à soi. J'aurai joie à vous accueillir et à vous accompagner vers un état de présence, d'harmonie et de vitalité intérieure.",
+    "diplomasButton": "Diplômes & Formations",
+    "diplomasTitle": "DIPLÔMES & FORMATIONS",
+    "naturopathy": {
+      "title": "Naturopathie",
+      "description": "Heilpraktikerin\nAllemagne, 2004"
+    },
+    "chromobio": {
+      "title": "Chromobio-Énergie",
+      "description": "École Internationale de Chromobio-Énergie"
+    },
+    "meditation": {
+      "title": "Méditation & Spiritualité",
+      "description": "Formation continue en pratiques méditatives"
+    }
+  },
   "blog": {
     "title": "Blog",
     "readMore": "Lire la suite",

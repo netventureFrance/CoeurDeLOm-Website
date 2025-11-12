@@ -37,6 +37,26 @@
     "success": "Vielen Dank! Ihre Nachricht wurde gesendet.",
     "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
   },
+  "about": {
+    "title": "WER BIN ICH?",
+    "paragraph1": "Vor über zwanzig Jahren in Deutschland ausgebildet, habe ich Naturheilkunde immer als Kunst verstanden, Körper, Energie und Bewusstsein zu vereinen. Im Laufe der Zeit hat sich meine Praxis für Schwingungstherapie, Meditation und einen inneren Ansatz der Heilung geöffnet, bei dem das Zuhören zu einem Akt der Heilung und des Erwachens wird.",
+    "paragraph2": "Ich begleite jeden Menschen in seinem eigenen Rhythmus in einem wohlwollenden Raum, in dem der Körper seine natürliche Intelligenz, das Herz seine Klarheit und die Seele ihre Ausrichtung wiederfindet.",
+    "paragraph3": "Meine Praxis umfasst auch einen Meditationsraum, einen Ort der Erholung und des Teilens, an dem ich gelegentlich kleine Gruppen für geführte Praktiken und Erfahrungen der Wiederverbindung mit sich selbst empfange. Ich freue mich darauf, Sie willkommen zu heißen und Sie zu einem Zustand der Präsenz, Harmonie und inneren Vitalität zu begleiten.",
+    "diplomasButton": "Diplome & Ausbildungen",
+    "diplomasTitle": "DIPLOME & AUSBILDUNGEN",
+    "naturopathy": {
+      "title": "Naturheilkunde",
+      "description": "Heilpraktikerin\nDeutschland, 2004"
+    },
+    "chromobio": {
+      "title": "Chromobio-Energie",
+      "description": "Internationale Schule für Chromobio-Energie"
+    },
+    "meditation": {
+      "title": "Meditation & Spiritualität",
+      "description": "Fortlaufende Ausbildung in meditativen Praktiken"
+    }
+  },
   "blog": {
     "title": "Blog",
     "readMore": "Weiterlesen",

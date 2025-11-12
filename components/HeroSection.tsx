@@ -20,7 +20,7 @@ export default function HeroSection({ subtitle }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 pt-24 pb-12 relative overflow-hidden">
+    <section className="min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 pt-32 pb-12 relative overflow-hidden">
       {/* Interactive animated background blobs */}
       <div
         className="absolute w-96 h-96 bg-cyan/10 rounded-full mix-blend-normal filter blur-3xl animate-blob transition-all duration-1000 ease-out"

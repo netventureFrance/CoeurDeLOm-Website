@@ -37,6 +37,26 @@
     "success": "Thank you! Your message has been sent.",
     "error": "An error occurred. Please try again."
   },
+  "about": {
+    "title": "WHO AM I?",
+    "paragraph1": "Trained in Germany over twenty years ago, I have always perceived naturopathy as an art of uniting body, energy, and consciousness. Over time, my practice has opened up to vibratory healing, meditation, and an inner approach to care, where listening becomes an act of healing and awakening.",
+    "paragraph2": "I accompany each person at their own pace, in a caring space where the body finds its natural intelligence, the heart its clarity, and the soul its alignment.",
+    "paragraph3": "My practice also includes a meditation space, a place of renewal and sharing, where I occasionally welcome small groups for guided practices and experiences of reconnecting with oneself. I look forward to welcoming you and accompanying you towards a state of presence, harmony, and inner vitality.",
+    "diplomasButton": "Diplomas & Training",
+    "diplomasTitle": "DIPLOMAS & TRAINING",
+    "naturopathy": {
+      "title": "Naturopathy",
+      "description": "Heilpraktikerin\nGermany, 2004"
+    },
+    "chromobio": {
+      "title": "Chromobio-Energy",
+      "description": "International School of Chromobio-Energy"
+    },
+    "meditation": {
+      "title": "Meditation & Spirituality",
+      "description": "Continuing education in meditative practices"
+    }
+  },
   "blog": {
     "title": "Blog",
     "readMore": "Read more",

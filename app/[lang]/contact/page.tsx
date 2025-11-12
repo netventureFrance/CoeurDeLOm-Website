@@ -22,7 +22,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
   const dict = await getDictionary(lang as Locale);
 
   return (
-    <main className="min-h-screen pt-24 pb-12">
+    <main className="min-h-screen pt-32 pb-20">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
