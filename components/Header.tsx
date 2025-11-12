@@ -39,10 +39,10 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="relative px-5 py-3 text-gray-700 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400/80 hover:via-pink-300/80 hover:to-cyan-400/80 transition-all font-medium text-lg group"
+                  className="relative px-5 py-3 text-gray-700 hover:text-purple-600 transition-all font-medium text-lg group"
                 >
                   <span className="relative z-10">{item.label}</span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-purple-50/40 via-pink-50/40 to-cyan-50/40 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-purple-50/60 via-pink-50/60 to-cyan-50/60 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></span>
                 </Link>
               ))}
             </div>
@@ -93,7 +93,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
               <Link
                 key={item.href}
                 href={item.href}
-                className="block text-gray-700 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400/80 hover:via-pink-300/80 hover:to-cyan-400/80 transition-all py-4 px-4 text-lg font-medium rounded-xl hover:bg-white/60"
+                className="block text-gray-700 hover:text-purple-600 transition-all py-4 px-4 text-lg font-medium rounded-xl hover:bg-white/60"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.label}
