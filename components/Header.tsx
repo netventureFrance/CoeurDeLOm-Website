@@ -22,61 +22,68 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100/50">
       <nav className="container mx-auto px-8 py-6">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href={`/${lang}`} className="flex items-center gap-3 group">
-            <img
-              src="/Coeur-de-lOm-Alpha-Kopie.png"
-              alt="Coeur de l'OM"
-              className="h-20 w-auto object-contain group-hover:scale-105 transition-transform"
-            />
-          </Link>
+          {/* Left side: Logo + Menu */}
+          <div className="flex items-center gap-8">
+            {/* Logo */}
+            <Link href={`/${lang}`} className="flex items-center gap-3 group flex-shrink-0">
+              <img
+                src="/Coeur-de-lOm-Alpha-Kopie.png"
+                alt="Coeur de l'OM"
+                className="h-20 w-auto object-contain group-hover:scale-105 transition-transform"
+              />
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="relative px-5 py-3 text-gray-700 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400/80 hover:via-pink-300/80 hover:to-cyan-400/80 transition-all font-medium text-lg group"
-              >
-                <span className="relative z-10">{item.label}</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-purple-50/40 via-pink-50/40 to-cyan-50/40 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></span>
-              </Link>
-            ))}
-            <div className="ml-4 pl-4 border-l border-gray-200/50">
-              <LanguageSwitcher currentLang={lang} />
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="relative px-5 py-3 text-gray-700 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400/80 hover:via-pink-300/80 hover:to-cyan-400/80 transition-all font-medium text-lg group"
+                >
+                  <span className="relative z-10">{item.label}</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-purple-50/40 via-pink-50/40 to-cyan-50/40 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                </Link>
+              ))}
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden text-gray-700 hover:text-purple-600 transition-colors p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <svg
-              className="w-7 h-7"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          {/* Right side: Language Switcher + Mobile Button */}
+          <div className="flex items-center gap-4">
+            <div className="hidden lg:block">
+              <LanguageSwitcher currentLang={lang} />
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden text-gray-700 hover:text-purple-600 transition-colors p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
             >
-              {isMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
+              <svg
+                className="w-7 h-7"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
