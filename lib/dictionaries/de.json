@@ -43,7 +43,7 @@
     "paragraph2": "Ich begleite jeden Menschen in seinem eigenen Rhythmus in einem wohlwollenden Raum, in dem der Körper seine natürliche Intelligenz, das Herz seine Klarheit und die Seele ihre Ausrichtung wiederfindet.",
     "paragraph3": "Meine Praxis umfasst auch einen Meditationsraum, einen Ort der Erholung und des Teilens, an dem ich gelegentlich kleine Gruppen für geführte Praktiken und Erfahrungen der Wiederverbindung mit sich selbst empfange. Ich freue mich darauf, Sie willkommen zu heißen und Sie zu einem Zustand der Präsenz, Harmonie und inneren Vitalität zu begleiten.",
     "diplomasButton": "Diplome & Ausbildungen",
-    "diplomasTitle": "Diplome "diplomasTitle": "DIPLOME & AUSBILDUNGEN" Ausbildungen",
+    "diplomasTitle": "Diplome & Ausbildungen",
     "naturopathy": {
       "title": "Naturheilkunde",
       "description": "Heilpraktikerin\nDeutschland, 2004"
@@ -124,7 +124,7 @@
       "description": "Maßgeschneiderte Sitzungen, die auf Ihre spezifischen Bedürfnisse für optimale Ergebnisse zugeschnitten sind."
     },
     "environment": {
-      "title": "HEILUNGSFÖRDERNDE UMGEBUNG",
+      "title": "Heilungsfördernde Umgebung",
       "description": "Ruhige und harmonische Umgebung, die tiefgreifende Arbeit fördert."
     }
   },
@@ -145,7 +145,7 @@
       ]
     },
     "vibratory": {
-      "title": "SCHWINGUNGSTHERAPIE",
+      "title": "Schwingungstherapie",
       "description": "Die Schwingungstherapie bietet einen ganzheitlichen Ansatz durch die Nutzung von Klang-, Licht- und Energieschwingungen, um Körper, Geist und Seele auszugleichen. Basierend auf universellen Frequenzen reduzieren diese Techniken, einschließlich Klangschalen, Mantras und Chromobioenergie, Stress, verbessern den Schlaf, lindern Schmerzen und steigern die Energie.",
       "benefits": [
         "Stressabbau",
@@ -178,7 +178,7 @@
       ]
     },
     "amma": {
-      "title": "AMMA-MASSAGE",
+      "title": "Amma-Massage",
       "description": "Energetische Sitzmassage japanischen Ursprungs, die an den Energiemeridanen arbeitet, um Spannungen zu lösen und die Energiezirkulation zu fördern.",
       "benefits": [
         "Lösung von Muskelverspannungen",
