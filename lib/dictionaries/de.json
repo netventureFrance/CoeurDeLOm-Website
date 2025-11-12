@@ -14,17 +14,17 @@
     "subtitle": "Entdecken Sie die Wirksamkeit der Schwingungstherapie, um Verspannungen zu lösen und einen fließenden Energiefluss zu fördern.",
     "discover": "Entdecken",
     "appointment": "Termin buchen",
-    "practicesTitle": "UNSERE PRAKTIKEN",
+    "practicesTitle": "Unsere Praktiken",
     "meditation": {
-      "title": "MEDITATION",
+      "title": "Meditation",
       "description": "Geführte Sitzungen, um innere Ruhe und geistige Klarheit wiederzufinden."
     },
     "spirituality": {
-      "title": "SPIRITUALITÄT",
+      "title": "Spiritualität",
       "description": "Begleitung auf dem Weg des Erwachens und der Wiederverbindung mit sich selbst."
     },
     "therapies": {
-      "title": "SANFTE THERAPIEN",
+      "title": "Sanfte Therapien",
       "description": "Energetische Behandlungen und Naturheilkunde zur Harmonisierung von Körper und Geist."
     }
   },
@@ -38,12 +38,12 @@
     "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
   },
   "about": {
-    "title": "WER BIN ICH?",
+    "title": "Wer bin ich?",
     "paragraph1": "Vor über zwanzig Jahren in Deutschland ausgebildet, habe ich Naturheilkunde immer als Kunst verstanden, Körper, Energie und Bewusstsein zu vereinen. Im Laufe der Zeit hat sich meine Praxis für Schwingungstherapie, Meditation und einen inneren Ansatz der Heilung geöffnet, bei dem das Zuhören zu einem Akt der Heilung und des Erwachens wird.",
     "paragraph2": "Ich begleite jeden Menschen in seinem eigenen Rhythmus in einem wohlwollenden Raum, in dem der Körper seine natürliche Intelligenz, das Herz seine Klarheit und die Seele ihre Ausrichtung wiederfindet.",
     "paragraph3": "Meine Praxis umfasst auch einen Meditationsraum, einen Ort der Erholung und des Teilens, an dem ich gelegentlich kleine Gruppen für geführte Praktiken und Erfahrungen der Wiederverbindung mit sich selbst empfange. Ich freue mich darauf, Sie willkommen zu heißen und Sie zu einem Zustand der Präsenz, Harmonie und inneren Vitalität zu begleiten.",
     "diplomasButton": "Diplome & Ausbildungen",
-    "diplomasTitle": "DIPLOME & AUSBILDUNGEN",
+    "diplomasTitle": "Diplome "diplomasTitle": "DIPLOME & AUSBILDUNGEN" Ausbildungen",
     "naturopathy": {
       "title": "Naturheilkunde",
       "description": "Heilpraktikerin\nDeutschland, 2004"
@@ -80,7 +80,7 @@
     "back": "Zurück"
   },
   "faq": {
-    "title": "HÄUFIG GESTELLTE FRAGEN",
+    "title": "Häufig gestellte Fragen",
     "subtitle": "Finden Sie Antworten auf die häufigsten Fragen zu unseren Behandlungen und Praktiken.",
     "questions": [
       {
@@ -110,17 +110,17 @@
     ]
   },
   "why": {
-    "title": "WARUM CŒUR DE L'OM ?",
+    "title": "Warum Cœur de l'Om?",
     "holistic": {
-      "title": "GANZHEITLICHE EXPERTISE",
+      "title": "Ganzheitliche Expertise",
       "description": "Therapeutischer Ansatz, der Körper, Geist und Seele für umfassendes Wohlbefinden integriert."
     },
     "ancestral": {
-      "title": "TRADITIONELLE TECHNIKEN",
+      "title": "Traditionelle Techniken",
       "description": "Traditionelle Chinesische Medizin, Reiki und Chromobioenergie für ein effektives Energiegleichgewicht."
     },
     "personalized": {
-      "title": "PERSÖNLICHE BEGLEITUNG",
+      "title": "Persönliche Begleitung",
       "description": "Maßgeschneiderte Sitzungen, die auf Ihre spezifischen Bedürfnisse für optimale Ergebnisse zugeschnitten sind."
     },
     "environment": {
@@ -129,12 +129,12 @@
     }
   },
   "therapies": {
-    "title": "MEINE BEHANDLUNGEN",
+    "title": "Meine Behandlungen",
     "subtitle": "Entdecken Sie die verschiedenen therapeutischen Ansätze, die ich für Ihr Wohlbefinden und Ihre energetische Harmonisierung anbiete.",
     "bookAppointment": "Termin buchen",
     "benefits": "Vorteile",
     "reiki": {
-      "title": "REIKI",
+      "title": "Reiki",
       "description": "Reiki ist eine japanische Energietherapie, die die universelle Lebensenergie nutzt, um körperliche, emotionale, mentale und spirituelle Heilung zu fördern. Während einer Sitzung legt der Praktizierende seine Hände auf oder über den Körper des Empfängers, um diese Energie zu kanalisieren, Blockaden zu lösen und die Harmonie wiederherzustellen.",
       "benefits": [
         "Abbau von Stress und Spannungen",
@@ -156,7 +156,7 @@
       ]
     },
     "meditation": {
-      "title": "MEDITATION",
+      "title": "Meditation",
       "description": "Die Meditation nutzt verschiedene Techniken wie Achtsamkeit, geführte und transzendentale Meditation sowie Mantras wie den OM-Klang, um Entspannung, Selbstbewusstsein und emotionale Heilung zu fördern. Sie reduziert Stress, Angst und Depression, verbessert die Konzentration und geistige Klarheit und fördert den inneren Frieden.",
       "benefits": [
         "Abbau von Stress, Angst und Depression",
@@ -167,7 +167,7 @@
       ]
     },
     "chromobio": {
-      "title": "CHROMOBIOENERGIE",
+      "title": "ChromobioEnergie",
       "description": "Die ChromoBioEnergie nutzt Farben wie eine geheimnisvolle Musik, um Körper und Geist zu harmonisieren. Jeder Mensch wird mit einem einzigartigen Kapital an Farben geboren, und diese auf individuelle Bedürfnisse zugeschnittene Methode behandelt verschiedene Ungleichgewichte. Dank der von Evelyne Monsallier entwickelten chromoemotionalen Tests werden die Dissonanzen Ihrer inneren Melodie erkannt und korrigiert.",
       "benefits": [
         "Harmonisierung von Körper und Geist",
