@@ -12,7 +12,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
   const navItems = [
     { href: `/${lang}/about`, label: nav.about },
     { href: `/${lang}/therapies`, label: nav.therapies },
-    { href: `/${lang}/about#pourquoi`, label: nav.why },
+    { href: `/${lang}/why`, label: nav.why },
     { href: `/${lang}/contact`, label: nav.appointment },
     { href: `/${lang}/faq`, label: nav.faq },
     { href: `/${lang}/blog`, label: nav.blog },

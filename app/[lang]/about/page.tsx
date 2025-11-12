@@ -20,7 +20,6 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
   const { lang } = await params;
   const dict = await getDictionary(lang as Locale);
   const about = dict.about as any;
-  const why = dict.why as any;
 
   return (
     <main className="min-h-screen pt-40 pb-20 bg-white">
@@ -61,57 +60,6 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
                   className="relative z-10 rounded-full w-96 h-96 object-cover border-4 border-white/80 shadow-lg backdrop-blur-sm"
                 />
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Why Cœur de l'Om Section */}
-        <section id="pourquoi" className="mb-32 max-w-6xl mx-auto">
-          <h2 className="text-5xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-300/70 via-pink-300/70 to-cyan-300/70 bg-clip-text text-transparent">{why.title}</h2>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Holistic Expertise */}
-            <div className="bg-gradient-to-br from-purple-50/80 to-pink-50/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-purple-100/50 hover:shadow-md transition-all hover:-translate-y-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-200/50 to-pink-200/50 rounded-full mb-6 flex items-center justify-center backdrop-blur-sm">
-                <svg className="w-8 h-8 text-purple-600/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-purple-600/80">{why.holistic.title}</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">{why.holistic.description}</p>
-            </div>
-
-            {/* Ancestral Techniques */}
-            <div className="bg-gradient-to-br from-cyan-50/80 to-blue-50/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-cyan-100/50 hover:shadow-md transition-all hover:-translate-y-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-200/50 to-blue-200/50 rounded-full mb-6 flex items-center justify-center backdrop-blur-sm">
-                <svg className="w-8 h-8 text-cyan-600/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-cyan-600/80">{why.ancestral.title}</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">{why.ancestral.description}</p>
-            </div>
-
-            {/* Personalized Support */}
-            <div className="bg-gradient-to-br from-green-50/80 to-teal-50/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-green-100/50 hover:shadow-md transition-all hover:-translate-y-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-200/50 to-teal-200/50 rounded-full mb-6 flex items-center justify-center backdrop-blur-sm">
-                <svg className="w-8 h-8 text-green-600/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-green-600/80">{why.personalized.title}</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">{why.personalized.description}</p>
-            </div>
-
-            {/* Healing Environment */}
-            <div className="bg-gradient-to-br from-yellow-50/80 to-orange-50/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-yellow-100/50 hover:shadow-md transition-all hover:-translate-y-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-yellow-200/50 to-orange-200/50 rounded-full mb-6 flex items-center justify-center backdrop-blur-sm">
-                <svg className="w-8 h-8 text-yellow-600/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-yellow-600/80">{why.environment.title}</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">{why.environment.description}</p>
             </div>
           </div>
         </section>
