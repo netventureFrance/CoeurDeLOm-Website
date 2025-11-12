@@ -1,5 +1,7 @@
 import { type Locale, getDictionary } from '@/lib/i18n';
 import { Metadata } from 'next';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import InteractiveTitle from '@/components/InteractiveTitle';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -57,13 +59,16 @@ export default async function WhyPage({ params }: { params: Promise<{ lang: stri
   ];
 
   return (
-    <main className="min-h-screen pt-40 pb-20">
+    <main className="relative min-h-screen pt-40 pb-20 overflow-hidden">
+      <AnimatedBackground />
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="font-bold mb-8 text-purple-900">
-            {why.title as string}
-          </h1>
+          <div className="flex justify-center mb-8">
+            <InteractiveTitle className="text-5xl md:text-6xl font-normal text-purple-900">
+              {why.title as string}
+            </InteractiveTitle>
+          </div>
           <div className="h-1 w-24 bg-gradient-rainbow mx-auto"></div>
         </div>
 

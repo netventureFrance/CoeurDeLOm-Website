@@ -3,6 +3,8 @@ import { type Locale, getDictionary, type Dictionary } from '@/lib/i18n';
 import { getBlogPosts } from '@/lib/airtable';
 import { getCategories } from '@/lib/blog';
 import { Metadata } from 'next';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import InteractiveTitle from '@/components/InteractiveTitle';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -27,13 +29,16 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
   const categories = await getCategories(lang as Locale);
 
   return (
-    <main className="min-h-screen pt-40 pb-20">
+    <main className="relative min-h-screen pt-40 pb-20 overflow-hidden">
+      <AnimatedBackground />
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="font-bold mb-8 text-purple-900">
-            {blog.title as string}
-          </h1>
+          <div className="flex justify-center mb-8">
+            <InteractiveTitle className="text-5xl md:text-6xl font-normal text-purple-900">
+              {blog.title as string}
+            </InteractiveTitle>
+          </div>
           <div className="h-1 w-24 bg-gradient-rainbow mx-auto"></div>
         </div>
 

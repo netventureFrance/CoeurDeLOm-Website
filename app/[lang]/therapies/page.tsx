@@ -1,5 +1,7 @@
 import { type Locale, getDictionary } from '@/lib/i18n';
 import { Metadata } from 'next';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import InteractiveTitle from '@/components/InteractiveTitle';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -65,11 +67,16 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
   ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-white via-purple-50/20 to-cyan-50/20 pt-40 pb-20">
+    <main className="relative min-h-screen bg-gradient-to-br from-white via-purple-50/20 to-cyan-50/20 pt-40 pb-20 overflow-hidden">
+      <AnimatedBackground />
       <div className="container mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-20">
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 text-purple-900">{t.title}</h1>
+          <div className="flex justify-center mb-8">
+            <InteractiveTitle className="text-5xl md:text-6xl font-normal text-purple-900">
+              {t.title}
+            </InteractiveTitle>
+          </div>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
             {t.subtitle}
           </p>
@@ -136,9 +143,9 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
 
                 {/* Content */}
                 <div className="md:col-span-2 space-y-6">
-                  <h2 className="text-4xl font-bold text-purple-900">
+                  <InteractiveTitle className="text-4xl font-normal text-purple-900">
                     {therapy.title}
-                  </h2>
+                  </InteractiveTitle>
                   <p className="text-lg text-gray-700 leading-relaxed">
                     {therapy.description}
                   </p>

@@ -1,6 +1,8 @@
 import { type Locale, getDictionary } from '@/lib/i18n';
 import { Metadata } from 'next';
 import FAQAccordion from '@/components/FAQAccordion';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import InteractiveTitle from '@/components/InteractiveTitle';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -23,13 +25,16 @@ export default async function FAQPage({ params }: { params: Promise<{ lang: stri
   const faq = dict.faq as any;
 
   return (
-    <main className="min-h-screen pt-40 pb-20 bg-gradient-to-br from-white via-purple-50/20 to-cyan-50/20">
+    <main className="relative min-h-screen pt-40 pb-20 bg-gradient-to-br from-white via-purple-50/20 to-cyan-50/20 overflow-hidden">
+      <AnimatedBackground />
       <div className="container mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-20 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 text-purple-900">
-            {faq.title}
-          </h1>
+          <div className="flex justify-center mb-8">
+            <InteractiveTitle className="text-5xl md:text-6xl font-normal text-purple-900">
+              {faq.title}
+            </InteractiveTitle>
+          </div>
           <p className="text-xl text-gray-700 leading-relaxed">
             {faq.subtitle}
           </p>

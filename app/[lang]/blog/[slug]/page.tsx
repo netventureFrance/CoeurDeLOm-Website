@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { type Locale, getDictionary } from '@/lib/i18n';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/airtable';
 import { Metadata } from 'next';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import InteractiveTitle from '@/components/InteractiveTitle';
 
 export async function generateMetadata({
   params
@@ -59,7 +61,8 @@ export default async function BlogPostPage({
   }
 
   return (
-    <main className="min-h-screen pt-40 pb-20">
+    <main className="relative min-h-screen pt-40 pb-20 overflow-hidden">
+      <AnimatedBackground />
       <article className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Featured Image */}
@@ -97,9 +100,9 @@ export default async function BlogPostPage({
               )}
             </div>
 
-            <h1 className="font-bold mb-4 text-purple-900">
+            <InteractiveTitle className="text-4xl md:text-5xl font-normal mb-4 text-purple-900">
               {post.title}
-            </h1>
+            </InteractiveTitle>
 
             {post.excerpt && (
               <p className="text-xl text-gray-700 leading-relaxed">

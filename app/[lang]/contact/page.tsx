@@ -1,6 +1,8 @@
 import { type Locale, getDictionary } from '@/lib/i18n';
 import ContactForm from '@/components/ContactForm';
 import { Metadata } from 'next';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import InteractiveTitle from '@/components/InteractiveTitle';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -22,14 +24,17 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
   const dict = await getDictionary(lang as Locale);
 
   return (
-    <main className="min-h-screen pt-40 pb-20">
+    <main className="relative min-h-screen pt-40 pb-20 overflow-hidden">
+      <AnimatedBackground />
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-purple-900">
-              {(dict.contact as any).title}
-            </h1>
+            <div className="flex justify-center mb-6">
+              <InteractiveTitle className="text-4xl md:text-5xl font-normal text-purple-900">
+                {(dict.contact as any).title}
+              </InteractiveTitle>
+            </div>
             <div className="h-1 w-24 bg-gradient-rainbow mx-auto mb-8"></div>
           </div>
 
