@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Me",
+    "therapies": "Therapies",
+    "blog": "Blog",
+    "contact": "Contact",
+    "appointment": "Book Appointment",
+    "faq": "FAQ"
+  },
+  "home": {
+    "title": "Coeur de l'OM",
+    "subtitle": "Well-being, Meditation and Spirituality",
+    "discover": "Discover",
+    "appointment": "Book Appointment"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "success": "Thank you! Your message has been sent.",
+    "error": "An error occurred. Please try again."
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Read more",
+    "categories": "Categories",
+    "recent": "Recent Articles",
+    "noArticles": "No articles found"
+  },
+  "footer": {
+    "about": "About",
+    "links": "Links",
+    "legal": "Legal Notice",
+    "privacy": "Privacy Policy",
+    "copyright": "© 2025 Coeur de l'OM. All rights reserved."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "about": "Über mich",
+    "therapies": "Behandlungen",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "appointment": "Termin buchen",
+    "faq": "FAQ"
+  },
+  "home": {
+    "title": "Coeur de l'OM",
+    "subtitle": "Wohlbefinden, Meditation und Spiritualität",
+    "discover": "Entdecken",
+    "appointment": "Termin buchen"
+  },
+  "contact": {
+    "title": "Kontaktieren Sie uns",
+    "name": "Name",
+    "email": "E-Mail",
+    "message": "Nachricht",
+    "send": "Senden",
+    "success": "Vielen Dank! Ihre Nachricht wurde gesendet.",
+    "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Weiterlesen",
+    "categories": "Kategorien",
+    "recent": "Neueste Artikel",
+    "noArticles": "Keine Artikel gefunden"
+  },
+  "footer": {
+    "about": "Über uns",
+    "links": "Links",
+    "legal": "Impressum",
+    "privacy": "Datenschutz",
+    "copyright": "© 2025 Coeur de l'OM. Alle Rechte vorbehalten."
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "close": "Schließen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "back": "Zurück"
+  }
+}

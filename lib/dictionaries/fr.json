@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "Qui suis-je?",
+    "therapies": "Soins",
+    "blog": "Blog",
+    "contact": "Contact",
+    "appointment": "Prendre RDV",
+    "faq": "FAQ"
+  },
+  "home": {
+    "title": "Coeur de l'OM",
+    "subtitle": "Bien-être, méditation et spiritualité",
+    "discover": "Découvrir",
+    "appointment": "Prendre RDV"
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "send": "Envoyer",
+    "success": "Merci! Votre message a été envoyé.",
+    "error": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Lire la suite",
+    "categories": "Catégories",
+    "recent": "Articles récents",
+    "noArticles": "Aucun article trouvé"
+  },
+  "footer": {
+    "about": "À propos",
+    "links": "Liens",
+    "legal": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "copyright": "© 2025 Coeur de l'OM. Tous droits réservés."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "back": "Retour"
+  }
+}
