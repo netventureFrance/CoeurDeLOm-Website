@@ -25,9 +25,9 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
           {/* Logo */}
           <Link href={`/${lang}`} className="flex items-center gap-3 group">
             <img
-              src="/Coeurdelom.png"
+              src="/Coeur-de-lOm-Alpha-Kopie.png"
               alt="Coeur de l'OM"
-              className="h-14 w-auto object-contain group-hover:opacity-80 transition-opacity"
+              className="h-16 w-auto object-contain group-hover:opacity-80 transition-opacity"
             />
           </Link>
 
