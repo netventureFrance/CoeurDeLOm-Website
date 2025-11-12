@@ -27,7 +27,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
   const categories = await getCategories(lang as Locale);
 
   return (
-    <main className="min-h-screen pt-32 pb-20">
+    <main className="min-h-screen pt-40 pb-20">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
