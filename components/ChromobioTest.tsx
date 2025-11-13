@@ -392,15 +392,7 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
             </div>
           </div>
 
-          {/* Restart button */}
-          <div className="text-center">
-            <button
-              onClick={handleRestart}
-              className="bg-white text-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              {dictionary.restart}
-            </button>
-          </div>
+          {/* Restart button removed - tests can only be done once every 3 months */}
         </div>
         </div>
       </>

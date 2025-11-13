@@ -259,13 +259,26 @@ export function generateDetailedInterpretation(
     detailed = `## In-Depth Analysis of Your Chromatic Profile\n\n`;
     detailed += `Your test reveals a unique energetic profile that reflects your current emotional, physical and spiritual state. Each color carries a specific vibration and its intensity in your result indicates areas of particular attention.\n\n`;
 
+    // Extreme cases warning if any
+    if (extremeExcess.length > 0 || extremeShortage.length > 0) {
+      detailed += `⚠️ **Major Points of Attention**: Your profile shows extreme polarities that deserve in-depth therapeutic attention.\n\n`;
+    }
+
     if (excessColors.length > 0) {
       detailed += `### Excess Energies\n\n`;
       excessColors.forEach(color => {
         const interp = interpretations[color.id];
         if (interp) {
-          detailed += `**${color.name}** (${color.count} colors) - *${interp.mantra}*\n`;
+          const isExtreme = color.count === 8;
+          detailed += `**${color.name}** (${color.count}/8 colors${isExtreme ? ' - MAXIMUM INTENSITY' : ''}) - *${interp.mantra}*\n\n`;
+          if (isExtreme) {
+            detailed += `🔴 **Special attention required**: You did not eliminate any occurrence of this color, revealing an extreme attraction.\n\n`;
+          }
           detailed += `${interp.excess}\n\n`;
+          detailed += `**Symbolism**: ${interp.symbolism.substring(0, 250)}...\n\n`;
+          if (interp.temperament && interp.temperament.length > 0) {
+            detailed += `**Associated temperament**: ${interp.temperament.slice(0, 3).join(', ')}\n\n`;
+          }
         }
       });
     }
@@ -275,30 +288,54 @@ export function generateDetailedInterpretation(
       shortageColors.forEach(color => {
         const interp = interpretations[color.id];
         if (interp) {
-          detailed += `**${color.name}** (${color.count} colors) - *${interp.mantra}*\n`;
+          const isExtreme = color.count === 0;
+          detailed += `**${color.name}** (${color.count}/8 colors${isExtreme ? ' - TOTAL REJECTION' : ''}) - *${interp.mantra}*\n\n`;
+          if (isExtreme) {
+            detailed += `🔵 **Important blockage zone**: You eliminated all occurrences of this color, indicating deep rejection or unconscious resistance.\n\n`;
+          }
           detailed += `${interp.shortage}\n\n`;
+          if (interp.properties && interp.properties.length > 0) {
+            detailed += `**Therapeutic properties**: ${interp.properties.slice(0, 3).join(', ')}\n\n`;
+          }
+          if (interp.chakra) {
+            detailed += `**Associated chakra**: ${interp.chakra}\n\n`;
+          }
         }
       });
     }
 
     detailed += `### Personalized Recommendations\n\n`;
-    detailed += `To harmonize your energetic profile, an individual session will allow you to:\n`;
-    detailed += `- Understand the deep causes of these imbalances\n`;
-    detailed += `- Establish a personalized rebalancing protocol\n`;
-    detailed += `- Discover practices and tools adapted to your profile\n`;
-    detailed += `- Integrate this knowledge into your daily life\n\n`;
+    detailed += `To harmonize your energetic profile, an individual session will allow you to:\n\n`;
+    detailed += `- Understand the deep causes of these imbalances${extremeExcess.length > 0 || extremeShortage.length > 0 ? ' and extreme polarities' : ''}\n`;
+    detailed += `- Establish a personalized rebalancing protocol adapted to your unique profile\n`;
+    detailed += `- Discover ChromoBio-Energy practices specific to your needs\n`;
+    detailed += `- Explore ${extremeShortage.length > 0 ? 'deep resistances and ' : ''}transformation tools\n`;
+    detailed += `- Integrate this knowledge into your daily life for lasting well-being\n\n`;
 
   } else {
     detailed = `## Tiefgehende Analyse Ihres Chromatischen Profils\n\n`;
-    detailed += `Ihr Test zeigt ein einzigartiges energetisches Profil, das Ihren aktuellen emotionalen, physischen und spirituellen Zustand widerspiegelt.\n\n`;
+    detailed += `Ihr Test zeigt ein einzigartiges energetisches Profil, das Ihren aktuellen emotionalen, physischen und spirituellen Zustand widerspiegelt. Jede Farbe trägt eine spezifische Schwingung und ihre Intensität in Ihrem Ergebnis zeigt Bereiche besonderer Aufmerksamkeit an.\n\n`;
+
+    // Extreme cases warning if any
+    if (extremeExcess.length > 0 || extremeShortage.length > 0) {
+      detailed += `⚠️ **Wichtige Aufmerksamkeitspunkte**: Ihr Profil zeigt extreme Polaritäten, die eine tiefgehende therapeutische Aufmerksamkeit verdienen.\n\n`;
+    }
 
     if (excessColors.length > 0) {
       detailed += `### Überschüssige Energien\n\n`;
       excessColors.forEach(color => {
         const interp = interpretations[color.id];
         if (interp) {
-          detailed += `**${color.name}** (${color.count} Farben) - *${interp.mantra}*\n`;
+          const isExtreme = color.count === 8;
+          detailed += `**${color.name}** (${color.count}/8 Farben${isExtreme ? ' - MAXIMALE INTENSITÄT' : ''}) - *${interp.mantra}*\n\n`;
+          if (isExtreme) {
+            detailed += `🔴 **Besondere Aufmerksamkeit erforderlich**: Sie haben kein Vorkommen dieser Farbe eliminiert, was eine extreme Anziehung offenbart.\n\n`;
+          }
           detailed += `${interp.excess}\n\n`;
+          detailed += `**Symbolik**: ${interp.symbolism.substring(0, 250)}...\n\n`;
+          if (interp.temperament && interp.temperament.length > 0) {
+            detailed += `**Assoziiertes Temperament**: ${interp.temperament.slice(0, 3).join(', ')}\n\n`;
+          }
         }
       });
     }
@@ -308,18 +345,29 @@ export function generateDetailedInterpretation(
       shortageColors.forEach(color => {
         const interp = interpretations[color.id];
         if (interp) {
-          detailed += `**${color.name}** (${color.count} Farben) - *${interp.mantra}*\n`;
+          const isExtreme = color.count === 0;
+          detailed += `**${color.name}** (${color.count}/8 Farben${isExtreme ? ' - TOTALE ABLEHNUNG' : ''}) - *${interp.mantra}*\n\n`;
+          if (isExtreme) {
+            detailed += `🔵 **Wichtige Blockadezone**: Sie haben alle Vorkommen dieser Farbe eliminiert, was auf tiefe Ablehnung oder unbewussten Widerstand hinweist.\n\n`;
+          }
           detailed += `${interp.shortage}\n\n`;
+          if (interp.properties && interp.properties.length > 0) {
+            detailed += `**Therapeutische Eigenschaften**: ${interp.properties.slice(0, 3).join(', ')}\n\n`;
+          }
+          if (interp.chakra) {
+            detailed += `**Assoziiertes Chakra**: ${interp.chakra}\n\n`;
+          }
         }
       });
     }
 
     detailed += `### Personalisierte Empfehlungen\n\n`;
-    detailed += `Um Ihr energetisches Profil zu harmonisieren, ermöglicht Ihnen eine Einzelsitzung:\n`;
-    detailed += `- Die tiefen Ursachen dieser Ungleichgewichte zu verstehen\n`;
-    detailed += `- Ein personalisiertes Ausgleichsprotokoll zu erstellen\n`;
-    detailed += `- Praktiken und Werkzeuge zu entdecken, die auf Ihr Profil zugeschnitten sind\n`;
-    detailed += `- Dieses Wissen in Ihren Alltag zu integrieren\n\n`;
+    detailed += `Um Ihr energetisches Profil zu harmonisieren, ermöglicht Ihnen eine Einzelsitzung:\n\n`;
+    detailed += `- Die tiefen Ursachen dieser Ungleichgewichte${extremeExcess.length > 0 || extremeShortage.length > 0 ? ' und extremen Polaritäten' : ''} zu verstehen\n`;
+    detailed += `- Ein personalisiertes Ausgleichsprotokoll zu erstellen, das auf Ihr einzigartiges Profil zugeschnitten ist\n`;
+    detailed += `- ChromoBio-Energie-Praktiken zu entdecken, die spezifisch für Ihre Bedürfnisse sind\n`;
+    detailed += `- ${extremeShortage.length > 0 ? 'Tiefe Widerstände und ' : ''}Transformationswerkzeuge zu erforschen\n`;
+    detailed += `- Dieses Wissen in Ihren Alltag zu integrieren für dauerhaftes Wohlbefinden\n\n`;
   }
 
   return detailed;
