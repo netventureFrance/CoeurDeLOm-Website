@@ -23,7 +23,7 @@ export interface ColorInterpretation {
   note?: string;
 }
 
-export const CHROMOBIO_INTERPRETATIONS: Record<string, ColorInterpretation> = {
+export const CHROMOBIO_INTERPRETATIONS: Record<string, Record<number, ColorInterpretation>> = {
   fr: {
     1: { // Magenta
       id: 1,
