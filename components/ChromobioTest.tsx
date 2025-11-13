@@ -202,7 +202,7 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
     const remainingCounts = getRemainingColors();
     const maxCount = Math.max(...Object.values(remainingCounts));
 
-    // Prepare color results for interpretation
+    // Prepare color results for interpretation (include ALL colors, even 0)
     const colorResults = COLORS.map(color => {
       const count = remainingCounts[color.id];
       let status: 'excess' | 'balanced' | 'shortage' = 'balanced';
@@ -214,7 +214,7 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
         count,
         status
       };
-    }).filter(c => c.count > 0);
+    });
 
     const shortInterp = generateShortInterpretation(colorResults, lang);
     const detailedInterp = generateDetailedInterpretation(colorResults, lang);
