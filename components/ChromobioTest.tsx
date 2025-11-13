@@ -288,6 +288,7 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
                     key={colIndex}
                     onClick={() => handleCircleClick(rowIndex, colIndex)}
                     disabled={rowIndex !== currentRow || circle.isSelected}
+                    title={color?.name}
                     className={`w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full transition-all transform ${
                       rowIndex === currentRow && !circle.isSelected
                         ? 'hover:scale-110 cursor-pointer shadow-lg'
