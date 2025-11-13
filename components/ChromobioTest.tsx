@@ -2,26 +2,27 @@
 
 import { useState, useEffect } from 'react';
 
-// Define the 18 chromobiology colors
+// Define the chromobiology colors (using colors 01-18 for this game)
+// Full palette contains 27 colors - can be expanded for future games
 const COLORS = [
-  { id: 1, name: 'Magenta', hex: '#FF00FF', rgb: [255, 0, 255] },
-  { id: 2, name: 'Pourpre', hex: '#9933FF', rgb: [153, 51, 255] },
-  { id: 3, name: 'Violet', hex: '#6600FF', rgb: [102, 0, 255] },
-  { id: 4, name: 'Bleu Roi', hex: '#0000FF', rgb: [0, 0, 255] },
-  { id: 5, name: 'Indigo', hex: '#4D9FFF', rgb: [77, 159, 255] },
-  { id: 6, name: 'Bleu', hex: '#99CCFF', rgb: [153, 204, 255] },
-  { id: 7, name: 'Cyan', hex: '#00FFFF', rgb: [0, 255, 255] },
-  { id: 8, name: 'Bleu Turquoise', hex: '#00D4AA', rgb: [0, 212, 170] },
-  { id: 9, name: 'Vert Turquoise', hex: '#00FF7F', rgb: [0, 255, 127] },
-  { id: 10, name: 'Vert', hex: '#00FF00', rgb: [0, 255, 0] },
-  { id: 11, name: 'Citron', hex: '#ADFF2F', rgb: [173, 255, 47] },
-  { id: 12, name: 'Pomme', hex: '#FFFF00', rgb: [255, 255, 0] },
-  { id: 13, name: 'Jaune', hex: '#FFFF00', rgb: [255, 255, 0] },
-  { id: 14, name: 'Or', hex: '#FFA500', rgb: [255, 165, 0] },
-  { id: 15, name: 'Orange', hex: '#FF8000', rgb: [255, 128, 0] },
-  { id: 16, name: 'Rouge', hex: '#FF0000', rgb: [255, 0, 0] },
-  { id: 17, name: 'Ecarlate', hex: '#FF1493', rgb: [255, 20, 147] },
-  { id: 18, name: 'Framboise', hex: '#FF00CC', rgb: [255, 0, 204] },
+  { id: 1, name: 'Pourpre Foncé', hex: '#7C1E7A', rgb: [124, 30, 122] },
+  { id: 2, name: 'Magenta', hex: '#FF41FB', rgb: [255, 65, 251] },
+  { id: 3, name: 'Pourpre', hex: '#BD35DE', rgb: [189, 53, 222] },
+  { id: 4, name: 'Violet', hex: '#9133DE', rgb: [145, 51, 222] },
+  { id: 5, name: 'Bleu Roi', hex: '#342EDE', rgb: [52, 46, 222] },
+  { id: 6, name: 'Indigo', hex: '#0063F8', rgb: [0, 99, 248] },
+  { id: 7, name: 'Bleu', hex: '#0088F8', rgb: [0, 136, 248] },
+  { id: 8, name: 'Cyan', hex: '#00E1F9', rgb: [0, 225, 249] },
+  { id: 9, name: 'Bleu Turquoise', hex: '#00F7C6', rgb: [0, 247, 198] },
+  { id: 10, name: 'Vert Turquoise', hex: '#00F395', rgb: [0, 243, 149] },
+  { id: 11, name: 'Vert', hex: '#00B92C', rgb: [0, 185, 44] },
+  { id: 12, name: 'Citron', hex: '#ADF000', rgb: [173, 240, 0] },
+  { id: 13, name: 'Pomme', hex: '#00F134', rgb: [0, 241, 52] },
+  { id: 14, name: 'Jaune', hex: '#FFFC00', rgb: [255, 252, 0] },
+  { id: 15, name: 'Or', hex: '#FDCE00', rgb: [253, 206, 0] },
+  { id: 16, name: 'Orange', hex: '#FE8A00', rgb: [254, 138, 0] },
+  { id: 17, name: 'Rouge', hex: '#FF2500', rgb: [255, 37, 0] },
+  { id: 18, name: 'Ecarlate', hex: '#FF307F', rgb: [255, 48, 127] },
 ];
 
 type Circle = {
@@ -203,7 +204,7 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
             }
           }
         `}</style>
-        <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-purple-900 pt-32 md:pt-40 pb-12 px-4">
+        <div className="min-h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-black pt-32 md:pt-40 pb-12 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-white text-center mb-8">
             {dictionary.results}
@@ -270,7 +271,7 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-purple-900 pt-32 md:pt-40 pb-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-800 via-gray-900 to-black pt-32 md:pt-40 pb-12 px-4">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
           {dictionary.title}
@@ -321,7 +322,7 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
               })}
               {/* Overlay for inactive rows */}
               {rowIndex !== currentRow && (
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-secondary/70 to-purple-900/70 backdrop-blur-[2px] rounded-lg pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-800/90 via-gray-900/90 to-black/90 backdrop-blur-[2px] rounded-lg pointer-events-none" />
               )}
             </div>
           ))}
