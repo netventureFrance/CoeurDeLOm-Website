@@ -24,6 +24,332 @@ export interface ColorInterpretation {
 }
 
 export const CHROMOBIO_INTERPRETATIONS: Record<string, Record<number, ColorInterpretation>> = {
+  en: {
+    1: { // Magenta
+      id: 1,
+      name: 'Magenta',
+      mantra: 'I AM ONE, I CONCEIVE, I LOVE',
+      symbolism: 'Universal Love, perfect balance between royal blue and red. Universal force that drives us to love in order to create something unique. It is the comfort blanket of colors.',
+      temperament: ['Loving, affectionate', 'Fusional, sentimental', 'Dreamy, romantic, youthful, tender', 'Perfectionist'],
+      properties: [
+        'Healing and emotional nourishment',
+        'Emotional urgency',
+        'Helps with dependency',
+        'Aphrodisiac',
+        'Arterial normalizing'
+      ],
+      excess: 'Emotional dependency, feelings of abandonment. The soul asks to be taken care of. Dependency on food (chocolate, sugar...), substance (alcohol, drugs...), medication (antidepressants)...',
+      shortage: 'Emotional rejection (possibly due to romantic breakup). Emotional trauma.',
+      bodyParts: 'Thorax, sternum, thoracic vertebrae 4, 5 and 6',
+      organs: 'Heart, cardiac system, arteries, capillary veins',
+      chakra: '8th chakra (soul star)'
+    },
+    2: { // Pourpre
+      id: 2,
+      name: 'Purple',
+      mantra: 'I MEDITATE AND TRANSCEND',
+      symbolism: 'Of all the colors of the spectrum, purple is undoubtedly the most enigmatic. It is an ultimate gateway opening to the mysteries of the universe. Linked to meditation and transcendence, it symbolizes the world of Spirit, spirituality and religion.',
+      temperament: ['Spiritual, religious', 'Secret, enigmatic, mystical', 'Spiritual guide, thought leader', 'Authoritative, protective', 'Meditative'],
+      properties: [
+        'Spiritual nourishment',
+        'Calms deep anxieties',
+        'Restructuring',
+        'Helps communication with Higher Self',
+        'Expands cosmic perception'
+      ],
+      excess: 'Religious extremism. Mystical. Medium (talking with the dead...)',
+      shortage: 'Atheistic person. Loss of spiritual bearings.'
+    },
+    3: { // Violet
+      id: 3,
+      name: 'Violet',
+      mantra: 'I HAVE FAITH, I EXPERIENCE UNITY, I KNOW',
+      symbolism: 'This color is a guide for humans. It shows us the way. It is the color of the Patriarch, the family father who, by his authority, leads the group. Violet accompanies us on the path to spirituality.',
+      temperament: ['Masculine', 'Paternal', 'Manager, group leader', 'Organized, structured', 'Patriarch'],
+      properties: [
+        'Psychic nourishment',
+        'Immunostimulant',
+        'Restructuring',
+        'Rigidifying'
+      ],
+      excess: 'Authoritarian, judgmental, accusatory, defiant, too rigid, too many rules, too structured, too organized.',
+      shortage: 'Someone who dislikes rules and authority. Problems with father, lying, rebellion.',
+      bodyParts: 'Memory, gray matter, veins',
+      organs: 'Sphenoid skull bones, hyoid and wormian bones. Palate, tongue, language and verbalization.',
+      chakra: '7th CHAKRA - Crown chakra - Sahasrara',
+      element: 'Ether',
+      note: 'B'
+    },
+    4: { // Bleu Roi
+      id: 4,
+      name: 'Royal Blue',
+      mantra: 'I TRANSFORM MYSELF',
+      symbolism: 'Found in the maritime world far offshore, when the ocean plunges into the abyss of an unexplored world. Like a bottomless pit, it captures the spirit and takes it into the abyssal depths. Group, family, society.',
+      temperament: ['Deep, coherent', 'Homogeneous, harmonious', 'Metaphysical, immaterial', 'Humanitarian', 'Dark, shadowy', 'Unfathomable, impenetrable'],
+      properties: [
+        'Psychic calming',
+        'Soporific',
+        'Hypnotic',
+        'Sleep-inducing',
+        'Harmonizing'
+      ],
+      excess: 'Hypersomnia. Hypnosis.',
+      shortage: 'Insomnia. Disconnected.',
+      bodyParts: 'Top of skull, temporal bones, parietal bones',
+      organs: 'Cerebral cortex, pineal gland, venous blood',
+      chakra: '6th Chakra - Third eye - Ajna',
+      note: 'A'
+    },
+    5: { // Indigo
+      id: 5,
+      name: 'Indigo',
+      mantra: 'I AM AT PEACE',
+      symbolism: 'Found high in the sky, where it appears at dawn and dusk. Ultramarine blue has the art of inspiring a deep feeling of peace, serenity and tranquility. It is the great peacemaker. Extrasensory abilities.',
+      temperament: ['Serene, peaceful', 'Calm, quiet', 'Patient, cautious', 'Temperate, moderate', 'Attentive, intuitive'],
+      properties: [
+        'Anti-stress',
+        'Calming',
+        'Concentration',
+        'Tranquilizing',
+        'Relaxing',
+        'Sedative'
+      ],
+      excess: 'Person who is not grounded. Lives in an imaginary world. Mentally and physically slow.',
+      shortage: 'Lack of concentration. Lack of intuition. Not connected to the universal library.'
+    },
+    6: { // Bleu
+      id: 6,
+      name: 'Blue',
+      mantra: 'I AM AT PEACE',
+      symbolism: 'A color that opens the horizon. Closely linked to dreams and escapism. Like water that quenches thirst, blue is refreshing and pure. It allows you to find inner calm. Peaceful communication.',
+      temperament: ['Celestial', 'Calm', 'Quiet', 'Dreamy', 'In their own world'],
+      properties: [
+        'Anti-stress',
+        'Calming',
+        'Tranquilizing',
+        'Relaxing',
+        'Sedative'
+      ],
+      excess: 'Too dreamy, disconnected from reality.',
+      shortage: 'Difficulty finding inner peace. Mental agitation.',
+      bodyParts: 'Respiratory tract, hearing, thyroid',
+      organs: 'Upper respiratory tract: nose, pharynx, larynx, vocal cords. Ears. Thermoregulation, thyroid gland.'
+    },
+    7: { // Cyan
+      id: 7,
+      name: 'Cyan',
+      mantra: 'I COMMUNICATE',
+      symbolism: 'Found in the daytime sky when it is clear. Of all the colors of the rainbow, cyan is the coldest shade. It is the first of the 3 primary "matter" colors.',
+      temperament: ['Airy, vaporous', 'Ethereal, evanescent', 'Placid', 'Communicative, receptive', 'Fresh, cold'],
+      properties: [
+        'Anti-inflammatory',
+        'Refreshing',
+        'Counter-irritant',
+        'Antipyretic',
+        'Dispersing'
+      ],
+      excess: 'Logorrhea (talks non-stop), verbal diarrhea.',
+      shortage: 'Phlegmatic, lack of frankness.',
+      bodyParts: 'ENT, neck, nape, cervical vertebrae C4, C5 and C6',
+      chakra: '5th CHAKRA - Throat chakra - Vishuddha',
+      element: 'Ether',
+      note: 'G'
+    },
+    8: { // Bleu Turquoise
+      id: 8,
+      name: 'Turquoise Blue',
+      mantra: 'I CREATE AND SHARE',
+      symbolism: 'Found in seawater closest to shore, where the transition between the terrestrial and marine world occurs. Transition between subconscious and conscious. Turquoise blue represents creativity expressed for others.',
+      temperament: ['Creative for others', 'Inspired', 'Works with others, networked', 'Goes with the flow', 'Up to date, follows evolution'],
+      properties: [
+        'Anti-inflammatory',
+        'Anti-edema',
+        'Letting go and going with evolution'
+      ],
+      excess: 'Altruistic. Can be exploited by others.',
+      shortage: 'Doesn\'t like sharing ideas.'
+    },
+    9: { // Vert Turquoise
+      id: 9,
+      name: 'Turquoise Green',
+      mantra: 'I CREATE SOMETHING ORIGINAL',
+      symbolism: 'Found in the waters of tropical lagoons. Created by nature, resulting from a combination of algae color and sky. It represents creativity expressed individually, individuation.',
+      temperament: ['Fluid, flowing, floating', 'Clean, pure, immaculate', 'Varying, changing', 'Cyclical, ephemeral, moody'],
+      properties: [
+        'Cleansing',
+        'Purifying',
+        'Purifying',
+        'Hygienic',
+        'Catabolic'
+      ],
+      excess: 'Gets carried away by trends, by the wave. Yes-person (last speaker is always right).',
+      shortage: 'Doesn\'t like change.',
+      chakra: 'Turquoise Chakra: Ananda Khanda'
+    },
+    10: { // Vert
+      id: 10,
+      name: 'Green',
+      mantra: 'I OPEN MY HEART - I FORGIVE - COMPASSION',
+      symbolism: 'The color most often found in nature. Color of trees and their foliage. Green is an unexaggerated color that evokes a sensation of neutrality and detachment. The exact point of neutrality on which the chromatic balance axis rests.',
+      temperament: ['Natural', 'Balanced, neutral', 'Free, independent', 'Autonomous, detached', 'Distant, solitary'],
+      properties: [
+        'Balancing',
+        'Neutralizing',
+        'Homeostatic',
+        'Deparasitizing',
+        'Antibiotic'
+      ],
+      excess: 'Too independent person, hermit, marginal.',
+      shortage: 'Dependency on a person, object, or situation.',
+      chakra: 'Heart Chakra - ANAHATA',
+      element: 'Air, Gaseous Matter',
+      note: 'F'
+    },
+    11: { // Citron
+      id: 11,
+      name: 'Lemon',
+      mantra: 'I DISCOVER',
+      symbolism: 'A striking color like a lime. Lemon green dares to move forward, with a taste for adventure. Daring to leave home and set out on adventure.',
+      temperament: ['Adventurous', 'Freelance', 'Curious', 'Seeker', 'Open to new horizons', 'Surprising'],
+      properties: [
+        'Refreshing',
+        'Emotional stimulant',
+        'Anti-inflammatory',
+        'Antioxidant',
+        'Antiseptic'
+      ],
+      excess: 'Too adventurous (goes without safety net). Reckless, utopian.',
+      shortage: 'Wants to do things but doesn\'t take action.'
+    },
+    12: { // Pomme
+      id: 12,
+      name: 'Apple Green',
+      mantra: 'I OPEN TO THE OUTSIDE, I ADAPT',
+      symbolism: 'Brings the first touch of spring freshness. Acts as a real hinge, transitioning vision from warm and tonic colors to neutral and cold colors. It gives malleability and flexibility.',
+      temperament: ['Open, tolerant', 'Accessible, available', 'Flexible, supple', 'Malleable, undisciplined'],
+      properties: [
+        'Vision stimulant',
+        'Anti-allergic, intolerance',
+        'Expectorant',
+        'Softens joints',
+        'Mental flexibility'
+      ],
+      excess: 'Gets taken advantage of by others. Influenceable. Lax. Messy.',
+      shortage: 'Mental rigidity but also joint level. Not very open. Has difficulty questioning themselves.',
+      bodyParts: 'Diaphragm, tendons and ligaments, thoracic vertebrae 6, 7 and 8',
+      organs: 'Visual system, brain plasticity, gallbladder'
+    },
+    13: { // Jaune
+      id: 13,
+      name: 'Yellow',
+      mantra: 'I HAVE CONFIDENCE IN MYSELF, I BECOME AWARE THAT I EXIST',
+      symbolism: 'The color of the sun that brings light to earth. Yellow brings the greatest clarity to our vision, self-perception and vision of the world. It allows us to position ourselves within our environment.',
+      temperament: ['Clear, luminous', 'Lucid, awake', 'Conscious', 'Thoughtful, intelligent', 'Individualist', 'Analytical mind', 'Manager', 'Self-confident'],
+      properties: [
+        'Intellectual stimulant',
+        'Lymphatic stimulant',
+        'Digestive stimulant',
+        'Stomach stimulant',
+        'Antidiabetic'
+      ],
+      excess: 'Egocentric.',
+      shortage: 'I am nothing, I don\'t exist. Academic failure.',
+      bodyParts: 'Belly, epigastrium, thoracic vertebrae 9, 10 and 11',
+      organs: 'Digestive functions, stomach, pancreas',
+      chakra: '3rd chakra - Solar plexus chakra - Manipûra',
+      element: 'Fire',
+      note: 'E'
+    },
+    14: { // Or
+      id: 14,
+      name: 'Gold',
+      mantra: 'I LOVE LIFE',
+      symbolism: 'The color of the sun and buttercups. Incomparable magnetism emanates from it. Golden yellow illuminates the day and warms hearts. It brings the energy and confidence necessary for awakening consciousness. It illuminates the face shown to the world. Inner wisdom.',
+      temperament: ['Radiant, brilliant', 'Confident, assured', 'Rich, wealthy'],
+      properties: [
+        'Stimulant of being essence',
+        'Confidence in life',
+        'Diaphragm release',
+        'Solar plexus stimulant'
+      ],
+      excess: 'Bad relationship with money and fortune. Person who plays the star. Arrogant.',
+      shortage: 'Too discreet. Introverted. Little confidence in life.'
+    },
+    15: { // Orange
+      id: 15,
+      name: 'Orange',
+      mantra: 'I FEEL - I SENSE',
+      symbolism: 'Located between dynamic red and gold which speaks of self-confidence. Associated with good mood and optimism. Speaks of sexuality and sensuality. Exciting, thrilling and full of movement, it invites celebration, singing, dancing, drinking and eating.',
+      temperament: ['Emotional, sensitive', 'Sensual, tactile', 'Optimistic, enthusiastic', 'Joyful, likes to party', 'Epicurean'],
+      properties: [
+        'Sensory stimulant and exciting',
+        'Helps with emotional shock',
+        'Antidepressant',
+        'Decongestant'
+      ],
+      excess: 'Stress, agitation, pressure. Emotionally hypersensitive. Tension, nervousness, rushing. Don Juan. Loves life\'s pleasures.',
+      shortage: 'General vitality problem. Lack of joy of living and good mood. Depression. No listening to emotions. Paralysis, coldness, immobilization, stagnation.',
+      bodyParts: 'Hypogastrium, pubis, 12th thoracic vertebrae, lumbar 1 and 2',
+      organs: 'Adrenal glands, sympathetic nervous system, locomotor functions',
+      chakra: '2nd chakra - Sacral Chakra - Swadhisthana',
+      element: 'Water',
+      note: 'D'
+    },
+    16: { // Rouge
+      id: 16,
+      name: 'Red',
+      mantra: 'I LIVE',
+      symbolism: 'The warmest and most physical color of the light spectrum. Represents everything related to fire. It\'s the "coffee of color". Dynamic and lively, red is willful and full of life. This is why red is associated with blood and life energy.',
+      temperament: ['Dynamic and hardworking', 'Active, athletic', 'Sanguine, energetic', 'Courageous, willful', 'Hot, burning, living'],
+      properties: [
+        'Physical stimulant and energizing',
+        'Increases energy and strengthens',
+        'Increases body temperature',
+        'Accelerates healing'
+      ],
+      excess: 'Physical hyperactivity. Inner and/or outer anger. Aggressive - violent - impetuous. If person is calm: internalized anger. Hypertension.',
+      shortage: 'Tired, physically exhausted. Hypoactivity. Passive person. Likes calm. Has hypotension. Lacks courage to start.',
+      chakra: '1st Chakra - Root chakra - Mulhadara',
+      element: 'Earth',
+      note: 'C'
+    },
+    17: { // Ecarlate
+      id: 17,
+      name: 'Scarlet',
+      mantra: 'I FEEL SAFE',
+      symbolism: 'Represents the material and physical world. It is the materialization of our creation. The best example is the uterus that welcomes the child. Scarlet is the mother. A very reassuring color that provides a feeling of cocooning and envelopment.',
+      temperament: ['Feminine, maternal', 'Nurturing, fertile', 'Abundant, prosperous', 'Stable, rooted', 'Concrete, tangible', 'Embodied, corporeal'],
+      properties: [
+        'Skin moisturizing',
+        'Physical healing',
+        'Strengthens and nourishes tissues and muscles',
+        'Irrigates mucous membranes'
+      ],
+      excess: 'Stingy. Mother hen. Hyperactivity in female genital organs: fibroids, cysts.',
+      shortage: 'Relationship with mother (rejection of mother?). Security issues. Carelessness. Unstable. Spendthrift. Deficiencies, deprivation, poverty, infertility, physical injuries.',
+      bodyParts: 'Pelvis, buttocks, legs, feet, sacral vertebrae 1 to 5',
+      organs: 'Uterus, bladder, arteries'
+    },
+    18: { // Framboise
+      id: 18,
+      name: 'Raspberry',
+      mantra: 'I WANT TO CREATE',
+      symbolism: 'Appears just after magenta. After having the intention to create, it is important to materialize one\'s creation. This color represents the act of creation. It is the will to create and play. It provides a feeling of creative euphoria.',
+      temperament: ['Childlike, young', 'Tender, vulnerable', 'Active, Creative', 'Joyful'],
+      properties: [
+        'Creativity',
+        'Joy of creating',
+        'Emotional healing',
+        'Rejuvenating, anti-aging',
+        'Tissue softening',
+        'Hydrates skin'
+      ],
+      excess: 'Acts without thinking.',
+      shortage: 'Someone who has ideas but doesn\'t know how to do it. Can\'t find the way to do it, the tools to realize. Wants to take action but can\'t.',
+      bodyParts: 'Thorax, sternum, thoracic vertebrae 4, 5 and 6',
+      organs: 'Heart, cardiac system, arteries, capillary veins'
+    }
+  },
   fr: {
     1: { // Magenta
       id: 1,
