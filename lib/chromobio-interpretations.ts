@@ -675,6 +675,332 @@ export const CHROMOBIO_INTERPRETATIONS: Record<string, Record<number, ColorInter
       bodyParts: 'Thorax, sternum, vertèbres thoraciques 4, 5 et 6',
       organs: 'Cœur, système cardiaque, artères, veines capillaires'
     }
+  },
+  de: {
+    1: { // Magenta
+      id: 1,
+      name: 'Magenta',
+      mantra: 'ICH BIN EINS, ICH EMPFANGE, ICH LIEBE',
+      symbolism: 'Universelle Liebe, perfektes Gleichgewicht zwischen Königsblau und Rot. Universelle Kraft, die uns dazu antreibt, zu lieben, um etwas Einzigartiges zu schaffen. Es ist die Kuscheldecke der Farben.',
+      temperament: ['Liebevoll, zuneigungsvoll', 'Verschmelzend, sentimental', 'Träumerisch, romantisch, jugendlich, zärtlich', 'Perfektionistisch'],
+      properties: [
+        'Heilend und emotionale Nahrung',
+        'Emotionale Dringlichkeit',
+        'Hilft bei Abhängigkeit',
+        'Aphrodisiakum',
+        'Arteriell normalisierend'
+      ],
+      excess: 'Emotionale Abhängigkeit, Gefühle der Verlassenheit. Die Seele verlangt danach, umsorgt zu werden. Abhängigkeit von Nahrung (Schokolade, Zucker...), Substanz (Alkohol, Drogen...), Medikamenten (Antidepressiva)...',
+      shortage: 'Emotionale Ablehnung (möglicherweise aufgrund einer romantischen Trennung). Emotionales Trauma.',
+      bodyParts: 'Brustkorb, Brustbein, Brustwirbel 4, 5 und 6',
+      organs: 'Herz, Herz-Kreislauf-System, Arterien, Kapillarvenen',
+      chakra: '8. Chakra (Seelenstern)'
+    },
+    2: { // Pourpre
+      id: 2,
+      name: 'Purpur',
+      mantra: 'ICH MEDITIERE UND TRANSZENDIERE',
+      symbolism: 'Von allen Farben des Spektrums ist Purpur zweifellos die rätselhafteste. Es ist ein ultimates Tor, das sich zu den Geheimnissen des Universums öffnet. Verbunden mit Meditation und Transzendenz symbolisiert es die Welt des Geistes, der Spiritualität und der Religion.',
+      temperament: ['Spirituell, religiös', 'Geheimnisvoll, enigmatisch, mystisch', 'Spiritueller Führer, Vordenker', 'Autoritär, beschützend', 'Meditativ'],
+      properties: [
+        'Spirituelle Nahrung',
+        'Beruhigt tiefe Ängste',
+        'Restrukturierend',
+        'Hilft bei der Kommunikation mit dem Höheren Selbst',
+        'Erweitert die kosmische Wahrnehmung'
+      ],
+      excess: 'Religiöser Extremismus. Mystisch. Medium (Gespräche mit den Toten...)',
+      shortage: 'Atheistische Person. Verlust spiritueller Orientierung.'
+    },
+    3: { // Violet
+      id: 3,
+      name: 'Violett',
+      mantra: 'ICH HABE GLAUBEN, ICH ERFAHRE EINHEIT, ICH WEISS',
+      symbolism: 'Diese Farbe ist ein Führer für die Menschen. Sie zeigt uns den Weg. Es ist die Farbe des Patriarchen, des Familienvaters, der durch seine Autorität die Gruppe führt. Violett begleitet uns auf dem Weg zur Spiritualität.',
+      temperament: ['Männlich', 'Väterlich', 'Manager, Gruppenleiter', 'Organisiert, strukturiert', 'Patriarch'],
+      properties: [
+        'Psychische Nahrung',
+        'Immunstimulierend',
+        'Restrukturierend',
+        'Versteifend'
+      ],
+      excess: 'Autoritär, urteilend, anklagend, herausfordernd, zu starr, zu viele Regeln, zu strukturiert, zu organisiert.',
+      shortage: 'Jemand, der Regeln und Autorität nicht mag. Probleme mit dem Vater, Lügen, Rebellion.',
+      bodyParts: 'Gedächtnis, graue Substanz, Venen',
+      organs: 'Keilbeinknochen, Zungenbein und Schaltknochen. Gaumen, Zunge, Sprache und Verbalisierung.',
+      chakra: '7. CHAKRA - Kronenchakra - Sahasrara',
+      element: 'Äther',
+      note: 'H'
+    },
+    4: { // Bleu Roi
+      id: 4,
+      name: 'Königsblau',
+      mantra: 'ICH TRANSFORMIERE MICH',
+      symbolism: 'Findet sich in der maritimen Welt weit vor der Küste, wenn der Ozean in den Abgrund einer unerforschten Welt stürzt. Wie ein bodenloses Loch erfasst es den Geist und führt ihn in die abgrundtiefen Tiefen. Gruppe, Familie, Gesellschaft.',
+      temperament: ['Tief, kohärent', 'Homogen, harmonisch', 'Metaphysisch, immateriell', 'Humanitär', 'Dunkel, schattig', 'Unergründlich, undurchdringlich'],
+      properties: [
+        'Psychisch beruhigend',
+        'Einschläfernd',
+        'Hypnotisch',
+        'Schlaffördernd',
+        'Harmonisierend'
+      ],
+      excess: 'Hypersomnie. Hypnose.',
+      shortage: 'Schlaflosigkeit. Getrennt.',
+      bodyParts: 'Schädeloberseite, Schläfenbeine, Scheitelbeine',
+      organs: 'Großhirnrinde, Zirbeldrüse, venöses Blut',
+      chakra: '6. Chakra - Drittes Auge - Ajna',
+      note: 'A'
+    },
+    5: { // Indigo
+      id: 5,
+      name: 'Indigo',
+      mantra: 'ICH BIN IN FRIEDEN',
+      symbolism: 'Hoch am Himmel zu finden, wo es bei Morgendämmerung und Abenddämmerung erscheint. Ultramarinblau hat die Kunst, ein tiefes Gefühl von Frieden, Gelassenheit und Ruhe zu inspirieren. Es ist der große Friedensstifter. Außersinnliche Fähigkeiten.',
+      temperament: ['Gelassen, friedlich', 'Ruhig, still', 'Geduldig, vorsichtig', 'Gemäßigt, moderat', 'Aufmerksam, intuitiv'],
+      properties: [
+        'Anti-Stress',
+        'Beruhigend',
+        'Konzentration',
+        'Beruhigend',
+        'Entspannend',
+        'Beruhigend'
+      ],
+      excess: 'Person, die nicht geerdet ist. Lebt in einer imaginären Welt. Geistig und körperlich langsam.',
+      shortage: 'Mangel an Konzentration. Mangel an Intuition. Nicht mit der universellen Bibliothek verbunden.'
+    },
+    6: { // Bleu
+      id: 6,
+      name: 'Blau',
+      mantra: 'ICH BIN IN FRIEDEN',
+      symbolism: 'Eine Farbe, die den Horizont öffnet. Eng verbunden mit Träumen und Eskapismus. Wie Wasser, das den Durst stillt, ist Blau erfrischend und rein. Es ermöglicht Ihnen, innere Ruhe zu finden. Friedliche Kommunikation.',
+      temperament: ['Himmlisch', 'Ruhig', 'Still', 'Träumerisch', 'In ihrer eigenen Welt'],
+      properties: [
+        'Anti-Stress',
+        'Beruhigend',
+        'Beruhigend',
+        'Entspannend',
+        'Beruhigend'
+      ],
+      excess: 'Zu träumerisch, von der Realität abgekoppelt.',
+      shortage: 'Schwierigkeiten, inneren Frieden zu finden. Geistige Unruhe.',
+      bodyParts: 'Atemwege, Gehör, Schilddrüse',
+      organs: 'Obere Atemwege: Nase, Rachen, Kehlkopf, Stimmbänder. Ohren. Thermoregulation, Schilddrüse.'
+    },
+    7: { // Cyan
+      id: 7,
+      name: 'Cyan',
+      mantra: 'ICH KOMMUNIZIERE',
+      symbolism: 'Findet sich im Tageshimmel, wenn er klar ist. Von allen Farben des Regenbogens ist Cyan der kälteste Farbton. Es ist die erste der 3 primären "Materie"-Farben.',
+      temperament: ['Luftig, dampfförmig', 'Ätherisch, flüchtig', 'Ruhig', 'Kommunikativ, empfänglich', 'Frisch, kalt'],
+      properties: [
+        'Entzündungshemmend',
+        'Erfrischend',
+        'Gegenreizend',
+        'Fiebersenkend',
+        'Zerstreuend'
+      ],
+      excess: 'Logorrhoe (redet ohne Unterbrechung), verbale Diarrhöe.',
+      shortage: 'Phlegmatisch, Mangel an Offenheit.',
+      bodyParts: 'HNO, Hals, Nacken, Halswirbel C4, C5 und C6',
+      chakra: '5. CHAKRA - Halschakra - Vishuddha',
+      element: 'Äther',
+      note: 'G'
+    },
+    8: { // Bleu Turquoise
+      id: 8,
+      name: 'Türkisblau',
+      mantra: 'ICH ERSCHAFFE UND TEILE',
+      symbolism: 'Findet sich im Meerwasser in Küstennähe, wo der Übergang zwischen der terrestrischen und der maritimen Welt stattfindet. Übergang zwischen Unterbewusstsein und Bewusstsein. Türkisblau repräsentiert Kreativität, die für andere ausgedrückt wird.',
+      temperament: ['Kreativ für andere', 'Inspiriert', 'Arbeitet mit anderen, vernetzt', 'Geht mit dem Strom', 'Aktuell, folgt der Entwicklung'],
+      properties: [
+        'Entzündungshemmend',
+        'Anti-Ödem',
+        'Loslassen und mit der Entwicklung gehen'
+      ],
+      excess: 'Altruistisch. Kann von anderen ausgenutzt werden.',
+      shortage: 'Mag es nicht, Ideen zu teilen.'
+    },
+    9: { // Vert Turquoise
+      id: 9,
+      name: 'Türkisgrün',
+      mantra: 'ICH ERSCHAFFE ETWAS ORIGINELLES',
+      symbolism: 'Findet sich in den Gewässern tropischer Lagunen. Von der Natur geschaffen, resultierend aus einer Kombination von Algenfarbe und Himmel. Es repräsentiert individuell ausgedrückte Kreativität, Individuation.',
+      temperament: ['Fließend, strömend, schwebend', 'Sauber, rein, makellos', 'Variierend, sich verändernd', 'Zyklisch, flüchtig, launisch'],
+      properties: [
+        'Reinigend',
+        'Säubernd',
+        'Reinigend',
+        'Hygienisch',
+        'Katabolisch'
+      ],
+      excess: 'Lässt sich von Trends mitreißen, von der Welle. Ja-Sager (letzter Sprecher hat immer recht).',
+      shortage: 'Mag keine Veränderung.',
+      chakra: 'Türkis-Chakra: Ananda Khanda'
+    },
+    10: { // Vert
+      id: 10,
+      name: 'Grün',
+      mantra: 'ICH ÖFFNE MEIN HERZ - ICH VERGEBE - MITGEFÜHL',
+      symbolism: 'Die Farbe, die am häufigsten in der Natur vorkommt. Farbe der Bäume und ihres Laubes. Grün ist eine unübertriebene Farbe, die ein Gefühl von Neutralität und Distanz hervorruft. Der genaue Punkt der Neutralität, auf dem die chromatische Gleichgewichtsachse ruht.',
+      temperament: ['Natürlich', 'Ausgeglichen, neutral', 'Frei, unabhängig', 'Autonom, distanziert', 'Fern, einsam'],
+      properties: [
+        'Ausgleichend',
+        'Neutralisierend',
+        'Homöostatisch',
+        'Entparasitierend',
+        'Antibiotisch'
+      ],
+      excess: 'Zu unabhängige Person, Einsiedler, marginal.',
+      shortage: 'Abhängigkeit von einer Person, einem Objekt oder einer Situation.',
+      chakra: 'Herzchakra - ANAHATA',
+      element: 'Luft, gasförmige Materie',
+      note: 'F'
+    },
+    11: { // Citron
+      id: 11,
+      name: 'Zitrone',
+      mantra: 'ICH ENTDECKE',
+      symbolism: 'Eine auffällige Farbe wie eine Limette. Zitronengrün wagt sich vorwärts, mit einem Geschmack für Abenteuer. Sich trauen, das Zuhause zu verlassen und sich auf ein Abenteuer einzulassen.',
+      temperament: ['Abenteuerlustig', 'Freiberuflich', 'Neugierig', 'Suchender', 'Offen für neue Horizonte', 'Überraschend'],
+      properties: [
+        'Erfrischend',
+        'Emotionales Stimulans',
+        'Entzündungshemmend',
+        'Antioxidativ',
+        'Antiseptisch'
+      ],
+      excess: 'Zu abenteuerlustig (geht ohne Sicherheitsnetz). Leichtsinnig, utopisch.',
+      shortage: 'Möchte Dinge tun, aber handelt nicht.'
+    },
+    12: { // Pomme
+      id: 12,
+      name: 'Apfelgrün',
+      mantra: 'ICH ÖFFNE MICH NACH AUSSEN, ICH PASSE MICH AN',
+      symbolism: 'Bringt den ersten Hauch von Frühlingsfrische. Fungiert als echtes Scharnier und lässt die Vision von warmen und tonischen Farben zu neutralen und kalten Farben übergehen. Es verleiht Formbarkeit und Flexibilität.',
+      temperament: ['Offen, tolerant', 'Zugänglich, verfügbar', 'Flexibel, geschmeidig', 'Formbar, undiszipliniert'],
+      properties: [
+        'Sehstimulans',
+        'Anti-allergisch, Intoleranz',
+        'Schleimlösend',
+        'Erweicht Gelenke',
+        'Geistige Flexibilität'
+      ],
+      excess: 'Wird von anderen ausgenutzt. Beeinflussbar. Nachlässig. Unordentlich.',
+      shortage: 'Geistige Starrheit, aber auch auf Gelenkebene. Nicht sehr offen. Hat Schwierigkeiten, sich selbst zu hinterfragen.',
+      bodyParts: 'Zwerchfell, Sehnen und Bänder, Brustwirbel 6, 7 und 8',
+      organs: 'Sehsystem, Gehirnplastizität, Gallenblase'
+    },
+    13: { // Jaune
+      id: 13,
+      name: 'Gelb',
+      mantra: 'ICH HABE VERTRAUEN IN MICH SELBST, ICH WERDE MIR BEWUSST, DASS ICH EXISTIERE',
+      symbolism: 'Die Farbe der Sonne, die Licht auf die Erde bringt. Gelb bringt die größte Klarheit in unsere Vision, Selbstwahrnehmung und Weltsicht. Es ermöglicht uns, uns in unserer Umgebung zu positionieren.',
+      temperament: ['Klar, leuchtend', 'Klar, wach', 'Bewusst', 'Nachdenklich, intelligent', 'Individualistisch', 'Analytischer Geist', 'Manager', 'Selbstbewusst'],
+      properties: [
+        'Intellektuelles Stimulans',
+        'Lymphstimulans',
+        'Verdauungsstimulans',
+        'Magenstimulans',
+        'Antidiabetisch'
+      ],
+      excess: 'Egozentrisch.',
+      shortage: 'Ich bin nichts, ich existiere nicht. Schulversagen.',
+      bodyParts: 'Bauch, Oberbauch, Brustwirbel 9, 10 und 11',
+      organs: 'Verdauungsfunktionen, Magen, Bauchspeicheldrüse',
+      chakra: '3. Chakra - Solarplexus-Chakra - Manipûra',
+      element: 'Feuer',
+      note: 'E'
+    },
+    14: { // Or
+      id: 14,
+      name: 'Gold',
+      mantra: 'ICH LIEBE DAS LEBEN',
+      symbolism: 'Die Farbe der Sonne und der Butterblumen. Unvergleichlicher Magnetismus geht davon aus. Goldgelb erhellt den Tag und wärmt die Herzen. Es bringt die Energie und das Vertrauen, die für das Erwachen des Bewusstseins notwendig sind. Es erhellt das Gesicht, das der Welt gezeigt wird. Innere Weisheit.',
+      temperament: ['Strahlend, brilliant', 'Selbstbewusst, sicher', 'Reich, wohlhabend'],
+      properties: [
+        'Stimulans der Seinsessenz',
+        'Vertrauen ins Leben',
+        'Zwerchfellfreisetzung',
+        'Solarplexus-Stimulans'
+      ],
+      excess: 'Schlechte Beziehung zu Geld und Vermögen. Person, die den Star spielt. Arrogant.',
+      shortage: 'Zu diskret. Introvertiert. Wenig Vertrauen ins Leben.'
+    },
+    15: { // Orange
+      id: 15,
+      name: 'Orange',
+      mantra: 'ICH FÜHLE - ICH SPÜRE',
+      symbolism: 'Liegt zwischen dynamischem Rot und Gold, das von Selbstvertrauen spricht. Verbunden mit guter Laune und Optimismus. Spricht von Sexualität und Sinnlichkeit. Aufregend, spannend und voller Bewegung lädt es zum Feiern, Singen, Tanzen, Trinken und Essen ein.',
+      temperament: ['Emotional, sensibel', 'Sinnlich, taktil', 'Optimistisch, enthusiastisch', 'Fröhlich, mag Partys', 'Epikureisch'],
+      properties: [
+        'Sensorisches Stimulans und aufregend',
+        'Hilft bei emotionalem Schock',
+        'Antidepressivum',
+        'Abschwellend'
+      ],
+      excess: 'Stress, Unruhe, Druck. Emotional überempfindlich. Spannung, Nervosität, Eile. Don Juan. Liebt die Freuden des Lebens.',
+      shortage: 'Allgemeines Vitalitätsproblem. Mangel an Lebensfreude und guter Laune. Depression. Kein Zuhören bei Emotionen. Lähmung, Kälte, Immobilisierung, Stagnation.',
+      bodyParts: 'Hypogastrium, Schambein, 12. Brustwirbel, Lendenwirbel 1 und 2',
+      organs: 'Nebennieren, sympathisches Nervensystem, Bewegungsfunktionen',
+      chakra: '2. Chakra - Sakralchakra - Swadhisthana',
+      element: 'Wasser',
+      note: 'D'
+    },
+    16: { // Rouge
+      id: 16,
+      name: 'Rot',
+      mantra: 'ICH LEBE',
+      symbolism: 'Die wärmste und physischste Farbe des Lichtspektrums. Repräsentiert alles, was mit Feuer zu tun hat. Es ist der "Kaffee der Farbe". Dynamisch und lebhaft ist Rot willensstark und voller Leben. Deshalb wird Rot mit Blut und Lebensenergie assoziiert.',
+      temperament: ['Dynamisch und fleißig', 'Aktiv, sportlich', 'Sanguinisch, energisch', 'Mutig, willensstark', 'Heiß, brennend, lebend'],
+      properties: [
+        'Physisches Stimulans und energetisierend',
+        'Erhöht Energie und stärkt',
+        'Erhöht die Körpertemperatur',
+        'Beschleunigt die Heilung'
+      ],
+      excess: 'Körperliche Hyperaktivität. Innere und/oder äußere Wut. Aggressiv - gewalttätig - ungestüm. Wenn Person ruhig ist: internalisierte Wut. Hypertonie.',
+      shortage: 'Müde, körperlich erschöpft. Hypoaktivität. Passive Person. Mag Ruhe. Hat Hypotonie. Fehlt Mut zum Anfangen.',
+      chakra: '1. Chakra - Wurzelchakra - Mulhadara',
+      element: 'Erde',
+      note: 'C'
+    },
+    17: { // Ecarlate
+      id: 17,
+      name: 'Scharlachrot',
+      mantra: 'ICH FÜHLE MICH SICHER',
+      symbolism: 'Repräsentiert die materielle und physische Welt. Es ist die Materialisierung unserer Schöpfung. Das beste Beispiel ist die Gebärmutter, die das Kind aufnimmt. Scharlachrot ist die Mutter. Eine sehr beruhigende Farbe, die ein Gefühl von Geborgenheit und Umhüllung vermittelt.',
+      temperament: ['Weiblich, mütterlich', 'Nährend, fruchtbar', 'Reichlich, wohlhabend', 'Stabil, verwurzelt', 'Konkret, greifbar', 'Verkörpert, körperlich'],
+      properties: [
+        'Hautbefeuchtend',
+        'Physische Heilung',
+        'Stärkt und nährt Gewebe und Muskeln',
+        'Bewässert Schleimhäute'
+      ],
+      excess: 'Geizig. Glucke. Hyperaktivität in weiblichen Geschlechtsorganen: Myome, Zysten.',
+      shortage: 'Beziehung zur Mutter (Ablehnung der Mutter?). Sicherheitsprobleme. Sorglosigkeit. Instabil. Verschwenderisch. Mängel, Entbehrung, Armut, Unfruchtbarkeit, körperliche Verletzungen.',
+      bodyParts: 'Becken, Gesäß, Beine, Füße, Kreuzbeinwirbel 1 bis 5',
+      organs: 'Gebärmutter, Blase, Arterien'
+    },
+    18: { // Framboise
+      id: 18,
+      name: 'Himbeere',
+      mantra: 'ICH MÖCHTE ERSCHAFFEN',
+      symbolism: 'Erscheint direkt nach Magenta. Nachdem man die Absicht hatte zu erschaffen, ist es wichtig, seine Schöpfung zu materialisieren. Diese Farbe repräsentiert den Akt der Schöpfung. Es ist der Wille zu erschaffen und zu spielen. Es vermittelt ein Gefühl kreativer Euphorie.',
+      temperament: ['Kindlich, jung', 'Zart, verletzlich', 'Aktiv, Kreativ', 'Fröhlich'],
+      properties: [
+        'Kreativität',
+        'Freude am Erschaffen',
+        'Emotionale Heilung',
+        'Verjüngend, Anti-Aging',
+        'Gewebeweichmachend',
+        'Befeuchtet die Haut'
+      ],
+      excess: 'Handelt ohne nachzudenken.',
+      shortage: 'Jemand, der Ideen hat, aber nicht weiß, wie man es macht. Kann nicht den Weg finden, es zu tun, die Werkzeuge zu realisieren. Möchte handeln, kann aber nicht.',
+      bodyParts: 'Brustkorb, Brustbein, Brustwirbel 4, 5 und 6',
+      organs: 'Herz, Herz-Kreislauf-System, Arterien, Kapillarvenen'
+    }
   }
 };
 
