@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { generateShortInterpretation, generateDetailedInterpretation } from '@/lib/interpretation-generator';
 
 // Define the chromobiology colors (using colors 01-18 for this game)
 // Full palette contains 27 colors - can be expanded for future games
@@ -52,9 +53,10 @@ interface ChromobioTestProps {
       balanced: string;
     };
   };
+  lang?: string;
 }
 
-export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
+export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTestProps) {
   const [grid, setGrid] = useState<Circle[][]>([]);
   const [currentRow, setCurrentRow] = useState(0);
   const [gameState, setGameState] = useState<GameState>('playing');
@@ -200,6 +202,23 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
     const remainingCounts = getRemainingColors();
     const maxCount = Math.max(...Object.values(remainingCounts));
 
+    // Prepare color results for interpretation
+    const colorResults = COLORS.map(color => {
+      const count = remainingCounts[color.id];
+      let status: 'excess' | 'balanced' | 'shortage' = 'balanced';
+      if (count > 5) status = 'excess';
+      if (count < 4) status = 'shortage';
+      return {
+        id: color.id,
+        name: color.name,
+        count,
+        status
+      };
+    }).filter(c => c.count > 0);
+
+    const shortInterp = generateShortInterpretation(colorResults, lang);
+    const detailedInterp = generateDetailedInterpretation(colorResults, lang);
+
     return (
       <>
         <style jsx>{`
@@ -265,58 +284,93 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
             })}
           </div>
 
-          {/* Short Interpretation */}
+          {/* Short Interpretation - 3 rows */}
           <div className="max-w-4xl mx-auto mb-8">
             <h3 className="text-2xl font-bold text-white mb-6 text-center">
               {dictionary.shortInterpretation}
             </h3>
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {COLORS.map(color => {
-                  const count = remainingCounts[color.id];
-                  if (count === 0) return null;
-
-                  let status = 'balanced';
-                  if (count > 5) status = 'excess';
-                  if (count < 4) status = 'shortage';
-
-                  if (status === 'balanced') return null;
-
-                  return (
-                    <div key={color.id} className="bg-white/5 rounded-lg p-4 border border-white/10">
-                      <div className="flex items-center gap-3 mb-2">
-                        <div
-                          className="w-8 h-8 rounded-full"
-                          style={{ backgroundColor: color.hex }}
-                        />
-                        <div>
-                          <p className="text-white font-semibold">{color.name}</p>
-                          <p className="text-xs text-white/60">{count} couleurs</p>
-                        </div>
-                      </div>
-                      <p className={`text-sm font-medium ${status === 'excess' ? 'text-orange-400' : 'text-blue-400'}`}>
-                        {status === 'excess' ? dictionary.interpretation.excess : dictionary.interpretation.shortage}
+            <div className="space-y-4">
+              {/* Excess row */}
+              {colorResults.some(c => c.status === 'excess') && (
+                <div className="bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-md border border-orange-500/30 rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 mt-1">
+                      <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
+                    </div>
+                    <div>
+                      <h4 className="text-orange-300 font-semibold mb-2 uppercase text-sm tracking-wide">
+                        {dictionary.interpretation.excess}
+                      </h4>
+                      <p className="text-white/90 leading-relaxed">
+                        {shortInterp.excess}
                       </p>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Balanced row */}
+              {colorResults.some(c => c.status === 'balanced') && (
+                <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-md border border-green-500/30 rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 mt-1">
+                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                    </div>
+                    <div>
+                      <h4 className="text-green-300 font-semibold mb-2 uppercase text-sm tracking-wide">
+                        {dictionary.interpretation.balanced}
+                      </h4>
+                      <p className="text-white/90 leading-relaxed">
+                        {shortInterp.balanced}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Shortage row */}
+              {colorResults.some(c => c.status === 'shortage') && (
+                <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 backdrop-blur-md border border-blue-500/30 rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 mt-1">
+                      <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
+                    </div>
+                    <div>
+                      <h4 className="text-blue-300 font-semibold mb-2 uppercase text-sm tracking-wide">
+                        {dictionary.interpretation.shortage}
+                      </h4>
+                      <p className="text-white/90 leading-relaxed">
+                        {shortInterp.shortage}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Detailed Interpretation - Placeholder for paid session */}
+          {/* Detailed Interpretation - Preview (will be locked in future) */}
           <div className="max-w-4xl mx-auto mb-12">
             <h3 className="text-2xl font-bold text-white mb-6 text-center">
               {dictionary.detailedInterpretation}
             </h3>
-            <div className="bg-gradient-to-br from-gray-700/30 to-gray-800/30 backdrop-blur-md border border-white/10 rounded-xl p-8 text-center">
-              <div className="text-white/40 mb-6">
-                <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                <p className="text-lg text-white/70">
-                  {dictionary.detailedNote}
-                </p>
+            <div className="relative bg-gradient-to-br from-gray-700/30 to-gray-800/30 backdrop-blur-md border border-white/10 rounded-xl p-8">
+              {/* Lock overlay (hidden for now, will be shown in future) */}
+              <div className="hidden absolute inset-0 bg-gray-900/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
+                <div className="text-center text-white/40">
+                  <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <p className="text-lg text-white/70">
+                    {dictionary.detailedNote}
+                  </p>
+                </div>
+              </div>
+              {/* Detailed interpretation content */}
+              <div className="prose prose-invert max-w-none">
+                <div className="text-white/80 whitespace-pre-line text-sm leading-relaxed">
+                  {detailedInterp}
+                </div>
               </div>
             </div>
           </div>

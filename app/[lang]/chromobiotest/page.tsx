@@ -9,5 +9,5 @@ export default async function ChromobioTestPage({
   const { lang } = await params;
   const dictionary = await getDictionary(lang as Locale);
 
-  return <ChromobioTest dictionary={dictionary.chromobiotest as any} />;
+  return <ChromobioTest dictionary={dictionary.chromobiotest as any} lang={lang} />;
 }
