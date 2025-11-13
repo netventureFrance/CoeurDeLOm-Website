@@ -7,7 +7,8 @@
     "blog": "Blog",
     "contact": "Contact",
     "appointment": "Prendre RDV",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "chromobiotest": "ChromobioTest"
   },
   "home": {
     "title": "Coeur de l'OM",
@@ -188,5 +189,14 @@
         "Pratique accessible en entreprise"
       ]
     }
+  },
+  "chromobiotest": {
+    "title": "ChromobioTest",
+    "instructions": "Sélectionnez 4 couleurs par ligne en cliquant sur les cercles. Laissez-vous guider par votre intuition.",
+    "selectCircles": "Sélectionnez 4 cercles",
+    "row": "Ligne",
+    "results": "Vos résultats",
+    "restart": "Recommencer le test",
+    "remaining": "Voici les couleurs qui résonnent le plus avec vous"
   }
 }
