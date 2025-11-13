@@ -298,10 +298,10 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
                       <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
                     </div>
                     <div>
-                      <h4 className="text-orange-300 font-semibold mb-2 uppercase text-sm tracking-wide">
+                      <h4 className="text-red-400 font-semibold mb-2 uppercase text-sm tracking-wide">
                         {dictionary.interpretation.excess}
                       </h4>
-                      <p className="text-red-400 leading-relaxed">
+                      <p className="text-white/90 leading-relaxed">
                         {shortInterp.excess}
                       </p>
                     </div>
