@@ -200,6 +200,9 @@
     "remaining": "Voici les couleurs qui résonnent le plus avec vous",
     "summary": "Vos choix intuitifs révèlent un profil énergétique unique. Ces couleurs sont les clés de votre équilibre intérieur et peuvent éclairer votre chemin de développement personnel. Une séance personnalisée avec Valérie vous permettra d'explorer en profondeur la signification de ces couleurs dans votre vie et de découvrir comment harmoniser vos énergies.",
     "bookSession": "Réserver une séance",
+    "shortInterpretation": "Interprétation brève",
+    "detailedInterpretation": "Interprétation approfondie",
+    "detailedNote": "Pour une analyse complète et personnalisée de votre profil chromatique, réservez une séance avec Valérie.",
     "interpretation": {
       "excess": "En excès",
       "shortage": "En déficience",

@@ -43,6 +43,14 @@ interface ChromobioTestProps {
     remaining: string;
     summary: string;
     bookSession: string;
+    shortInterpretation: string;
+    detailedInterpretation: string;
+    detailedNote: string;
+    interpretation: {
+      excess: string;
+      shortage: string;
+      balanced: string;
+    };
   };
 }
 
@@ -211,26 +219,9 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
           <h2 className="text-4xl font-bold text-white text-center mb-8">
             {dictionary.results}
           </h2>
-          <p className="text-white text-center mb-4 text-lg">
+          <p className="text-white text-center mb-12 text-lg">
             {dictionary.remaining}
           </p>
-
-          {/* Motivational Summary */}
-          <div className="max-w-3xl mx-auto mb-12">
-            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
-              <p className="text-white/90 text-lg leading-relaxed mb-6 text-center">
-                {dictionary.summary}
-              </p>
-              <div className="text-center">
-                <a
-                  href="/contact"
-                  className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-                >
-                  {dictionary.bookSession}
-                </a>
-              </div>
-            </div>
-          </div>
 
           {/* Stacked circles visualization */}
           <div className="flex justify-center items-end gap-2 md:gap-4 mb-12 min-h-[400px]">
@@ -272,6 +263,79 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
                 </div>
               );
             })}
+          </div>
+
+          {/* Short Interpretation */}
+          <div className="max-w-4xl mx-auto mb-8">
+            <h3 className="text-2xl font-bold text-white mb-6 text-center">
+              {dictionary.shortInterpretation}
+            </h3>
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {COLORS.map(color => {
+                  const count = remainingCounts[color.id];
+                  if (count === 0) return null;
+
+                  let status = 'balanced';
+                  if (count > 5) status = 'excess';
+                  if (count < 4) status = 'shortage';
+
+                  if (status === 'balanced') return null;
+
+                  return (
+                    <div key={color.id} className="bg-white/5 rounded-lg p-4 border border-white/10">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div
+                          className="w-8 h-8 rounded-full"
+                          style={{ backgroundColor: color.hex }}
+                        />
+                        <div>
+                          <p className="text-white font-semibold">{color.name}</p>
+                          <p className="text-xs text-white/60">{count} couleurs</p>
+                        </div>
+                      </div>
+                      <p className={`text-sm font-medium ${status === 'excess' ? 'text-orange-400' : 'text-blue-400'}`}>
+                        {status === 'excess' ? dictionary.interpretation.excess : dictionary.interpretation.shortage}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Detailed Interpretation - Placeholder for paid session */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <h3 className="text-2xl font-bold text-white mb-6 text-center">
+              {dictionary.detailedInterpretation}
+            </h3>
+            <div className="bg-gradient-to-br from-gray-700/30 to-gray-800/30 backdrop-blur-md border border-white/10 rounded-xl p-8 text-center">
+              <div className="text-white/40 mb-6">
+                <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                <p className="text-lg text-white/70">
+                  {dictionary.detailedNote}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Booking CTA */}
+          <div className="max-w-3xl mx-auto mb-12">
+            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
+              <p className="text-white/90 text-lg leading-relaxed mb-6 text-center">
+                {dictionary.summary}
+              </p>
+              <div className="text-center">
+                <a
+                  href="/contact"
+                  className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                >
+                  {dictionary.bookSession}
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Restart button */}
@@ -321,7 +385,7 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
                 key={rowIndex}
                 className={`relative flex justify-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg transition-all duration-500 ${
                   rowIndex === currentRow
-                    ? 'bg-gradient-to-r from-yellow-400/70 via-orange-400/70 to-yellow-400/70 backdrop-blur-sm scale-105 shadow-2xl ring-4 ring-yellow-300/50'
+                    ? 'bg-white/30 backdrop-blur-sm scale-105 shadow-2xl ring-4 ring-white/40'
                     : 'bg-white/5'
                 }`}
               >
