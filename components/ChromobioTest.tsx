@@ -190,7 +190,20 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
     const maxCount = Math.max(...Object.values(remainingCounts));
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-purple-900 pt-32 md:pt-40 pb-12 px-4">
+      <>
+        <style jsx>{`
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: scale(0.8);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+        `}</style>
+        <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-purple-900 pt-32 md:pt-40 pb-12 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-white text-center mb-8">
             {dictionary.results}
@@ -199,11 +212,10 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
             {dictionary.remaining}
           </p>
 
-          {/* Vertical bar graph */}
-          <div className="flex justify-center items-end gap-2 md:gap-4 mb-12 h-96">
+          {/* Stacked circles visualization */}
+          <div className="flex justify-center items-end gap-2 md:gap-4 mb-12 min-h-[400px]">
             {COLORS.map(color => {
               const count = remainingCounts[color.id];
-              const heightPercent = maxCount > 0 ? (count / maxCount) * 100 : 0;
 
               return (
                 <div
@@ -211,22 +223,27 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
                   className="flex flex-col items-center gap-2"
                   style={{ width: '5%', minWidth: '30px' }}
                 >
-                  {/* Bar */}
-                  <div className="relative w-full flex flex-col justify-end" style={{ height: '300px' }}>
-                    <div
-                      className="w-full rounded-t-lg transition-all duration-500 relative"
-                      style={{
-                        backgroundColor: color.hex,
-                        height: `${heightPercent}%`,
-                      }}
-                    >
-                      {/* Count label */}
-                      {count > 0 && (
-                        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-white font-bold text-sm">
+                  {/* Stacked circles */}
+                  <div className="relative w-full flex flex-col-reverse items-center justify-start gap-1" style={{ minHeight: '300px' }}>
+                    {count > 0 && (
+                      <>
+                        {/* Count label */}
+                        <div className="text-white font-bold text-sm mb-2">
                           {count}
                         </div>
-                      )}
-                    </div>
+                        {/* Render circles */}
+                        {Array.from({ length: count }).map((_, index) => (
+                          <div
+                            key={index}
+                            className="w-6 h-6 md:w-8 md:h-8 rounded-full shadow-md transition-all duration-500"
+                            style={{
+                              backgroundColor: color.hex,
+                              animation: `fadeIn 0.3s ease-in-out ${index * 0.05}s backwards`,
+                            }}
+                          />
+                        ))}
+                      </>
+                    )}
                   </div>
                   {/* Color name */}
                   <div className="text-white text-xs text-center transform -rotate-45 origin-top-left mt-4">
@@ -247,7 +264,8 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
             </button>
           </div>
         </div>
-      </div>
+        </div>
+      </>
     );
   }
 
@@ -275,7 +293,7 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
           {grid.map((row, rowIndex) => (
             <div
               key={rowIndex}
-              className={`flex justify-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg transition-all ${
+              className={`relative flex justify-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg transition-all ${
                 rowIndex === currentRow
                   ? 'bg-white/30 backdrop-blur-sm scale-105 shadow-xl'
                   : 'bg-white/5'
@@ -301,6 +319,10 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
                   />
                 );
               })}
+              {/* Overlay for inactive rows */}
+              {rowIndex !== currentRow && (
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-secondary/70 to-purple-900/70 backdrop-blur-[2px] rounded-lg pointer-events-none" />
+              )}
             </div>
           ))}
         </div>
