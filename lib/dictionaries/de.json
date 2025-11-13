@@ -197,6 +197,18 @@
     "row": "Zeile",
     "results": "Ihre Ergebnisse",
     "restart": "Test neu starten",
-    "remaining": "Hier sind die Farben, die am meisten mit Ihnen in Resonanz stehen"
+    "remaining": "Hier sind die Farben, die am meisten mit Ihnen in Resonanz stehen",
+    "summary": "Ihre intuitiven Entscheidungen offenbaren ein einzigartiges energetisches Profil. Diese Farben sind die Schlüssel zu Ihrem inneren Gleichgewicht und können Ihren Weg der persönlichen Entwicklung beleuchten. Eine persönliche Sitzung mit Valérie ermöglicht es Ihnen, die Bedeutung dieser Farben in Ihrem Leben tiefgehend zu erforschen und zu entdecken, wie Sie Ihre Energien harmonisieren können.",
+    "bookSession": "Termin buchen",
+    "interpretation": {
+      "excess": "Überschuss",
+      "shortage": "Mangel",
+      "balanced": "Ausgeglichen",
+      "excessNote": "Mehr als 5 Farben übrig",
+      "shortageNote": "Weniger als 4 Farben übrig",
+      "balancedNote": "Zwischen 4 und 5 Farben",
+      "colorMeaning": "Bedeutung",
+      "yourProfile": "Ihr chromatisches Profil"
+    }
   }
 }

@@ -197,6 +197,18 @@
     "row": "Row",
     "results": "Your Results",
     "restart": "Restart Test",
-    "remaining": "Here are the colors that resonate most with you"
+    "remaining": "Here are the colors that resonate most with you",
+    "summary": "Your intuitive choices reveal a unique energetic profile. These colors are the keys to your inner balance and can illuminate your path of personal development. A personalized session with Valérie will allow you to explore in depth the meaning of these colors in your life and discover how to harmonize your energies.",
+    "bookSession": "Book a Session",
+    "interpretation": {
+      "excess": "Excess",
+      "shortage": "Shortage",
+      "balanced": "Balanced",
+      "excessNote": "More than 5 colors remaining",
+      "shortageNote": "Less than 4 colors remaining",
+      "balancedNote": "Between 4 and 5 colors",
+      "colorMeaning": "Meaning",
+      "yourProfile": "Your chromatic profile"
+    }
   }
 }

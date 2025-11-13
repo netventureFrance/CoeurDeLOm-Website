@@ -41,6 +41,8 @@ interface ChromobioTestProps {
     results: string;
     restart: string;
     remaining: string;
+    summary: string;
+    bookSession: string;
   };
 }
 
@@ -209,9 +211,26 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
           <h2 className="text-4xl font-bold text-white text-center mb-8">
             {dictionary.results}
           </h2>
-          <p className="text-white text-center mb-12 text-lg">
+          <p className="text-white text-center mb-4 text-lg">
             {dictionary.remaining}
           </p>
+
+          {/* Motivational Summary */}
+          <div className="max-w-3xl mx-auto mb-12">
+            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
+              <p className="text-white/90 text-lg leading-relaxed mb-6 text-center">
+                {dictionary.summary}
+              </p>
+              <div className="text-center">
+                <a
+                  href="/contact"
+                  className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                >
+                  {dictionary.bookSession}
+                </a>
+              </div>
+            </div>
+          </div>
 
           {/* Stacked circles visualization */}
           <div className="flex justify-center items-end gap-2 md:gap-4 mb-12 min-h-[400px]">
@@ -289,43 +308,50 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
           </div>
         </div>
 
-        {/* Grid */}
+        {/* Grid - Only show current row and future rows */}
         <div className="space-y-2 md:space-y-3">
-          {grid.map((row, rowIndex) => (
-            <div
-              key={rowIndex}
-              className={`relative flex justify-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg transition-all ${
-                rowIndex === currentRow
-                  ? 'bg-white/60 backdrop-blur-sm scale-105 shadow-xl'
-                  : 'bg-white/5'
-              }`}
-            >
-              {row.map((circle, colIndex) => {
-                const color = COLORS.find(c => c.id === circle.colorId);
-                return (
-                  <button
-                    key={colIndex}
-                    onClick={() => handleCircleClick(rowIndex, colIndex)}
-                    disabled={rowIndex !== currentRow || circle.isSelected}
-                    title={color?.name}
-                    className={`w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full transition-all transform ${
-                      rowIndex === currentRow && !circle.isSelected
-                        ? 'hover:scale-110 cursor-pointer shadow-lg'
-                        : ''
-                    } ${circle.isSelected ? 'opacity-50' : ''}`}
-                    style={{
-                      backgroundColor: circle.isSelected ? '#FFFFFF' : color?.hex,
-                      border: circle.isSelected ? '2px solid #CBD5E0' : 'none',
-                    }}
-                  />
-                );
-              })}
-              {/* Overlay for inactive rows */}
-              {rowIndex !== currentRow && (
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-800/95 via-gray-900/95 to-black/95 backdrop-blur-[3px] rounded-lg pointer-events-none" />
-              )}
-            </div>
-          ))}
+          {grid.map((row, rowIndex) => {
+            // Hide completed rows (they disappear behind the menu)
+            if (rowIndex < currentRow) {
+              return null;
+            }
+
+            return (
+              <div
+                key={rowIndex}
+                className={`relative flex justify-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg transition-all duration-500 ${
+                  rowIndex === currentRow
+                    ? 'bg-gradient-to-r from-yellow-400/70 via-orange-400/70 to-yellow-400/70 backdrop-blur-sm scale-105 shadow-2xl ring-4 ring-yellow-300/50'
+                    : 'bg-white/5'
+                }`}
+              >
+                {row.map((circle, colIndex) => {
+                  const color = COLORS.find(c => c.id === circle.colorId);
+                  return (
+                    <button
+                      key={colIndex}
+                      onClick={() => handleCircleClick(rowIndex, colIndex)}
+                      disabled={rowIndex !== currentRow || circle.isSelected}
+                      title={color?.name}
+                      className={`w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full transition-all transform ${
+                        rowIndex === currentRow && !circle.isSelected
+                          ? 'hover:scale-110 cursor-pointer shadow-lg'
+                          : ''
+                      } ${circle.isSelected ? 'opacity-50' : ''}`}
+                      style={{
+                        backgroundColor: circle.isSelected ? '#FFFFFF' : color?.hex,
+                        border: circle.isSelected ? '2px solid #CBD5E0' : 'none',
+                      }}
+                    />
+                  );
+                })}
+                {/* Overlay for inactive rows */}
+                {rowIndex !== currentRow && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-800/95 via-gray-900/95 to-black/95 backdrop-blur-[3px] rounded-lg pointer-events-none" />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
