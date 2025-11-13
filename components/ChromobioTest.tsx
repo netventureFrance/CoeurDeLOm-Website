@@ -190,7 +190,7 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
     const maxCount = Math.max(...Object.values(remainingCounts));
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-purple-900 py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-purple-900 pt-32 md:pt-40 pb-12 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-white text-center mb-8">
             {dictionary.results}
@@ -252,7 +252,7 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-purple-900 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-purple-900 pt-32 md:pt-40 pb-12 px-4">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
           {dictionary.title}
