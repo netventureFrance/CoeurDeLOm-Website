@@ -296,7 +296,7 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
               key={rowIndex}
               className={`relative flex justify-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg transition-all ${
                 rowIndex === currentRow
-                  ? 'bg-white/30 backdrop-blur-sm scale-105 shadow-xl'
+                  ? 'bg-white/60 backdrop-blur-sm scale-105 shadow-xl'
                   : 'bg-white/5'
               }`}
             >
@@ -322,7 +322,7 @@ export default function ChromobioTest({ dictionary }: ChromobioTestProps) {
               })}
               {/* Overlay for inactive rows */}
               {rowIndex !== currentRow && (
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-800/90 via-gray-900/90 to-black/90 backdrop-blur-[2px] rounded-lg pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-800/95 via-gray-900/95 to-black/95 backdrop-blur-[3px] rounded-lg pointer-events-none" />
               )}
             </div>
           ))}

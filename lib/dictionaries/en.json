@@ -192,8 +192,8 @@
   },
   "chromobiotest": {
     "title": "ChromobioTest",
-    "instructions": "Select 4 colors per row by clicking on the circles. Let your intuition guide you.",
-    "selectCircles": "Select 4 circles",
+    "instructions": "Eliminate 4 colors per row by clicking on the circles. Let your intuition guide you.",
+    "selectCircles": "Eliminate 4 circles",
     "row": "Row",
     "results": "Your Results",
     "restart": "Restart Test",

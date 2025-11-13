@@ -192,8 +192,8 @@
   },
   "chromobiotest": {
     "title": "ChromobioTest",
-    "instructions": "Wählen Sie 4 Farben pro Zeile, indem Sie auf die Kreise klicken. Lassen Sie sich von Ihrer Intuition leiten.",
-    "selectCircles": "Wählen Sie 4 Kreise",
+    "instructions": "Eliminieren Sie 4 Farben pro Zeile, indem Sie auf die Kreise klicken. Lassen Sie sich von Ihrer Intuition leiten.",
+    "selectCircles": "Eliminieren Sie 4 Kreise",
     "row": "Zeile",
     "results": "Ihre Ergebnisse",
     "restart": "Test neu starten",
