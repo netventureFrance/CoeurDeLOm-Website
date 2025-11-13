@@ -1,12 +1,13 @@
-import { getDictionary } from '@/lib/i18n';
+import { getDictionary, type Locale } from '@/lib/i18n';
 import ChromobioTest from '@/components/ChromobioTest';
 
 export default async function ChromobioTestPage({
   params,
 }: {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }) {
-  const dictionary = await getDictionary(params.lang);
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang as Locale);
 
-  return <ChromobioTest dictionary={dictionary.chromobiotest} />;
+  return <ChromobioTest dictionary={dictionary.chromobiotest as any} />;
 }
