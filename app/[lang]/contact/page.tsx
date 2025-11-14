@@ -51,9 +51,9 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
                 <iframe
                   src="https://cal.com/coeurdelom?embed=true"
                   width="100%"
-                  height="700"
+                  height="1000"
                   frameBorder="0"
-                  style={{ border: 0, minHeight: '600px' }}
+                  style={{ border: 0, minHeight: '1000px' }}
                   className="rounded-lg"
                 ></iframe>
               </div>
