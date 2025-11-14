@@ -47,11 +47,6 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             {/* Contact Info & Cal.com */}
             <div className="space-y-8">
               <div className="bg-gradient-to-br from-primary to-secondary text-white rounded-3xl shadow-xl p-8">
-                <h3 className="text-2xl font-bold mb-6">Prenez rendez-vous</h3>
-                <p className="mb-6">
-                  Réservez directement votre consultation en ligne via Cal.com
-                </p>
-
                 {/* Cal.com Embed */}
                 <div className="bg-white rounded-lg p-4">
                   <iframe
