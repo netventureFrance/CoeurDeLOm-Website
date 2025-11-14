@@ -3,6 +3,7 @@ import ContactForm from '@/components/ContactForm';
 import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
+import CalEmbed from '@/components/CalEmbed';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -47,14 +48,9 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             {/* Contact Info & Cal.com */}
             <div className="space-y-8">
               {/* Cal.com Embed */}
-              <iframe
-                src="https://cal.com/coeurdelom?embed=true"
-                width="100%"
-                height="1000"
-                frameBorder="0"
-                style={{ border: 0, minHeight: '1000px' }}
-                className="rounded-lg"
-              ></iframe>
+              <div className="rounded-lg" style={{ minHeight: '600px' }}>
+                <CalEmbed />
+              </div>
 
               <div className="bg-white rounded-3xl shadow-xl p-8">
                 <h3 className="text-2xl font-bold mb-6 text-primary">Informations</h3>
