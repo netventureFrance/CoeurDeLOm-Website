@@ -93,6 +93,8 @@ Important notes:
 - Make the short interpretation emotionally engaging to encourage booking
 - Make the detailed interpretation worth paying for - deep, insightful, actionable`;
 
+    console.log('📤 Sending request to Claude API...');
+
     const message = await anthropic.messages.create({
       model: 'claude-3-5-sonnet-20241022',
       max_tokens: 2048,
@@ -105,11 +107,17 @@ Important notes:
       ],
     });
 
+    console.log('📥 Received response from Claude API');
+
     // Extract the text from Claude's response
     const responseText = message.content[0].type === 'text' ? message.content[0].text : '';
+    console.log('📄 Claude raw response:', responseText);
 
     // Parse the JSON response
     const interpretation = JSON.parse(responseText);
+
+    console.log('✅ SHORT interpretation:', JSON.stringify(interpretation.short));
+    console.log('✅ DETAILED interpretation length:', interpretation.detailed?.length || 0, 'characters');
 
     return NextResponse.json(interpretation);
   } catch (error) {
