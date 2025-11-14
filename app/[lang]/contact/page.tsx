@@ -66,7 +66,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
                       </svg>
                     </div>
                     <a
-                      href="https://www.google.com/maps/search/?api=1&query=140+Rue+du+Pioch+de+Boutonnet+B1+34090+Montpellier"
+                      href="https://maps.app.goo.gl/8rYV1y9vV2T2GnYh9"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-primary transition-colors"
