@@ -46,18 +46,16 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
 
             {/* Contact Info & Cal.com */}
             <div className="space-y-8">
-              <div className="bg-gradient-to-br from-primary to-secondary text-white rounded-3xl shadow-xl p-8">
+              <div className="bg-white rounded-3xl shadow-xl p-8">
                 {/* Cal.com Embed */}
-                <div className="bg-white rounded-lg p-4">
-                  <iframe
-                    src="https://cal.com/coeurdelom?embed=true"
-                    width="100%"
-                    height="700"
-                    frameBorder="0"
-                    style={{ border: 0, minHeight: '600px' }}
-                    className="rounded-lg"
-                  ></iframe>
-                </div>
+                <iframe
+                  src="https://cal.com/coeurdelom?embed=true"
+                  width="100%"
+                  height="700"
+                  frameBorder="0"
+                  style={{ border: 0, minHeight: '600px' }}
+                  className="rounded-lg"
+                ></iframe>
               </div>
 
               <div className="bg-white rounded-3xl shadow-xl p-8">
