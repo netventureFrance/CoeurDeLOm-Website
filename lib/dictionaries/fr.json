@@ -36,7 +36,10 @@
     "message": "Message",
     "send": "Envoyer",
     "success": "Merci! Votre message a été envoyé.",
-    "error": "Une erreur s'est produite. Veuillez réessayer."
+    "error": "Une erreur s'est produite. Veuillez réessayer.",
+    "gdprConsent": "J'accepte que mes données personnelles soient utilisées pour répondre à ma demande de contact",
+    "newsletterConsent": "Je souhaite m'abonner à la newsletter pour recevoir les actualités et offres",
+    "gdprRequired": "Vous devez accepter la politique de confidentialité pour continuer"
   },
   "about": {
     "title": "Qui suis-je ?",

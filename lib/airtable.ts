@@ -18,6 +18,8 @@ export interface ContactSubmission {
   phone?: string;
   message: string;
   language: string;
+  gdprConsent: boolean;
+  newsletterConsent: boolean;
 }
 
 export interface NewsPromo {
@@ -59,6 +61,8 @@ export async function submitContactForm(data: ContactSubmission): Promise<boolea
           Phone: data.phone || '',
           Message: data.message,
           Language: data.language.toUpperCase(),
+          GDPR_Consent: data.gdprConsent,
+          Newsletter_Consent: data.newsletterConsent,
           Submitted_At: new Date().toISOString(),
           Status: 'New',
         },

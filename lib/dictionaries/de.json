@@ -36,7 +36,10 @@
     "message": "Nachricht",
     "send": "Senden",
     "success": "Vielen Dank! Ihre Nachricht wurde gesendet.",
-    "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+    "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "gdprConsent": "Ich stimme zu, dass meine persönlichen Daten zur Beantwortung meiner Kontaktanfrage verwendet werden dürfen",
+    "newsletterConsent": "Ich möchte den Newsletter abonnieren, um Neuigkeiten und Angebote zu erhalten",
+    "gdprRequired": "Sie müssen die Datenschutzrichtlinie akzeptieren, um fortzufahren"
   },
   "about": {
     "title": "Wer bin ich?",
