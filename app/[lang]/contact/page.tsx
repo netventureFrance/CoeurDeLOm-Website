@@ -39,23 +39,10 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <div className="bg-white rounded-3xl shadow-xl p-8">
-              <ContactForm lang={lang as Locale} dict={dict} />
-            </div>
-
-            {/* Contact Info & Cal.com */}
+            {/* Left Column: Contact Form & Informations */}
             <div className="space-y-8">
-              {/* Cal.com Embed */}
-              <div style={{ width: '100%', height: 'auto' }}>
-                <iframe
-                  src="https://cal.com/coeurdelom"
-                  width="100%"
-                  height="800"
-                  frameBorder="0"
-                  style={{ border: 0 }}
-                  className="rounded-lg"
-                ></iframe>
+              <div className="bg-white rounded-3xl shadow-xl p-8">
+                <ContactForm lang={lang as Locale} dict={dict} />
               </div>
 
               <div className="bg-white rounded-3xl shadow-xl p-8">
@@ -69,16 +56,38 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
                     </div>
                     <span>contact@coeurdelom.fr</span>
                   </li>
-                  <li className="flex items-center gap-3">
+                  <li className="flex items-start gap-3">
                     <div className="w-10 h-10 rounded-full bg-primary bg-opacity-10 flex items-center justify-center flex-shrink-0">
                       <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </div>
-                    <span>France</span>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=140+Rue+du+Pioch+de+Boutonnet+B1+34090+Montpellier"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-primary transition-colors"
+                    >
+                      140, Rue du Pioch de Boutonnet B1, 34090 Montpellier
+                    </a>
                   </li>
                 </ul>
+              </div>
+            </div>
+
+            {/* Right Column: Cal.com */}
+            <div>
+              {/* Cal.com Embed */}
+              <div style={{ width: '100%', height: 'auto' }}>
+                <iframe
+                  src="https://cal.com/coeurdelom"
+                  width="100%"
+                  height="800"
+                  frameBorder="0"
+                  style={{ border: 0 }}
+                  className="rounded-lg"
+                ></iframe>
               </div>
             </div>
           </div>
