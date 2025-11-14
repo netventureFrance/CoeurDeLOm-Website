@@ -75,7 +75,7 @@ Please generate TWO interpretations in **${languageInstructions}**:
    - Be professional yet warm and empathetic
    - Include insights about chakras, energy flow, and emotional patterns where relevant
 
-Return ONLY a JSON object with this structure:
+Return ONLY a valid JSON object with this exact structure:
 {
   "short": {
     "excess": "sentence here",
@@ -85,18 +85,25 @@ Return ONLY a JSON object with this structure:
   "detailed": "multi-paragraph text here"
 }
 
+CRITICAL JSON FORMATTING RULES:
+- Use \\n for line breaks within the "detailed" field (NOT actual newlines)
+- All strings must be properly escaped for JSON
+- No line breaks, tabs, or control characters except when escaped
+- The entire response must be valid, parseable JSON
+
 Important notes:
 - Write naturally and fluently in ${languageInstructions}
 - Be specific about the colors mentioned in each category
 - If a category has no colors, write something like "No colors in this category" or adjust the interpretation accordingly
 - Emphasize extreme cases (0 or 8) as they are clinically significant
 - Make the short interpretation emotionally engaging to encourage booking
-- Make the detailed interpretation worth paying for - deep, insightful, actionable`;
+- Make the detailed interpretation worth paying for - deep, insightful, actionable
+- For paragraph breaks in the detailed interpretation, use \\n\\n (double backslash-n)`;
 
     console.log('📤 Sending request to Claude API...');
 
     const message = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-3-haiku-20240307',
       max_tokens: 2048,
       temperature: 0.7,
       messages: [
@@ -110,11 +117,26 @@ Important notes:
     console.log('📥 Received response from Claude API');
 
     // Extract the text from Claude's response
-    const responseText = message.content[0].type === 'text' ? message.content[0].text : '';
-    console.log('📄 Claude raw response:', responseText);
+    let responseText = message.content[0].type === 'text' ? message.content[0].text : '';
+    console.log('📄 Claude raw response (first 500 chars):', responseText.substring(0, 500));
+
+    // Extract JSON from response (Claude might add preamble text)
+    // Find the first { and last } to get just the JSON object
+    const firstBrace = responseText.indexOf('{');
+    const lastBrace = responseText.lastIndexOf('}');
+
+    if (firstBrace === -1 || lastBrace === -1) {
+      throw new Error('No JSON object found in Claude response');
+    }
+
+    let jsonText = responseText.substring(firstBrace, lastBrace + 1);
+
+    // Clean the JSON: escape literal control characters
+    // Simple approach: replace all literal newlines/tabs/returns with escaped versions
+    jsonText = jsonText.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\t/g, '\\t');
 
     // Parse the JSON response
-    const interpretation = JSON.parse(responseText);
+    const interpretation = JSON.parse(jsonText);
 
     console.log('✅ SHORT interpretation:', JSON.stringify(interpretation.short));
     console.log('✅ DETAILED interpretation length:', interpretation.detailed?.length || 0, 'characters');
