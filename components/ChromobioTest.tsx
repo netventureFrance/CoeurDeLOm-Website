@@ -61,11 +61,64 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
   const [currentRow, setCurrentRow] = useState(0);
   const [gameState, setGameState] = useState<GameState>('playing');
   const [selectedInRow, setSelectedInRow] = useState(0);
+  const [isGeneratingInterpretation, setIsGeneratingInterpretation] = useState(false);
+  const [aiInterpretation, setAiInterpretation] = useState<{
+    short: { excess: string; balanced: string; shortage: string };
+    detailed: string;
+  } | null>(null);
 
   // Initialize the grid with random colors
   useEffect(() => {
     initializeGrid();
   }, []);
+
+  // Generate AI interpretation when game completes
+  useEffect(() => {
+    if (gameState === 'results') {
+      generateAIInterpretation();
+    }
+  }, [gameState]);
+
+  const generateAIInterpretation = async () => {
+    setIsGeneratingInterpretation(true);
+    try {
+      const remainingCounts = getRemainingColors();
+      const colorResults = COLORS.map(color => {
+        const count = remainingCounts[color.id];
+        let status: 'excess' | 'balanced' | 'shortage' = 'balanced';
+        if (count > 5) status = 'excess';
+        if (count < 4) status = 'shortage';
+        return {
+          id: color.id,
+          name: color.name,
+          count,
+          status
+        };
+      });
+
+      const response = await fetch('/api/chromobio-interpretation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          colorResults,
+          lang,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAiInterpretation(data);
+      } else {
+        console.error('Failed to generate AI interpretation');
+      }
+    } catch (error) {
+      console.error('Error calling AI interpretation API:', error);
+    } finally {
+      setIsGeneratingInterpretation(false);
+    }
+  };
 
   const initializeGrid = () => {
     // Create array with 8 of each color (144 total circles)
@@ -216,8 +269,9 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
       };
     });
 
-    const shortInterp = generateShortInterpretation(colorResults, lang);
-    const detailedInterp = generateDetailedInterpretation(colorResults, lang);
+    // Use AI interpretation if available, otherwise fall back to static
+    const shortInterp = aiInterpretation?.short || generateShortInterpretation(colorResults, lang);
+    const detailedInterp = aiInterpretation?.detailed || generateDetailedInterpretation(colorResults, lang);
 
     return (
       <>
@@ -284,12 +338,32 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
             })}
           </div>
 
+          {/* Loading state for AI interpretation */}
+          {isGeneratingInterpretation && (
+            <div className="max-w-4xl mx-auto mb-8">
+              <div className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+                  <p className="text-white text-lg">
+                    {lang === 'fr' ? 'Génération de votre interprétation personnalisée...' :
+                     lang === 'de' ? 'Ihre personalisierte Interpretation wird erstellt...' :
+                     'Generating your personalized interpretation...'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Short Interpretation - 3 rows */}
-          <div className="max-w-4xl mx-auto mb-8">
-            <h3 className="text-2xl font-bold text-white mb-6 text-center">
-              {dictionary.shortInterpretation}
-            </h3>
-            <div className="space-y-4">
+          {!isGeneratingInterpretation && (
+            <div className="max-w-4xl mx-auto mb-8">
+              <h3 className="text-2xl font-bold text-white mb-6 text-center">
+                {dictionary.shortInterpretation}
+                {aiInterpretation && (
+                  <span className="ml-2 text-sm text-purple-300">✨ AI-powered</span>
+                )}
+              </h3>
+              <div className="space-y-4">
               {/* Excess row */}
               {colorResults.some(c => c.status === 'excess') && (
                 <div className="bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-md border border-orange-500/30 rounded-xl p-6">
@@ -346,11 +420,13 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
                   </div>
                 </div>
               )}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Detailed Interpretation - Preview (will be locked in future) */}
-          <div className="max-w-4xl mx-auto mb-12">
+          {!isGeneratingInterpretation && (
+            <div className="max-w-4xl mx-auto mb-12">
             <h3 className="text-2xl font-bold text-white mb-6 text-center">
               {dictionary.detailedInterpretation}
             </h3>
@@ -373,10 +449,12 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
                 </div>
               </div>
             </div>
-          </div>
+            </div>
+          )}
 
           {/* Booking CTA */}
-          <div className="max-w-3xl mx-auto mb-12">
+          {!isGeneratingInterpretation && (
+            <div className="max-w-3xl mx-auto mb-12">
             <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
               <p className="text-white/90 text-lg leading-relaxed mb-6 text-center">
                 {dictionary.summary}
@@ -390,7 +468,8 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
                 </a>
               </div>
             </div>
-          </div>
+            </div>
+          )}
 
           {/* Restart button removed - tests can only be done once every 3 months */}
         </div>
