@@ -58,22 +58,26 @@ ${shortageColors.map((c: ColorResult) => `- ${c.name}: ${c.count} remaining${c.c
 
 Please generate TWO interpretations in **${languageInstructions}**:
 
-1. **SHORT INTERPRETATION** (for email marketing):
+1. **SHORT INTERPRETATION** (to spark curiosity and encourage booking):
    - Create 3 separate sentences (one for each category: excess, balanced, shortage)
-   - Each sentence should be warm, engaging, and psychologically insightful
-   - Mention specific colors and what they reveal about the person
-   - Pay special attention to extreme cases (count=0 or count=8)
-   - Make it compelling enough to motivate booking a session
+   - Make each sentence intriguing and curiosity-provoking
+   - Hint at deeper insights without revealing everything
+   - Mention specific colors and what they might reveal
+   - End with an invitation to discover more with Valérie
+   - Encourage them to trust their intuition
+   - Make it appealing enough to want to learn more
+   - NO markdown, NO asterisks, NO special formatting - plain text only
    - Format as JSON: {"excess": "...", "balanced": "...", "shortage": "..."}
 
-2. **DETAILED INTERPRETATION** (for paid session discussion):
+2. **DETAILED INTERPRETATION** (for the full reading):
    - Write 3-5 paragraphs of deep psychological and energetic analysis
    - Explain what the color pattern reveals about their current life situation
-   - Discuss the energetic implications of the excess/shortage patterns
-   - Reference ChromoBioEnergie principles
-   - Mention specific therapeutic approaches that could help
-   - Be professional yet warm and empathetic
-   - Include insights about chakras, energy flow, and emotional patterns where relevant
+   - Discuss the energetic implications using ChromoBioEnergie and Aura-Soma principles
+   - Mention how Equilibrium bottles and color therapy could help restore balance
+   - Reference chakras, energy flow, and emotional patterns
+   - Be warm, empathetic, and professionally insightful
+   - NO markdown, NO asterisks, NO special formatting - plain text only
+   - Use simple paragraph breaks (two newlines) between paragraphs
 
 Return ONLY a valid JSON object with this exact structure:
 {
@@ -87,18 +91,21 @@ Return ONLY a valid JSON object with this exact structure:
 
 CRITICAL JSON FORMATTING RULES:
 - Use \\n for line breaks within the "detailed" field (NOT actual newlines)
+- Between paragraphs in detailed interpretation, use \\n\\n (two escaped newlines)
 - All strings must be properly escaped for JSON
-- No line breaks, tabs, or control characters except when escaped
+- No literal line breaks, tabs, or control characters - everything must be escaped
 - The entire response must be valid, parseable JSON
+- NO markdown formatting (no asterisks, no bold, no italics)
 
-Important notes:
+Important content guidelines:
 - Write naturally and fluently in ${languageInstructions}
 - Be specific about the colors mentioned in each category
-- If a category has no colors, write something like "No colors in this category" or adjust the interpretation accordingly
-- Emphasize extreme cases (0 or 8) as they are clinically significant
-- Make the short interpretation emotionally engaging to encourage booking
-- Make the detailed interpretation worth paying for - deep, insightful, actionable
-- For paragraph breaks in the detailed interpretation, use \\n\\n (double backslash-n)`;
+- Make the short interpretation curiosity-provoking and inviting
+- Hint that Valérie can help them understand the deeper meaning
+- Encourage trusting their intuition about the colors they chose
+- In detailed interpretation, reference Aura-Soma Equilibrium bottles and ChromoBioEnergie
+- Emphasize extreme cases (0 or 8) as they are energetically significant
+- Make the detailed interpretation insightful and worth discovering`;
 
     console.log('📤 Sending request to Claude API...');
 
