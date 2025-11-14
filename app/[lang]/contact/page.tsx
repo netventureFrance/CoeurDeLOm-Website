@@ -40,12 +40,14 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
 
           <div className="grid md:grid-cols-2 gap-12">
             {/* Left Column: Contact Form & Informations */}
-            <div className="space-y-8">
-              <div className="bg-white rounded-3xl shadow-xl p-8">
-                <ContactForm lang={lang as Locale} dict={dict} />
-              </div>
+            <div className="bg-white rounded-3xl shadow-xl p-8">
+              <ContactForm lang={lang as Locale} dict={dict} />
 
-              <div className="bg-white rounded-3xl shadow-xl p-8">
+              {/* Divider */}
+              <div className="my-8 border-t border-gray-200"></div>
+
+              {/* Informations */}
+              <div>
                 <h3 className="text-2xl font-bold mb-6 text-primary">Informations</h3>
                 <ul className="space-y-4">
                   <li className="flex items-center gap-3">
