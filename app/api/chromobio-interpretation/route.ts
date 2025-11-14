@@ -67,7 +67,6 @@ Please generate TWO interpretations in **${languageInstructions}**:
    - Encourage them to trust their intuition
    - Make it appealing enough to want to learn more
    - NO markdown, NO asterisks, NO special formatting - plain text only
-   - Format as JSON: {"excess": "...", "balanced": "...", "shortage": "..."}
 
 2. **DETAILED INTERPRETATION** (for the full reading):
    - Write 3-5 paragraphs of deep psychological and energetic analysis
@@ -77,25 +76,23 @@ Please generate TWO interpretations in **${languageInstructions}**:
    - Reference chakras, energy flow, and emotional patterns
    - Be warm, empathetic, and professionally insightful
    - NO markdown, NO asterisks, NO special formatting - plain text only
-   - Use simple paragraph breaks (two newlines) between paragraphs
+   - Use simple paragraph breaks (blank lines) between paragraphs
 
-Return ONLY a valid JSON object with this exact structure:
-{
-  "short": {
-    "excess": "sentence here",
-    "balanced": "sentence here",
-    "shortage": "sentence here"
-  },
-  "detailed": "multi-paragraph text here"
-}
+FORMAT YOUR RESPONSE EXACTLY LIKE THIS (using these exact delimiters):
 
-CRITICAL JSON FORMATTING RULES:
-- Use \\n for line breaks within the "detailed" field (NOT actual newlines)
-- Between paragraphs in detailed interpretation, use \\n\\n (two escaped newlines)
-- All strings must be properly escaped for JSON
-- No literal line breaks, tabs, or control characters - everything must be escaped
-- The entire response must be valid, parseable JSON
-- NO markdown formatting (no asterisks, no bold, no italics)
+===SHORT_EXCESS===
+Your sentence about excess colors here
+===SHORT_BALANCED===
+Your sentence about balanced colors here
+===SHORT_SHORTAGE===
+Your sentence about shortage colors here
+===DETAILED===
+Your detailed interpretation here with multiple paragraphs.
+
+Each paragraph separated by blank lines.
+
+Make this insightful and worth discovering.
+===END===
 
 Important content guidelines:
 - Write naturally and fluently in ${languageInstructions}
@@ -127,26 +124,43 @@ Important content guidelines:
     let responseText = message.content[0].type === 'text' ? message.content[0].text : '';
     console.log('📄 Claude raw response (first 500 chars):', responseText.substring(0, 500));
 
-    // Extract JSON from response (Claude might add preamble text)
-    // Find the first { and last } to get just the JSON object
-    const firstBrace = responseText.indexOf('{');
-    const lastBrace = responseText.lastIndexOf('}');
+    // Parse using delimiters instead of JSON parsing
+    const extractSection = (text: string, startDelimiter: string, endDelimiter: string): string => {
+      const startIndex = text.indexOf(startDelimiter);
+      if (startIndex === -1) {
+        console.error(`❌ Delimiter not found: ${startDelimiter}`);
+        return '';
+      }
+      const contentStart = startIndex + startDelimiter.length;
+      const endIndex = text.indexOf(endDelimiter, contentStart);
+      if (endIndex === -1) {
+        console.error(`❌ End delimiter not found: ${endDelimiter}`);
+        return '';
+      }
+      return text.substring(contentStart, endIndex).trim();
+    };
 
-    if (firstBrace === -1 || lastBrace === -1) {
-      throw new Error('No JSON object found in Claude response');
-    }
+    // Extract each section
+    const shortExcess = extractSection(responseText, '===SHORT_EXCESS===', '===SHORT_BALANCED===');
+    const shortBalanced = extractSection(responseText, '===SHORT_BALANCED===', '===SHORT_SHORTAGE===');
+    const shortShortage = extractSection(responseText, '===SHORT_SHORTAGE===', '===DETAILED===');
+    const detailed = extractSection(responseText, '===DETAILED===', '===END===');
 
-    let jsonText = responseText.substring(firstBrace, lastBrace + 1);
+    console.log('✅ SHORT EXCESS:', shortExcess.substring(0, 100) + '...');
+    console.log('✅ SHORT BALANCED:', shortBalanced.substring(0, 100) + '...');
+    console.log('✅ SHORT SHORTAGE:', shortShortage.substring(0, 100) + '...');
+    console.log('✅ DETAILED length:', detailed.length, 'characters');
+    console.log('✅ DETAILED preview:', detailed.substring(0, 200) + '...');
 
-    // Clean the JSON: escape literal control characters
-    // Simple approach: replace all literal newlines/tabs/returns with escaped versions
-    jsonText = jsonText.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\t/g, '\\t');
-
-    // Parse the JSON response
-    const interpretation = JSON.parse(jsonText);
-
-    console.log('✅ SHORT interpretation:', JSON.stringify(interpretation.short));
-    console.log('✅ DETAILED interpretation length:', interpretation.detailed?.length || 0, 'characters');
+    // Construct the response object
+    const interpretation = {
+      short: {
+        excess: shortExcess,
+        balanced: shortBalanced,
+        shortage: shortShortage,
+      },
+      detailed: detailed,
+    };
 
     return NextResponse.json(interpretation);
   } catch (error) {
