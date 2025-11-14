@@ -52,13 +52,14 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
                   Réservez directement votre consultation en ligne via Cal.com
                 </p>
 
-                {/* Cal.com Embed - Replace with your username */}
+                {/* Cal.com Embed */}
                 <div className="bg-white rounded-lg p-4">
                   <iframe
-                    src="https://cal.com/your-username"
+                    src="https://cal.com/coeurdelom?embed=true"
                     width="100%"
-                    height="600"
+                    height="700"
                     frameBorder="0"
+                    style={{ border: 0, minHeight: '600px' }}
                     className="rounded-lg"
                   ></iframe>
                 </div>
