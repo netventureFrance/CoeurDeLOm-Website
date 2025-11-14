@@ -1,9 +1,7 @@
-import sgMail from '@sendgrid/mail';
+import { Resend } from 'resend';
 
-// Initialize SendGrid only if API key is available
-if (process.env.SENDGRID_API_KEY) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-}
+// Initialize Resend only if API key is available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 interface SendEmailParams {
   to: string;
@@ -13,24 +11,24 @@ interface SendEmailParams {
 }
 
 /**
- * Send email via SendGrid
+ * Send email via Resend
  */
 export async function sendEmail({ to, subject, html, from }: SendEmailParams): Promise<boolean> {
-  if (!process.env.SENDGRID_API_KEY) {
-    console.warn('SendGrid API key not configured. Email not sent.');
+  if (!resend) {
+    console.warn('Resend API key not configured. Email not sent.');
     return false;
   }
 
   try {
-    await sgMail.send({
+    await resend.emails.send({
+      from: from || process.env.RESEND_FROM_EMAIL || 'Cœur de l\'OM <contact@coeurdelom.fr>',
       to,
-      from: from || process.env.SENDGRID_FROM_EMAIL || 'contact@coeurdelom.fr',
       subject,
       html,
     });
     return true;
   } catch (error) {
-    console.error('Error sending email via SendGrid:', error);
+    console.error('Error sending email via Resend:', error);
     return false;
   }
 }

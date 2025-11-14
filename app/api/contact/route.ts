@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { submitContactForm } from '@/lib/airtable';
-import { sendContactConfirmation, sendAdminNotification } from '@/lib/sendgrid';
+import { sendContactConfirmation, sendAdminNotification } from '@/lib/resend';
 
 export async function POST(request: NextRequest) {
   try {
