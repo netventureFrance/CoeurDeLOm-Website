@@ -50,10 +50,8 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
           </div>
 
           {/* Right side: Language Switcher + Mobile Button */}
-          <div className="flex items-center gap-4">
-            <div className="hidden xl:block">
-              <LanguageSwitcher currentLang={lang} />
-            </div>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <LanguageSwitcher currentLang={lang} />
 
             {/* Mobile Menu Button */}
             <button
@@ -108,9 +106,6 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
                 {item.label}
               </Link>
             ))}
-            <div className="pt-6 mt-6 border-t border-gray-200/50">
-              <LanguageSwitcher currentLang={lang} />
-            </div>
           </div>
         </div>
       </nav>
