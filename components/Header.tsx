@@ -21,7 +21,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100/50">
-      <nav className="container mx-auto px-8 py-6">
+      <nav className="container mx-auto px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6">
         <div className="flex items-center justify-between">
           {/* Left side: Logo + Menu */}
           <div className="flex items-center gap-8">
@@ -30,12 +30,12 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
               <img
                 src="/Coeur-de-lOm-Alpha-Kopie.png"
                 alt="Coeur de l'OM"
-                className="h-20 w-auto object-contain group-hover:scale-105 transition-transform"
+                className="h-14 sm:h-16 md:h-20 w-auto object-contain group-hover:scale-105 transition-transform"
               />
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-2">
+            <div className="hidden xl:flex items-center gap-2">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -51,18 +51,18 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
 
           {/* Right side: Language Switcher + Mobile Button */}
           <div className="flex items-center gap-4">
-            <div className="hidden lg:block">
+            <div className="hidden xl:block">
               <LanguageSwitcher currentLang={lang} />
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden text-gray-700 hover:text-purple-600 transition-colors p-2"
+              className="xl:hidden text-gray-700 hover:text-purple-600 transition-all p-3 active:scale-95 rounded-lg hover:bg-purple-50/50"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
               <svg
-                className="w-7 h-7"
+                className="w-6 h-6 sm:w-7 sm:h-7"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -88,14 +88,22 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden mt-6 pb-6 space-y-2 bg-gradient-to-br from-purple-50/30 via-pink-50/20 to-cyan-50/30 rounded-2xl p-6 backdrop-blur-sm border border-gray-100/50">
-            {navItems.map((item) => (
+        <div
+          className={`xl:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen ? 'max-h-[600px] opacity-100 mt-6' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="pb-6 space-y-2 bg-gradient-to-br from-purple-50/30 via-pink-50/20 to-cyan-50/30 rounded-2xl p-6 backdrop-blur-sm border border-gray-100/50">
+            {navItems.map((item, index) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="block text-gray-700 hover:text-purple-600 transition-all py-4 px-4 text-lg font-medium rounded-xl hover:bg-white/60"
+                className="block text-gray-700 hover:text-purple-600 active:text-purple-700 transition-all py-4 px-4 text-lg font-medium rounded-xl hover:bg-white/60 active:bg-white/80 min-h-[52px] flex items-center"
                 onClick={() => setIsMenuOpen(false)}
+                style={{
+                  animationDelay: `${index * 50}ms`,
+                  animation: isMenuOpen ? 'slideIn 0.3s ease-out forwards' : 'none',
+                }}
               >
                 {item.label}
               </Link>
@@ -104,7 +112,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
               <LanguageSwitcher currentLang={lang} />
             </div>
           </div>
-        )}
+        </div>
       </nav>
     </header>
   );
