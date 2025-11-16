@@ -10,6 +10,7 @@ export default function ContactForm({ lang, dict }: { lang: Locale; dict: Dictio
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: '',
     gdprConsent: false,
     newsletterConsent: false,
@@ -43,7 +44,7 @@ export default function ContactForm({ lang, dict }: { lang: Locale; dict: Dictio
 
       if (response.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', message: '', gdprConsent: false, newsletterConsent: false });
+        setFormData({ name: '', email: '', phone: '', message: '', gdprConsent: false, newsletterConsent: false });
       } else {
         setStatus('error');
       }
@@ -80,6 +81,20 @@ export default function ContactForm({ lang, dict }: { lang: Locale; dict: Dictio
           required
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+          {contact.phone}
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          value={formData.phone}
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          placeholder="+33 6 12 34 56 78"
           className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
         />
       </div>

@@ -33,6 +33,7 @@
     "title": "Contact Us",
     "name": "Name",
     "email": "Email",
+    "phone": "Phone (optional)",
     "message": "Message",
     "send": "Send",
     "success": "Thank you! Your message has been sent.",
