@@ -7,50 +7,11 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-br from-purple-50/80 via-pink-50/60 to-cyan-50/80 backdrop-blur-sm border-t border-gray-100/50 py-16">
+    <footer className="bg-gradient-to-br from-purple-50/80 via-pink-50/60 to-cyan-50/80 backdrop-blur-sm border-t border-gray-100/50 py-12">
       <div className="container mx-auto px-8">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          {/* About */}
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-purple-600/80">{footer.about}</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Coeur de l'OM - Un espace dédié au bien-être, à la méditation et à la spiritualité.
-            </p>
-          </div>
-
-          {/* Links */}
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-purple-600/80">{footer.links}</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href={`/${lang}`} className="text-gray-600 hover:text-purple-600 transition-colors">
-                  {nav.home}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${lang}/about`} className="text-gray-600 hover:text-purple-600 transition-colors">
-                  {nav.about}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${lang}/therapies`} className="text-gray-600 hover:text-purple-600 transition-colors">
-                  {nav.therapies}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${lang}/blog`} className="text-gray-600 hover:text-purple-600 transition-colors">
-                  {nav.blog}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${lang}/contact`} className="text-gray-600 hover:text-purple-600 transition-colors">
-                  {nav.contact}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact */}
+        {/* Main Footer Content */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-8">
+          {/* Contact Section - Left Side */}
           <div>
             <h3 className="text-xl font-bold mb-4 text-purple-600/80">Contact</h3>
             <ul className="space-y-2 text-gray-600">
@@ -86,20 +47,20 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
               </a>
             </div>
           </div>
-        </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-200/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-600 text-sm">
-            {footer.copyright.replace('2025', currentYear.toString())}
-          </p>
-          <div className="flex gap-6 text-sm">
-            <Link href={`/${lang}/legal`} className="text-gray-600 hover:text-purple-600 transition-colors">
-              {footer.legal}
-            </Link>
-            <Link href={`/${lang}/privacy`} className="text-gray-600 hover:text-purple-600 transition-colors">
-              {footer.privacy}
-            </Link>
+          {/* Copyright - Right Side */}
+          <div className="text-center md:text-right">
+            <p className="text-gray-600 text-sm mb-4">
+              {footer.copyright.replace('2025', currentYear.toString())}
+            </p>
+            <div className="flex gap-6 text-sm justify-center md:justify-end">
+              <Link href={`/${lang}/legal`} className="text-gray-600 hover:text-purple-600 transition-colors">
+                {footer.legal}
+              </Link>
+              <Link href={`/${lang}/privacy`} className="text-gray-600 hover:text-purple-600 transition-colors">
+                {footer.privacy}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
