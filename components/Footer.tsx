@@ -26,7 +26,7 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
             {/* Social Links */}
             <div className="flex gap-4 mt-6">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/profile.php?id=100093266420283"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-purple-100/50 hover:bg-purple-200/60 flex items-center justify-center transition-all hover:scale-110 text-purple-600"
@@ -56,9 +56,6 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
             <div className="flex gap-6 text-sm justify-center md:justify-end">
               <Link href={`/${lang}/legal`} className="text-gray-600 hover:text-purple-600 transition-colors">
                 {footer.legal}
-              </Link>
-              <Link href={`/${lang}/privacy`} className="text-gray-600 hover:text-purple-600 transition-colors">
-                {footer.privacy}
               </Link>
             </div>
           </div>

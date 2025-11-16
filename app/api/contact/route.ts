@@ -5,7 +5,7 @@ import { sendContactConfirmation, sendAdminNotification } from '@/lib/resend';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, message, language, gdprConsent, newsletterConsent } = body;
+    const { name, email, phone, message, language, gdprConsent, newsletterConsent } = body;
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
     const success = await submitContactForm({
       name,
       email,
+      phone,
       message,
       language: language || 'fr',
       gdprConsent,
