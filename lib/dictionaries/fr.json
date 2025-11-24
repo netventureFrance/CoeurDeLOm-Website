@@ -208,14 +208,90 @@
     },
     "vibratory": {
       "title": "Soins vibratoires",
-      "description": "Les soins vibratoires offrent une approche holistique en utilisant les vibrations sonores, lumineuses et énergétiques pour équilibrer corps, esprit et âme. Basées sur les fréquences universelles, ces techniques incluant le son des bols chantants, les mantras et la chromobioénergie réduisent le stress, améliorent le sommeil, soulagent la douleur et augmentent l'énergie.",
-      "benefits": [
-        "Réduction du stress",
-        "Amélioration du sommeil",
-        "Soulagement de la douleur",
-        "Augmentation de l'énergie",
-        "Séance personnalisée selon vos besoins"
-      ]
+      "description": "Les soins vibratoires offrent une approche holistique en utilisant les vibrations sonores, lumineuses et énergétiques pour équilibrer corps, esprit et âme. Basées sur les fréquences universelles, ces techniques—incluant le son des bols chantants, les mantras réduisent le stress, améliorent le sommeil, soulagent la douleur et augmentent l'énergie. Chaque séance est personnalisée pour répondre à vos besoins spécifiques, offrant un soutien global pour améliorer la santé et le bien-être.",
+      "benefits": [],
+      "faq": {
+        "title": "En savoir plus",
+        "tabs": {
+          "vibratory": "Soins Vibratoires",
+          "bowls": "Bols Cristallins",
+          "tuningforks": "Diapasons de Cristal"
+        },
+        "vibratory": [
+          {
+            "question": "Qu'est-ce que la thérapie vibratoire ?",
+            "answer": "La thérapie vibratoire est une approche holistique qui utilise les vibrations sonores, lumineuses, énergétiques ou de fréquences spécifiques pour harmoniser le corps, l'esprit et l'âme. Elle repose sur le principe que tout dans l'univers vibre et que ces vibrations peuvent soutenir la santé, l'équilibre émotionnel et le bien-être global."
+          },
+          {
+            "question": "Comment fonctionne la thérapie vibratoire ?",
+            "answer": "Elle agit en stimulant les énergies du corps et de l'esprit pour rétablir l'harmonie et favoriser la circulation énergétique naturelle. Cela peut se faire à travers le son, le chant, la lumière, les soins vibratoires, les fréquences de couleurs et les méditations guidées."
+          },
+          {
+            "question": "Quels types de thérapies vibratoires proposez-vous ?",
+            "answer": "Je propose des soins vibratoires incluant la sonothérapie, les fréquences cristallines et de couleurs, la méditation guidée et le Reiki avec harmonisation des chakras, tous adaptés à chaque personne pour soutenir sa vitalité et son équilibre intérieur."
+          },
+          {
+            "question": "Quels sont les bienfaits de la thérapie vibratoire ?",
+            "answer": "Les soins vibratoires peuvent réduire le stress et l'anxiété, améliorer le sommeil, soulager certaines douleurs, stimuler l'énergie vitale, favoriser la clarté mentale et soutenir la guérison naturelle du corps tout en renforçant l'équilibre émotionnel et spirituel."
+          },
+          {
+            "question": "Qui peut bénéficier des soins vibratoires ?",
+            "answer": "Ces pratiques sont accessibles à tous ceux qui souhaitent un accompagnement holistique pour se détendre, se revitaliser et se reconnecter à leur essence intérieure, quel que soit l'âge ou l'état de santé."
+          },
+          {
+            "question": "Y a-t-il des contre-indications ?",
+            "answer": "La thérapie vibratoire est généralement sûre mais peut être déconseillée pour les personnes souffrant de troubles épileptiques, de pathologies mentales sévères ou de grande sensibilité aux stimulations sensorielles. Il est toujours recommandé de consulter un professionnel de santé avant de débuter."
+          }
+        ],
+        "bowls": [
+          {
+            "question": "Qu'est-ce que la thérapie des bols cristallins ?",
+            "answer": "La thérapie des bols cristallins est une approche vibratoire que j'utilise, elle exploite les sons et les harmoniques des bols chantants en cristal pour harmoniser le corps, l'esprit et les centres d'énergie, favorisant la relaxation, la méditation et le bien-être physique et émotionnel."
+          },
+          {
+            "question": "Comment fonctionne cette thérapie ?",
+            "answer": "Les bols émettent des vibrations à des fréquences spécifiques qui résonnent avec les différentes zones du corps et les chakras, aidant à libérer les blocages énergétiques, restaurer l'équilibre et soutenir la circulation naturelle de l'énergie."
+          },
+          {
+            "question": "Quels sont les bienfaits de la thérapie des bols cristallins ?",
+            "answer": "Elle peut réduire le stress et l'anxiété, améliorer le sommeil, soulager certaines douleurs, stimuler l'énergie vitale, favoriser la créativité, la relaxation profonde et soutenir l'harmonie émotionnelle et spirituelle."
+          },
+          {
+            "question": "Comment se déroule une séance ?",
+            "answer": "Lors de la séance, je fais résonner les bols de cristal de manière adaptée à vos besoins, vous restez détendu et recevez les vibrations, favorisant l'harmonisation énergétique et la circulation de l'énergie."
+          },
+          {
+            "question": "Qui peut bénéficier de cette thérapie ?",
+            "answer": "Tout le monde peut bénéficier des bols cristallins, en particulier ceux qui recherchent une approche douce et non invasive pour se relaxer, se revitaliser ou soutenir leur équilibre émotionnel et énergétique."
+          },
+          {
+            "question": "Y a-t-il des contre-indications ?",
+            "answer": "La pratique est généralement sûre mais peut ne pas convenir aux personnes souffrant de troubles psychiatriques sévères ou de grande sensibilité auditive. Il est recommandé de consulter un professionnel de santé avant de débuter si vous avez des préoccupations spécifiques."
+          }
+        ],
+        "tuningforks": [
+          {
+            "question": "Qu'est-ce qu'un diapason de cristal ?",
+            "answer": "Le diapason de cristal est un instrument en quartz pur qui émet une vibration subtile et à peine audible, plus proche d'une fréquence qu'un son traditionnel. Cette vibration favorise l'harmonisation énergétique et la circulation de l'énergie dans le corps. Intégré à ma pratique en médecine traditionnelle chinoise, il soutient et renforce l'ensemble des thérapies énergétiques que je propose."
+          },
+          {
+            "question": "Pourquoi les utiliser dans mes soins ?",
+            "answer": "Ils sont utilisés pour stimuler les points des méridiens, harmoniser les flux d'énergie et amplifier l'efficacité des soins énergétiques. Leur vibration subtile et presque imperceptible agit en profondeur, encadrant et renforçant toutes les techniques que j'applique."
+          },
+          {
+            "question": "Comment je les applique ?",
+            "answer": "Les diapasons sont appliqués sur ou à proximité des points d'acupressure, parfois en combinaison avec des cristaux ou un styletto, afin de transmettre la fréquence vibratoire et d'harmoniser les zones spécifiques du corps."
+          },
+          {
+            "question": "Quels sont les bienfaits ?",
+            "answer": "Ils permettent d'harmoniser les méridiens et l'énergie vitale, d'apporter détente physique et émotionnelle, de soutenir la clarté mentale et la sérénité, tout en renforçant l'impact des autres pratiques énergétiques proposées grâce à leur fréquence subtile."
+          },
+          {
+            "question": "Tout le monde peut-il recevoir un soin avec les diapasons de cristal ?",
+            "answer": "Les soins sont généralement adaptés à tous, mais certaines contre-indications peuvent exister : personnes portant un stimulateur cardiaque, femmes enceintes dans les premiers mois, ou toute condition médicale spécifique qui nécessite un avis médical. Chaque soin est personnalisé et sécurisé selon le profil énergétique et la santé du client."
+          }
+        ]
+      }
     },
     "meditation": {
       "title": "Méditation",
