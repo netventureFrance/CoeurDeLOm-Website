@@ -424,7 +424,39 @@
         "Personalized chromoemotional tests",
         "Particularly effective method",
         "Maintenance of good health"
-      ]
+      ],
+      "faq": {
+        "title": "Learn more",
+        "tabs": {
+          "chromobio": "ChromoBioEnergy"
+        },
+        "chromobio": [
+          {
+            "question": "What is ChromoBioEnergy?",
+            "answer": "ChromoBioEnergy is a holistic approach that uses colors, vibrations, and frequencies to harmonize vital energy, support emotional balance, and strengthen overall well-being."
+          },
+          {
+            "question": "How does this therapy work in my treatments?",
+            "answer": "I begin by assessing the client's energetic profile, then use adapted protocols combining colors, crystals, and vibrations to restore harmony in energy flows and support the other therapies I offer."
+          },
+          {
+            "question": "Can we do a time-limited test?",
+            "answer": "Yes, it is possible to perform a quick and limited test on my site, which provides a general overview of the energetic profile with some explanations. This test does not replace the complete therapy or in-depth analysis of colors and essences."
+          },
+          {
+            "question": "How does the complete therapy work?",
+            "answer": "The complete therapy includes a personalized blend of color essences, designed in the same way as floral harmonizers, to act deeply on energetic balance and support each person's specific needs. For this complete approach, it is necessary to contact me to arrange a personalized session."
+          },
+          {
+            "question": "What are the possible benefits?",
+            "answer": "• Harmonization of body energies and meridians\n• Emotional and mental support\n• Better vital energy circulation\n• Amplification of the effectiveness of other energy practices"
+          },
+          {
+            "question": "Can everyone receive this treatment?",
+            "answer": "ChromoBioEnergy is suitable for most people. Treatments are personalized and adjusted according to each client's sensitivity, energetic profile, and health status."
+          }
+        ]
+      }
     },
     "amma": {
       "title": "Amma Massage",

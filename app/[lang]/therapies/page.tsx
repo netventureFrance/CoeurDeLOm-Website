@@ -58,7 +58,8 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       gradient: 'from-green-400 via-cyan-400 to-pink-400',
       rotation: 'rotate-6',
       description: t.chromobio.description,
-      benefits: t.chromobio.benefits
+      benefits: t.chromobio.benefits,
+      faq: t.chromobio.faq
     },
     {
       title: t.amma.title,
@@ -240,6 +241,18 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                     om: (therapy as any).faq.om,
                     dhyana: (therapy as any).faq.dhyana,
                     mantras: (therapy as any).faq.mantras
+                  }}
+                  lang={lang}
+                />
+              )}
+
+              {/* FAQ Section - Only for ChromobioÉnergie (index 3) */}
+              {index === 3 && (therapy as any).faq && (
+                <TherapyFAQ
+                  title={(therapy as any).faq.title}
+                  tabs={(therapy as any).faq.tabs}
+                  content={{
+                    chromobio: (therapy as any).faq.chromobio
                   }}
                   lang={lang}
                 />

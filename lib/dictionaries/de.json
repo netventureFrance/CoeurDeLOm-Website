@@ -424,7 +424,39 @@
         "Personalisierte chromoemotionale Tests",
         "Besonders wirksame Methode",
         "Erhaltung guter Gesundheit"
-      ]
+      ],
+      "faq": {
+        "title": "Mehr erfahren",
+        "tabs": {
+          "chromobio": "ChromoBioEnergie"
+        },
+        "chromobio": [
+          {
+            "question": "Was ist ChromoBioEnergie?",
+            "answer": "ChromoBioEnergie ist ein ganzheitlicher Ansatz, der Farben, Schwingungen und Frequenzen verwendet, um die Lebensenergie zu harmonisieren, das emotionale Gleichgewicht zu unterstützen und das allgemeine Wohlbefinden zu stärken."
+          },
+          {
+            "question": "Wie funktioniert diese Therapie in meinen Behandlungen?",
+            "answer": "Ich beginne mit der Bewertung des energetischen Profils des Klienten und verwende dann angepasste Protokolle, die Farben, Kristalle und Schwingungen kombinieren, um die Harmonie in den Energieflüssen wiederherzustellen und die anderen Therapien zu unterstützen, die ich anbiete."
+          },
+          {
+            "question": "Kann man einen zeitlich begrenzten Test machen?",
+            "answer": "Ja, es ist möglich, einen schnellen und begrenzten Test auf meiner Website durchzuführen, der einen allgemeinen Überblick über das energetische Profil mit einigen Erklärungen bietet. Dieser Test ersetzt nicht die vollständige Therapie oder die eingehende Analyse von Farben und Essenzen."
+          },
+          {
+            "question": "Wie funktioniert die vollständige Therapie?",
+            "answer": "Die vollständige Therapie umfasst eine personalisierte Mischung aus Farbessenzen, die auf die gleiche Weise wie Blüten-Harmonisierer konzipiert ist, um tief auf das energetische Gleichgewicht einzuwirken und die spezifischen Bedürfnisse jeder Person zu unterstützen. Für diesen vollständigen Ansatz ist es notwendig, mich zu kontaktieren, um eine personalisierte Sitzung zu vereinbaren."
+          },
+          {
+            "question": "Was sind die möglichen Vorteile?",
+            "answer": "• Harmonisierung der Körperenergien und Meridiane\n• Emotionale und mentale Unterstützung\n• Bessere Zirkulation der Lebensenergie\n• Verstärkung der Wirksamkeit anderer Energiepraktiken"
+          },
+          {
+            "question": "Kann jeder diese Behandlung erhalten?",
+            "answer": "ChromoBioEnergie ist für die meisten Menschen geeignet. Die Behandlungen sind personalisiert und werden entsprechend der Sensibilität, dem energetischen Profil und dem Gesundheitszustand jedes Klienten angepasst."
+          }
+        ]
+      }
     },
     "amma": {
       "title": "Amma-Massage",

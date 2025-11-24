@@ -424,7 +424,39 @@
         "Tests chromoémotionnels personnalisés",
         "Méthode particulièrement efficace",
         "Maintien d'une bonne santé"
-      ]
+      ],
+      "faq": {
+        "title": "En savoir plus",
+        "tabs": {
+          "chromobio": "ChromoBioÉnergie"
+        },
+        "chromobio": [
+          {
+            "question": "Qu'est-ce que la ChromoBioÉnergie ?",
+            "answer": "La ChromoBioÉnergie est une approche holistique qui utilise les couleurs, les vibrations et les fréquences pour harmoniser l'énergie vitale, soutenir l'équilibre émotionnel et renforcer le bien-être global."
+          },
+          {
+            "question": "Comment fonctionne cette thérapie dans mes soins ?",
+            "answer": "Je commence par évaluer le profil énergétique du client, puis j'utilise des protocoles adaptés combinant couleurs, cristaux et vibrations pour rétablir l'harmonie dans les flux énergétiques et soutenir les autres thérapies que je propose."
+          },
+          {
+            "question": "Peut-on faire un test limité dans le temps ?",
+            "answer": "Oui, il est possible de réaliser un test rapide et limité sur mon site, qui permet d'obtenir un aperçu général du profil énergétique avec quelques explications. Ce test ne remplace pas la thérapie complète ni l'analyse approfondie des couleurs et des essences."
+          },
+          {
+            "question": "Comment se déroule la thérapie complète ?",
+            "answer": "La thérapie complète inclut un mélange d'essences de couleurs personnalisé, conçu sur le même mode que les harmonisants floraux, pour agir en profondeur sur l'équilibre énergétique et soutenir les besoins spécifiques de chaque personne. Pour cette approche complète, il est nécessaire de prendre contact avec moi afin d'organiser une séance personnalisée."
+          },
+          {
+            "question": "Quels sont les bienfaits possibles ?",
+            "answer": "• Harmonisation des énergies du corps et des méridiens\n• Soutien émotionnel et mental\n• Meilleure circulation de l'énergie vitale\n• Amplification de l'efficacité des autres pratiques énergétiques"
+          },
+          {
+            "question": "Tout le monde peut-il recevoir ce soin ?",
+            "answer": "La ChromoBioÉnergie est adaptée à la plupart des personnes. Les soins sont personnalisés et modulés selon la sensibilité, le profil énergétique et l'état de santé de chaque client."
+          }
+        ]
+      }
     },
     "amma": {
       "title": "Massage Amma",
