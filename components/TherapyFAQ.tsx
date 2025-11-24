@@ -36,7 +36,7 @@ export default function TherapyFAQ({ title, tabs, content, lang }: TherapyFAQPro
       </h3>
 
       {/* Integrated Widget */}
-      <div className="bg-white/60 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100/50 overflow-hidden">
+      <div className="bg-white/60 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100/50 overflow-hidden hover:shadow-xl hover:border-purple-200/50 transition-all duration-500">
         {/* Tabs inside the widget */}
         <div className="bg-gradient-to-r from-purple-50/50 via-pink-50/30 to-purple-50/50 px-6 py-4 flex gap-3 border-b border-gray-100/50">
           {tabKeys.map((key) => (
@@ -46,10 +46,10 @@ export default function TherapyFAQ({ title, tabs, content, lang }: TherapyFAQPro
                 setActiveTab(key);
                 setSelectedQuestion(0);
               }}
-              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
                 activeTab === key
-                  ? 'bg-gradient-to-r from-purple-400 via-pink-400 to-purple-300 text-white shadow-md'
-                  : 'bg-white/60 text-gray-700 hover:bg-purple-50/60 shadow-sm'
+                  ? 'bg-gradient-to-r from-purple-400 via-pink-400 to-purple-300 text-white shadow-md hover:shadow-lg'
+                  : 'bg-white/60 text-gray-700 hover:bg-purple-50/80 shadow-sm hover:shadow-md'
               }`}
             >
               {tabs[key]}
@@ -65,10 +65,10 @@ export default function TherapyFAQ({ title, tabs, content, lang }: TherapyFAQPro
               <button
                 key={index}
                 onClick={() => setSelectedQuestion(index)}
-                className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 text-sm ${
+                className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 text-sm transform hover:scale-[1.02] hover:translate-x-1 ${
                   selectedQuestion === index
-                    ? 'bg-gradient-to-r from-purple-100 via-pink-100 to-purple-100 text-purple-900 font-semibold shadow-sm'
-                    : 'bg-white/40 text-gray-700 hover:bg-purple-50/40 hover:text-purple-800'
+                    ? 'bg-gradient-to-r from-purple-100 via-pink-100 to-purple-100 text-purple-900 font-semibold shadow-sm hover:shadow-md'
+                    : 'bg-white/40 text-gray-700 hover:bg-purple-50/60 hover:text-purple-800 hover:shadow-sm'
                 }`}
               >
                 {item.question}
@@ -77,7 +77,7 @@ export default function TherapyFAQ({ title, tabs, content, lang }: TherapyFAQPro
           </div>
 
           {/* Answer Display - Right Side */}
-          <div className="bg-gradient-to-br from-purple-50/50 via-pink-50/30 to-purple-50/50 rounded-xl p-6 min-h-[300px] flex items-start">
+          <div className="bg-gradient-to-br from-purple-50/50 via-pink-50/30 to-purple-50/50 rounded-xl p-6 min-h-[300px] flex items-start transition-all duration-300 hover:shadow-inner">
             <div className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
               {currentQuestions[selectedQuestion]?.answer}
             </div>

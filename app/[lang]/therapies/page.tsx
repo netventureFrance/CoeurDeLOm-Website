@@ -27,7 +27,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
   const therapies = [
     {
       title: t.reiki.title,
-      image: '/images/therapies/Reiki-Circle-1-300x297.png',
+      image: '/Reiki-Circle-1.png',
       gradient: 'from-purple-400 via-pink-400 to-purple-300',
       rotation: '-rotate-12',
       description: t.reiki.description,
@@ -36,7 +36,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
     },
     {
       title: t.vibratory.title,
-      image: '/images/therapies/Bols-Crystalins-300x300.png',
+      image: '/Carte-Soins-Vibratoires.png',
       gradient: 'from-purple-500 via-indigo-400 to-purple-400',
       rotation: '-rotate-6',
       description: t.vibratory.description,
@@ -45,7 +45,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
     },
     {
       title: t.meditation.title,
-      image: '/images/therapies/fengshui-jaune-300x300.png',
+      image: '/Carte-Meditation.png',
       gradient: 'from-blue-600 via-indigo-500 to-blue-500',
       rotation: 'rotate-0',
       description: t.meditation.description,
@@ -54,7 +54,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
     },
     {
       title: t.chromobio.title,
-      image: '/images/therapies/Chromo-Bio-Neu-300x300.png',
+      image: '/Chromo-Bio-Neu.png',
       gradient: 'from-green-400 via-cyan-400 to-pink-400',
       rotation: 'rotate-6',
       description: t.chromobio.description,
@@ -72,7 +72,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
     },
     {
       title: t.amma.title,
-      image: '/images/therapies/Massage-Amma-2-300x300.png',
+      image: '/Carte-Massage-Amma.png',
       gradient: 'from-orange-300 via-orange-200 to-orange-100',
       rotation: 'rotate-12',
       description: t.amma.description,
