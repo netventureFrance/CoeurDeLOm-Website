@@ -147,7 +147,70 @@
         "Improved sleep",
         "Emotional support",
         "Non-invasive practice accessible to all"
-      ]
+      ],
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "tabs": {
+          "reiki": "Reiki",
+          "chakras": "Reiki & Chakras"
+        },
+        "reiki": [
+          {
+            "question": "What is Reiki?",
+            "answer": "Reiki is a Japanese energy practice rediscovered in the early 20th century by Mikao Usui after a profound meditative experience on Mount Kurama. The term Reiki means 'Universal Life Energy' (Rei = universal, Ki = vital energy). This method aims to restore harmony, support energy circulation and promote physical, emotional and spiritual well-being."
+          },
+          {
+            "question": "How does a Reiki session work?",
+            "answer": "During a session, the receiver remains clothed and lies down comfortably. The practitioner places their hands on or above the body to channel Reiki energy, release blockages and stimulate the natural healing process. The session takes place in a calm and secure setting, conducive to relaxation and energetic harmonization."
+          },
+          {
+            "question": "What are the benefits of Reiki?",
+            "answer": "Reiki helps reduce stress, relieve tension and pain, improve sleep, release blocked emotions, strengthen the immune system and support emotional and spiritual balance."
+          },
+          {
+            "question": "Is Reiki religious?",
+            "answer": "No, Reiki is not linked to any religion. It can be practiced and received by anyone, regardless of their beliefs or without any particular belief, focusing on its energetic and therapeutic effects."
+          },
+          {
+            "question": "Who can receive Reiki?",
+            "answer": "Reiki is suitable for everyone, from infants to the elderly, including pregnant women and people who are ill. Its non-invasive and secure practice makes it an accessible treatment for most people."
+          },
+          {
+            "question": "How to become a Reiki practitioner?",
+            "answer": "To become a practitioner, it is necessary to follow progressive training with initiations that allow you to open and channel energy, deepen personal practice and, for those who wish, learn to transmit this teaching. The practitioner must maintain a physical, energetic and spiritual lifestyle to maintain the clarity and effectiveness of their channel."
+          },
+          {
+            "question": "Can I learn Reiki with you?",
+            "answer": "I am qualified to train and transmit Reiki initiations in a secure and caring environment, accompanying each person on their energetic and spiritual journey. For any request or interest regarding training and initiations, you can contact me at contact@coeurdelom.fr"
+          },
+          {
+            "question": "Can Reiki replace medical treatments?",
+            "answer": "Reiki complements conventional medical treatments to support healing and optimize results. It does not replace professional medical care and should not be used as the sole treatment for serious conditions."
+          }
+        ],
+        "chakras": [
+          {
+            "question": "What are chakras?",
+            "answer": "Chakras are energy centers located along the spine, each corresponding to physical, emotional and spiritual aspects of the person. They regulate the circulation of vital energy and influence our overall balance."
+          },
+          {
+            "question": "How does Reiki act on the chakras?",
+            "answer": "During a Reiki session, the practitioner channels energy on the chakras to dissolve blockages, harmonize the energy flow and restore balance. Each chakra can be stimulated or soothed according to individual needs, allowing gentle and deep reharmonization."
+          },
+          {
+            "question": "What are the benefits of chakra harmonization with Reiki?",
+            "answer": "• Emotional and mental balance\n• Better circulation of vital energy\n• Reduction of stress and tension\n• Support for physical and spiritual well-being"
+          },
+          {
+            "question": "Who can benefit from this practice?",
+            "answer": "Everyone can receive chakra harmonization through Reiki. The session is adapted to each person and remains non-invasive and safe."
+          },
+          {
+            "question": "Sessions and support",
+            "answer": "Chakra work is part of individual Reiki sessions at the office and can be integrated into regular follow-up to support overall energetic balance."
+          }
+        ]
+      }
     },
     "vibratory": {
       "title": "Vibratory Healing",

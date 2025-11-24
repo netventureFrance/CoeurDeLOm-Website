@@ -147,7 +147,70 @@
         "Amélioration du sommeil",
         "Soutien émotionnel",
         "Pratique non invasive accessible à tous"
-      ]
+      ],
+      "faq": {
+        "title": "Questions fréquentes",
+        "tabs": {
+          "reiki": "Reiki",
+          "chakras": "Reiki & Chakras"
+        },
+        "reiki": [
+          {
+            "question": "Qu'est-ce que le Reiki ?",
+            "answer": "Le Reiki est une pratique énergétique japonaise redécouverte au début du XXᵉ siècle par Mikao Usui après une profonde expérience méditative sur le mont Kurama. Le terme Reiki signifie « Énergie Universelle de Vie » (Rei = universel, Ki = énergie vitale). Cette méthode vise à rétablir l'harmonie, soutenir la circulation énergétique et favoriser le bien-être physique, émotionnel et spirituel."
+          },
+          {
+            "question": "Comment fonctionne une séance de Reiki ?",
+            "answer": "Lors d'une séance, le receveur reste habillé et s'allonge confortablement. Le praticien place ses mains sur ou au-dessus du corps pour canaliser l'énergie Reiki, libérer les blocages et stimuler le processus naturel de guérison. La séance se déroule dans un cadre calme et sécurisant, propice à la détente et à l'harmonisation énergétique."
+          },
+          {
+            "question": "Quels sont les bienfaits du Reiki ?",
+            "answer": "Le Reiki aide à réduire le stress, soulager les tensions et la douleur, améliorer le sommeil, libérer les émotions bloquées, renforcer le système immunitaire et soutenir l'équilibre émotionnel et spirituel."
+          },
+          {
+            "question": "Le Reiki est-il religieux ?",
+            "answer": "Non, le Reiki n'est pas lié à une religion. Il peut être pratiqué et reçu par toute personne, quelle que soit sa croyance, ou sans croyance particulière, en se concentrant sur ses effets énergétiques et thérapeutiques."
+          },
+          {
+            "question": "Qui peut recevoir le Reiki ?",
+            "answer": "Le Reiki convient à tous, des nourrissons aux personnes âgées, y compris les femmes enceintes et les personnes malades. Sa pratique non invasive et sécurisée en fait un soin accessible à la plupart des personnes."
+          },
+          {
+            "question": "Comment devenir praticien Reiki ?",
+            "answer": "Pour devenir praticien, il est nécessaire de suivre une formation progressive avec initiations qui permettent d'ouvrir et de canaliser l'énergie, d'approfondir la pratique personnelle et, pour ceux qui le souhaitent, d'apprendre à transmettre cet enseignement. Le praticien doit entretenir une hygiène de vie physique, énergétique et spirituelle pour maintenir la clarté et l'efficacité de son canal."
+          },
+          {
+            "question": "Puis-je apprendre le Reiki avec vous ?",
+            "answer": "Je suis habilitée à former et à transmettre les initiations Reiki dans un cadre sécurisé et bienveillant, accompagnant chacun sur son cheminement énergétique et spirituel. Pour toute demande ou intérêt concernant les formations et initiations, vous pouvez me contacter à contact@coeurdelom.fr"
+          },
+          {
+            "question": "Le Reiki peut-il remplacer les traitements médicaux ?",
+            "answer": "Le Reiki complète les traitements médicaux conventionnels pour soutenir la guérison et optimiser les résultats. Il ne remplace pas les soins médicaux professionnels et ne doit pas être utilisé comme unique traitement pour des pathologies graves."
+          }
+        ],
+        "chakras": [
+          {
+            "question": "Qu'est-ce que les chakras ?",
+            "answer": "Les chakras sont des centres énergétiques situés le long de la colonne vertébrale, chacun correspondant à des aspects physiques, émotionnels et spirituels de la personne. Ils régulent la circulation de l'énergie vitale et influencent notre équilibre global."
+          },
+          {
+            "question": "Comment le Reiki agit-il sur les chakras ?",
+            "answer": "Lors d'une séance de Reiki, le praticien canalise l'énergie sur les chakras pour dissoudre les blocages, harmoniser le flux énergétique et restaurer l'équilibre. Chaque chakra peut être stimulé ou apaisé selon les besoins individuels, permettant une réharmonisation douce et profonde."
+          },
+          {
+            "question": "Quels sont les bienfaits de l'harmonisation des chakras avec le Reiki ?",
+            "answer": "• Équilibre émotionnel et mental\n• Meilleure circulation de l'énergie vitale\n• Réduction du stress et des tensions\n• Soutien au bien-être physique et spirituel"
+          },
+          {
+            "question": "Qui peut bénéficier de cette pratique ?",
+            "answer": "Tout le monde peut recevoir une harmonisation des chakras par le Reiki. La séance est adaptée à chaque personne et reste non invasive et sécuritaire."
+          },
+          {
+            "question": "Séances et accompagnement",
+            "answer": "Le travail sur les chakras fait partie des séances de Reiki individuelles au cabinet et peut être intégré dans un suivi régulier pour soutenir l'équilibre énergétique global."
+          }
+        ]
+      }
     },
     "vibratory": {
       "title": "Soins vibratoires",

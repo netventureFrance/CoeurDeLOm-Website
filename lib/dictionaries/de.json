@@ -147,7 +147,70 @@
         "Verbesserung des Schlafs",
         "Emotionale Unterstützung",
         "Nicht-invasive Praxis für alle zugänglich"
-      ]
+      ],
+      "faq": {
+        "title": "Häufig gestellte Fragen",
+        "tabs": {
+          "reiki": "Reiki",
+          "chakras": "Reiki & Chakren"
+        },
+        "reiki": [
+          {
+            "question": "Was ist Reiki?",
+            "answer": "Reiki ist eine japanische Energiepraxis, die Anfang des 20. Jahrhunderts von Mikao Usui nach einer tiefgreifenden meditativen Erfahrung auf dem Berg Kurama wiederentdeckt wurde. Der Begriff Reiki bedeutet „Universelle Lebensenergie" (Rei = universell, Ki = Lebensenergie). Diese Methode zielt darauf ab, Harmonie wiederherzustellen, den Energiefluss zu unterstützen und körperliches, emotionales und spirituelles Wohlbefinden zu fördern."
+          },
+          {
+            "question": "Wie funktioniert eine Reiki-Sitzung?",
+            "answer": "Während einer Sitzung bleibt der Empfänger bekleidet und legt sich bequem hin. Der Praktizierende legt seine Hände auf oder über den Körper, um Reiki-Energie zu kanalisieren, Blockaden zu lösen und den natürlichen Heilungsprozess anzuregen. Die Sitzung findet in einem ruhigen und sicheren Umfeld statt, das der Entspannung und energetischen Harmonisierung förderlich ist."
+          },
+          {
+            "question": "Was sind die Vorteile von Reiki?",
+            "answer": "Reiki hilft, Stress abzubauen, Verspannungen und Schmerzen zu lindern, den Schlaf zu verbessern, blockierte Emotionen freizusetzen, das Immunsystem zu stärken und emotionales und spirituelles Gleichgewicht zu unterstützen."
+          },
+          {
+            "question": "Ist Reiki religiös?",
+            "answer": "Nein, Reiki ist nicht mit einer Religion verbunden. Es kann von jeder Person praktiziert und empfangen werden, unabhängig von ihren Überzeugungen oder ohne besondere Überzeugung, wobei der Fokus auf seinen energetischen und therapeutischen Wirkungen liegt."
+          },
+          {
+            "question": "Wer kann Reiki empfangen?",
+            "answer": "Reiki ist für alle geeignet, von Säuglingen bis zu älteren Menschen, einschließlich schwangerer Frauen und kranker Personen. Seine nicht-invasive und sichere Praxis macht es zu einer für die meisten Menschen zugänglichen Behandlung."
+          },
+          {
+            "question": "Wie wird man Reiki-Praktizierender?",
+            "answer": "Um Praktizierender zu werden, ist es notwendig, eine progressive Ausbildung mit Einweihungen zu absolvieren, die es ermöglichen, Energie zu öffnen und zu kanalisieren, die persönliche Praxis zu vertiefen und für diejenigen, die es wünschen, diese Lehre weiterzugeben. Der Praktizierende muss einen physischen, energetischen und spirituellen Lebensstil pflegen, um die Klarheit und Wirksamkeit seines Kanals aufrechtzuerhalten."
+          },
+          {
+            "question": "Kann ich Reiki bei Ihnen lernen?",
+            "answer": "Ich bin qualifiziert, Reiki-Einweihungen in einem sicheren und fürsorglichen Umfeld zu unterrichten und zu vermitteln und begleite jeden auf seinem energetischen und spirituellen Weg. Für Anfragen oder Interesse an Ausbildungen und Einweihungen können Sie mich unter contact@coeurdelom.fr kontaktieren."
+          },
+          {
+            "question": "Kann Reiki medizinische Behandlungen ersetzen?",
+            "answer": "Reiki ergänzt konventionelle medizinische Behandlungen, um die Heilung zu unterstützen und die Ergebnisse zu optimieren. Es ersetzt keine professionelle medizinische Versorgung und sollte nicht als einzige Behandlung für schwere Erkrankungen verwendet werden."
+          }
+        ],
+        "chakras": [
+          {
+            "question": "Was sind Chakren?",
+            "answer": "Chakren sind Energiezentren entlang der Wirbelsäule, die jeweils physischen, emotionalen und spirituellen Aspekten der Person entsprechen. Sie regulieren die Zirkulation der Lebensenergie und beeinflussen unser gesamtes Gleichgewicht."
+          },
+          {
+            "question": "Wie wirkt Reiki auf die Chakren?",
+            "answer": "Während einer Reiki-Sitzung kanalisiert der Praktizierende Energie auf die Chakren, um Blockaden aufzulösen, den Energiefluss zu harmonisieren und das Gleichgewicht wiederherzustellen. Jedes Chakra kann je nach individuellen Bedürfnissen stimuliert oder beruhigt werden, was eine sanfte und tiefe Harmonisierung ermöglicht."
+          },
+          {
+            "question": "Was sind die Vorteile der Chakren-Harmonisierung mit Reiki?",
+            "answer": "• Emotionales und mentales Gleichgewicht\n• Bessere Zirkulation der Lebensenergie\n• Abbau von Stress und Spannungen\n• Unterstützung des körperlichen und spirituellen Wohlbefindens"
+          },
+          {
+            "question": "Wer kann von dieser Praxis profitieren?",
+            "answer": "Jeder kann eine Chakren-Harmonisierung durch Reiki erhalten. Die Sitzung wird an jede Person angepasst und bleibt nicht-invasiv und sicher."
+          },
+          {
+            "question": "Sitzungen und Begleitung",
+            "answer": "Die Arbeit an den Chakren ist Teil der individuellen Reiki-Sitzungen in der Praxis und kann in eine regelmäßige Betreuung integriert werden, um das gesamte energetische Gleichgewicht zu unterstützen."
+          }
+        ]
+      }
     },
     "vibratory": {
       "title": "Schwingungstherapie",

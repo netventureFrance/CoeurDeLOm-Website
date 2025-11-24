@@ -2,6 +2,7 @@ import { type Locale, getDictionary } from '@/lib/i18n';
 import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
+import TherapyFAQ from '@/components/TherapyFAQ';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -196,6 +197,19 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   </div>
                 </div>
               </div>
+
+              {/* FAQ Section - Only for Reiki (index 0) */}
+              {index === 0 && (therapy as any).faq && (
+                <TherapyFAQ
+                  title={(therapy as any).faq.title}
+                  tabs={(therapy as any).faq.tabs}
+                  content={{
+                    reiki: (therapy as any).faq.reiki,
+                    chakras: (therapy as any).faq.chakras
+                  }}
+                  lang={lang}
+                />
+              )}
             </div>
           ))}
         </div>
