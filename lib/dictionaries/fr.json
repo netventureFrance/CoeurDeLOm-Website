@@ -65,6 +65,7 @@
       "title": "Diplômes et formations",
       "tabs": {
         "diplomas": "Diplômes & Formations",
+        "tcm": "Médecine Traditionnelle Chinoise",
         "sessions": "Séances & Soins"
       },
       "diplomas": [
@@ -129,6 +130,24 @@
         {
           "question": "Où se déroule la séance ?",
           "answer": "Les séances ont lieu au cabinet de Montpellier, quartier des Beaux-Arts, dans un espace sécurisant et ressourçant, propice à la détente et à l'harmonisation énergétique."
+        }
+      ],
+      "tcm": [
+        {
+          "question": "Quel est mon parcours en Médecine Traditionnelle Chinoise ?",
+          "answer": "Je suis Heilpraktiker, un praticien de santé naturel reconnu en Allemagne, formée en Médecine Traditionnelle Chinoise et en acupuncture et mes années de pratique m'ont permis d'acquérir une connaissance approfondie des méridiens, des points d'acupuncture et des principes énergétiques fondamentaux de la MTC"
+        },
+        {
+          "question": "Quelles techniques ai-je pratiquées ?",
+          "answer": "J'ai pratiqué l'acupuncture dans le cadre de ma formation complète en Allemagne, mais aujourd'hui je l'utilise en retrait selon la législation française, ainsi que l'auriculothérapie, la moxibustion et l'acupressure sur les points des méridiens me sont autorisées."
+        },
+        {
+          "question": "Comment ce savoir contribue-t-il à mes soins énergétiques ?",
+          "answer": "Même si la législation française interdit la pratique de l'acupuncture par un non-médecin, ce savoir constitue un apport précieux pour l'anamnèse énergétique et me permet de comprendre le profil énergétique d'un client avec précision, d'identifier les points clés des méridiens pouvant être stimulés en acupressure et d'utiliser des outils tels que le styletto, les couleurs, les bols et les diapasons de cristal en ciblant les points spécifiques pour amplifier la circulation de l'énergie"
+        },
+        {
+          "question": "Qu'apporte cette combinaison de techniques à mes clients ?",
+          "answer": "Cette combinaison de techniques offre à mes clients une approche énergétique complète et personnalisée, favorise l'harmonisation des flux énergétiques selon leur constitution et leurs besoins et encadre mes autres thérapies énergétiques en assurant cohérence et sécurité"
         }
       ]
     }

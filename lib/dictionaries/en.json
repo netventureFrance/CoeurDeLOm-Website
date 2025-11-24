@@ -65,6 +65,7 @@
       "title": "Diplomas and Training",
       "tabs": {
         "diplomas": "Diplomas & Training",
+        "tcm": "Traditional Chinese Medicine",
         "sessions": "Sessions & Treatments"
       },
       "diplomas": [
@@ -129,6 +130,24 @@
         {
           "question": "Where does the session take place?",
           "answer": "Sessions take place at the Montpellier office, Beaux-Arts district, in a secure and restorative space, conducive to relaxation and energetic harmonization."
+        }
+      ],
+      "tcm": [
+        {
+          "question": "What is my background in Traditional Chinese Medicine?",
+          "answer": "I am a Heilpraktiker, a recognized natural health practitioner in Germany, trained in Traditional Chinese Medicine and acupuncture, and my years of practice have allowed me to acquire in-depth knowledge of meridians, acupuncture points and fundamental energy principles of TCM"
+        },
+        {
+          "question": "What techniques have I practiced?",
+          "answer": "I practiced acupuncture as part of my comprehensive training in Germany, but today I use it in a restricted manner according to French legislation, while auricular therapy, moxibustion and acupressure on meridian points are authorized for me."
+        },
+        {
+          "question": "How does this knowledge contribute to my energy treatments?",
+          "answer": "Although French legislation prohibits the practice of acupuncture by non-physicians, this knowledge constitutes a valuable asset for energetic anamnesis and allows me to understand a client's energy profile with precision, identify key meridian points that can be stimulated through acupressure, and use tools such as the styletto, colors, bowls and crystal tuning forks by targeting specific points to amplify energy circulation"
+        },
+        {
+          "question": "What does this combination of techniques bring to my clients?",
+          "answer": "This combination of techniques offers my clients a complete and personalized energetic approach, promotes harmonization of energy flows according to their constitution and needs, and frames my other energy therapies ensuring coherence and safety"
         }
       ]
     }

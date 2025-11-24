@@ -72,6 +72,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
               tabs={(about as any).faq.tabs}
               content={{
                 diplomas: (about as any).faq.diplomas,
+                tcm: (about as any).faq.tcm,
                 sessions: (about as any).faq.sessions
               }}
               lang={lang}

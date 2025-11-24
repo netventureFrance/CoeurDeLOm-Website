@@ -65,6 +65,7 @@
       "title": "Diplome und Ausbildungen",
       "tabs": {
         "diplomas": "Diplome & Ausbildungen",
+        "tcm": "Traditionelle Chinesische Medizin",
         "sessions": "Sitzungen & Behandlungen"
       },
       "diplomas": [
@@ -129,6 +130,24 @@
         {
           "question": "Wo findet die Sitzung statt?",
           "answer": "Die Sitzungen finden in der Praxis in Montpellier, Viertel Beaux-Arts, in einem sicheren und erholsamen Raum statt, der der Entspannung und energetischen Harmonisierung förderlich ist."
+        }
+      ],
+      "tcm": [
+        {
+          "question": "Was ist mein Hintergrund in Traditioneller Chinesischer Medizin?",
+          "answer": "Ich bin Heilpraktikerin, eine in Deutschland anerkannte Naturheilkundlerin, ausgebildet in Traditioneller Chinesischer Medizin und Akupunktur, und meine langjährige Praxis hat es mir ermöglicht, ein tiefgreifendes Wissen über Meridiane, Akupunkturpunkte und grundlegende Energieprinzipien der TCM zu erwerben"
+        },
+        {
+          "question": "Welche Techniken habe ich praktiziert?",
+          "answer": "Ich habe Akupunktur im Rahmen meiner umfassenden Ausbildung in Deutschland praktiziert, aber heute verwende ich sie gemäß der französischen Gesetzgebung in eingeschränkter Weise, während Ohrakupunktur, Moxibustion und Akupressur auf Meridianpunkten für mich zugelassen sind."
+        },
+        {
+          "question": "Wie trägt dieses Wissen zu meinen Energiebehandlungen bei?",
+          "answer": "Obwohl die französische Gesetzgebung die Ausübung der Akupunktur durch Nicht-Ärzte verbietet, stellt dieses Wissen einen wertvollen Beitrag für die energetische Anamnese dar und ermöglicht es mir, das Energieprofil eines Klienten präzise zu verstehen, Schlüsselpunkte der Meridiane zu identifizieren, die durch Akupressur stimuliert werden können, und Werkzeuge wie das Styletto, Farben, Klangschalen und Kristallstimmgabeln zu verwenden, indem ich spezifische Punkte gezielt anspreche, um die Energiezirkulation zu verstärken"
+        },
+        {
+          "question": "Was bringt diese Kombination von Techniken meinen Klienten?",
+          "answer": "Diese Kombination von Techniken bietet meinen Klienten einen vollständigen und personalisierten energetischen Ansatz, fördert die Harmonisierung der Energieflüsse entsprechend ihrer Konstitution und ihren Bedürfnissen und rahmt meine anderen Energietherapien ein, um Kohärenz und Sicherheit zu gewährleisten"
         }
       ]
     }
