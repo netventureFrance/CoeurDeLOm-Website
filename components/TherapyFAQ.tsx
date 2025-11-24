@@ -29,7 +29,7 @@ export default function TherapyFAQ({ title, tabs, content, lang }: TherapyFAQPro
     <div className="max-w-6xl mx-auto mt-12 mb-8">
       {/* Title with Dancing Script font */}
       <h3
-        className="text-3xl font-normal text-purple-900 mb-6 text-left"
+        className="text-3xl font-normal text-purple-900 mb-6 text-left pl-6"
         style={{ fontFamily: "'Dancing Script', cursive" }}
       >
         {title}
