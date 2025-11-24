@@ -21,32 +21,30 @@ interface TherapyFAQProps {
 export default function TherapyFAQ({ title, tabs, content, lang }: TherapyFAQProps) {
   const tabKeys = Object.keys(tabs);
   const [activeTab, setActiveTab] = useState(tabKeys[0]);
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [selectedQuestion, setSelectedQuestion] = useState<number>(0);
 
-  const toggleQuestion = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const currentQuestions = content[activeTab] || [];
 
   return (
-    <div className="max-w-6xl mx-auto mt-20 mb-12">
+    <div className="max-w-6xl mx-auto mt-12 mb-8">
       {/* Title */}
-      <h2 className="text-4xl md:text-5xl font-normal text-purple-900 text-center mb-12">
+      <h3 className="text-2xl font-normal text-purple-900 text-center mb-6">
         {title}
-      </h2>
+      </h3>
 
       {/* Tabs */}
-      <div className="flex justify-center gap-4 mb-12 flex-wrap">
+      <div className="flex justify-center gap-3 mb-8">
         {tabKeys.map((key) => (
           <button
             key={key}
             onClick={() => {
               setActiveTab(key);
-              setOpenIndex(null); // Reset open item when switching tabs
+              setSelectedQuestion(0);
             }}
-            className={`px-8 py-3 rounded-full font-semibold transition-all duration-300 ${
+            className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
               activeTab === key
-                ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-lg scale-105'
-                : 'bg-white/80 text-gray-700 hover:bg-gradient-to-r hover:from-purple-100/60 hover:to-cyan-100/60 hover:scale-102 shadow-sm'
+                ? 'bg-gradient-to-r from-purple-400 via-pink-400 to-purple-300 text-white shadow-md'
+                : 'bg-white/60 text-gray-700 hover:bg-purple-50/60 shadow-sm'
             }`}
           >
             {tabs[key]}
@@ -54,53 +52,31 @@ export default function TherapyFAQ({ title, tabs, content, lang }: TherapyFAQPro
         ))}
       </div>
 
-      {/* FAQ Accordion */}
-      <div className="max-w-4xl mx-auto space-y-4">
-        {content[activeTab]?.map((item, index) => (
-          <div
-            key={index}
-            className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100/50 overflow-hidden"
-          >
+      {/* Side-by-Side Layout */}
+      <div className="grid md:grid-cols-2 gap-6 bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100/50">
+        {/* Questions List - Left Side */}
+        <div className="space-y-2">
+          {currentQuestions.map((item, index) => (
             <button
-              onClick={() => toggleQuestion(index)}
-              className="w-full text-left px-8 py-6 flex items-center justify-between gap-4 hover:bg-gradient-to-r hover:from-purple-50/30 hover:via-pink-50/30 hover:to-cyan-50/30 transition-colors"
-            >
-              <span className="text-lg font-semibold text-gray-800 pr-4">
-                {item.question}
-              </span>
-              <span
-                className={`flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-purple-100/60 to-cyan-100/60 flex items-center justify-center transition-transform duration-300 ${
-                  openIndex === index ? 'rotate-180' : ''
-                }`}
-              >
-                <svg
-                  className="w-5 h-5 text-purple-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </span>
-            </button>
-            <div
-              className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                openIndex === index
-                  ? 'max-h-[800px] opacity-100'
-                  : 'max-h-0 opacity-0'
+              key={index}
+              onClick={() => setSelectedQuestion(index)}
+              className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 text-sm ${
+                selectedQuestion === index
+                  ? 'bg-gradient-to-r from-purple-100 via-pink-100 to-purple-100 text-purple-900 font-semibold shadow-sm'
+                  : 'bg-white/40 text-gray-700 hover:bg-purple-50/40 hover:text-purple-800'
               }`}
             >
-              <div className="px-8 pb-6 text-gray-700 leading-relaxed whitespace-pre-line">
-                {item.answer}
-              </div>
-            </div>
+              {item.question}
+            </button>
+          ))}
+        </div>
+
+        {/* Answer Display - Right Side */}
+        <div className="bg-gradient-to-br from-purple-50/50 via-pink-50/30 to-purple-50/50 rounded-xl p-6 min-h-[300px] flex items-start">
+          <div className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
+            {currentQuestions[selectedQuestion]?.answer}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
