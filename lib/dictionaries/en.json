@@ -60,6 +60,77 @@
     "meditation": {
       "title": "Meditation & Spirituality",
       "description": "Continuing education in meditative practices"
+    },
+    "faq": {
+      "title": "Learn more",
+      "tabs": {
+        "diplomas": "Diplomas & Training",
+        "sessions": "Sessions & Treatments"
+      },
+      "diplomas": [
+        {
+          "question": "Naturopath Diploma",
+          "answer": "Naturopath Diploma (Heilpraktikerin) in 2003 at the Arche Medica Academy of Naturopathy in Berlin with \"Authorization to Practice\" issued after official examinations by the Berlin-Spandau Medical Chamber."
+        },
+        {
+          "question": "Training at ArcheMedica Berlin Academy",
+          "answer": "Graduated from the ArcheMedica Berlin Academy in Acupuncture, Acupressure, Moxibustion, Auricular therapy, Reflexology, Flower Essences, Amma Massage, Homeopathy, 1999-2004"
+        },
+        {
+          "question": "Shamanic Drum",
+          "answer": "Trained in Shamanic Drum practice at the International Institute of Shamanic Practices founded by ethnologist and writer Michael Harner, Austria, 2001"
+        },
+        {
+          "question": "Reiki",
+          "answer": "Reiki, Master and Teacher Degree, 2002-2003, trained by Master Teacher and Healer Anna-Tara Dahm under the auspices of the International Reiki Organization in Düsseldorf."
+        },
+        {
+          "question": "Feng Shui",
+          "answer": "Energetic Feng Shui for body and places at Licht Zentrum, Energy Therapy Center in Ribeauvillé according to the method developed by Franck Eickermann, as well as Alpha Chi Consultant and Fire Shamanism, 2014"
+        },
+        {
+          "question": "Chromobioenergy",
+          "answer": "Chromobioenergy, cellular vibratory therapy through colors according to the method developed by Evelyne Monsallier, 2019-2020."
+        }
+      ],
+      "sessions": [
+        {
+          "question": "How long does a session last?",
+          "answer": "A session generally lasts between 60 and 90 minutes and may vary according to your needs and current state."
+        },
+        {
+          "question": "How does the first contact and appointment booking work?",
+          "answer": "The first contact is made by phone, free of charge via the website, to clarify your expectations and determine the best way to support you. You can also write to me at contact@coeurdelom.fr with your contact details, date of birth and availability so that I can contact you quickly and schedule an appointment."
+        },
+        {
+          "question": "How does an energy or holistic treatment session proceed?",
+          "answer": "The session begins with a discussion about your condition and needs. You settle in comfortably dressed and I work on your energy with different techniques such as Reiki, crystals, crystal tuning forks, acupressure or chromobioenergy. The goal is to restore harmony and energy circulation while listening to your sensations."
+        },
+        {
+          "question": "Do I need to undress for a session?",
+          "answer": "No, you remain dressed and it is recommended to wear comfortable clothing to be at ease."
+        },
+        {
+          "question": "What is energy work?",
+          "answer": "Energy work aims to balance and harmonize the body's energy flows to support physical, emotional and mental healing. It complements naturopathy by considering body, mind and soul as a whole and helps release blockages, stimulate vitality and strengthen overall well-being."
+        },
+        {
+          "question": "What is holistic therapy?",
+          "answer": "Holistic therapy considers the person as a whole and focuses on identifying and treating the root causes of imbalances. It uses natural methods such as meditation, chromobioenergy, vibratory sounds, aromatherapy or body techniques to restore harmony, promote self-healing and strengthen energetic and emotional balance."
+        },
+        {
+          "question": "Who can benefit from these sessions?",
+          "answer": "Anyone wishing to harmonize their energy, reduce stress, improve their vitality, regain serenity and inner balance can benefit from these approaches."
+        },
+        {
+          "question": "Do these treatments replace traditional medicine?",
+          "answer": "No, they complement conventional medical treatments and do not replace them, offering natural and energetic support to optimize health and well-being."
+        },
+        {
+          "question": "Where does the session take place?",
+          "answer": "Sessions take place at the Montpellier office, Beaux-Arts district, in a secure and restorative space, conducive to relaxation and energetic harmonization."
+        }
+      ]
     }
   },
   "blog": {

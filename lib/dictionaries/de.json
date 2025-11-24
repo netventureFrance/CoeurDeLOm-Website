@@ -60,6 +60,77 @@
     "meditation": {
       "title": "Meditation & Spiritualität",
       "description": "Fortlaufende Ausbildung in meditativen Praktiken"
+    },
+    "faq": {
+      "title": "Mehr erfahren",
+      "tabs": {
+        "diplomas": "Diplome & Ausbildungen",
+        "sessions": "Sitzungen & Behandlungen"
+      },
+      "diplomas": [
+        {
+          "question": "Heilpraktiker-Diplom",
+          "answer": "Heilpraktiker-Diplom (Heilpraktikerin) im Jahr 2003 an der Arche Medica Akademie für Naturheilkunde in Berlin mit \"Erlaubnis zur Ausübung\" nach offiziellen Prüfungen durch die Ärztekammer Berlin-Spandau."
+        },
+        {
+          "question": "Ausbildungen an der ArcheMedica Berlin Akademie",
+          "answer": "Abschluss an der ArcheMedica Berlin Akademie in Akupunktur, Akupressur, Moxibustion, Ohrakupunktur, Fußreflexzonenmassage, Blütenessenzen, Amma-Massage, Homöopathie, 1999-2004"
+        },
+        {
+          "question": "Schamanische Trommel",
+          "answer": "Ausbildung in schamanischer Trommeltechnik am Internationalen Institut für Schamanische Praktiken, gegründet von dem Ethnologen und Schriftsteller Michael Harner, Österreich, 2001"
+        },
+        {
+          "question": "Reiki",
+          "answer": "Reiki, Meister- und Lehrergrad, 2002-2003, ausgebildet von der Meisterlehrerin und Heilerin Anna-Tara Dahm unter der Schirmherrschaft der Internationalen Reiki-Organisation in Düsseldorf."
+        },
+        {
+          "question": "Feng Shui",
+          "answer": "Energetisches Feng Shui für Körper und Räume im Licht Zentrum, Energietherapiezentrum in Ribeauvillé nach der von Franck Eickermann entwickelten Methode, sowie Alpha Chi Consultant und Feuerschamanismus, 2014"
+        },
+        {
+          "question": "Chromobioenergie",
+          "answer": "Chromobioenergie, zelluläre Schwingungstherapie durch Farben nach der von Evelyne Monsallier entwickelten Methode, 2019-2020."
+        }
+      ],
+      "sessions": [
+        {
+          "question": "Wie lange dauert eine Sitzung?",
+          "answer": "Eine Sitzung dauert in der Regel zwischen 60 und 90 Minuten und kann je nach Ihren Bedürfnissen und Ihrem aktuellen Zustand variieren."
+        },
+        {
+          "question": "Wie läuft der erste Kontakt und die Terminvereinbarung ab?",
+          "answer": "Der erste Kontakt erfolgt telefonisch, kostenlos über die Website, um Ihre Erwartungen zu klären und die beste Art der Begleitung zu bestimmen. Sie können mir auch an contact@coeurdelom.fr mit Ihren Kontaktdaten, Geburtsdatum und Verfügbarkeiten schreiben, damit ich Sie schnell kontaktieren und einen Termin vereinbaren kann."
+        },
+        {
+          "question": "Wie läuft eine energetische oder ganzheitliche Behandlungssitzung ab?",
+          "answer": "Die Sitzung beginnt mit einem Gespräch über Ihren Zustand und Ihre Bedürfnisse. Sie machen es sich bequem bekleidet und ich arbeite mit verschiedenen Techniken wie Reiki, Kristallen, Kristallstimmgabeln, Akupressur oder Chromobioenergie an Ihrer Energie. Das Ziel ist es, Harmonie und Energiefluss wiederherzustellen, während ich auf Ihre Empfindungen achte."
+        },
+        {
+          "question": "Muss ich mich für eine Sitzung ausziehen?",
+          "answer": "Nein, Sie bleiben bekleidet und es wird empfohlen, bequeme Kleidung zu tragen, um sich wohlzufühlen."
+        },
+        {
+          "question": "Was ist Energiearbeit?",
+          "answer": "Energiearbeit zielt darauf ab, die Energieflüsse des Körpers auszugleichen und zu harmonisieren, um die physische, emotionale und mentale Heilung zu unterstützen. Sie ergänzt die Naturheilkunde, indem sie Körper, Geist und Seele als Ganzes betrachtet und hilft, Blockaden zu lösen, die Vitalität zu stimulieren und das allgemeine Wohlbefinden zu stärken."
+        },
+        {
+          "question": "Was ist ganzheitliche Therapie?",
+          "answer": "Die ganzheitliche Therapie betrachtet die Person als Ganzes und konzentriert sich darauf, die tieferen Ursachen von Ungleichgewichten zu identifizieren und zu behandeln. Sie verwendet natürliche Methoden wie Meditation, Chromobioenergie, Schwingungsklänge, Aromatherapie oder Körpertechniken, um die Harmonie wiederherzustellen, die Selbstheilung zu fördern und das energetische und emotionale Gleichgewicht zu stärken."
+        },
+        {
+          "question": "Wer kann von diesen Sitzungen profitieren?",
+          "answer": "Jeder, der seine Energie harmonisieren, Stress reduzieren, seine Vitalität verbessern und Gelassenheit und inneres Gleichgewicht wiederfinden möchte, kann von diesen Ansätzen profitieren."
+        },
+        {
+          "question": "Ersetzen diese Behandlungen die traditionelle Medizin?",
+          "answer": "Nein, sie ergänzen die konventionellen medizinischen Behandlungen und ersetzen sie nicht, sondern bieten eine natürliche und energetische Unterstützung zur Optimierung von Gesundheit und Wohlbefinden."
+        },
+        {
+          "question": "Wo findet die Sitzung statt?",
+          "answer": "Die Sitzungen finden in der Praxis in Montpellier, Viertel Beaux-Arts, in einem sicheren und erholsamen Raum statt, der der Entspannung und energetischen Harmonisierung förderlich ist."
+        }
+      ]
     }
   },
   "blog": {

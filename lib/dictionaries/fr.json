@@ -60,6 +60,77 @@
     "meditation": {
       "title": "Méditation & Spiritualité",
       "description": "Formation continue en pratiques méditatives"
+    },
+    "faq": {
+      "title": "En savoir plus",
+      "tabs": {
+        "diplomas": "Diplômes & Formations",
+        "sessions": "Séances & Soins"
+      },
+      "diplomas": [
+        {
+          "question": "Diplôme de Naturopathe",
+          "answer": "Diplôme de Naturopathe (Heilpraktikerin) en 2003 à l'Académie de Naturopathie Arche Medica à Berlin avec \"l'Autorisation d'Exercer\" délivrée après des examens officiels par la Chambre des Médecins de Berlin-Spandau."
+        },
+        {
+          "question": "Formations à l'Académie ArcheMedica Berlin",
+          "answer": "Diplômée par l'Academie ArcheMedica Berlin en Acupuncture, Acupressure, Moxibustion, Auriculothérapie, Réflexologie plantaire, Harmonisants Floraux, Massage Amma, Homéopathie, 1999-2004"
+        },
+        {
+          "question": "Tambour Chamanique",
+          "answer": "Formée à la pratique du Tambour Chamanique à l'Institut International des Pratiques Chamaniques fondée par l'ethnologue et écrivain Michael Harner, Autriche, 2001"
+        },
+        {
+          "question": "Reiki",
+          "answer": "Reiki, Degré Maître et Enseignante, 2002-2003, formée par la Maitre Enseignante et Guérisseuse Anna-Tara Dahm sous l'égide de l'Organisation International de Reiki à Düsseldorf."
+        },
+        {
+          "question": "Feng Shui",
+          "answer": "Feng Shui énergétique pour corps et lieux au Licht Zentrum, Centre de Thérapie énergétique à Ribeauvillé d'après la méthode développée par Franck Eickermann, mais aussi Alpha Chi Consultant et Chamanisme de Feu, 2014"
+        },
+        {
+          "question": "Chromobioénergie",
+          "answer": "Chromobioénergie, thérapie vibratoire cellulaire par les couleurs d'après la méthode développée par Evelyne Monsallier, 2019-2020."
+        }
+      ],
+      "sessions": [
+        {
+          "question": "Quelle est la durée d'une séance ?",
+          "answer": "Une séance dure généralement entre 60 et 90 minutes et peut varier selon vos besoins et votre état du moment."
+        },
+        {
+          "question": "Comment se déroule le premier contact et la prise de rendez-vous ?",
+          "answer": "Le premier contact se fait par téléphone, gratuitement via le site, pour préciser vos attentes et déterminer la meilleure manière de vous accompagner. Vous pouvez également m'écrire à contact@coeurdelom.fr avec vos coordonnées, votre date de naissance et vos disponibilités afin que je vous recontacte rapidement et fixe un rendez-vous."
+        },
+        {
+          "question": "Comment se déroule une séance de soins énergétiques ou holistiques ?",
+          "answer": "La séance commence par un échange sur votre état et vos besoins. Vous vous installez confortablement habillé et je travaille sur votre énergie avec différentes techniques comme le Reiki, les cristaux, les diapasons de cristal, l'acupressure ou la chromobioénergie. L'objectif est de rétablir l'harmonie et la circulation de l'énergie tout en restant à l'écoute de vos sensations."
+        },
+        {
+          "question": "Faut-il se déshabiller pour une séance ?",
+          "answer": "Non, vous restez habillé et il est recommandé de porter des vêtements confortables pour être à l'aise."
+        },
+        {
+          "question": "Qu'est-ce que le travail énergétique ?",
+          "answer": "Le travail énergétique vise à équilibrer et harmoniser les flux d'énergie du corps pour soutenir la guérison physique, émotionnelle et mentale. Il complète la naturopathie en prenant en compte le corps, l'esprit et l'âme comme un tout et aide à libérer les blocages, stimuler la vitalité et renforcer le bien-être général."
+        },
+        {
+          "question": "Qu'est-ce que la thérapie holistique ?",
+          "answer": "La thérapie holistique considère la personne dans sa globalité et s'attache à identifier et traiter les causes profondes des déséquilibres. Elle utilise des méthodes naturelles comme la méditation, la chromobioénergie, les sons vibratoires, l'aromathérapie ou les techniques corporelles pour restaurer l'harmonie, favoriser l'autoguérison et renforcer l'équilibre énergétique et émotionnel."
+        },
+        {
+          "question": "Qui peut bénéficier de ces séances ?",
+          "answer": "Toute personne souhaitant harmoniser son énergie, réduire le stress, améliorer sa vitalité, retrouver sérénité et équilibre intérieur peut bénéficier de ces approches."
+        },
+        {
+          "question": "Ces soins remplacent-ils la médecine traditionnelle ?",
+          "answer": "Non, ils complètent les traitements médicaux conventionnels et ne les remplacent pas, offrant un accompagnement naturel et énergétique pour optimiser la santé et le bien-être."
+        },
+        {
+          "question": "Où se déroule la séance ?",
+          "answer": "Les séances ont lieu au cabinet de Montpellier, quartier des Beaux-Arts, dans un espace sécurisant et ressourçant, propice à la détente et à l'harmonisation énergétique."
+        }
+      ]
     }
   },
   "blog": {

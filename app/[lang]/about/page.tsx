@@ -2,6 +2,7 @@ import { type Locale, getDictionary } from '@/lib/i18n';
 import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
+import TherapyFAQ from '@/components/TherapyFAQ';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -46,12 +47,6 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
                   {about.paragraph3}
                 </p>
               </div>
-              <a href="#diplomes" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-200/60 to-blue-200/60 backdrop-blur-sm text-cyan-700 rounded-full text-lg font-medium hover:shadow-md transition-all hover:scale-105 border border-cyan-200/50">
-                {about.diplomasButton}
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </a>
             </div>
 
             {/* Profile Image with Soft Gradient Glow */}
@@ -69,42 +64,19 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
           </div>
         </section>
 
-        {/* Diplomas Section */}
-        <section id="diplomes" className="max-w-5xl mx-auto">
-          <div className="flex justify-center mb-16">
-            <InteractiveTitle className="text-5xl md:text-6xl font-normal text-center text-purple-900">
-              {about.diplomasTitle}
-            </InteractiveTitle>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-cyan-50/80 to-blue-50/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-cyan-100/50 hover:shadow-md transition-all hover:-translate-y-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-200/50 to-blue-200/50 rounded-full mb-6 flex items-center justify-center backdrop-blur-sm">
-                <svg className="w-8 h-8 text-cyan-600/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-3 text-cyan-600/80">{about.naturopathy.title}</h3>
-              <p className="text-gray-600 text-lg whitespace-pre-line">{about.naturopathy.description}</p>
-            </div>
-            <div className="bg-gradient-to-br from-purple-50/80 to-pink-50/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-purple-100/50 hover:shadow-md transition-all hover:-translate-y-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-200/50 to-pink-200/50 rounded-full mb-6 flex items-center justify-center backdrop-blur-sm">
-                <svg className="w-8 h-8 text-purple-600/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-3 text-purple-600/80">{about.chromobio.title}</h3>
-              <p className="text-gray-600 text-lg">{about.chromobio.description}</p>
-            </div>
-            <div className="bg-gradient-to-br from-green-50/80 to-teal-50/80 backdrop-blur-sm rounded-3xl p-8 shadow-sm border border-green-100/50 hover:shadow-md transition-all hover:-translate-y-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-200/50 to-teal-200/50 rounded-full mb-6 flex items-center justify-center backdrop-blur-sm">
-                <svg className="w-8 h-8 text-green-600/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-3 text-green-600/80">{about.meditation.title}</h3>
-              <p className="text-gray-600 text-lg">{about.meditation.description}</p>
-            </div>
-          </div>
+        {/* FAQ Section */}
+        <section className="max-w-6xl mx-auto">
+          {(about as any).faq && (
+            <TherapyFAQ
+              title={(about as any).faq.title}
+              tabs={(about as any).faq.tabs}
+              content={{
+                diplomas: (about as any).faq.diplomas,
+                sessions: (about as any).faq.sessions
+              }}
+              lang={lang}
+            />
+          )}
         </section>
       </div>
     </main>
