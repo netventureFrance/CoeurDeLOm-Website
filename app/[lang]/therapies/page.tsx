@@ -31,7 +31,8 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       gradient: 'from-purple-400 via-pink-400 to-purple-300',
       rotation: '-rotate-12',
       description: t.reiki.description,
-      benefits: t.reiki.benefits
+      benefits: t.reiki.benefits,
+      faq: t.reiki.faq
     },
     {
       title: t.vibratory.title,
