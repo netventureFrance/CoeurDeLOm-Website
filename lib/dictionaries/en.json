@@ -140,14 +140,8 @@
     "benefits": "Benefits",
     "reiki": {
       "title": "Reiki",
-      "description": "Reiki is a Japanese energy therapy that uses universal life energy to promote physical, emotional, mental and spiritual healing. During a session, the practitioner places their hands on or above the receiver's body to channel this energy, eliminate blockages and restore harmony.",
-      "benefits": [
-        "Reduction of stress and tension",
-        "Pain relief",
-        "Improved sleep",
-        "Emotional support",
-        "Non-invasive practice accessible to all"
-      ],
+      "description": "Reiki is a Japanese energy therapy that uses Universal Life Energy to promote physical, emotional, mental and spiritual healing. The practitioner places their hands on or above the body to channel this energy, eliminate blockages and restore harmony, while also working on the position and balance of the chakras to harmonize the overall energetic flow. Accessible to all, not linked to any religion, this non-invasive and safe practice helps reduce stress, relieve pain, improve sleep and support emotional balance while complementing conventional medical treatments.",
+      "benefits": [],
       "faq": {
         "title": "Learn more about Reiki and Chakras",
         "tabs": {
