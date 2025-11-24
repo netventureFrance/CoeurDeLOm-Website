@@ -458,6 +458,39 @@
         ]
       }
     },
+    "tambour": {
+      "title": "Tambour Chamanique",
+      "description": "La technique du tambour chamanique, inspirée des traditions anciennes, utilise des rythmes répétitifs pour induire un état modifié de conscience propice à la guérison et à l'exploration de soi. Cette pratique favorise la connexion avec les esprits, la nature et le soi intérieur, aidant à soulager le stress, l'anxiété et la dépression, tout en stimulant la créativité et la conscience de soi. Accessible à tous, cette thérapie holistique guide les participants vers un voyage intérieur grâce aux sons du tambour, accompagnés de visualisations et de méditations.",
+      "benefits": [],
+      "faq": {
+        "title": "En savoir plus",
+        "tabs": {
+          "tambour": "Tambour Chamanique"
+        },
+        "tambour": [
+          {
+            "question": "Qu'est-ce que le tambour chamanique ?",
+            "answer": "Le tambour chamanique est un outil vibratoire et sonore utilisé dans le chamanisme pour soutenir l'exploration intérieure, la relaxation et le rééquilibrage énergétique. Le rythme régulier du tambour favorise un état méditatif profond, permettant au corps et à l'esprit de se détendre, de se recentrer et de se reconnecter à ses propres ressources intérieures"
+          },
+          {
+            "question": "Comment se déroule une séance de tambour chamanique ?",
+            "answer": "La séance se déroule dans un espace calme et sécurisant où vous êtes confortablement installé. Je fais résonner le tambour selon un rythme spécifique qui guide l'écoute et la relaxation, parfois associé à des visualisations ou des respirations conscientes. L'expérience peut être individuelle ou collective et est adaptée à chaque personne pour favoriser le lâcher-prise et l'harmonisation énergétique"
+          },
+          {
+            "question": "Quels sont les bienfaits du tambour chamanique ?",
+            "answer": "Le tambour chamanique aide à apaiser le mental, réduire le stress, libérer les tensions et favoriser un sentiment de centrage et de sérénité. Il soutient également la circulation de l'énergie vitale, renforce la concentration et ouvre un espace intérieur propice à l'intuition, à la créativité et à la reconnexion avec soi-même"
+          },
+          {
+            "question": "Qui peut bénéficier d'une séance de tambour chamanique ?",
+            "answer": "Toute personne souhaitant se détendre, se recentrer, explorer son monde intérieur ou soutenir son équilibre énergétique peut bénéficier d'une séance. Elle convient aux débutants comme aux pratiquants réguliers, et chaque séance est ajustée au rythme et aux besoins de chacun"
+          },
+          {
+            "question": "Y a-t-il des contre-indications ?",
+            "answer": "Le tambour chamanique est généralement sûr, mais il peut ne pas convenir aux personnes souffrant de troubles psychiatriques sévères ou de certaines conditions cardiaques sensibles aux vibrations sonores. Il est recommandé de consulter un professionnel de santé si vous avez des préoccupations spécifiques avant de participer à une séance"
+          }
+        ]
+      }
+    },
     "amma": {
       "title": "Massage Amma",
       "description": "Massage assis énergétique d'origine japonaise qui travaille sur les méridiens d'énergie pour libérer les tensions et favoriser la circulation énergétique.",

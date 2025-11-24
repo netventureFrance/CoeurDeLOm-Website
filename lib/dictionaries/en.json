@@ -458,6 +458,39 @@
         ]
       }
     },
+    "tambour": {
+      "title": "Shamanic Drum",
+      "description": "The shamanic drum technique, inspired by ancient traditions, uses repetitive rhythms to induce an altered state of consciousness conducive to healing and self-exploration. This practice promotes connection with spirits, nature, and the inner self, helping to relieve stress, anxiety, and depression, while stimulating creativity and self-awareness. Accessible to all, this holistic therapy guides participants on an inner journey through drum sounds, accompanied by visualizations and meditations.",
+      "benefits": [],
+      "faq": {
+        "title": "Learn more",
+        "tabs": {
+          "tambour": "Shamanic Drum"
+        },
+        "tambour": [
+          {
+            "question": "What is the shamanic drum?",
+            "answer": "The shamanic drum is a vibratory and sound tool used in shamanism to support inner exploration, relaxation, and energetic rebalancing. The regular rhythm of the drum promotes a deep meditative state, allowing body and mind to relax, recenter, and reconnect with their own inner resources"
+          },
+          {
+            "question": "How does a shamanic drum session work?",
+            "answer": "The session takes place in a calm and secure space where you are comfortably seated. I play the drum according to a specific rhythm that guides listening and relaxation, sometimes associated with visualizations or conscious breathing. The experience can be individual or collective and is adapted to each person to promote letting go and energetic harmonization"
+          },
+          {
+            "question": "What are the benefits of the shamanic drum?",
+            "answer": "The shamanic drum helps calm the mind, reduce stress, release tensions, and promote a sense of centering and serenity. It also supports vital energy circulation, strengthens concentration, and opens an inner space conducive to intuition, creativity, and reconnection with oneself"
+          },
+          {
+            "question": "Who can benefit from a shamanic drum session?",
+            "answer": "Anyone wishing to relax, recenter, explore their inner world, or support their energetic balance can benefit from a session. It is suitable for beginners as well as regular practitioners, and each session is adjusted to each person's rhythm and needs"
+          },
+          {
+            "question": "Are there any contraindications?",
+            "answer": "The shamanic drum is generally safe, but may not be suitable for people with severe psychiatric disorders or certain cardiac conditions sensitive to sound vibrations. It is recommended to consult a healthcare professional if you have specific concerns before participating in a session"
+          }
+        ]
+      }
+    },
     "amma": {
       "title": "Amma Massage",
       "description": "Energetic seated massage of Japanese origin that works on energy meridians to release tension and promote energy circulation.",

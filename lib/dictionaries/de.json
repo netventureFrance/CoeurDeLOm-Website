@@ -458,6 +458,39 @@
         ]
       }
     },
+    "tambour": {
+      "title": "Schamanische Trommel",
+      "description": "Die schamanische Trommeltechnik, inspiriert von alten Traditionen, verwendet repetitive Rhythmen, um einen veränderten Bewusstseinszustand hervorzurufen, der Heilung und Selbsterforschung fördert. Diese Praxis fördert die Verbindung mit Geistern, der Natur und dem inneren Selbst und hilft, Stress, Angst und Depressionen zu lindern, während sie Kreativität und Selbstbewusstsein stimuliert. Für alle zugänglich, führt diese ganzheitliche Therapie die Teilnehmer durch Trommelklänge, begleitet von Visualisierungen und Meditationen, auf eine innere Reise.",
+      "benefits": [],
+      "faq": {
+        "title": "Mehr erfahren",
+        "tabs": {
+          "tambour": "Schamanische Trommel"
+        },
+        "tambour": [
+          {
+            "question": "Was ist die schamanische Trommel?",
+            "answer": "Die schamanische Trommel ist ein schwingendes und klingendes Werkzeug, das im Schamanismus verwendet wird, um innere Erkundung, Entspannung und energetisches Gleichgewicht zu unterstützen. Der regelmäßige Rhythmus der Trommel fördert einen tiefen meditativen Zustand, der es Körper und Geist ermöglicht, sich zu entspannen, neu zu zentrieren und sich wieder mit den eigenen inneren Ressourcen zu verbinden"
+          },
+          {
+            "question": "Wie läuft eine schamanische Trommelsitzung ab?",
+            "answer": "Die Sitzung findet in einem ruhigen und sicheren Raum statt, in dem Sie bequem sitzen. Ich spiele die Trommel nach einem spezifischen Rhythmus, der das Zuhören und die Entspannung leitet, manchmal verbunden mit Visualisierungen oder bewusstem Atmen. Die Erfahrung kann individuell oder kollektiv sein und wird an jede Person angepasst, um das Loslassen und die energetische Harmonisierung zu fördern"
+          },
+          {
+            "question": "Was sind die Vorteile der schamanischen Trommel?",
+            "answer": "Die schamanische Trommel hilft, den Geist zu beruhigen, Stress zu reduzieren, Spannungen zu lösen und ein Gefühl von Zentrierung und Gelassenheit zu fördern. Sie unterstützt auch die Zirkulation der Lebensenergie, stärkt die Konzentration und öffnet einen inneren Raum, der der Intuition, Kreativität und Wiederverbindung mit sich selbst förderlich ist"
+          },
+          {
+            "question": "Wer kann von einer schamanischen Trommelsitzung profitieren?",
+            "answer": "Jeder, der sich entspannen, neu zentrieren, seine innere Welt erkunden oder sein energetisches Gleichgewicht unterstützen möchte, kann von einer Sitzung profitieren. Sie ist sowohl für Anfänger als auch für regelmäßige Praktizierende geeignet, und jede Sitzung wird an den Rhythmus und die Bedürfnisse jedes Einzelnen angepasst"
+          },
+          {
+            "question": "Gibt es Kontraindikationen?",
+            "answer": "Die schamanische Trommel ist im Allgemeinen sicher, kann aber für Menschen mit schweren psychiatrischen Störungen oder bestimmten Herzerkrankungen, die empfindlich auf Schallschwingungen reagieren, nicht geeignet sein. Es wird empfohlen, einen Gesundheitsfachmann zu konsultieren, wenn Sie spezifische Bedenken haben, bevor Sie an einer Sitzung teilnehmen"
+          }
+        ]
+      }
+    },
     "amma": {
       "title": "Amma-Massage",
       "description": "Energetische Sitzmassage japanischen Ursprungs, die an den Energiemeridanen arbeitet, um Spannungen zu lösen und die Energiezirkulation zu fördern.",

@@ -27,7 +27,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
   const therapies = [
     {
       title: t.reiki.title,
-      image: '/Reiki-Circle-1.png',
+      image: '/images/therapies/Reiki-Circle-1-300x297.png',
       gradient: 'from-purple-400 via-pink-400 to-purple-300',
       rotation: '-rotate-12',
       description: t.reiki.description,
@@ -36,7 +36,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
     },
     {
       title: t.vibratory.title,
-      image: '/Carte-Soins-Vibratoires.png',
+      image: '/images/therapies/Bols-Crystalins-300x300.png',
       gradient: 'from-purple-500 via-indigo-400 to-purple-400',
       rotation: '-rotate-6',
       description: t.vibratory.description,
@@ -45,7 +45,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
     },
     {
       title: t.meditation.title,
-      image: '/Carte-Meditation.png',
+      image: '/images/therapies/fengshui-jaune-300x300.png',
       gradient: 'from-blue-600 via-indigo-500 to-blue-500',
       rotation: 'rotate-0',
       description: t.meditation.description,
@@ -54,7 +54,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
     },
     {
       title: t.chromobio.title,
-      image: '/Chromo-Bio-Neu.png',
+      image: '/images/therapies/Chromo-Bio-Neu-300x300.png',
       gradient: 'from-green-400 via-cyan-400 to-pink-400',
       rotation: 'rotate-6',
       description: t.chromobio.description,
@@ -62,8 +62,17 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       faq: t.chromobio.faq
     },
     {
+      title: t.tambour.title,
+      image: '/images/therapies/Tambourg-new-300x300.png',
+      gradient: 'from-amber-600 via-orange-500 to-amber-400',
+      rotation: 'rotate-3',
+      description: t.tambour.description,
+      benefits: t.tambour.benefits,
+      faq: t.tambour.faq
+    },
+    {
       title: t.amma.title,
-      image: '/Carte-Massage-Amma.png',
+      image: '/images/therapies/Massage-Amma-2-300x300.png',
       gradient: 'from-orange-300 via-orange-200 to-orange-100',
       rotation: 'rotate-12',
       description: t.amma.description,
@@ -88,7 +97,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-7xl mx-auto mb-40">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 max-w-7xl mx-auto mb-40">
           {therapies.map((therapy, index) => (
             <div
               key={therapy.title}
@@ -253,6 +262,18 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   tabs={(therapy as any).faq.tabs}
                   content={{
                     chromobio: (therapy as any).faq.chromobio
+                  }}
+                  lang={lang}
+                />
+              )}
+
+              {/* FAQ Section - Only for Tambour Chamanique (index 4) */}
+              {index === 4 && (therapy as any).faq && (
+                <TherapyFAQ
+                  title={(therapy as any).faq.title}
+                  tabs={(therapy as any).faq.tabs}
+                  content={{
+                    tambour: (therapy as any).faq.tambour
                   }}
                   lang={lang}
                 />
