@@ -123,7 +123,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   <img
                     src={therapy.image}
                     alt={therapy.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="absolute inset-0 w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-500"
                   />
                 )}
 
@@ -167,7 +167,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                     <img
                       src={therapy.image}
                       alt={therapy.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 p-6"
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 p-4"
                     />
                   </div>
                 </div>
