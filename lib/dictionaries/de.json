@@ -529,6 +529,43 @@
           }
         ]
       }
+    },
+    "fengshui": {
+      "title": "Energetisches Feng Shui",
+      "description": "Energetisches Feng Shui geht über die einfache Raumgestaltung hinaus, um die Energieflüsse eines Ortes zu analysieren und zu harmonisieren. Als Alpha Chi Consultant wende ich die Eickermann-Methode an, um eine Umgebung zu schaffen, die Wohlbefinden, Vitalität und Gleichgewicht fördert, unter Berücksichtigung der natürlichen und subtilen Kräfte, die die Energie Ihres Wohn- oder Arbeitsraums beeinflussen.",
+      "benefits": [],
+      "faq": {
+        "title": "Mehr erfahren",
+        "tabs": {
+          "fengshui": "Energetisches Feng Shui"
+        },
+        "fengshui": [
+          {
+            "question": "Was ist energetisches Feng Shui?",
+            "answer": "Energetisches Feng Shui geht über die einfache Raumgestaltung hinaus und zielt darauf ab, die Energieflüsse eines Ortes zu analysieren und zu harmonisieren, um eine Umgebung zu schaffen, die Wohlbefinden, Vitalität und Gleichgewicht fördert, indem die natürlichen und subtilen Kräfte berücksichtigt werden, die die Energie eines Raums beeinflussen"
+          },
+          {
+            "question": "Wie funktioniert diese Methode?",
+            "answer": "Nach der Eickermann-Methode und als Alpha Chi Consultant beobachte ich die energetische Resonanz eines Ortes, erkenne gestörte Bereiche und stärke günstige Energien, um die natürliche Ordnung der Flüsse wiederherzustellen und es dem Raum zu ermöglichen, seine Bewohner in ihrem täglichen Leben und auf ihrem inneren Weg voll zu unterstützen"
+          },
+          {
+            "question": "Was bietet diese Methode?",
+            "answer": "Ich biete eine personalisierte energetische Analyse Ihres Wohn- oder Arbeitsraums, eine Harmonisierung der Energieflüsse durch subtile, den Ort respektierende Techniken und praktische Ratschläge zur Aufrechterhaltung und Unterstützung des energetischen Gleichgewichts in Ihrem Alltag"
+          },
+          {
+            "question": "Was sind die möglichen Vorteile?",
+            "answer": "Dieser Ansatz fördert ein Gefühl von Frieden und Harmonie in Ihrem Raum, verbessert die Zirkulation der Lebensenergie, unterstützt das physische, mentale und emotionale Wohlbefinden und schafft eine Umgebung, die innere Klarheit und Gelassenheit fördert"
+          },
+          {
+            "question": "Ist diese Methode spirituell?",
+            "answer": "Sie basiert auf einer feinen Wahrnehmung von Energien und subtilen Prinzipien und bleibt dennoch für alle zugänglich, die die Harmonie und Vitalität ihrer Umgebung verbessern möchten"
+          },
+          {
+            "question": "Kann ich es zu Hause anwenden?",
+            "answer": "Einige einfache Praktiken können von jedem umgesetzt werden, aber für eine präzise und vollständige Begleitung wird empfohlen, einen ausgebildeten Praktizierenden zu konsultieren, um von einer auf Ihren Ort und Ihre persönliche Energie abgestimmten Harmonisierung zu profitieren"
+          }
+        ]
+      }
     }
   },
   "chromobiotest": {

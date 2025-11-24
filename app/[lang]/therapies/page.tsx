@@ -79,6 +79,15 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       benefits: t.amma.benefits,
       faq: t.amma.faq
     },
+    {
+      title: t.fengshui.title,
+      image: '/images/therapies/fengshui-jaune-300x300.png',
+      gradient: 'from-yellow-400 via-amber-300 to-yellow-200',
+      rotation: '-rotate-3',
+      description: t.fengshui.description,
+      benefits: t.fengshui.benefits,
+      faq: t.fengshui.faq
+    },
   ];
 
   return (
@@ -98,7 +107,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 max-w-[1600px] mx-auto mb-40">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 max-w-[1800px] mx-auto mb-40">
           {therapies.map((therapy, index) => (
             <div
               key={therapy.title}
@@ -287,6 +296,18 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   tabs={(therapy as any).faq.tabs}
                   content={{
                     amma: (therapy as any).faq.amma
+                  }}
+                  lang={lang}
+                />
+              )}
+
+              {/* FAQ Section - Only for Feng Shui énergétique (index 6) */}
+              {index === 6 && (therapy as any).faq && (
+                <TherapyFAQ
+                  title={(therapy as any).faq.title}
+                  tabs={(therapy as any).faq.tabs}
+                  content={{
+                    fengshui: (therapy as any).faq.fengshui
                   }}
                   lang={lang}
                 />

@@ -529,6 +529,43 @@
           }
         ]
       }
+    },
+    "fengshui": {
+      "title": "Energetic Feng Shui",
+      "description": "Energetic Feng Shui goes beyond simple space arrangement to analyze and harmonize the energy flows of a place. As an Alpha Chi Consultant, I apply the Eickermann method to create an environment conducive to well-being, vitality, and balance, taking into account the natural and subtle forces that influence the energy of your living or working space.",
+      "benefits": [],
+      "faq": {
+        "title": "Learn more",
+        "tabs": {
+          "fengshui": "Energetic Feng Shui"
+        },
+        "fengshui": [
+          {
+            "question": "What is energetic Feng Shui?",
+            "answer": "Energetic Feng Shui goes beyond simple space arrangement and aims to analyze and harmonize the energy flows of a place to create an environment favorable to well-being, vitality, and balance by taking into account the natural and subtle forces that influence the energy of a space"
+          },
+          {
+            "question": "How does this method work?",
+            "answer": "According to the Eickermann method and as an Alpha Chi Consultant, I observe the energetic resonance of a place, detect disturbed areas, and strengthen favorable energies in order to restore the natural order of flows and allow the space to fully support its inhabitants in their daily life and inner path"
+          },
+          {
+            "question": "What does this method offer?",
+            "answer": "I offer a personalized energetic analysis of your living or working space, harmonization of energy flows through subtle techniques respectful of the place, and practical advice to maintain and support energetic balance in your daily life"
+          },
+          {
+            "question": "What are the possible benefits?",
+            "answer": "This approach promotes a feeling of peace and harmony in your space, improves vital energy circulation, supports physical, mental and emotional well-being, and creates an environment conducive to inner clarity and serenity"
+          },
+          {
+            "question": "Is this method spiritual?",
+            "answer": "It is based on a fine perception of energies and subtle principles while remaining accessible to all those who wish to improve the harmony and vitality of their environment"
+          },
+          {
+            "question": "Can I apply it at home?",
+            "answer": "Some simple practices can be implemented by everyone but for precise and complete support it is recommended to consult a trained practitioner to benefit from harmonization adapted to your place and your personal energy"
+          }
+        ]
+      }
     }
   },
   "chromobiotest": {
