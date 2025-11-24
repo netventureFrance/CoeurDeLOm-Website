@@ -15,7 +15,6 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
     { href: `/${lang}/why`, label: nav.why },
     { href: `/${lang}/chromobiotest`, label: nav.chromobiotest },
     { href: `/${lang}/contact`, label: nav.appointment },
-    { href: `/${lang}/faq`, label: nav.faq },
     { href: `/${lang}/blog`, label: nav.blog },
   ];
 
