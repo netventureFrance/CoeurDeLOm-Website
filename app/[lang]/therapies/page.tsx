@@ -92,7 +92,15 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
             >
               <div
                 className="relative w-full aspect-square rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl bg-white border border-gray-100/50"
-                style={{ transform: 'translateZ(0)', WebkitMaskImage: '-webkit-radial-gradient(white, white)' } as React.CSSProperties}
+                style={{
+                  transform: 'translateZ(0)',
+                  isolation: 'isolate',
+                  WebkitMaskImage: 'radial-gradient(circle, white 100%, black 100%)',
+                  maskImage: 'radial-gradient(circle, white 100%, black 100%)',
+                  WebkitBackfaceVisibility: 'hidden',
+                  backfaceVisibility: 'hidden',
+                  willChange: 'transform'
+                } as React.CSSProperties}
               >
                 {/* Image - Circular masked */}
                 {therapy.image && (
@@ -130,7 +138,15 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-200/20 via-pink-200/20 to-cyan-200/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div
                     className="relative bg-white rounded-full shadow-sm group-hover:shadow-md transition-all duration-500 aspect-square overflow-hidden"
-                    style={{ transform: 'translateZ(0)', WebkitMaskImage: '-webkit-radial-gradient(white, white)' } as React.CSSProperties}
+                    style={{
+                      transform: 'translateZ(0)',
+                      isolation: 'isolate',
+                      WebkitMaskImage: 'radial-gradient(circle, white 100%, black 100%)',
+                      maskImage: 'radial-gradient(circle, white 100%, black 100%)',
+                      WebkitBackfaceVisibility: 'hidden',
+                      backfaceVisibility: 'hidden',
+                      willChange: 'transform'
+                    } as React.CSSProperties}
                   >
                     <img
                       src={therapy.image}
