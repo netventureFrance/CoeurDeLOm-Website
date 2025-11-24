@@ -40,7 +40,8 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       gradient: 'from-purple-500 via-indigo-400 to-purple-400',
       rotation: '-rotate-6',
       description: t.vibratory.description,
-      benefits: t.vibratory.benefits
+      benefits: t.vibratory.benefits,
+      faq: t.vibratory.faq
     },
     {
       title: t.meditation.title,
@@ -209,6 +210,20 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   content={{
                     reiki: (therapy as any).faq.reiki,
                     chakras: (therapy as any).faq.chakras
+                  }}
+                  lang={lang}
+                />
+              )}
+
+              {/* FAQ Section - Only for Soins vibratoires (index 1) */}
+              {index === 1 && (therapy as any).faq && (
+                <TherapyFAQ
+                  title={(therapy as any).faq.title}
+                  tabs={(therapy as any).faq.tabs}
+                  content={{
+                    vibratory: (therapy as any).faq.vibratory,
+                    bowls: (therapy as any).faq.bowls,
+                    tuningforks: (therapy as any).faq.tuningforks
                   }}
                   lang={lang}
                 />
