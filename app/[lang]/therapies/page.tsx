@@ -138,8 +138,8 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                 )}
 
                 {/* Title overlay - Only visible on hover */}
-                <div className="absolute inset-0 bg-white/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-10">
-                  <h3 className="text-[10px] md:text-xs font-bold text-purple-900 text-center leading-tight max-w-[70%]">
+                <div className="absolute inset-0 bg-white/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-12">
+                  <h3 className="text-[9px] md:text-[10px] font-bold text-purple-900 text-center leading-[1.2] max-w-[65%]">
                     {therapy.title}
                   </h3>
                 </div>
