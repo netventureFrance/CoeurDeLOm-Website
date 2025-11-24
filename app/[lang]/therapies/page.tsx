@@ -187,7 +187,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                     </div>
                   )}
 
-                  <div className="pt-4">
+                  <div className="pt-4 flex justify-end">
                     <a
                       href={`/${lang}/contact`}
                       className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-100/60 to-cyan-100/60 hover:from-purple-200/80 hover:to-cyan-200/80 text-purple-700 font-semibold rounded-full transition-all duration-300 hover:gap-3 hover:shadow-md"
