@@ -85,20 +85,15 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
         {/* Cards Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-7xl mx-auto mb-40">
           {therapies.map((therapy, index) => (
-            <a
+            <div
               key={therapy.title}
-              href={`#therapy-${index}`}
-              className={`${therapy.rotation} hover:rotate-0 hover:scale-110 transition-all duration-500 cursor-pointer group block`}
+              className={`${therapy.rotation} hover:rotate-0 hover:scale-110 transition-all duration-500 group`}
             >
-              <div
-                className="relative w-full aspect-square rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl bg-white border border-gray-100/50"
-                style={{
-                  borderRadius: '50%',
-                  WebkitBorderRadius: '50%',
-                  WebkitTransformStyle: 'flat',
-                  transformStyle: 'flat'
-                } as React.CSSProperties}
+              <a
+                href={`#therapy-${index}`}
+                className="cursor-pointer block"
               >
+                <div className="relative w-full aspect-square rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl bg-white border border-gray-100/50">
                 {/* Image - Circular masked */}
                 {therapy.image && (
                   <img
@@ -115,7 +110,8 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   </h3>
                 </div>
               </div>
-            </a>
+              </a>
+            </div>
           ))}
         </div>
 
