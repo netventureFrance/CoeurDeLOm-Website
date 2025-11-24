@@ -93,13 +93,10 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
               <div
                 className="relative w-full aspect-square rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl bg-white border border-gray-100/50"
                 style={{
-                  transform: 'translateZ(0)',
-                  isolation: 'isolate',
-                  WebkitMaskImage: 'radial-gradient(circle, white 100%, black 100%)',
-                  maskImage: 'radial-gradient(circle, white 100%, black 100%)',
-                  WebkitBackfaceVisibility: 'hidden',
-                  backfaceVisibility: 'hidden',
-                  willChange: 'transform'
+                  borderRadius: '50%',
+                  WebkitBorderRadius: '50%',
+                  WebkitTransformStyle: 'flat',
+                  transformStyle: 'flat'
                 } as React.CSSProperties}
               >
                 {/* Image - Circular masked */}
@@ -139,13 +136,10 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   <div
                     className="relative bg-white rounded-full shadow-sm group-hover:shadow-md transition-all duration-500 aspect-square overflow-hidden"
                     style={{
-                      transform: 'translateZ(0)',
-                      isolation: 'isolate',
-                      WebkitMaskImage: 'radial-gradient(circle, white 100%, black 100%)',
-                      maskImage: 'radial-gradient(circle, white 100%, black 100%)',
-                      WebkitBackfaceVisibility: 'hidden',
-                      backfaceVisibility: 'hidden',
-                      willChange: 'transform'
+                      borderRadius: '50%',
+                      WebkitBorderRadius: '50%',
+                      WebkitTransformStyle: 'flat',
+                      transformStyle: 'flat'
                     } as React.CSSProperties}
                   >
                     <img
