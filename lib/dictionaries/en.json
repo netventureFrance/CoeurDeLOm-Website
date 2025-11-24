@@ -487,14 +487,48 @@
     },
     "amma": {
       "title": "Amma Massage",
-      "description": "Energetic seated massage of Japanese origin that works on energy meridians to release tension and promote energy circulation.",
-      "benefits": [
-        "Release of muscle tension",
-        "Improved energy circulation",
-        "Stress reduction",
-        "Quick revitalization",
-        "Accessible in corporate settings"
-      ]
+      "description": "Amma massage, based on traditional Chinese medicine, balances the body's energies through pressures, stretches and percussions along the meridians. It reduces stress, relaxes muscles, improves circulation, relieves pain, stimulates the immune system and increases overall energy.\n30-minute sessions, performed on an ergonomic chair, are accessible to everyone, except for pregnant women and certain medical conditions. For lasting results, regular sessions are recommended and can be combined with other treatments.",
+      "benefits": [],
+      "faq": {
+        "title": "Learn more",
+        "tabs": {
+          "amma": "Amma Massage"
+        },
+        "amma": [
+          {
+            "question": "What is Amma massage?",
+            "answer": "Amma massage is a technique of Chinese origin that acts on the body's energy meridians through targeted pressures, stretches and percussions to restore energy balance, promote relaxation and release tensions"
+          },
+          {
+            "question": "What are the benefits of Amma massage?",
+            "answer": "Amma massage helps reduce stress and anxiety, relaxes muscles, improves blood and lymphatic circulation, relieves muscle and joint pain, stimulates the immune system and restores vitality and overall energy"
+          },
+          {
+            "question": "How does an Amma massage session work?",
+            "answer": "The session begins with an exchange to identify your needs, you are then seated on an ergonomic chair and I perform pressures, tapping and stretches on the back, shoulders, arms and hands. The session generally lasts 30 minutes and it is important to remain relaxed and attentive to sensations"
+          },
+          {
+            "question": "Is Amma massage painful?",
+            "answer": "Amma massage is designed to be comfortable, but there may be slight discomfort on very tense areas. The rhythm and pressure are always adapted to your feelings so that the experience is pleasant and beneficial"
+          },
+          {
+            "question": "Are there any contraindications?",
+            "answer": "Amma massage is safe for most people, but it is not recommended for pregnant women, people with recent injuries, infectious diseases, serious heart problems or medical conditions requiring special attention"
+          },
+          {
+            "question": "How to prepare for an Amma massage session?",
+            "answer": "No specific preparation is necessary, just wear comfortable clothes and report any medical condition or area of tension you wish to work on"
+          },
+          {
+            "question": "How many sessions are needed to feel the effects?",
+            "answer": "Effects can be felt from the first session, but regular sessions allow for lasting and deep results, adapted to your needs and goals"
+          },
+          {
+            "question": "Can Amma massage be combined with other treatments?",
+            "answer": "Yes, Amma massage combines easily with other natural or therapeutic approaches to enhance effects and support overall well-being"
+          }
+        ]
+      }
     }
   },
   "chromobiotest": {

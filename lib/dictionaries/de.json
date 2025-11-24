@@ -487,14 +487,48 @@
     },
     "amma": {
       "title": "Amma-Massage",
-      "description": "Energetische Sitzmassage japanischen Ursprungs, die an den Energiemeridanen arbeitet, um Spannungen zu lösen und die Energiezirkulation zu fördern.",
-      "benefits": [
-        "Lösung von Muskelverspannungen",
-        "Verbesserung der Energiezirkulation",
-        "Stressabbau",
-        "Schnelle Revitalisierung",
-        "Im Unternehmen zugänglich"
-      ]
+      "description": "Die Amma-Massage basiert auf der traditionellen chinesischen Medizin und gleicht die Körperenergien durch Drücken, Dehnen und Klopfen entlang der Meridiane aus. Sie reduziert Stress, entspannt die Muskeln, verbessert die Durchblutung, lindert Schmerzen, stimuliert das Immunsystem und steigert die Gesamtenergie.\nDie 30-minütigen Sitzungen, die auf einem ergonomischen Stuhl durchgeführt werden, sind für alle zugänglich, außer für schwangere Frauen und bestimmte medizinische Bedingungen. Für dauerhafte Ergebnisse werden regelmäßige Sitzungen empfohlen und können mit anderen Behandlungen kombiniert werden.",
+      "benefits": [],
+      "faq": {
+        "title": "Mehr erfahren",
+        "tabs": {
+          "amma": "Amma-Massage"
+        },
+        "amma": [
+          {
+            "question": "Was ist Amma-Massage?",
+            "answer": "Amma-Massage ist eine Technik chinesischen Ursprungs, die auf die Energiemeridiane des Körpers durch gezielte Drücke, Dehnungen und Klopfen wirkt, um das energetische Gleichgewicht wiederherzustellen, Entspannung zu fördern und Spannungen zu lösen"
+          },
+          {
+            "question": "Was sind die Vorteile der Amma-Massage?",
+            "answer": "Amma-Massage hilft, Stress und Angst zu reduzieren, entspannt die Muskeln, verbessert die Blut- und Lymphzirkulation, lindert Muskel- und Gelenkschmerzen, stimuliert das Immunsystem und stellt Vitalität und Gesamtenergie wieder her"
+          },
+          {
+            "question": "Wie läuft eine Amma-Massagesitzung ab?",
+            "answer": "Die Sitzung beginnt mit einem Austausch, um Ihre Bedürfnisse zu identifizieren, Sie werden dann auf einem ergonomischen Stuhl platziert und ich führe Drücke, Klopfen und Dehnungen am Rücken, den Schultern, Armen und Händen durch. Die Sitzung dauert in der Regel 30 Minuten und es ist wichtig, entspannt zu bleiben und auf die Empfindungen zu achten"
+          },
+          {
+            "question": "Ist die Amma-Massage schmerzhaft?",
+            "answer": "Die Amma-Massage ist so konzipiert, dass sie komfortabel ist, aber es kann leichte Unannehmlichkeiten in sehr angespannten Bereichen geben. Der Rhythmus und der Druck werden immer an Ihr Gefühl angepasst, damit die Erfahrung angenehm und vorteilhaft ist"
+          },
+          {
+            "question": "Gibt es Kontraindikationen?",
+            "answer": "Amma-Massage ist für die meisten Menschen sicher, wird aber nicht für schwangere Frauen, Menschen mit kürzlichen Verletzungen, Infektionskrankheiten, schweren Herzproblemen oder medizinischen Bedingungen empfohlen, die besondere Aufmerksamkeit erfordern"
+          },
+          {
+            "question": "Wie bereitet man sich auf eine Amma-Massagesitzung vor?",
+            "answer": "Es ist keine spezifische Vorbereitung erforderlich, tragen Sie einfach bequeme Kleidung und melden Sie jede medizinische Bedingung oder Spannungsbereich, an dem Sie arbeiten möchten"
+          },
+          {
+            "question": "Wie viele Sitzungen sind erforderlich, um die Wirkung zu spüren?",
+            "answer": "Die Wirkung kann bereits ab der ersten Sitzung spürbar sein, aber regelmäßige Sitzungen ermöglichen dauerhafte und tiefe Ergebnisse, die an Ihre Bedürfnisse und Ziele angepasst sind"
+          },
+          {
+            "question": "Kann Amma-Massage mit anderen Behandlungen kombiniert werden?",
+            "answer": "Ja, Amma-Massage lässt sich leicht mit anderen natürlichen oder therapeutischen Ansätzen kombinieren, um die Wirkung zu verstärken und das allgemeine Wohlbefinden zu unterstützen"
+          }
+        ]
+      }
     }
   },
   "chromobiotest": {

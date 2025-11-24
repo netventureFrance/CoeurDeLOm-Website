@@ -487,14 +487,48 @@
     },
     "amma": {
       "title": "Massage Amma",
-      "description": "Massage assis énergétique d'origine japonaise qui travaille sur les méridiens d'énergie pour libérer les tensions et favoriser la circulation énergétique.",
-      "benefits": [
-        "Libération des tensions musculaires",
-        "Amélioration de la circulation énergétique",
-        "Réduction du stress",
-        "Revitalisation rapide",
-        "Pratique accessible en entreprise"
-      ]
+      "description": "Le massage Amma, basé sur la médecine traditionnelle chinoise, équilibre les énergies du corps par des pressions, étirements et percussions le long des méridiens. Il réduit le stress, détend les muscles, améliore la circulation, soulage les douleurs, stimule le système immunitaire et augmente l'énergie globale.\nLes séances de 30 minutes, effectuées sur une chaise ergonomique, sont accessibles à tous, sauf pour les femmes enceintes et certaines conditions médicales. Pour des résultats durables, des séances régulières sont recommandées et peuvent être combinées avec d'autres traitements.",
+      "benefits": [],
+      "faq": {
+        "title": "En savoir plus",
+        "tabs": {
+          "amma": "Massage Amma"
+        },
+        "amma": [
+          {
+            "question": "Qu'est-ce que le massage Amma ?",
+            "answer": "Le massage Amma est une technique d'origine chinoise qui agit sur les méridiens énergétiques du corps grâce à des pressions, étirements et percussions ciblées pour rétablir l'équilibre énergétique, favoriser la détente et libérer les tensions"
+          },
+          {
+            "question": "Quels sont les bienfaits du massage Amma ?",
+            "answer": "Le massage Amma aide à réduire le stress et l'anxiété, détend les muscles, améliore la circulation sanguine et lymphatique, soulage les douleurs musculaires et articulaires, stimule le système immunitaire et redonne vitalité et énergie globale"
+          },
+          {
+            "question": "Comment se déroule une séance de massage Amma ?",
+            "answer": "La séance commence par un échange pour identifier vos besoins, vous êtes ensuite installé sur une chaise ergonomique et je pratique des pressions, tapotements et étirements sur le dos, les épaules, les bras et les mains. La séance dure généralement 30 minutes et il est important de rester détendu et attentif aux sensations"
+          },
+          {
+            "question": "Le massage Amma est-il douloureux ?",
+            "answer": "Le massage Amma est conçu pour être confortable, mais il peut y avoir de légers inconforts sur des zones très tendues. Le rythme et la pression sont toujours adaptés à votre ressenti pour que l'expérience soit agréable et bénéfique"
+          },
+          {
+            "question": "Y a-t-il des contre-indications ?",
+            "answer": "Le massage Amma est sûr pour la plupart des personnes, mais il est déconseillé aux femmes enceintes, aux personnes avec blessures récentes, maladies infectieuses, problèmes cardiaques graves ou conditions médicales nécessitant une attention particulière"
+          },
+          {
+            "question": "Comment se préparer à une séance de massage Amma ?",
+            "answer": "Aucune préparation spécifique n'est nécessaire, il suffit de porter des vêtements confortables et de signaler toute condition médicale ou zone de tension que vous souhaitez travailler"
+          },
+          {
+            "question": "Combien de séances sont nécessaires pour ressentir les effets ?",
+            "answer": "Les effets peuvent se faire sentir dès la première séance, mais des séances régulières permettent des résultats durables et profonds, adaptés à vos besoins et objectifs"
+          },
+          {
+            "question": "Peut-on combiner le massage Amma avec d'autres soins ?",
+            "answer": "Oui, le massage Amma se combine facilement avec d'autres approches naturelles ou thérapeutiques pour renforcer les effets et soutenir le bien-être global"
+          }
+        ]
+      }
     }
   },
   "chromobiotest": {

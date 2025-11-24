@@ -76,7 +76,8 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       gradient: 'from-orange-300 via-orange-200 to-orange-100',
       rotation: 'rotate-12',
       description: t.amma.description,
-      benefits: t.amma.benefits
+      benefits: t.amma.benefits,
+      faq: t.amma.faq
     },
   ];
 
@@ -274,6 +275,18 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   tabs={(therapy as any).faq.tabs}
                   content={{
                     tambour: (therapy as any).faq.tambour
+                  }}
+                  lang={lang}
+                />
+              )}
+
+              {/* FAQ Section - Only for Massage Amma (index 5) */}
+              {index === 5 && (therapy as any).faq && (
+                <TherapyFAQ
+                  title={(therapy as any).faq.title}
+                  tabs={(therapy as any).faq.tabs}
+                  content={{
+                    amma: (therapy as any).faq.amma
                   }}
                   lang={lang}
                 />
