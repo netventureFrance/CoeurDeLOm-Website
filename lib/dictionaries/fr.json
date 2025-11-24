@@ -296,13 +296,124 @@
     "meditation": {
       "title": "Méditation",
       "description": "La méditation utilise diverses techniques telles que la pleine conscience, la méditation guidée et transcendantale, ainsi que les mantras comme le son OM, pour favoriser la relaxation, la conscience de soi et la guérison émotionnelle. Elle réduit le stress, l'anxiété et la dépression, améliore la concentration et la clarté mentale, et promeut la paix intérieure.",
-      "benefits": [
-        "Réduction du stress, anxiété et dépression",
-        "Amélioration de la concentration",
-        "Clarté mentale",
-        "Promotion de la paix intérieure",
-        "Approche naturelle adaptée à tous"
-      ]
+      "benefits": [],
+      "faq": {
+        "title": "En savoir plus",
+        "tabs": {
+          "meditation": "Méditation",
+          "om": "Le Mantra OM",
+          "dhyana": "Méditation Dhyâna",
+          "mantras": "Chants de Mantras"
+        },
+        "meditation": [
+          {
+            "question": "Qu'est-ce que la méditation que je propose ?",
+            "answer": "La méditation que je propose au cabinet Cœur de l'OM est une pratique douce et puissante qui invite à se reconnecter à son centre intérieur, apaiser le mental et harmoniser le corps et l'esprit. Elle s'appuie sur des techniques telles que le chant du mantra OM, la méditation Dhyâna centrée sur le cœur et d'autres approches guidées pour soutenir le bien-être émotionnel, la clarté intérieure et la circulation harmonieuse de l'énergie"
+          },
+          {
+            "question": "Comment se déroule une séance de méditation ?",
+            "answer": "La séance se fait dans un espace calme et sécurisant, où vous êtes confortablement installé. Je vous guide à travers des exercices de respiration, des méditations guidées, le chant du mantra ou des visualisations, éventuellement accompagnés de bols et de sons vibratoires pour renforcer la résonance énergétique et l'expérience intérieure. Selon les besoins et la demande, des exercices précis permettent également de développer la concentration et d'apaiser le mental"
+          },
+          {
+            "question": "Quels sont les bienfaits de la méditation ?",
+            "answer": "La méditation aide à réduire le stress, apaiser l'anxiété et clarifier le mental tout en favorisant la détente profonde, l'équilibre émotionnel et la connexion à soi. Elle soutient la régulation des émotions, améliore la concentration, apporte un mental plus apaisé et un sentiment de sérénité et d'harmonie intérieure"
+          },
+          {
+            "question": "Qui peut bénéficier de cette méditation ?",
+            "answer": "Toute personne souhaitant se reconnecter à elle-même, calmer son mental ou soutenir son équilibre émotionnel peut bénéficier de cette pratique. Elle est adaptée à tous, débutants ou pratiquants confirmés, et se pratique dans le respect du rythme et des besoins de chacun"
+          },
+          {
+            "question": "Y a-t-il des contre-indications ?",
+            "answer": "La méditation est généralement sûre pour tous, mais elle peut ne pas convenir aux personnes présentant des troubles psychiatriques sévères. Il est recommandé de consulter un professionnel de santé si vous avez des préoccupations spécifiques avant de débuter"
+          }
+        ],
+        "om": [
+          {
+            "question": "Qu'est-ce que le mantra OM ?",
+            "answer": "Le mantra OM est un son sacré utilisé depuis des millénaires dans de nombreuses traditions spirituelles Il symbolise l'harmonie universelle et la vibration primordiale de la vie Sa résonance aide à recentrer l'esprit, équilibrer l'énergie et nourrir une profonde connexion à soi"
+          },
+          {
+            "question": "Pourquoi utiliser le mantra OM lors d'un soin ou d'une méditation ?",
+            "answer": "Le chant du OM harmonise le corps, le mental et l'énergie vitale Il crée un espace de calme intérieur et d'ouverture et favorise une circulation fluide de l'énergie Dans mes soins je l'utilise avec un bol de cristal accordé spécialement sur la fréquence du OM pour amplifier la vibration, soutenir l'alignement intérieur et renforcer l'effet du soin"
+          },
+          {
+            "question": "Comment se pratique le mantra OM ?",
+            "answer": "Le OM peut être chanté à voix claire, murmuré ou simplement répété mentalement La respiration consciente, le rythme régulier et l'intention posée permettent de sentir sa résonance se déployer dans le corps et d'entrer naturellement dans un état méditatif"
+          },
+          {
+            "question": "Quels sont les bienfaits du mantra OM ?",
+            "answer": "Le OM calme le mental et apaise le stress Il harmonise les vibrations du corps, soutient la clarté intérieure et invite à un état de présence Il renforce également l'efficacité des soins énergétiques, en particulier lorsque sa vibration est associée au bol de cristal dédié"
+          },
+          {
+            "question": "Faut-il connaître sa signification pour en ressentir les effets ?",
+            "answer": "Non, le plus important est l'expérience de la vibration Elle agit même sans compréhension intellectuelle et ses bienfaits s'installent naturellement avec la pratique régulière"
+          },
+          {
+            "question": "Puis-je l'utiliser à la maison ?",
+            "answer": "Oui, le OM peut s'intégrer facilement dans votre quotidien Il peut accompagner une méditation, une respiration apaisante ou être chanté simplement pour vous recentrer et équilibrer votre énergie"
+          },
+          {
+            "question": "Où suivre les sessions de chant du OM et de méditation ?",
+            "answer": "Vous trouverez les dates et horaires des sessions de Chant du OM et des méditations dans le calendrier du site et vous pouvez vous y inscrire selon vos disponibilités"
+          }
+        ],
+        "dhyana": [
+          {
+            "question": "Qu'est-ce que la méditation Dhyâna",
+            "answer": "La méditation Dhyâna est une pratique du cœur inspirée de la tradition soufie telle que transmise par Irina Tweedie. Elle consiste à orienter la conscience vers la vibration du cœur pour dépasser le flux des pensées et accéder à un silence intérieur profond et à une résonance subtile de l'énergie vitale"
+          },
+          {
+            "question": "Comment s'intègre-t-elle dans mes soins",
+            "answer": "Au cabinet Cœur de l'OM, la méditation Dhyâna fait partie intégrante des soins et crée un espace de calme et de réceptivité. La vibration du cœur permet d'apaiser le mental, d'ouvrir la sensibilité et de soutenir la circulation énergétique dans tout le corps, renforçant ainsi l'effet des autres pratiques vibratoires"
+          },
+          {
+            "question": "Quels sont les bienfaits de la méditation Dhyâna",
+            "answer": "La méditation favorise la détente profonde, le lâcher-prise et l'équilibre émotionnel elle réveille la résonance du cœur, clarifie le mental et améliore la concentration elle harmonise et stimule la circulation de l'énergie vitale et amplifie la perception intérieure"
+          },
+          {
+            "question": "À qui s'adresse cette méditation",
+            "answer": "La méditation Dhyâna est accessible à tous, débutants ou expérimentés. Les séances sont guidées et adaptées à la sensibilité, au profil énergétique et à l'état émotionnel de chacun"
+          },
+          {
+            "question": "Comment se déroule une séance",
+            "answer": "La séance commence par un moment d'installation et de relaxation dans une posture confortable la conscience est ensuite dirigée vers le centre du cœur accueillant la vibration intérieure silencieuse et la circulation énergétique un temps d'intégration permet enfin de revenir progressivement à l'état de pleine présence et de conscience"
+          },
+          {
+            "question": "Séances publiques et inscriptions",
+            "answer": "Des séances publiques sont proposées au cabinet avec un maximum de 8 participants pour assurer une guidance personnalisée et un cadre sécurisant les dates sont disponibles dans le calendrier du centre et il est nécessaire de s'inscrire à l'avance"
+          },
+          {
+            "question": "Y a-t-il des contre-indications ou précautions",
+            "answer": "La méditation Dhyâna est douce et sûre pour la majorité des personnes cependant en cas de pathologie mentale ou médicale particulière il est recommandé de maintenir un suivi médical et d'informer le praticien chaque séance est personnalisée et modulée selon les besoins et la sensibilité de chacun"
+          }
+        ],
+        "mantras": [
+          {
+            "question": "Qu'est-ce que le chant des mantras",
+            "answer": "Le chant des mantras est une pratique ancienne issue des traditions spirituelles de l'Inde et du bouddhisme qui utilise la répétition de sons ou de mots sacrés pour harmoniser le corps, l'esprit et l'énergie vitale. Les vibrations des mantras favorisent un état de relaxation profonde, clarifient le mental et soutiennent la guérison émotionnelle et spirituelle"
+          },
+          {
+            "question": "Quels sont les bienfaits du chant des mantras",
+            "answer": "Le chant des mantras permet de réduire le stress et l'anxiété d'améliorer la concentration et la clarté mentale de stimuler l'énergie vitale de renforcer la connexion à soi et de soutenir la transformation intérieure et la paix du cœur"
+          },
+          {
+            "question": "Le chant des mantras est-il religieux",
+            "answer": "Non, il peut se pratiquer de manière laïque et se concentrer sur la vibration et les effets thérapeutiques du son indépendamment de toute croyance religieuse"
+          },
+          {
+            "question": "Qui peut en bénéficier",
+            "answer": "Toute personne cherchant une pratique douce, énergétique et méditative peut en bénéficier. Elle est particulièrement adaptée à ceux qui souhaitent apaiser le mental, renforcer leur centrage intérieur et éveiller leur conscience"
+          },
+          {
+            "question": "Séances publiques et inscriptions",
+            "answer": "Des séances sont proposées au cabinet avec un nombre limité de participants pour garantir un accompagnement de qualité. Les dates sont consultables dans le calendrier du centre et l'inscription à l'avance est recommandée"
+          },
+          {
+            "question": "Y a-t-il des contre-indications",
+            "answer": "La pratique est généralement sûre mais peut ne pas convenir aux personnes ayant des troubles vocaux ou une sensibilité auditive particulière. En cas de doute, il est conseillé de consulter un professionnel de santé avant de participer"
+          }
+        ]
+      }
     },
     "chromobio": {
       "title": "ChromobioÉnergie",

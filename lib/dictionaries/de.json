@@ -208,25 +208,212 @@
     },
     "vibratory": {
       "title": "Schwingungstherapie",
-      "description": "Die Schwingungstherapie bietet einen ganzheitlichen Ansatz durch die Nutzung von Klang-, Licht- und Energieschwingungen, um Körper, Geist und Seele auszugleichen. Basierend auf universellen Frequenzen reduzieren diese Techniken, einschließlich Klangschalen, Mantras und Chromobioenergie, Stress, verbessern den Schlaf, lindern Schmerzen und steigern die Energie.",
-      "benefits": [
-        "Stressabbau",
-        "Verbesserung des Schlafs",
-        "Schmerzlinderung",
-        "Energiesteigerung",
-        "Personalisierte Sitzung nach Ihren Bedürfnissen"
-      ]
+      "description": "Die Schwingungstherapie bietet einen ganzheitlichen Ansatz durch die Nutzung von Klang-, Licht- und Energieschwingungen, um Körper, Geist und Seele auszugleichen. Basierend auf universellen Frequenzen reduzieren diese Techniken—einschließlich Klangschalen und Mantras—Stress, verbessern den Schlaf, lindern Schmerzen und steigern die Energie. Jede Sitzung ist personalisiert, um Ihren spezifischen Bedürfnissen gerecht zu werden und bietet umfassende Unterstützung zur Verbesserung von Gesundheit und Wohlbefinden.",
+      "benefits": [],
+      "faq": {
+        "title": "Mehr erfahren",
+        "tabs": {
+          "vibratory": "Schwingungstherapie",
+          "bowls": "Kristallschalen",
+          "tuningforks": "Kristall-Stimmgabeln"
+        },
+        "vibratory": [
+          {
+            "question": "Was ist Schwingungstherapie?",
+            "answer": "Die Schwingungstherapie ist ein ganzheitlicher Ansatz, der Klang-, Licht-, Energie- oder spezifische Frequenzschwingungen nutzt, um Körper, Geist und Seele zu harmonisieren. Sie basiert auf dem Prinzip, dass alles im Universum schwingt und dass diese Schwingungen Gesundheit, emotionales Gleichgewicht und allgemeines Wohlbefinden unterstützen können."
+          },
+          {
+            "question": "Wie funktioniert die Schwingungstherapie?",
+            "answer": "Sie wirkt durch Stimulierung der Energien von Körper und Geist, um Harmonie wiederherzustellen und die natürliche Energiezirkulation zu fördern. Dies kann durch Klang, Gesang, Licht, Schwingungsheilung, Farbfrequenzen und geführte Meditationen geschehen."
+          },
+          {
+            "question": "Welche Arten von Schwingungstherapien bieten Sie an?",
+            "answer": "Ich biete Schwingungsheilung einschließlich Klangtherapie, kristalline und Farbfrequenzen, geführte Meditation und Reiki mit Chakren-Harmonisierung an, alle an jede Person angepasst, um ihre Vitalität und inneres Gleichgewicht zu unterstützen."
+          },
+          {
+            "question": "Was sind die Vorteile der Schwingungstherapie?",
+            "answer": "Die Schwingungsheilung kann Stress und Angst reduzieren, den Schlaf verbessern, bestimmte Schmerzen lindern, die Lebensenergie stimulieren, geistige Klarheit fördern und die natürliche Heilung des Körpers unterstützen, während sie das emotionale und spirituelle Gleichgewicht stärkt."
+          },
+          {
+            "question": "Wer kann von der Schwingungsheilung profitieren?",
+            "answer": "Diese Praktiken sind für alle zugänglich, die ganzheitliche Unterstützung wünschen, um sich zu entspannen, zu revitalisieren und mit ihrer inneren Essenz zu verbinden, unabhängig von Alter oder Gesundheitszustand."
+          },
+          {
+            "question": "Gibt es Kontraindikationen?",
+            "answer": "Die Schwingungstherapie ist im Allgemeinen sicher, kann aber für Personen mit epileptischen Störungen, schweren psychischen Erkrankungen oder hoher Empfindlichkeit gegenüber sensorischen Reizen abgeraten werden. Es wird immer empfohlen, vor Beginn einen Gesundheitsfachmann zu konsultieren."
+          }
+        ],
+        "bowls": [
+          {
+            "question": "Was ist Kristallschalen-Therapie?",
+            "answer": "Die Kristallschalen-Therapie ist ein von mir verwendeter Schwingungsansatz, der die Klänge und Harmonien singender Kristallschalen nutzt, um Körper, Geist und Energiezentren zu harmonisieren und Entspannung, Meditation sowie physisches und emotionales Wohlbefinden zu fördern."
+          },
+          {
+            "question": "Wie funktioniert diese Therapie?",
+            "answer": "Die Schalen emittieren Schwingungen mit spezifischen Frequenzen, die mit verschiedenen Körperbereichen und Chakren resonieren und helfen, energetische Blockaden zu lösen, das Gleichgewicht wiederherzustellen und die natürliche Energiezirkulation zu unterstützen."
+          },
+          {
+            "question": "Was sind die Vorteile der Kristallschalen-Therapie?",
+            "answer": "Sie kann Stress und Angst reduzieren, den Schlaf verbessern, bestimmte Schmerzen lindern, die Lebensenergie stimulieren, Kreativität, tiefe Entspannung fördern und emotionale und spirituelle Harmonie unterstützen."
+          },
+          {
+            "question": "Wie läuft eine Sitzung ab?",
+            "answer": "Während der Sitzung bringe ich die Kristallschalen auf eine an Ihre Bedürfnisse angepasste Weise zum Klingen, Sie bleiben entspannt und empfangen die Schwingungen, was die energetische Harmonisierung und Energiezirkulation fördert."
+          },
+          {
+            "question": "Wer kann von dieser Therapie profitieren?",
+            "answer": "Jeder kann von Kristallschalen profitieren, besonders diejenigen, die einen sanften und nicht-invasiven Ansatz suchen, um sich zu entspannen, zu revitalisieren oder ihr emotionales und energetisches Gleichgewicht zu unterstützen."
+          },
+          {
+            "question": "Gibt es Kontraindikationen?",
+            "answer": "Die Praxis ist im Allgemeinen sicher, kann aber für Personen mit schweren psychiatrischen Störungen oder hoher auditiver Empfindlichkeit nicht geeignet sein. Es wird empfohlen, einen Gesundheitsfachmann zu konsultieren, bevor Sie beginnen, wenn Sie spezifische Bedenken haben."
+          }
+        ],
+        "tuningforks": [
+          {
+            "question": "Was ist eine Kristall-Stimmgabel?",
+            "answer": "Die Kristall-Stimmgabel ist ein Instrument aus reinem Quarz, das eine subtile und kaum hörbare Schwingung aussendet, die eher einer Frequenz als einem traditionellen Klang entspricht. Diese Schwingung fördert die energetische Harmonisierung und Energiezirkulation im Körper. In meine Praxis der traditionellen chinesischen Medizin integriert, unterstützt und verstärkt sie alle von mir angebotenen Energietherapien."
+          },
+          {
+            "question": "Warum verwende ich sie in meinen Behandlungen?",
+            "answer": "Sie werden verwendet, um Meridianpunkte zu stimulieren, Energieflüsse zu harmonisieren und die Wirksamkeit energetischer Heilung zu verstärken. Ihre subtile und fast unmerkliche Schwingung wirkt tief und rahmt alle von mir angewandten Techniken ein und verstärkt sie."
+          },
+          {
+            "question": "Wie wende ich sie an?",
+            "answer": "Die Stimmgabeln werden auf oder in der Nähe von Akupressurpunkten angewendet, manchmal in Kombination mit Kristallen oder einem Styletto, um die Schwingungsfrequenz zu übertragen und spezifische Körperbereiche zu harmonisieren."
+          },
+          {
+            "question": "Was sind die Vorteile?",
+            "answer": "Sie harmonisieren Meridiane und Lebensenergie, bringen körperliche und emotionale Entspannung, unterstützen geistige Klarheit und Gelassenheit und verstärken gleichzeitig die Wirkung anderer angebotener energetischer Praktiken dank ihrer subtilen Frequenz."
+          },
+          {
+            "question": "Kann jeder eine Behandlung mit Kristall-Stimmgabeln erhalten?",
+            "answer": "Die Behandlungen sind im Allgemeinen für alle geeignet, aber bestimmte Kontraindikationen können existieren: Personen mit Herzschrittmacher, schwangere Frauen in den ersten Monaten oder jede spezifische medizinische Bedingung, die ärztlichen Rat erfordert. Jede Behandlung ist personalisiert und gemäß dem Energieprofil und der Gesundheit des Klienten gesichert."
+          }
+        ]
+      }
     },
     "meditation": {
       "title": "Meditation",
       "description": "Die Meditation nutzt verschiedene Techniken wie Achtsamkeit, geführte und transzendentale Meditation sowie Mantras wie den OM-Klang, um Entspannung, Selbstbewusstsein und emotionale Heilung zu fördern. Sie reduziert Stress, Angst und Depression, verbessert die Konzentration und geistige Klarheit und fördert den inneren Frieden.",
-      "benefits": [
-        "Abbau von Stress, Angst und Depression",
-        "Verbesserung der Konzentration",
-        "Geistige Klarheit",
-        "Förderung des inneren Friedens",
-        "Natürlicher Ansatz für alle geeignet"
-      ]
+      "benefits": [],
+      "faq": {
+        "title": "Mehr erfahren",
+        "tabs": {
+          "meditation": "Meditation",
+          "om": "Das OM Mantra",
+          "dhyana": "Dhyâna Meditation",
+          "mantras": "Mantra-Gesang"
+        },
+        "meditation": [
+          {
+            "question": "Was ist die Meditation, die ich anbiete?",
+            "answer": "Die Meditation, die ich im Cœur de l'OM anbiete, ist eine sanfte und kraftvolle Praxis, die dazu einlädt, sich wieder mit dem inneren Zentrum zu verbinden, den Geist zu beruhigen und Körper und Geist zu harmonisieren. Sie basiert auf Techniken wie dem Singen des OM-Mantras, der herzfokussierten Dhyâna-Meditation und anderen geführten Ansätzen zur Unterstützung des emotionalen Wohlbefindens, der inneren Klarheit und des harmonischen Energieflusses"
+          },
+          {
+            "question": "Wie läuft eine Meditationssitzung ab?",
+            "answer": "Die Sitzung findet in einem ruhigen und sicheren Raum statt, in dem Sie bequem sitzen. Ich führe Sie durch Atemübungen, geführte Meditationen, Mantra-Gesang oder Visualisierungen, manchmal begleitet von Klangschalen und schwingenden Klängen, um die energetische Resonanz und innere Erfahrung zu verstärken. Je nach Bedarf und Wunsch helfen spezifische Übungen auch, die Konzentration zu entwickeln und den Geist zu beruhigen"
+          },
+          {
+            "question": "Was sind die Vorteile der Meditation?",
+            "answer": "Meditation hilft, Stress zu reduzieren, Angst zu beruhigen und den Geist zu klären, während sie tiefe Entspannung, emotionales Gleichgewicht und Selbstverbindung fördert. Sie unterstützt die emotionale Regulation, verbessert die Konzentration, bringt einen ruhigeren Geist und ein Gefühl von Gelassenheit und innerer Harmonie"
+          },
+          {
+            "question": "Wer kann von dieser Meditation profitieren?",
+            "answer": "Jeder, der sich wieder mit sich selbst verbinden, seinen Geist beruhigen oder sein emotionales Gleichgewicht unterstützen möchte, kann von dieser Praxis profitieren. Sie ist für alle geeignet, Anfänger oder erfahrene Praktizierende, und wird mit Respekt für den Rhythmus und die Bedürfnisse jedes Einzelnen praktiziert"
+          },
+          {
+            "question": "Gibt es Kontraindikationen?",
+            "answer": "Meditation ist im Allgemeinen für alle sicher, kann aber für Menschen mit schweren psychiatrischen Störungen nicht geeignet sein. Es wird empfohlen, einen Gesundheitsfachmann zu konsultieren, wenn Sie spezifische Bedenken haben, bevor Sie beginnen"
+          }
+        ],
+        "om": [
+          {
+            "question": "Was ist das OM-Mantra?",
+            "answer": "Das OM-Mantra ist ein heiliger Klang, der seit Jahrtausenden in vielen spirituellen Traditionen verwendet wird. Es symbolisiert universelle Harmonie und die ursprüngliche Schwingung des Lebens. Seine Resonanz hilft, den Geist zu zentrieren, Energie auszugleichen und eine tiefe Verbindung zu sich selbst zu nähren"
+          },
+          {
+            "question": "Warum das OM-Mantra während einer Behandlung oder Meditation verwenden?",
+            "answer": "Das Singen von OM harmonisiert Körper, Geist und Lebensenergie. Es schafft einen Raum innerer Ruhe und Offenheit und fördert einen fließenden Energiefluss. In meinen Behandlungen verwende ich es mit einer Kristallschale, die speziell auf die Frequenz von OM gestimmt ist, um die Schwingung zu verstärken, die innere Ausrichtung zu unterstützen und die Wirkung der Behandlung zu verstärken"
+          },
+          {
+            "question": "Wie wird das OM-Mantra praktiziert?",
+            "answer": "OM kann laut gesungen, geflüstert oder einfach mental wiederholt werden. Bewusstes Atmen, regelmäßiger Rhythmus und fokussierte Absicht ermöglichen es Ihnen, seine Resonanz im Körper zu spüren und natürlich in einen meditativen Zustand einzutreten"
+          },
+          {
+            "question": "Was sind die Vorteile des OM-Mantras?",
+            "answer": "OM beruhigt den Geist und lindert Stress. Es harmonisiert die Schwingungen des Körpers, unterstützt innere Klarheit und lädt zu einem Zustand der Präsenz ein. Es verstärkt auch die Wirksamkeit von Energiebehandlungen, insbesondere wenn seine Schwingung mit der dedizierten Kristallschale kombiniert wird"
+          },
+          {
+            "question": "Muss ich seine Bedeutung kennen, um seine Wirkung zu spüren?",
+            "answer": "Nein, das Wichtigste ist die Erfahrung der Schwingung. Sie wirkt auch ohne intellektuelles Verständnis, und ihre Vorteile entwickeln sich natürlich mit regelmäßiger Praxis"
+          },
+          {
+            "question": "Kann ich es zu Hause verwenden?",
+            "answer": "Ja, OM kann leicht in Ihren Alltag integriert werden. Es kann eine Meditation, beruhigendes Atmen begleiten oder einfach gesungen werden, um sich zu zentrieren und Ihre Energie auszugleichen"
+          },
+          {
+            "question": "Wo kann ich an OM-Gesangs- und Meditationssitzungen teilnehmen?",
+            "answer": "Sie finden die Termine und Zeiten der OM-Gesangs- und Meditationssitzungen im Kalender der Website und können sich entsprechend Ihrer Verfügbarkeit anmelden"
+          }
+        ],
+        "dhyana": [
+          {
+            "question": "Was ist Dhyâna-Meditation",
+            "answer": "Dhyâna-Meditation ist eine Herzpraxis, die von der Sufi-Tradition inspiriert ist, wie sie von Irina Tweedie übermittelt wurde. Sie beinhaltet, das Bewusstsein auf die Schwingung des Herzens zu richten, um den Gedankenfluss zu überwinden und Zugang zu tiefer innerer Stille und subtiler Resonanz der Lebensenergie zu erhalten"
+          },
+          {
+            "question": "Wie wird sie in meine Behandlungen integriert",
+            "answer": "Im Cœur de l'OM ist die Dhyâna-Meditation ein integraler Bestandteil der Behandlungen und schafft einen Raum der Ruhe und Empfänglichkeit. Die Schwingung des Herzens hilft, den Geist zu beruhigen, die Sensibilität zu öffnen und die energetische Zirkulation im ganzen Körper zu unterstützen, wodurch die Wirkung anderer schwingender Praktiken verstärkt wird"
+          },
+          {
+            "question": "Was sind die Vorteile der Dhyâna-Meditation",
+            "answer": "Die Meditation fördert tiefe Entspannung, Loslassen und emotionales Gleichgewicht. Sie weckt die Resonanz des Herzens, klärt den Geist und verbessert die Konzentration. Sie harmonisiert und stimuliert die Zirkulation der Lebensenergie und verstärkt die innere Wahrnehmung"
+          },
+          {
+            "question": "Für wen ist diese Meditation geeignet",
+            "answer": "Dhyâna-Meditation ist für alle zugänglich, Anfänger oder Erfahrene. Die Sitzungen werden geführt und an die Sensibilität, das energetische Profil und den emotionalen Zustand jedes Einzelnen angepasst"
+          },
+          {
+            "question": "Wie läuft eine Sitzung ab",
+            "answer": "Die Sitzung beginnt mit einem Moment der Einrichtung und Entspannung in einer bequemen Haltung. Das Bewusstsein wird dann auf das Herzzentrum gerichtet und empfängt die stille innere Schwingung und energetische Zirkulation. Eine Integrationszeit ermöglicht schließlich eine schrittweise Rückkehr in einen Zustand voller Präsenz und Bewusstsein"
+          },
+          {
+            "question": "Öffentliche Sitzungen und Anmeldung",
+            "answer": "Öffentliche Sitzungen werden im Zentrum mit maximal 8 Teilnehmern angeboten, um eine personalisierte Führung und einen sicheren Rahmen zu gewährleisten. Die Termine sind im Kalender des Zentrums verfügbar und eine Voranmeldung ist erforderlich"
+          },
+          {
+            "question": "Gibt es Kontraindikationen oder Vorsichtsmaßnahmen",
+            "answer": "Dhyâna-Meditation ist sanft und sicher für die meisten Menschen. Im Falle besonderer psychischer oder medizinischer Erkrankungen wird jedoch empfohlen, eine medizinische Nachsorge aufrechtzuerhalten und den Praktizierenden zu informieren. Jede Sitzung wird personalisiert und entsprechend den Bedürfnissen und der Sensibilität jedes Einzelnen angepasst"
+          }
+        ],
+        "mantras": [
+          {
+            "question": "Was ist Mantra-Gesang",
+            "answer": "Mantra-Gesang ist eine alte Praxis aus den spirituellen Traditionen Indiens und des Buddhismus, die die Wiederholung heiliger Klänge oder Worte verwendet, um Körper, Geist und Lebensenergie zu harmonisieren. Die Schwingungen der Mantras fördern einen Zustand tiefer Entspannung, klären den Geist und unterstützen emotionale und spirituelle Heilung"
+          },
+          {
+            "question": "Was sind die Vorteile des Mantra-Gesangs",
+            "answer": "Mantra-Gesang hilft, Stress und Angst zu reduzieren, Konzentration und geistige Klarheit zu verbessern, Lebensenergie zu stimulieren, die Selbstverbindung zu stärken und innere Transformation und Herzensfrieden zu unterstützen"
+          },
+          {
+            "question": "Ist Mantra-Gesang religiös",
+            "answer": "Nein, er kann auf säkulare Weise praktiziert werden und sich auf die Schwingung und die therapeutischen Wirkungen des Klangs konzentrieren, unabhängig von jeglicher religiöser Überzeugung"
+          },
+          {
+            "question": "Wer kann davon profitieren",
+            "answer": "Jeder, der eine sanfte, energetische und meditative Praxis sucht, kann davon profitieren. Sie ist besonders geeignet für diejenigen, die den Geist beruhigen, ihre innere Zentrierung stärken und ihr Bewusstsein erwecken möchten"
+          },
+          {
+            "question": "Öffentliche Sitzungen und Anmeldung",
+            "answer": "Sitzungen werden im Zentrum mit einer begrenzten Anzahl von Teilnehmern angeboten, um eine qualitativ hochwertige Unterstützung zu gewährleisten. Die Termine sind im Kalender des Zentrums verfügbar und eine Voranmeldung wird empfohlen"
+          },
+          {
+            "question": "Gibt es Kontraindikationen",
+            "answer": "Die Praxis ist im Allgemeinen sicher, kann aber für Menschen mit Stimmstörungen oder besonderer auditiver Empfindlichkeit nicht geeignet sein. Im Zweifelsfall ist es ratsam, vor der Teilnahme einen Gesundheitsfachmann zu konsultieren"
+          }
+        ]
+      }
     },
     "chromobio": {
       "title": "ChromobioEnergie",

@@ -49,7 +49,8 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       gradient: 'from-blue-600 via-indigo-500 to-blue-500',
       rotation: 'rotate-0',
       description: t.meditation.description,
-      benefits: t.meditation.benefits
+      benefits: t.meditation.benefits,
+      faq: t.meditation.faq
     },
     {
       title: t.chromobio.title,
@@ -224,6 +225,21 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                     vibratory: (therapy as any).faq.vibratory,
                     bowls: (therapy as any).faq.bowls,
                     tuningforks: (therapy as any).faq.tuningforks
+                  }}
+                  lang={lang}
+                />
+              )}
+
+              {/* FAQ Section - Only for Meditation (index 2) */}
+              {index === 2 && (therapy as any).faq && (
+                <TherapyFAQ
+                  title={(therapy as any).faq.title}
+                  tabs={(therapy as any).faq.tabs}
+                  content={{
+                    meditation: (therapy as any).faq.meditation,
+                    om: (therapy as any).faq.om,
+                    dhyana: (therapy as any).faq.dhyana,
+                    mantras: (therapy as any).faq.mantras
                   }}
                   lang={lang}
                 />
