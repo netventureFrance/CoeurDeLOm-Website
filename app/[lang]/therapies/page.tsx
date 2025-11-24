@@ -169,21 +169,23 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                     {therapy.description}
                   </p>
 
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-gray-800">{t.benefits}</h3>
-                    <ul className="space-y-3">
-                      {therapy.benefits?.map((benefit: string, idx: number) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-purple-200/50 to-cyan-200/50 flex items-center justify-center mt-0.5">
-                            <svg className="w-3.5 h-3.5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                            </svg>
-                          </span>
-                          <span className="text-gray-700">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {therapy.benefits && therapy.benefits.length > 0 && (
+                    <div className="space-y-4">
+                      <h3 className="text-xl font-bold text-gray-800">{t.benefits}</h3>
+                      <ul className="space-y-3">
+                        {therapy.benefits.map((benefit: string, idx: number) => (
+                          <li key={idx} className="flex items-start gap-3">
+                            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-purple-200/50 to-cyan-200/50 flex items-center justify-center mt-0.5">
+                              <svg className="w-3.5 h-3.5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                              </svg>
+                            </span>
+                            <span className="text-gray-700">{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
                   <div className="pt-4">
                     <a

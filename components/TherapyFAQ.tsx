@@ -27,13 +27,16 @@ export default function TherapyFAQ({ title, tabs, content, lang }: TherapyFAQPro
 
   return (
     <div className="max-w-6xl mx-auto mt-12 mb-8">
-      {/* Title */}
-      <h3 className="text-2xl font-normal text-purple-900 text-center mb-6">
+      {/* Title with Dancing Script font */}
+      <h3
+        className="text-3xl font-normal text-purple-900 mb-6"
+        style={{ fontFamily: "'Dancing Script', cursive" }}
+      >
         {title}
       </h3>
 
       {/* Tabs */}
-      <div className="flex justify-center gap-3 mb-8">
+      <div className="flex gap-3 mb-8">
         {tabKeys.map((key) => (
           <button
             key={key}
