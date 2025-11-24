@@ -69,6 +69,14 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
   return (
     <main className="relative min-h-screen bg-gradient-to-br from-white via-purple-50/20 to-cyan-50/20 pt-40 pb-20 overflow-hidden">
       <AnimatedBackground />
+      {/* SVG Definitions for circular clip-path */}
+      <svg width="0" height="0" style={{ position: 'absolute' }}>
+        <defs>
+          <clipPath id="circleClip" clipPathUnits="objectBoundingBox">
+            <circle cx="0.5" cy="0.5" r="0.5" />
+          </clipPath>
+        </defs>
+      </svg>
       <div className="container mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-20">
@@ -93,7 +101,10 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                 href={`#therapy-${index}`}
                 className="cursor-pointer block"
               >
-                <div className="relative w-full aspect-square rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl bg-white border border-gray-100/50">
+                <div
+                  className="relative w-full aspect-square shadow-lg group-hover:shadow-2xl bg-white"
+                  style={{ clipPath: 'url(#circleClip)' }}
+                >
                 {/* Image - Circular masked */}
                 {therapy.image && (
                   <img
@@ -130,13 +141,8 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-200/20 via-pink-200/20 to-cyan-200/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div
-                    className="relative bg-white rounded-full shadow-sm group-hover:shadow-md transition-all duration-500 aspect-square overflow-hidden"
-                    style={{
-                      borderRadius: '50%',
-                      WebkitBorderRadius: '50%',
-                      WebkitTransformStyle: 'flat',
-                      transformStyle: 'flat'
-                    } as React.CSSProperties}
+                    className="relative bg-white shadow-sm group-hover:shadow-md transition-all duration-500 aspect-square"
+                    style={{ clipPath: 'url(#circleClip)' }}
                   >
                     <img
                       src={therapy.image}
