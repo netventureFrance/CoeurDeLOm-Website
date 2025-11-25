@@ -11,6 +11,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/therapies',
     '/contact',
     '/blog',
+    '/why',
+    '/chromobiotest',
   ]
 
   // Generate URLs for all languages
