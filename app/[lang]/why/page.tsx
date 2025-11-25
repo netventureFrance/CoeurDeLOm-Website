@@ -47,34 +47,43 @@ export default async function WhyPage({ params }: { params: Promise<{ lang: stri
       <AnimatedBackground />
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <div className="flex justify-center mb-8">
             <InteractiveTitle className="text-5xl md:text-6xl font-normal text-purple-900">
               {why.title as string}
             </InteractiveTitle>
           </div>
-          <div className="h-1 w-24 bg-gradient-rainbow mx-auto"></div>
+          <div className="h-1 w-24 bg-gradient-rainbow mx-auto mb-10"></div>
+
+          {/* Description Text */}
+          <div className="max-w-4xl mx-auto text-left">
+            {(why.description as string).split('\n\n').map((paragraph, index) => (
+              <p key={index} className="text-gray-700 leading-relaxed mb-4 last:mb-0">
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+        {/* Features Grid - Single Row */}
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
           {features.map((feature) => (
             <div
               key={feature.key}
-              className="bg-white rounded-3xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 border border-purple-100/50 hover:-translate-y-2"
+              className="bg-white rounded-2xl shadow-md p-4 hover:shadow-lg transition-all duration-300 border border-purple-100/50 hover:-translate-y-1"
             >
               <div className="flex flex-col items-center text-center">
-                <div className="w-32 h-32 mb-6">
+                <div className="w-16 h-16 mb-3">
                   <img
                     src={feature.image}
                     alt={why[feature.key].title}
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <h2 className="text-2xl font-bold text-primary mb-4">
+                <h2 className="text-sm font-bold text-primary mb-2">
                   {why[feature.key].title}
                 </h2>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-600 text-xs leading-relaxed">
                   {why[feature.key].description}
                 </p>
               </div>
