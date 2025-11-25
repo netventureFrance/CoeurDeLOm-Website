@@ -659,6 +659,23 @@
       }
     }
   },
+  "chromobioPretest": {
+    "title": "ChromoBioEnergetischer Test",
+    "description": "Entdecken Sie unseren schnellen Chromobioenergetik-Test, ein Online-Tool, mit dem Sie einen allgemeinen Überblick über Ihr energetisches Profil erhalten können. Einmal im Monat zugänglich, beleuchtet er Ihr Farbspektrum und zeigt für jeden Farbton sein Vitalitätsniveau an – und enthüllt so Überschüsse, Defizite oder Abwesenheiten in Ihrer Energie.",
+    "description2": "Dieser Test bietet eine erste Lektüre Ihrer Energien und ersetzt weder eine tiefgehende Analyse noch eine vollständige Neuausrichtungssitzung. Nach dem Test ermöglicht eine persönliche Begleitung, Ihre Ergebnisse zu interpretieren und eine maßgeschneiderte Mischung aus Farbessenzen zu definieren, die als florale Harmonisatoren konzipiert sind, um das Gleichgewicht, die Energiezirkulation und die Harmonie Ihrer 'inneren Musik' zu unterstützen.",
+    "formTitle": "Füllen Sie Ihre Informationen aus, um auf den Test zuzugreifen",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon (optional)",
+    "gdprConsent": "Ich akzeptiere, dass meine persönlichen Daten für den ChromoBioEnergetischen Test verwendet werden",
+    "gdprRequired": "Sie müssen die Datenschutzrichtlinie akzeptieren, um fortzufahren",
+    "submit": "Zum Test",
+    "loading": "Überprüfung...",
+    "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "restricted": "Sie haben den Test kürzlich bereits durchgeführt.",
+    "restrictedDays": "Sie können den Test in {days} Tagen wiederholen.",
+    "restrictedInfo": "Der Test ist einmal alle 4 Wochen zugänglich, um eine signifikante Entwicklung Ihres energetischen Profils zu ermöglichen."
+  },
   "chromobiotest": {
     "title": "ChromobioTest",
     "instructions": "Eliminieren Sie 4 Farben pro Zeile, indem Sie auf die Kreise klicken. Lassen Sie sich von Ihrer Intuition leiten.",

@@ -659,6 +659,23 @@
       }
     }
   },
+  "chromobioPretest": {
+    "title": "ChromoBioEnergetic Test",
+    "description": "Discover our quick Chromobioenergetics test, an online tool that allows you to get a general overview of your energetic profile. Accessible once a month, it highlights your color spectrum and indicates for each shade its vitality level, thus revealing excesses, deficits or absences in your energy.",
+    "description2": "This test offers a first reading of your energies and does not replace an in-depth analysis or a complete rebalancing session. After the test, personalized guidance allows you to interpret your results and define a custom blend of color essences, designed as floral harmonizers to support balance, energy circulation and the harmony of your \"inner music\".",
+    "formTitle": "Fill in your information to access the test",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone (optional)",
+    "gdprConsent": "I accept that my personal data will be used for the ChromoBioEnergetic test",
+    "gdprRequired": "You must accept the privacy policy to continue",
+    "submit": "Access the test",
+    "loading": "Checking...",
+    "error": "An error occurred. Please try again.",
+    "restricted": "You have already taken the test recently.",
+    "restrictedDays": "You can retake the test in {days} days.",
+    "restrictedInfo": "The test is accessible once every 4 weeks to allow for significant evolution of your energetic profile."
+  },
   "chromobiotest": {
     "title": "ChromobioTest",
     "instructions": "Eliminate 4 colors per row by clicking on the circles. Let your intuition guide you.",

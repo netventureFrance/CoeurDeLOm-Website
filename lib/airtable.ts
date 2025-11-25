@@ -22,6 +22,14 @@ export interface ContactSubmission {
   newsletterConsent: boolean;
 }
 
+export interface ChromoBioTestSubmission {
+  name: string;
+  email: string;
+  phone?: string;
+  language: string;
+  gdprConsent: boolean;
+}
+
 export interface NewsPromo {
   id: string;
   title: string;
@@ -208,5 +216,77 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
   } catch (error) {
     console.error('Error fetching blog post:', error);
     return null;
+  }
+}
+
+/**
+ * Check if user can take ChromoBio test (not taken in last 4 weeks)
+ * Returns { canTake: boolean, lastTestDate?: string, daysRemaining?: number }
+ */
+export async function checkChromoBioTestEligibility(
+  name: string,
+  email: string
+): Promise<{ canTake: boolean; lastTestDate?: string; daysRemaining?: number }> {
+  try {
+    const fourWeeksAgo = new Date();
+    fourWeeksAgo.setDate(fourWeeksAgo.getDate() - 28);
+    const fourWeeksAgoStr = fourWeeksAgo.toISOString();
+
+    // Search for records with matching name AND email in the last 4 weeks
+    const records = await base('ChromoBio_Tests')
+      .select({
+        filterByFormula: `AND(
+          LOWER({Name}) = LOWER('${name.replace(/'/g, "\\'")}'),
+          LOWER({Email}) = LOWER('${email.replace(/'/g, "\\'")}'),
+          {Submitted_At} >= '${fourWeeksAgoStr}'
+        )`,
+        sort: [{ field: 'Submitted_At', direction: 'desc' }],
+        maxRecords: 1,
+      })
+      .all();
+
+    if (records.length === 0) {
+      return { canTake: true };
+    }
+
+    const lastTestDate = records[0].fields.Submitted_At as string;
+    const lastTest = new Date(lastTestDate);
+    const nextAllowedDate = new Date(lastTest);
+    nextAllowedDate.setDate(nextAllowedDate.getDate() + 28);
+    const daysRemaining = Math.ceil((nextAllowedDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+
+    return {
+      canTake: false,
+      lastTestDate,
+      daysRemaining: Math.max(0, daysRemaining),
+    };
+  } catch (error) {
+    console.error('Error checking ChromoBio test eligibility:', error);
+    // In case of error, allow the test to proceed
+    return { canTake: true };
+  }
+}
+
+/**
+ * Submit ChromoBio test registration to Airtable
+ */
+export async function submitChromoBioTestRegistration(data: ChromoBioTestSubmission): Promise<boolean> {
+  try {
+    await base('ChromoBio_Tests').create([
+      {
+        fields: {
+          Name: data.name,
+          Email: data.email,
+          Phone: data.phone || '',
+          Language: data.language.toUpperCase(),
+          GDPR_Consent: data.gdprConsent,
+          Submitted_At: new Date().toISOString(),
+        },
+      },
+    ]);
+    return true;
+  } catch (error) {
+    console.error('Error submitting ChromoBio test registration:', error);
+    return false;
   }
 }
