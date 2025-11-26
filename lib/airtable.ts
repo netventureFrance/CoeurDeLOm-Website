@@ -153,9 +153,23 @@ export async function getBlogPosts(language: string, limit?: number): Promise<Bl
         }
       }
 
-      // Get image URL from attachment field (field name is "Image" in Airtable)
+      // Get image - use local path based on slug (synced via scripts/sync-blog-images.js)
+      const slug = record.fields.Slug as string;
       const imageField = record.fields.Image as any[] | undefined;
-      const featuredImage = imageField && imageField.length > 0 ? imageField[0]?.url : undefined;
+      let featuredImage: string | undefined;
+      if (imageField && imageField.length > 0 && slug) {
+        // Determine extension from attachment type
+        const attachment = imageField[0];
+        const typeMap: { [key: string]: string } = {
+          'image/png': '.png',
+          'image/jpeg': '.jpg',
+          'image/jpg': '.jpg',
+          'image/gif': '.gif',
+          'image/webp': '.webp',
+        };
+        const ext = typeMap[attachment.type] || '.jpg';
+        featuredImage = `/images/blog/${slug}${ext}`;
+      }
 
       // Auto-fill Published_Date if missing
       let publishedDate = record.fields.Published_Date as string;
@@ -250,6 +264,22 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
       }
     }
 
+    // Get image - use local path based on slug (synced via scripts/sync-blog-images.js)
+    const imageField = record.fields.Image as any[] | undefined;
+    let featuredImage: string | undefined;
+    if (imageField && imageField.length > 0) {
+      const attachment = imageField[0];
+      const typeMap: { [key: string]: string } = {
+        'image/png': '.png',
+        'image/jpeg': '.jpg',
+        'image/jpg': '.jpg',
+        'image/gif': '.gif',
+        'image/webp': '.webp',
+      };
+      const ext = typeMap[attachment.type] || '.jpg';
+      featuredImage = `/images/blog/${slug}${ext}`;
+    }
+
     return {
       id: record.id,
       slug: record.fields.Slug as string,
@@ -258,7 +288,7 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
       content: content || contentFR,
       category: record.fields.Category as string | undefined,
       tags,
-      featuredImage: record.fields.Image ? (record.fields.Image as any)[0]?.url : undefined,
+      featuredImage,
       audioFile: record.fields.Audio_File ? (record.fields.Audio_File as any)[0]?.url : undefined,
       spotifyUrl: record.fields.Spotify_URL as string | undefined,
       author: record.fields.Author as string,
