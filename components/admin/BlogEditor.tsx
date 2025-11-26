@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import RichTextEditor from './RichTextEditor';
 
 interface BlogPost {
@@ -41,7 +41,6 @@ type Language = 'FR' | 'DE' | 'EN';
 export default function BlogEditor({ post, onClose, onSave, existingOptions }: BlogEditorProps) {
   const [activeTab, setActiveTab] = useState<Language>('FR');
   const [isSaving, setIsSaving] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
@@ -52,7 +51,6 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
   const [newCategory, setNewCategory] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
   const [newTag, setNewTag] = useState('');
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     slug: post?.slug || '',
@@ -184,41 +182,6 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
       setFormData((prev) => ({ ...prev, tags: trimmed }));
       setNewTag('');
       setShowNewTag(false);
-    }
-  }
-
-  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setIsUploading(true);
-    setError('');
-
-    try {
-      const formDataUpload = new FormData();
-      formDataUpload.append('file', file);
-      formDataUpload.append('type', 'blog');
-
-      const response = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formDataUpload,
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Erreur lors de l\'upload');
-      }
-
-      const data = await response.json();
-      setFormData((prev) => ({ ...prev, imageUrl: data.url }));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erreur lors de l\'upload');
-    } finally {
-      setIsUploading(false);
-      // Reset file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
     }
   }
 
@@ -485,6 +448,27 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
           {/* Image */}
           <div style={styles.section}>
             <h2 style={styles.sectionTitle}>🖼️ Image de couverture</h2>
+
+            {/* Info box about Airtable upload */}
+            <div style={{
+              backgroundColor: '#f0f9ff',
+              border: '1px solid #0ea5e9',
+              borderRadius: '8px',
+              padding: '16px',
+              marginBottom: '20px',
+            }}>
+              <p style={{ margin: '0 0 8px 0', fontWeight: '600', color: '#0369a1' }}>
+                💡 Méthode recommandée : Upload via Airtable
+              </p>
+              <ol style={{ margin: '0', paddingLeft: '20px', color: '#0c4a6e', fontSize: '14px', lineHeight: '1.6' }}>
+                <li>Ouvrez <a href="https://airtable.com" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed', fontWeight: '500' }}>Airtable</a> et accédez à la table Blog Posts</li>
+                <li>Glissez-déposez votre image dans le champ "Image" de l'article</li>
+                <li>Cliquez sur l'image uploadée, puis sur "Expand record"</li>
+                <li>Faites clic droit sur l'image → "Copy image address"</li>
+                <li>Collez l'URL ci-dessous</li>
+              </ol>
+            </div>
+
             <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
               {formData.imageUrl && (
                 <div style={{ position: 'relative' }}>
@@ -525,18 +509,12 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                   name="imageUrl"
                   value={formData.imageUrl}
                   onChange={handleChange}
-                  placeholder="https://exemple.com/mon-image.jpg"
+                  placeholder="https://dl.airtable.com/.attachments/..."
                   style={styles.input}
                 />
                 <p style={styles.helpText}>
-                  Collez l'URL publique d'une image hébergée sur :
+                  Alternatives : Hébergez votre image sur <a href="https://imgur.com/upload" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed' }}>Imgur</a> ou <a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed' }}>ImgBB</a> (gratuit)
                 </p>
-                <ul style={{ ...styles.helpText, marginTop: '4px', paddingLeft: '20px' }}>
-                  <li><a href="https://imgur.com/upload" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed' }}>Imgur</a> (gratuit, simple)</li>
-                  <li><a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed' }}>ImgBB</a> (gratuit)</li>
-                  <li>Google Drive (partage public)</li>
-                  <li>Dropbox (lien direct)</li>
-                </ul>
               </div>
             </div>
           </div>
