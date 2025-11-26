@@ -96,46 +96,55 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
     }
   }
 
-  const tabs: { key: Language; label: string }[] = [
-    { key: 'FR', label: 'Français' },
-    { key: 'DE', label: 'Deutsch' },
-    { key: 'EN', label: 'English' },
+  const tabs: { key: Language; label: string; flag: string }[] = [
+    { key: 'FR', label: 'Français', flag: '🇫🇷' },
+    { key: 'DE', label: 'Deutsch', flag: '🇩🇪' },
+    { key: 'EN', label: 'English', flag: '🇬🇧' },
   ];
 
+  // Inline styles for reliability
+  const styles = {
+    container: { minHeight: '100vh', backgroundColor: '#f9fafb', fontFamily: 'system-ui, sans-serif' },
+    header: { backgroundColor: 'white', borderBottom: '1px solid #e5e7eb', padding: '16px 24px', position: 'sticky' as const, top: 0, zIndex: 10 },
+    headerContent: { maxWidth: '900px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+    backBtn: { padding: '8px', cursor: 'pointer', border: 'none', background: 'none', display: 'flex', alignItems: 'center', gap: '8px', color: '#4b5563' },
+    title: { fontSize: '20px', fontWeight: 'bold', color: '#1f2937', margin: 0 },
+    saveBtn: { backgroundColor: '#7c3aed', color: 'white', padding: '10px 20px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: '600' },
+    main: { maxWidth: '900px', margin: '0 auto', padding: '32px 24px' },
+    section: { backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', padding: '24px', marginBottom: '24px' },
+    sectionTitle: { fontSize: '18px', fontWeight: '600', color: '#1f2937', marginBottom: '16px', marginTop: 0 },
+    grid: { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' },
+    label: { display: 'block', fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '8px' },
+    input: { width: '100%', padding: '12px 16px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box' as const },
+    textarea: { width: '100%', padding: '12px 16px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box' as const, resize: 'vertical' as const, fontFamily: 'inherit' },
+    select: { padding: '10px 16px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '16px', backgroundColor: 'white' },
+    tabs: { display: 'flex', borderBottom: '1px solid #e5e7eb' },
+    tab: { padding: '16px 24px', cursor: 'pointer', border: 'none', background: 'none', fontSize: '16px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px' },
+    tabActive: { borderBottom: '2px solid #7c3aed', color: '#7c3aed' },
+    tabInactive: { color: '#6b7280' },
+    error: { backgroundColor: '#fef2f2', color: '#dc2626', padding: '12px 16px', borderRadius: '8px', marginBottom: '24px' },
+    helpText: { fontSize: '13px', color: '#6b7280', marginTop: '6px' },
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div style={styles.container}>
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <svg
-                className="w-6 h-6 text-gray-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                />
-              </svg>
+      <header style={styles.header}>
+        <div style={styles.headerContent}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <button onClick={onClose} style={styles.backBtn}>
+              ← Retour
             </button>
-            <h1 className="text-xl font-bold text-gray-800">
+            <h1 style={styles.title}>
               {post ? 'Modifier l\'article' : 'Nouvel article'}
             </h1>
           </div>
-          <div className="flex items-center gap-4">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <select
               name="status"
               value={formData.status}
               onChange={handleChange}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              style={styles.select}
             >
               <option value="Draft">Brouillon</option>
               <option value="Published">Publié</option>
@@ -143,169 +152,136 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
             <button
               onClick={handleSubmit}
               disabled={isSaving}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+              style={{ ...styles.saveBtn, opacity: isSaving ? 0.6 : 1 }}
             >
-              {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
+              {isSaving ? 'Sauvegarde...' : '💾 Sauvegarder'}
             </button>
           </div>
         </div>
       </header>
 
       {/* Form */}
-      <main className="max-w-5xl mx-auto px-4 py-8">
+      <main style={styles.main}>
         {error && (
-          <div className="bg-red-50 text-red-600 px-4 py-3 rounded-xl mb-6">
-            {error}
-          </div>
+          <div style={styles.error}>⚠️ {error}</div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit}>
           {/* Basic Info */}
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">
-              Informations générales
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
+          <div style={styles.section}>
+            <h2 style={styles.sectionTitle}>📝 Informations générales</h2>
+            <div style={styles.grid}>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Slug (URL)
-                </label>
+                <label style={styles.label}>Slug (URL)</label>
                 <input
                   type="text"
                   name="slug"
                   value={formData.slug}
                   onChange={handleChange}
-                  placeholder="mon-article (généré automatiquement si vide)"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  placeholder="mon-article"
+                  style={styles.input}
                 />
+                <p style={styles.helpText}>Laissez vide pour générer automatiquement</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Auteur
-                </label>
+                <label style={styles.label}>Auteur</label>
                 <input
                   type="text"
                   name="author"
                   value={formData.author}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  style={styles.input}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Catégorie
-                </label>
+                <label style={styles.label}>Catégorie</label>
                 <input
                   type="text"
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  placeholder="Bien-être, Naturopathie, etc."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  placeholder="Bien-être, Naturopathie..."
+                  style={styles.input}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Date de publication
-                </label>
+                <label style={styles.label}>Date de publication</label>
                 <input
                   type="date"
                   name="publishedDate"
                   value={formData.publishedDate}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  style={styles.input}
                 />
               </div>
             </div>
           </div>
 
           {/* Image */}
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">
-              Image de couverture
-            </h2>
-            <div className="space-y-4">
+          <div style={styles.section}>
+            <h2 style={styles.sectionTitle}>🖼️ Image de couverture</h2>
+            <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
               {formData.imageUrl && (
-                <div className="flex items-center gap-4">
-                  <img
-                    src={formData.imageUrl}
-                    alt="Preview"
-                    className="w-40 h-28 object-cover rounded-lg"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setFormData((prev) => ({ ...prev, imageUrl: '' }))}
-                    className="text-red-500 hover:text-red-700"
-                  >
-                    Supprimer
-                  </button>
-                </div>
+                <img
+                  src={formData.imageUrl}
+                  alt="Preview"
+                  style={{ width: '200px', height: '130px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #e5e7eb' }}
+                />
               )}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  URL de l'image
-                </label>
+              <div style={{ flex: 1 }}>
+                <label style={styles.label}>URL de l'image</label>
                 <input
                   type="url"
                   name="imageUrl"
                   value={formData.imageUrl}
                   onChange={handleChange}
                   placeholder="https://exemple.com/mon-image.jpg"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  style={styles.input}
                 />
-                <p className="text-sm text-gray-500 mt-2">
-                  Collez l'URL d'une image (depuis Google Drive, Dropbox, ou autre)
+                <p style={styles.helpText}>
+                  Collez l'URL d'une image hébergée (Google Drive, Dropbox, Imgur, etc.)
                 </p>
               </div>
             </div>
           </div>
 
           {/* Podcast */}
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">
-              Podcast (optionnel)
-            </h2>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                URL Spotify
-              </label>
-              <input
-                type="url"
-                name="spotifyUrl"
-                value={formData.spotifyUrl}
-                onChange={handleChange}
-                placeholder="https://open.spotify.com/episode/..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
-            </div>
+          <div style={styles.section}>
+            <h2 style={styles.sectionTitle}>🎙️ Podcast (optionnel)</h2>
+            <label style={styles.label}>URL Spotify</label>
+            <input
+              type="url"
+              name="spotifyUrl"
+              value={formData.spotifyUrl}
+              onChange={handleChange}
+              placeholder="https://open.spotify.com/episode/..."
+              style={styles.input}
+            />
           </div>
 
           {/* Content Tabs */}
-          <div className="bg-white rounded-2xl shadow overflow-hidden">
-            <div className="border-b">
-              <div className="flex">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.key}
-                    type="button"
-                    onClick={() => setActiveTab(tab.key)}
-                    className={`px-6 py-4 font-medium transition-colors ${
-                      activeTab === tab.key
-                        ? 'text-purple-600 border-b-2 border-purple-600 bg-purple-50'
-                        : 'text-gray-600 hover:text-gray-800'
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
+          <div style={{ ...styles.section, padding: 0, overflow: 'hidden' }}>
+            <div style={styles.tabs}>
+              {tabs.map((tab) => (
+                <button
+                  key={tab.key}
+                  type="button"
+                  onClick={() => setActiveTab(tab.key)}
+                  style={{
+                    ...styles.tab,
+                    ...(activeTab === tab.key ? styles.tabActive : styles.tabInactive),
+                  }}
+                >
+                  {tab.flag} {tab.label}
+                </button>
+              ))}
             </div>
 
-            <div className="p-6 space-y-6">
+            <div style={{ padding: '24px' }}>
               {/* Title */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Titre
+              <div style={{ marginBottom: '20px' }}>
+                <label style={styles.label}>
+                  Titre {activeTab === 'FR' ? '(obligatoire)' : '(optionnel - sera traduit automatiquement)'}
                 </label>
                 <input
                   type="text"
@@ -313,50 +289,56 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
                   value={formData[`title${activeTab}` as keyof typeof formData] as string}
                   onChange={handleChange}
                   placeholder={`Titre en ${tabs.find((t) => t.key === activeTab)?.label}`}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg"
+                  style={{ ...styles.input, fontSize: '18px', fontWeight: '600' }}
                 />
               </div>
 
               {/* Excerpt */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Extrait (résumé court)
-                </label>
+              <div style={{ marginBottom: '20px' }}>
+                <label style={styles.label}>Extrait (résumé affiché dans la liste)</label>
                 <textarea
                   name={`excerpt${activeTab}`}
                   value={formData[`excerpt${activeTab}` as keyof typeof formData] as string}
                   onChange={handleChange}
-                  rows={3}
-                  placeholder={`Extrait en ${tabs.find((t) => t.key === activeTab)?.label}`}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-y"
+                  rows={4}
+                  placeholder={`Court résumé de l'article...`}
+                  style={styles.textarea}
                 />
               </div>
 
               {/* Content */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Contenu
-                </label>
+                <label style={styles.label}>Contenu complet</label>
                 <textarea
                   name={`content${activeTab}`}
                   value={formData[`content${activeTab}` as keyof typeof formData] as string}
                   onChange={handleChange}
-                  rows={15}
-                  placeholder={`Contenu complet en ${tabs.find((t) => t.key === activeTab)?.label}`}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-y font-mono text-sm"
+                  rows={20}
+                  placeholder={`Écrivez votre article ici...
+
+Vous pouvez utiliser des sauts de ligne pour créer des paragraphes.
+
+Conseils de mise en forme :
+- Utilisez des lignes vides pour séparer les paragraphes
+- Commencez une ligne par - pour créer une liste
+- Utilisez MAJUSCULES pour les titres de section`}
+                  style={{ ...styles.textarea, minHeight: '400px', lineHeight: '1.6' }}
                 />
+                <p style={styles.helpText}>
+                  Le texte sera affiché tel quel. Utilisez des lignes vides pour séparer les paragraphes.
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Submit Button (Mobile) */}
-          <div className="md:hidden">
+          {/* Submit Button (bottom) */}
+          <div style={{ textAlign: 'center', marginTop: '32px' }}>
             <button
               type="submit"
               disabled={isSaving}
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+              style={{ ...styles.saveBtn, padding: '16px 48px', fontSize: '18px' }}
             >
-              {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
+              {isSaving ? 'Sauvegarde en cours...' : '💾 Sauvegarder l\'article'}
             </button>
           </div>
         </form>
