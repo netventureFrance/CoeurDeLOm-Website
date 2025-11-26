@@ -198,11 +198,21 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
             {posts.map((post) => (
               <div key={post.id} style={styles.card}>
                 {/* Thumbnail */}
-                {post.image ? (
-                  <img src={post.image} alt="" style={styles.thumbnail} />
-                ) : (
-                  <div style={styles.noImage}>🖼️</div>
-                )}
+                {post.image && post.image.startsWith('http') ? (
+                  <img
+                    src={post.image}
+                    alt=""
+                    style={styles.thumbnail}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                      (e.target as HTMLImageElement).nextElementSibling?.removeAttribute('style');
+                    }}
+                  />
+                ) : null}
+                <div style={{
+                  ...styles.noImage,
+                  display: post.image && post.image.startsWith('http') ? 'none' : 'flex'
+                }}>🖼️</div>
 
                 {/* Info */}
                 <div style={styles.postInfo}>
