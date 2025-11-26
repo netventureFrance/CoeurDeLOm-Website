@@ -305,6 +305,7 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
               style={styles.select}
             >
               <option value="Draft">Brouillon</option>
+              <option value="Unpublished">Non publié</option>
               <option value="Published">Publié</option>
             </select>
             <button
