@@ -38,15 +38,18 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   const languages = ['fr', 'de', 'en'];
-  const params = [];
+  const params: { lang: string; slug: string }[] = [];
 
   for (const lang of languages) {
     const posts = await getBlogPosts(lang);
     for (const post of posts) {
-      params.push({
-        lang,
-        slug: post.slug,
-      });
+      // Only add posts that have a valid slug
+      if (post.slug && typeof post.slug === 'string') {
+        params.push({
+          lang,
+          slug: post.slug,
+        });
+      }
     }
   }
 
