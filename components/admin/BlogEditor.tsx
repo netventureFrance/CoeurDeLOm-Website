@@ -492,7 +492,35 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                     src={formData.imageUrl}
                     alt="Preview"
                     style={{ width: '200px', height: '130px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #e5e7eb' }}
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.style.display = 'none';
+                      const errorDiv = img.nextElementSibling as HTMLElement;
+                      if (errorDiv) errorDiv.style.display = 'flex';
+                    }}
+                    onLoad={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.style.display = 'block';
+                      const errorDiv = img.nextElementSibling as HTMLElement;
+                      if (errorDiv) errorDiv.style.display = 'none';
+                    }}
                   />
+                  <div style={{
+                    display: 'none',
+                    width: '200px',
+                    height: '130px',
+                    backgroundColor: '#fef2f2',
+                    border: '1px solid #fecaca',
+                    borderRadius: '8px',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    padding: '8px',
+                    textAlign: 'center',
+                  }}>
+                    <span style={{ fontSize: '24px', marginBottom: '4px' }}>⚠️</span>
+                    <span style={{ fontSize: '11px', color: '#dc2626' }}>Image introuvable ou expirée</span>
+                  </div>
                   <button
                     type="button"
                     onClick={() => setFormData((prev) => ({ ...prev, imageUrl: '' }))}
