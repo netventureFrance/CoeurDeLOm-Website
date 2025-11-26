@@ -89,25 +89,34 @@ export async function GET(request: NextRequest) {
 
       console.log('Blog Posts records found:', blogRecords.length);
       blogRecords.forEach((record) => {
-        const category = record.fields.Category as string;
-        if (category && category.trim()) {
-          categories.add(category.trim());
+        // Category is Multiple Select - returns array
+        const categoryField = record.fields.Category;
+        if (categoryField) {
+          if (Array.isArray(categoryField)) {
+            categoryField.forEach((cat: string) => {
+              if (cat && cat.trim()) categories.add(cat.trim());
+            });
+          } else if (typeof categoryField === 'string' && categoryField.trim()) {
+            categories.add(categoryField.trim());
+          }
         }
 
+        // Author is Single Select - returns string
         const author = record.fields.Author as string;
         if (author && author.trim()) {
           authors.add(author.trim());
         }
 
+        // Tags is Multiple Select - returns array
         const tagsField = record.fields.Tags;
         if (tagsField) {
-          if (typeof tagsField === 'string') {
-            tagsField.split(',').forEach((tag: string) => {
-              if (tag.trim()) tags.add(tag.trim());
-            });
-          } else if (Array.isArray(tagsField)) {
+          if (Array.isArray(tagsField)) {
             tagsField.forEach((tag: string) => {
               if (tag && tag.trim()) tags.add(tag.trim());
+            });
+          } else if (typeof tagsField === 'string') {
+            tagsField.split(',').forEach((tag: string) => {
+              if (tag.trim()) tags.add(tag.trim());
             });
           }
         }

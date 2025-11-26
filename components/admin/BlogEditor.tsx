@@ -75,29 +75,49 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
     spotifyUrl: post?.spotifyUrl || '',
   });
 
-  // Initialize options from props or fetch from API
+  // Always fetch options from API to get all available options
   useEffect(() => {
-    if (existingOptions) {
-      setCategories(existingOptions.categories || []);
-      setAuthors(existingOptions.authors || []);
-      setTags(existingOptions.tags || []);
-    } else {
-      // Fallback to API if no options passed
-      async function fetchOptions() {
-        try {
-          const response = await fetch('/api/admin/categories');
-          if (response.ok) {
-            const data = await response.json();
-            setCategories(data.categories || []);
-            setAuthors(data.authors || []);
-            setTags(data.tags || []);
+    async function fetchOptions() {
+      try {
+        const response = await fetch('/api/admin/categories');
+        if (response.ok) {
+          const data = await response.json();
+          // Merge with existingOptions to ensure we have all options
+          const mergedCategories = new Set([
+            ...(data.categories || []),
+            ...(existingOptions?.categories || []),
+          ]);
+          const mergedAuthors = new Set([
+            ...(data.authors || []),
+            ...(existingOptions?.authors || []),
+          ]);
+          const mergedTags = new Set([
+            ...(data.tags || []),
+            ...(existingOptions?.tags || []),
+          ]);
+
+          setCategories(Array.from(mergedCategories).sort((a, b) => a.localeCompare(b, 'fr')));
+          setAuthors(Array.from(mergedAuthors).sort((a, b) => a.localeCompare(b, 'fr')));
+          setTags(Array.from(mergedTags).sort((a, b) => a.localeCompare(b, 'fr')));
+        } else {
+          // Fallback to existingOptions if API fails
+          if (existingOptions) {
+            setCategories(existingOptions.categories || []);
+            setAuthors(existingOptions.authors || []);
+            setTags(existingOptions.tags || []);
           }
-        } catch (err) {
-          console.error('Error fetching options:', err);
+        }
+      } catch (err) {
+        console.error('Error fetching options:', err);
+        // Fallback to existingOptions on error
+        if (existingOptions) {
+          setCategories(existingOptions.categories || []);
+          setAuthors(existingOptions.authors || []);
+          setTags(existingOptions.tags || []);
         }
       }
-      fetchOptions();
     }
+    fetchOptions();
   }, [existingOptions]);
 
   // Convert Google Drive share URLs to direct image URLs
