@@ -46,6 +46,7 @@ const BLOG_OPTIONS_TABLE = 'tblGWAGY3hYMRBC4y';
 export async function GET(request: NextRequest) {
   try {
     if (!(await checkAuth())) {
+      console.log('Categories API: Unauthorized');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -63,17 +64,19 @@ export async function GET(request: NextRequest) {
         })
         .all();
 
+      console.log('Blog_Options records found:', optionsRecords.length);
       optionsRecords.forEach((record) => {
         const type = record.fields.Type as string;
         const value = record.fields.Value as string;
+        console.log('Option:', type, value);
         if (value && value.trim()) {
           if (type === 'Category') categories.add(value.trim());
           else if (type === 'Author') authors.add(value.trim());
           else if (type === 'Tag') tags.add(value.trim());
         }
       });
-    } catch (err) {
-      console.log('Blog_Options table not found or empty, using Blog Posts only');
+    } catch (err: any) {
+      console.log('Blog_Options table error:', err?.message || err);
     }
 
     // Also fetch existing values from Blog Posts (for backwards compatibility)
@@ -84,6 +87,7 @@ export async function GET(request: NextRequest) {
         })
         .all();
 
+      console.log('Blog Posts records found:', blogRecords.length);
       blogRecords.forEach((record) => {
         const category = record.fields.Category as string;
         if (category && category.trim()) {
@@ -108,22 +112,26 @@ export async function GET(request: NextRequest) {
           }
         }
       });
-    } catch (err) {
-      console.log('Error fetching from Blog Posts:', err);
+    } catch (err: any) {
+      console.log('Error fetching from Blog Posts:', err?.message || err);
     }
 
     // Convert to sorted arrays
     const sortFr = (a: string, b: string) => a.localeCompare(b, 'fr');
 
-    return NextResponse.json({
+    const result = {
       categories: Array.from(categories).sort(sortFr),
       authors: Array.from(authors).sort(sortFr),
       tags: Array.from(tags).sort(sortFr),
-    });
-  } catch (error) {
-    console.error('Error fetching options:', error);
+    };
+
+    console.log('Returning options:', result);
+
+    return NextResponse.json(result);
+  } catch (error: any) {
+    console.error('Error fetching options:', error?.message || error);
     return NextResponse.json(
-      { error: 'Failed to fetch options' },
+      { error: 'Failed to fetch options', details: error?.message },
       { status: 500 }
     );
   }
