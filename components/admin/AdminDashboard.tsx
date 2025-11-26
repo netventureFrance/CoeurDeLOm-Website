@@ -100,9 +100,17 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
   // Extract unique options from posts
   const extractedOptions = {
-    categories: [...new Set(posts.map(p => p.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr')),
-    authors: [...new Set(posts.map(p => p.author).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr')),
-    tags: [...new Set(posts.flatMap(p => p.tags ? (typeof p.tags === 'string' ? p.tags.split(',').map(t => t.trim()) : p.tags) : []).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr')),
+    categories: [...new Set(posts.flatMap(p => {
+      if (!p.category) return [];
+      return Array.isArray(p.category) ? p.category : [p.category];
+    }).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'fr')),
+    authors: [...new Set(posts.map(p => p.author).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'fr')),
+    tags: [...new Set(posts.flatMap(p => {
+      if (!p.tags) return [];
+      if (Array.isArray(p.tags)) return p.tags;
+      if (typeof p.tags === 'string') return p.tags.split(',').map(t => t.trim());
+      return [];
+    }).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'fr')),
   };
 
   if (selectedPost || isCreating) {
