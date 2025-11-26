@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 interface BlogPost {
   id: string;
@@ -35,9 +35,7 @@ type Language = 'FR' | 'DE' | 'EN';
 export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
   const [activeTab, setActiveTab] = useState<Language>('FR');
   const [isSaving, setIsSaving] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState('');
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     slug: post?.slug || '',
@@ -64,36 +62,6 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
   ) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  }
-
-  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setIsUploading(true);
-    setError('');
-
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Upload failed');
-      }
-
-      const data = await response.json();
-      setFormData((prev) => ({ ...prev, imageUrl: data.url }));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erreur lors du téléchargement');
-    } finally {
-      setIsUploading(false);
-    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -256,57 +224,37 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
             <h2 className="text-lg font-semibold text-gray-800 mb-4">
               Image de couverture
             </h2>
-            <div className="flex items-start gap-6">
+            <div className="space-y-4">
               {formData.imageUrl && (
-                <img
-                  src={formData.imageUrl}
-                  alt="Preview"
-                  className="w-40 h-28 object-cover rounded-lg"
-                />
+                <div className="flex items-center gap-4">
+                  <img
+                    src={formData.imageUrl}
+                    alt="Preview"
+                    className="w-40 h-28 object-cover rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setFormData((prev) => ({ ...prev, imageUrl: '' }))}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    Supprimer
+                  </button>
+                </div>
               )}
-              <div className="flex-1">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  URL de l'image
+                </label>
                 <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleImageUpload}
-                  accept="image/jpeg,image/png,image/gif,image/webp"
-                  className="hidden"
+                  type="url"
+                  name="imageUrl"
+                  value={formData.imageUrl}
+                  onChange={handleChange}
+                  placeholder="https://exemple.com/mon-image.jpg"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 />
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={isUploading}
-                  className="px-4 py-2 border-2 border-dashed border-gray-300 rounded-xl hover:border-purple-500 transition-colors w-full text-gray-600 hover:text-purple-600"
-                >
-                  {isUploading ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <svg
-                        className="animate-spin h-5 w-5"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        />
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                        />
-                      </svg>
-                      Téléchargement...
-                    </span>
-                  ) : (
-                    'Cliquez pour ajouter une image'
-                  )}
-                </button>
                 <p className="text-sm text-gray-500 mt-2">
-                  Formats acceptés: JPEG, PNG, GIF, WebP. Max 10 MB.
+                  Collez l'URL d'une image (depuis Google Drive, Dropbox, ou autre)
                 </p>
               </div>
             </div>
