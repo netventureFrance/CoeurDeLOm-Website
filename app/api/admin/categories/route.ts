@@ -40,7 +40,7 @@ async function checkAuth(): Promise<boolean> {
   }
 }
 
-// GET - Fetch all unique categories from Blog Posts
+// GET - Fetch all unique categories, authors, and tags from Blog Posts
 export async function GET(request: NextRequest) {
   try {
     if (!(await checkAuth())) {
@@ -50,31 +50,55 @@ export async function GET(request: NextRequest) {
     const base = getAirtableBase();
     const records = await base('Blog Posts')
       .select({
-        fields: ['Category'],
+        fields: ['Category', 'Author', 'Tags'],
       })
       .all();
 
-    // Extract unique categories
+    // Extract unique values
     const categories = new Set<string>();
+    const authors = new Set<string>();
+    const tags = new Set<string>();
+
     records.forEach((record) => {
+      // Categories
       const category = record.fields.Category as string;
       if (category && category.trim()) {
         categories.add(category.trim());
       }
+
+      // Authors
+      const author = record.fields.Author as string;
+      if (author && author.trim()) {
+        authors.add(author.trim());
+      }
+
+      // Tags - can be comma-separated string or array
+      const tagsField = record.fields.Tags;
+      if (tagsField) {
+        if (typeof tagsField === 'string') {
+          tagsField.split(',').forEach((tag: string) => {
+            if (tag.trim()) tags.add(tag.trim());
+          });
+        } else if (Array.isArray(tagsField)) {
+          tagsField.forEach((tag: string) => {
+            if (tag && tag.trim()) tags.add(tag.trim());
+          });
+        }
+      }
     });
 
-    // Convert to sorted array
-    const categoryList = Array.from(categories).sort((a, b) =>
-      a.localeCompare(b, 'fr')
-    );
+    // Convert to sorted arrays
+    const sortFr = (a: string, b: string) => a.localeCompare(b, 'fr');
 
     return NextResponse.json({
-      categories: categoryList,
+      categories: Array.from(categories).sort(sortFr),
+      authors: Array.from(authors).sort(sortFr),
+      tags: Array.from(tags).sort(sortFr),
     });
   } catch (error) {
     console.error('Error fetching categories:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch categories' },
+      { error: 'Failed to fetch options' },
       { status: 500 }
     );
   }

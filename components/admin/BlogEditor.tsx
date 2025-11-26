@@ -38,8 +38,14 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
+  const [authors, setAuthors] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
   const [showNewCategory, setShowNewCategory] = useState(false);
+  const [showNewAuthor, setShowNewAuthor] = useState(false);
+  const [showNewTag, setShowNewTag] = useState(false);
   const [newCategory, setNewCategory] = useState('');
+  const [newAuthor, setNewAuthor] = useState('');
+  const [newTag, setNewTag] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
@@ -62,20 +68,22 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
     spotifyUrl: post?.spotifyUrl || '',
   });
 
-  // Fetch categories on mount
+  // Fetch categories, authors, and tags on mount
   useEffect(() => {
-    async function fetchCategories() {
+    async function fetchOptions() {
       try {
         const response = await fetch('/api/admin/categories');
         if (response.ok) {
           const data = await response.json();
           setCategories(data.categories || []);
+          setAuthors(data.authors || []);
+          setTags(data.tags || []);
         }
       } catch (err) {
-        console.error('Error fetching categories:', err);
+        console.error('Error fetching options:', err);
       }
     }
-    fetchCategories();
+    fetchOptions();
   }, []);
 
   function handleChange(
@@ -104,6 +112,50 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
       setFormData((prev) => ({ ...prev, category: trimmed }));
       setNewCategory('');
       setShowNewCategory(false);
+    }
+  }
+
+  function handleAuthorChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const value = e.target.value;
+    if (value === '__new__') {
+      setShowNewAuthor(true);
+    } else {
+      setFormData((prev) => ({ ...prev, author: value }));
+      setShowNewAuthor(false);
+    }
+  }
+
+  function handleAddNewAuthor() {
+    if (newAuthor.trim()) {
+      const trimmed = newAuthor.trim();
+      if (!authors.includes(trimmed)) {
+        setAuthors((prev) => [...prev, trimmed].sort((a, b) => a.localeCompare(b, 'fr')));
+      }
+      setFormData((prev) => ({ ...prev, author: trimmed }));
+      setNewAuthor('');
+      setShowNewAuthor(false);
+    }
+  }
+
+  function handleTagChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const value = e.target.value;
+    if (value === '__new__') {
+      setShowNewTag(true);
+    } else {
+      setFormData((prev) => ({ ...prev, tags: value }));
+      setShowNewTag(false);
+    }
+  }
+
+  function handleAddNewTag() {
+    if (newTag.trim()) {
+      const trimmed = newTag.trim();
+      if (!tags.includes(trimmed)) {
+        setTags((prev) => [...prev, trimmed].sort((a, b) => a.localeCompare(b, 'fr')));
+      }
+      setFormData((prev) => ({ ...prev, tags: trimmed }));
+      setNewTag('');
+      setShowNewTag(false);
     }
   }
 
@@ -263,13 +315,45 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
               </div>
               <div>
                 <label style={styles.label}>Auteur</label>
-                <input
-                  type="text"
-                  name="author"
-                  value={formData.author}
-                  onChange={handleChange}
-                  style={styles.input}
-                />
+                {!showNewAuthor ? (
+                  <select
+                    name="author"
+                    value={formData.author}
+                    onChange={handleAuthorChange}
+                    style={{ ...styles.input, cursor: 'pointer' }}
+                  >
+                    <option value="">-- Sélectionner --</option>
+                    {authors.map((auth) => (
+                      <option key={auth} value={auth}>{auth}</option>
+                    ))}
+                    <option value="__new__">+ Ajouter un auteur...</option>
+                  </select>
+                ) : (
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input
+                      type="text"
+                      value={newAuthor}
+                      onChange={(e) => setNewAuthor(e.target.value)}
+                      placeholder="Nouvel auteur..."
+                      style={{ ...styles.input, flex: 1 }}
+                      onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddNewAuthor())}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddNewAuthor}
+                      style={{ ...styles.saveBtn, padding: '8px 16px' }}
+                    >
+                      OK
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowNewAuthor(false)}
+                      style={{ ...styles.backBtn, padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px' }}
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                )}
               </div>
               <div>
                 <label style={styles.label}>Catégorie</label>
@@ -322,6 +406,48 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
                   onChange={handleChange}
                   style={styles.input}
                 />
+              </div>
+              <div>
+                <label style={styles.label}>Tag</label>
+                {!showNewTag ? (
+                  <select
+                    name="tags"
+                    value={formData.tags}
+                    onChange={handleTagChange}
+                    style={{ ...styles.input, cursor: 'pointer' }}
+                  >
+                    <option value="">-- Sélectionner --</option>
+                    {tags.map((tag) => (
+                      <option key={tag} value={tag}>{tag}</option>
+                    ))}
+                    <option value="__new__">+ Ajouter un tag...</option>
+                  </select>
+                ) : (
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input
+                      type="text"
+                      value={newTag}
+                      onChange={(e) => setNewTag(e.target.value)}
+                      placeholder="Nouveau tag..."
+                      style={{ ...styles.input, flex: 1 }}
+                      onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddNewTag())}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddNewTag}
+                      style={{ ...styles.saveBtn, padding: '8px 16px' }}
+                    >
+                      OK
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowNewTag(false)}
+                      style={{ ...styles.backBtn, padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px' }}
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
