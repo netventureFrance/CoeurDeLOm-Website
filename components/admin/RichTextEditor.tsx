@@ -9,6 +9,38 @@ interface RichTextEditorProps {
   minHeight?: string;
 }
 
+// Clean HTML - remove inline styles and keep only semantic tags
+function cleanHtml(html: string): string {
+  // Create a temporary div to parse HTML
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+
+  // Remove all style attributes
+  const allElements = temp.querySelectorAll('*');
+  allElements.forEach((el) => {
+    el.removeAttribute('style');
+    el.removeAttribute('class');
+    // Remove empty spans
+    if (el.tagName === 'SPAN' && !el.hasAttributes()) {
+      const parent = el.parentNode;
+      while (el.firstChild) {
+        parent?.insertBefore(el.firstChild, el);
+      }
+      parent?.removeChild(el);
+    }
+  });
+
+  // Convert div to p for better semantics
+  const divs = temp.querySelectorAll('div');
+  divs.forEach((div) => {
+    const p = document.createElement('p');
+    p.innerHTML = div.innerHTML;
+    div.parentNode?.replaceChild(p, div);
+  });
+
+  return temp.innerHTML;
+}
+
 export default function RichTextEditor({ value, onChange, placeholder, minHeight = '400px' }: RichTextEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
 
@@ -17,20 +49,28 @@ export default function RichTextEditor({ value, onChange, placeholder, minHeight
     editorRef.current?.focus();
     // Update the value after command
     if (editorRef.current) {
-      onChange(editorRef.current.innerHTML);
+      onChange(cleanHtml(editorRef.current.innerHTML));
     }
   }, [onChange]);
 
   const handleInput = useCallback(() => {
     if (editorRef.current) {
-      onChange(editorRef.current.innerHTML);
+      onChange(cleanHtml(editorRef.current.innerHTML));
     }
   }, [onChange]);
 
   const handlePaste = useCallback((e: React.ClipboardEvent) => {
     e.preventDefault();
-    const text = e.clipboardData.getData('text/html') || e.clipboardData.getData('text/plain');
-    document.execCommand('insertHTML', false, text);
+    // Get plain text or clean HTML
+    let content = e.clipboardData.getData('text/html');
+    if (content) {
+      content = cleanHtml(content);
+    } else {
+      // If no HTML, get plain text and convert line breaks to paragraphs
+      const text = e.clipboardData.getData('text/plain');
+      content = text.split('\n\n').map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+    }
+    document.execCommand('insertHTML', false, content);
     handleInput();
   }, [handleInput]);
 
@@ -217,6 +257,20 @@ export default function RichTextEditor({ value, onChange, placeholder, minHeight
           title="Supprimer le formatage"
         >
           ✕
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            if (editorRef.current) {
+              const cleaned = cleanHtml(editorRef.current.innerHTML);
+              editorRef.current.innerHTML = cleaned;
+              onChange(cleaned);
+            }
+          }}
+          style={{ ...toolbarStyles.button, backgroundColor: '#fef3c7' }}
+          title="Nettoyer les styles (supprimer les styles inline)"
+        >
+          🧹
         </button>
       </div>
 
