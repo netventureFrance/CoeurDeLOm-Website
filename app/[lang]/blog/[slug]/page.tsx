@@ -172,10 +172,10 @@ export default async function BlogPostPage({
           {/* Author Bio */}
           {post.author && (
             <div className="mt-12 pt-8 border-t border-gray-200">
-              <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-200/40 to-pink-200/40 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-200/40 to-pink-200/40 rounded-full flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="w-8 h-8 text-purple-600"
+                    className="w-6 h-6 text-purple-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -188,16 +188,9 @@ export default async function BlogPostPage({
                     />
                   </svg>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-primary mb-1">
-                    {post.author}
-                  </h3>
-                  <p className="text-gray-600">
-                    {lang === 'fr' && 'Heilpraktikerin spécialisée en naturopathie et soins énergétiques'}
-                    {lang === 'de' && 'Heilpraktikerin spezialisiert auf Naturheilkunde und Energieheilung'}
-                    {lang === 'en' && 'Heilpraktikerin specialized in naturopathy and energy healing'}
-                  </p>
-                </div>
+                <h3 className="text-lg font-semibold text-primary">
+                  {post.author}
+                </h3>
               </div>
             </div>
           )}
