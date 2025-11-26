@@ -155,12 +155,6 @@ export default async function BlogPostPage({
             <InteractiveTitle className="text-4xl md:text-5xl font-normal mb-4 text-purple-900">
               {post.title}
             </InteractiveTitle>
-
-            {post.excerpt && (
-              <p className="text-xl text-gray-700 leading-relaxed">
-                {post.excerpt}
-              </p>
-            )}
           </header>
 
           {/* Post Content */}
