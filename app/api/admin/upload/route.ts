@@ -29,32 +29,6 @@ async function checkAuth(): Promise<boolean> {
   }
 }
 
-// Upload to Imgur (free image hosting)
-async function uploadToImgur(buffer: Buffer, filename: string): Promise<string> {
-  const base64 = buffer.toString('base64');
-
-  const response = await fetch('https://api.imgur.com/3/image', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Client-ID 546c25a59c58ad7', // Public client ID for anonymous uploads
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      image: base64,
-      type: 'base64',
-      name: filename,
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    console.error('Imgur upload error:', error);
-    throw new Error('Failed to upload to Imgur');
-  }
-
-  const data = await response.json();
-  return data.data.link;
-}
 
 // POST - Upload file
 export async function POST(request: NextRequest) {
@@ -88,16 +62,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Convert file to buffer
+    // Convert file to buffer and base64
     const buffer = Buffer.from(await file.arrayBuffer());
+    const base64 = buffer.toString('base64');
 
-    // Upload to Imgur and get public URL
-    const imageUrl = await uploadToImgur(buffer, file.name);
+    // Create a data URL that can be used directly
+    // Airtable accepts URLs - we'll need to use an external service or let user paste URL
+    // For now, return base64 data URL which works for preview
+    const dataUrl = `data:${file.type};base64,${base64}`;
+
+    // Note: Airtable requires a publicly accessible URL for attachments
+    // The user should paste a URL from Google Drive, Dropbox, or another hosting service
+    // This data URL is for preview only
 
     return NextResponse.json({
       success: true,
-      url: imageUrl,
+      url: dataUrl,
       filename: file.name,
+      note: 'Pour sauvegarder dans Airtable, utilisez une URL publique (Google Drive, Dropbox, etc.)',
     });
   } catch (error: any) {
     console.error('Error uploading file:', error);

@@ -519,42 +519,7 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                 </div>
               )}
               <div style={{ flex: 1 }}>
-                {/* File Upload */}
-                <label style={styles.label}>Uploader depuis votre ordinateur</label>
-                <div style={{ marginBottom: '16px' }}>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
-                    onChange={handleFileUpload}
-                    style={{ display: 'none' }}
-                    id="image-upload"
-                  />
-                  <label
-                    htmlFor="image-upload"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '12px 20px',
-                      backgroundColor: isUploading ? '#9ca3af' : '#f3f4f6',
-                      border: '2px dashed #d1d5db',
-                      borderRadius: '8px',
-                      cursor: isUploading ? 'wait' : 'pointer',
-                      transition: 'all 0.2s',
-                    }}
-                  >
-                    {isUploading ? (
-                      <>Uploading...</>
-                    ) : (
-                      <>📁 Choisir un fichier</>
-                    )}
-                  </label>
-                  <p style={styles.helpText}>JPG, PNG, GIF ou WebP (max 5MB)</p>
-                </div>
-
-                {/* URL Input */}
-                <label style={styles.label}>Ou coller une URL</label>
+                <label style={styles.label}>URL de l'image</label>
                 <input
                   type="url"
                   name="imageUrl"
@@ -564,8 +529,14 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                   style={styles.input}
                 />
                 <p style={styles.helpText}>
-                  URL d'une image externe (Google Drive, Dropbox, Imgur, etc.)
+                  Collez l'URL publique d'une image hébergée sur :
                 </p>
+                <ul style={{ ...styles.helpText, marginTop: '4px', paddingLeft: '20px' }}>
+                  <li><a href="https://imgur.com/upload" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed' }}>Imgur</a> (gratuit, simple)</li>
+                  <li><a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed' }}>ImgBB</a> (gratuit)</li>
+                  <li>Google Drive (partage public)</li>
+                  <li>Dropbox (lien direct)</li>
+                </ul>
               </div>
             </div>
           </div>
