@@ -2,22 +2,56 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import crypto from 'crypto';
 
-// Simple session token generation
-function generateSessionToken(): string {
-  return crypto.randomBytes(32).toString('hex');
+// JWT-like token handling (stateless, works on Netlify)
+function createToken(email: string, secret: string): string {
+  const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
+  const payload = Buffer.from(
+    JSON.stringify({
+      email,
+      exp: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
+    })
+  ).toString('base64url');
+
+  const signature = crypto
+    .createHmac('sha256', secret)
+    .update(`${header}.${payload}`)
+    .digest('base64url');
+
+  return `${header}.${payload}.${signature}`;
 }
 
-// Session storage (in production, use Redis or database)
-const sessions = new Map<string, { email: string; expiresAt: number }>();
+function verifyToken(token: string, secret: string): { email: string } | null {
+  try {
+    const [header, payload, signature] = token.split('.');
 
-// Clean expired sessions
-function cleanExpiredSessions() {
-  const now = Date.now();
-  for (const [token, session] of sessions.entries()) {
-    if (session.expiresAt < now) {
-      sessions.delete(token);
+    // Verify signature
+    const expectedSignature = crypto
+      .createHmac('sha256', secret)
+      .update(`${header}.${payload}`)
+      .digest('base64url');
+
+    if (signature !== expectedSignature) {
+      return null;
     }
+
+    // Decode and check expiry
+    const data = JSON.parse(Buffer.from(payload, 'base64url').toString());
+    if (data.exp < Date.now()) {
+      return null;
+    }
+
+    return { email: data.email };
+  } catch {
+    return null;
   }
+}
+
+function getSecret(): string {
+  const secret = process.env.ADMIN_SECRET || process.env.ADMIN_PASSWORD;
+  if (!secret) {
+    throw new Error('ADMIN_SECRET or ADMIN_PASSWORD not configured');
+  }
+  return secret;
 }
 
 export async function POST(request: NextRequest) {
@@ -44,17 +78,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Clean old sessions
-    cleanExpiredSessions();
-
-    // Create session (24 hours)
-    const token = generateSessionToken();
-    const expiresAt = Date.now() + 24 * 60 * 60 * 1000;
-    sessions.set(token, { email, expiresAt });
+    // Create JWT token
+    const token = createToken(email, getSecret());
 
     // Set cookie
     const cookieStore = await cookies();
-    cookieStore.set('admin_session', token, {
+    cookieStore.set('admin_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
@@ -75,13 +104,7 @@ export async function POST(request: NextRequest) {
 export async function DELETE() {
   try {
     const cookieStore = await cookies();
-    const token = cookieStore.get('admin_session')?.value;
-
-    if (token) {
-      sessions.delete(token);
-    }
-
-    cookieStore.delete('admin_session');
+    cookieStore.delete('admin_token');
 
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -96,19 +119,18 @@ export async function DELETE() {
 export async function GET() {
   try {
     const cookieStore = await cookies();
-    const token = cookieStore.get('admin_session')?.value;
+    const token = cookieStore.get('admin_token')?.value;
 
     if (!token) {
       return NextResponse.json({ authenticated: false }, { status: 401 });
     }
 
-    const session = sessions.get(token);
-    if (!session || session.expiresAt < Date.now()) {
-      sessions.delete(token);
+    const payload = verifyToken(token, getSecret());
+    if (!payload) {
       return NextResponse.json({ authenticated: false }, { status: 401 });
     }
 
-    return NextResponse.json({ authenticated: true, email: session.email });
+    return NextResponse.json({ authenticated: true, email: payload.email });
   } catch (error) {
     console.error('Auth check error:', error);
     return NextResponse.json({ authenticated: false }, { status: 401 });

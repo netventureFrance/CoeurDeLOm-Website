@@ -1,19 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-// Verify admin session
-async function isAuthenticated(): Promise<boolean> {
-  try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('admin_session')?.value;
-    if (!token) return false;
+// Verify admin JWT token
+async function checkAuth(): Promise<boolean> {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('admin_token')?.value;
+  if (!token) return false;
 
-    // Check session via auth endpoint
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/admin/auth`, {
-      headers: { Cookie: `admin_session=${token}` },
-    });
-    const data = await response.json();
-    return data.authenticated === true;
+  try {
+    const [header, payload, signature] = token.split('.');
+    const secret = process.env.ADMIN_SECRET || process.env.ADMIN_PASSWORD;
+    if (!secret) return false;
+
+    const crypto = await import('crypto');
+    const expectedSignature = crypto
+      .createHmac('sha256', secret)
+      .update(`${header}.${payload}`)
+      .digest('base64url');
+
+    if (signature !== expectedSignature) return false;
+
+    const data = JSON.parse(Buffer.from(payload, 'base64url').toString());
+    return data.exp > Date.now();
   } catch {
     return false;
   }
@@ -22,9 +30,7 @@ async function isAuthenticated(): Promise<boolean> {
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const cookieStore = await cookies();
-    const token = cookieStore.get('admin_session')?.value;
-    if (!token) {
+    if (!(await checkAuth())) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
