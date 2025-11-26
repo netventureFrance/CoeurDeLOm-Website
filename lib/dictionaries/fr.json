@@ -154,6 +154,7 @@
   },
   "blog": {
     "title": "Blog",
+    "subtitle": "Dans cet espace, je partage de courts articles pensés comme des touches de réflexion, des invitations douces à la méditation et à l'introspection. Vous y trouverez aussi des références à des livres et à des auteurs inspirants, proposés en toute liberté afin que chacun suive son propre élan intérieur. Ces textes, simples mais porteurs de sens, accompagnent votre cheminement personnel et s'accordent naturellement avec les pratiques proposées au Cœur de l'OM.",
     "readMore": "Lire la suite",
     "categories": "Catégories",
     "recent": "Articles récents",

@@ -40,7 +40,10 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
               {blog.title as string}
             </InteractiveTitle>
           </div>
-          <div className="h-1 w-24 bg-gradient-rainbow mx-auto"></div>
+          <div className="h-1 w-24 bg-gradient-rainbow mx-auto mb-8"></div>
+          <p className="max-w-3xl mx-auto text-gray-700 text-lg leading-relaxed">
+            {blog.subtitle as string}
+          </p>
         </div>
 
         {/* Blog Posts Grid */}
