@@ -595,18 +595,20 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                     Instructions :
                   </p>
                   <ol style={{ margin: '0', paddingLeft: '20px', color: '#15803d', fontSize: '14px', lineHeight: '1.8' }}>
-                    <li>Dans la fenêtre Imgur, uploadez votre image</li>
-                    <li>Une fois uploadée, faites <strong>clic droit</strong> sur l'image</li>
-                    <li>Sélectionnez <strong>"Copier l'adresse de l'image"</strong></li>
-                    <li>Collez l'URL ci-dessous</li>
+                    <li>Dans la fenêtre Imgur, glissez ou sélectionnez votre image</li>
+                    <li>Attendez la fin de l'upload</li>
+                    <li>Cliquez sur l'image uploadée pour l'ouvrir</li>
+                    <li>Faites <strong>clic droit directement sur l'image</strong></li>
+                    <li>Sélectionnez <strong>"Copier l'adresse de l'image"</strong> (pas "Copier le lien")</li>
+                    <li>L'URL doit commencer par <code style={{ backgroundColor: '#dcfce7', padding: '2px 6px', borderRadius: '4px' }}>https://i.imgur.com/</code></li>
                   </ol>
                 </div>
                 <input
                   type="url"
-                  placeholder="Collez l'URL ici (https://imgur.com/... ou https://i.imgur.com/...)"
+                  placeholder="https://i.imgur.com/xxxxxxx.jpg"
                   style={{
                     ...styles.input,
-                    marginBottom: '16px',
+                    marginBottom: '8px',
                   }}
                   onChange={(e) => {
                     const url = e.target.value;
@@ -616,6 +618,19 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                   }}
                   autoFocus
                 />
+                {formData.imageUrl && formData.imageUrl.includes('imgur.com') && (
+                  <div style={{ marginBottom: '16px' }}>
+                    {formData.imageUrl.startsWith('https://i.imgur.com/') ? (
+                      <p style={{ margin: 0, color: '#16a34a', fontSize: '13px' }}>
+                        ✓ URL valide : {formData.imageUrl}
+                      </p>
+                    ) : (
+                      <p style={{ margin: 0, color: '#dc2626', fontSize: '13px' }}>
+                        ⚠️ L'URL doit commencer par https://i.imgur.com/
+                      </p>
+                    )}
+                  </div>
+                )}
                 <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
                   <button
                     type="button"
