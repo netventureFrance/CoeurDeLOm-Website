@@ -52,6 +52,8 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
   const [newAuthor, setNewAuthor] = useState('');
   const [newTag, setNewTag] = useState('');
   const [showDriveModal, setShowDriveModal] = useState(false);
+  const [driveImages, setDriveImages] = useState<Array<{id: string; name: string; thumbnail: string; url: string}>>([]);
+  const [loadingDriveImages, setLoadingDriveImages] = useState(false);
 
   const [formData, setFormData] = useState({
     slug: post?.slug || '',
@@ -228,6 +230,36 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
       setNewTag('');
       setShowNewTag(false);
     }
+  }
+
+  async function fetchDriveImages() {
+    setLoadingDriveImages(true);
+    try {
+      const response = await fetch('/api/admin/drive');
+      if (response.ok) {
+        const data = await response.json();
+        setDriveImages(data.images || []);
+      } else {
+        const err = await response.json();
+        setError(err.error || 'Erreur lors du chargement des images');
+      }
+    } catch (err) {
+      setError('Erreur de connexion à Google Drive');
+    } finally {
+      setLoadingDriveImages(false);
+    }
+  }
+
+  function openDriveModal() {
+    setShowDriveModal(true);
+    if (driveImages.length === 0) {
+      fetchDriveImages();
+    }
+  }
+
+  function selectDriveImage(url: string) {
+    setFormData((prev) => ({ ...prev, imageUrl: url }));
+    setShowDriveModal(false);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -559,10 +591,7 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                 <div style={{ display: 'flex', gap: '12px', marginBottom: '12px' }}>
                   <button
                     type="button"
-                    onClick={() => {
-                      window.open('https://drive.google.com/drive/my-drive', 'gdrive_upload', 'width=1000,height=700');
-                      setShowDriveModal(true);
-                    }}
+                    onClick={openDriveModal}
                     style={{
                       backgroundColor: '#4285f4',
                       color: 'white',
@@ -577,10 +606,29 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                       gap: '8px',
                     }}
                   >
-                    📤 Upload sur Google Drive
+                    🖼️ Choisir depuis Google Drive
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => window.open('https://drive.google.com/drive/folders/1chCwZfbMs25dgzAcvYNj4brrWW3xEWLm', '_blank')}
+                    style={{
+                      backgroundColor: '#34a853',
+                      color: 'white',
+                      padding: '12px 20px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontWeight: '600',
+                      fontSize: '15px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                  >
+                    📤 Ajouter au Drive
                   </button>
                 </div>
-                <label style={styles.label}>URL de l'image</label>
+                <label style={styles.label}>Ou coller une URL directement</label>
                 <input
                   type="url"
                   name="imageUrl"
@@ -589,14 +637,11 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                   placeholder="https://drive.google.com/file/d/..."
                   style={styles.input}
                 />
-                <p style={styles.helpText}>
-                  Collez le lien de partage Google Drive (converti automatiquement)
-                </p>
               </div>
             </div>
           </div>
 
-          {/* Google Drive Modal */}
+          {/* Google Drive Image Picker Modal */}
           {showDriveModal && (
             <div style={{
               position: 'fixed',
@@ -604,7 +649,7 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(0,0,0,0.5)',
+              backgroundColor: 'rgba(0,0,0,0.6)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -612,86 +657,123 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
             }}>
               <div style={{
                 backgroundColor: 'white',
-                borderRadius: '12px',
+                borderRadius: '16px',
                 padding: '24px',
-                maxWidth: '500px',
-                width: '90%',
+                maxWidth: '800px',
+                width: '95%',
+                maxHeight: '85vh',
+                display: 'flex',
+                flexDirection: 'column',
                 boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
               }}>
-                <h3 style={{ margin: '0 0 16px 0', fontSize: '18px', color: '#1f2937' }}>
-                  📤 Upload Google Drive
-                </h3>
-                <div style={{
-                  backgroundColor: '#eff6ff',
-                  border: '1px solid #3b82f6',
-                  borderRadius: '8px',
-                  padding: '16px',
-                  marginBottom: '20px',
-                }}>
-                  <p style={{ margin: '0 0 12px 0', fontWeight: '600', color: '#1e40af' }}>
-                    Instructions :
-                  </p>
-                  <ol style={{ margin: '0', paddingLeft: '20px', color: '#1e3a8a', fontSize: '14px', lineHeight: '1.8' }}>
-                    <li>Dans Google Drive, uploadez votre image (glisser-déposer ou + Nouveau)</li>
-                    <li>Clic droit sur l'image → <strong>"Partager"</strong></li>
-                    <li>Changez l'accès en <strong>"Tous les utilisateurs disposant du lien"</strong></li>
-                    <li>Cliquez sur <strong>"Copier le lien"</strong></li>
-                    <li>Collez le lien ci-dessous (conversion automatique)</li>
-                  </ol>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                  <h3 style={{ margin: 0, fontSize: '20px', color: '#1f2937' }}>
+                    🖼️ Choisir une image
+                  </h3>
+                  <div style={{ display: 'flex', gap: '12px' }}>
+                    <button
+                      type="button"
+                      onClick={fetchDriveImages}
+                      disabled={loadingDriveImages}
+                      style={{
+                        padding: '8px 16px',
+                        borderRadius: '8px',
+                        border: '1px solid #d1d5db',
+                        backgroundColor: 'white',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                      }}
+                    >
+                      🔄 Rafraîchir
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowDriveModal(false)}
+                      style={{
+                        padding: '8px 16px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        backgroundColor: '#ef4444',
+                        color: 'white',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                      }}
+                    >
+                      ✕ Fermer
+                    </button>
+                  </div>
                 </div>
-                <input
-                  type="url"
-                  placeholder="https://drive.google.com/file/d/..."
-                  style={{
-                    ...styles.input,
-                    marginBottom: '8px',
-                  }}
-                  onChange={(e) => {
-                    const url = e.target.value;
-                    if (url && url.includes('drive.google.com')) {
-                      setFormData((prev) => ({ ...prev, imageUrl: convertDriveUrl(url) }));
-                    }
-                  }}
-                  autoFocus
-                />
-                {formData.imageUrl && formData.imageUrl.includes('drive.google.com') && (
-                  <div style={{ marginBottom: '16px' }}>
-                    <p style={{ margin: 0, color: '#16a34a', fontSize: '13px' }}>
-                      ✓ URL convertie : {formData.imageUrl}
-                    </p>
+
+                {loadingDriveImages ? (
+                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '60px', flex: 1 }}>
+                    <div style={{
+                      width: '40px',
+                      height: '40px',
+                      border: '4px solid #e5e7eb',
+                      borderTopColor: '#4285f4',
+                      borderRadius: '50%',
+                      animation: 'spin 1s linear infinite',
+                    }} />
+                    <span style={{ marginLeft: '16px', color: '#6b7280' }}>Chargement des images...</span>
+                  </div>
+                ) : driveImages.length === 0 ? (
+                  <div style={{ textAlign: 'center', padding: '60px', color: '#6b7280' }}>
+                    <p style={{ fontSize: '18px', marginBottom: '8px' }}>Aucune image trouvée</p>
+                    <p style={{ fontSize: '14px' }}>Ajoutez des images dans le dossier Google Drive</p>
+                  </div>
+                ) : (
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+                    gap: '16px',
+                    overflowY: 'auto',
+                    flex: 1,
+                    padding: '4px',
+                  }}>
+                    {driveImages.map((image) => (
+                      <div
+                        key={image.id}
+                        onClick={() => selectDriveImage(image.url)}
+                        style={{
+                          cursor: 'pointer',
+                          borderRadius: '12px',
+                          overflow: 'hidden',
+                          border: '3px solid transparent',
+                          transition: 'all 0.2s',
+                          backgroundColor: '#f3f4f6',
+                        }}
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLElement).style.borderColor = '#4285f4';
+                          (e.currentTarget as HTMLElement).style.transform = 'scale(1.02)';
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.borderColor = 'transparent';
+                          (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+                        }}
+                      >
+                        <img
+                          src={image.thumbnail}
+                          alt={image.name}
+                          style={{
+                            width: '100%',
+                            height: '120px',
+                            objectFit: 'cover',
+                          }}
+                        />
+                        <div style={{
+                          padding: '8px',
+                          fontSize: '12px',
+                          color: '#374151',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}>
+                          {image.name}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
-                <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-                  <button
-                    type="button"
-                    onClick={() => setShowDriveModal(false)}
-                    style={{
-                      padding: '10px 20px',
-                      borderRadius: '8px',
-                      border: '1px solid #d1d5db',
-                      backgroundColor: 'white',
-                      cursor: 'pointer',
-                      fontWeight: '500',
-                    }}
-                  >
-                    Annuler
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowDriveModal(false)}
-                    style={{
-                      padding: '10px 20px',
-                      borderRadius: '8px',
-                      border: 'none',
-                      backgroundColor: '#4285f4',
-                      color: 'white',
-                      cursor: 'pointer',
-                      fontWeight: '500',
-                    }}
-                  >
-                    Valider
-                  </button>
-                </div>
               </div>
             </div>
           )}
