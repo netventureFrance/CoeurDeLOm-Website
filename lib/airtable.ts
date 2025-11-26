@@ -153,6 +153,20 @@ export async function getBlogPosts(language: string, limit?: number): Promise<Bl
         }
       }
 
+      // Get image URL from attachment field
+      const imagesField = record.fields.Images as any[] | undefined;
+      const featuredImage = imagesField && imagesField.length > 0 ? imagesField[0]?.url : undefined;
+
+      // Auto-fill Published_Date if missing
+      let publishedDate = record.fields.Published_Date as string;
+      if (!publishedDate) {
+        publishedDate = new Date().toISOString().split('T')[0];
+        // Update Airtable with the current date (fire and forget)
+        base('Blog Posts').update(record.id, {
+          Published_Date: publishedDate,
+        }).catch(err => console.error('Failed to update Published_Date:', err));
+      }
+
       return {
         id: record.id,
         slug: record.fields.Slug as string,
@@ -161,11 +175,11 @@ export async function getBlogPosts(language: string, limit?: number): Promise<Bl
         content: (record.fields[contentField] as string) || (record.fields.Content_FR as string),
         category: record.fields.Category as string | undefined,
         tags,
-        featuredImage: record.fields.Images ? (record.fields.Images as any)[0]?.url : undefined,
+        featuredImage,
         audioFile: record.fields.Audio_File ? (record.fields.Audio_File as any)[0]?.url : undefined,
         spotifyUrl: record.fields.Spotify_URL as string | undefined,
         author: record.fields.Author as string,
-        publishedDate: record.fields.Published_Date as string,
+        publishedDate,
         status: record.fields.Status as string,
       };
     });
