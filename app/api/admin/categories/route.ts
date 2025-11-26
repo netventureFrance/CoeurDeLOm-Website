@@ -40,7 +40,9 @@ async function checkAuth(): Promise<boolean> {
   }
 }
 
-// GET - Fetch all unique categories, authors, and tags from Blog Posts
+const BLOG_OPTIONS_TABLE = 'tblGWAGY3hYMRBC4y';
+
+// GET - Fetch all options from Blog_Options table + existing values from Blog Posts
 export async function GET(request: NextRequest) {
   try {
     if (!(await checkAuth())) {
@@ -48,44 +50,67 @@ export async function GET(request: NextRequest) {
     }
 
     const base = getAirtableBase();
-    const records = await base('Blog Posts')
-      .select({
-        fields: ['Category', 'Author', 'Tags'],
-      })
-      .all();
 
-    // Extract unique values
+    // Fetch from Blog_Options table
     const categories = new Set<string>();
     const authors = new Set<string>();
     const tags = new Set<string>();
 
-    records.forEach((record) => {
-      // Categories
-      const category = record.fields.Category as string;
-      if (category && category.trim()) {
-        categories.add(category.trim());
-      }
+    try {
+      const optionsRecords = await base(BLOG_OPTIONS_TABLE)
+        .select({
+          fields: ['Type', 'Value'],
+        })
+        .all();
 
-      // Authors
-      const author = record.fields.Author as string;
-      if (author && author.trim()) {
-        authors.add(author.trim());
-      }
-
-      // Tags - can be comma-separated string or array
-      const tagsField = record.fields.Tags;
-      if (tagsField) {
-        if (typeof tagsField === 'string') {
-          tagsField.split(',').forEach((tag: string) => {
-            if (tag.trim()) tags.add(tag.trim());
-          });
-        } else if (Array.isArray(tagsField)) {
-          tagsField.forEach((tag: string) => {
-            if (tag && tag.trim()) tags.add(tag.trim());
-          });
+      optionsRecords.forEach((record) => {
+        const type = record.fields.Type as string;
+        const value = record.fields.Value as string;
+        if (value && value.trim()) {
+          if (type === 'Category') categories.add(value.trim());
+          else if (type === 'Author') authors.add(value.trim());
+          else if (type === 'Tag') tags.add(value.trim());
         }
-      }
-    });
+      });
+    } catch (err) {
+      console.log('Blog_Options table not found or empty, using Blog Posts only');
+    }
+
+    // Also fetch existing values from Blog Posts (for backwards compatibility)
+    try {
+      const blogRecords = await base('Blog Posts')
+        .select({
+          fields: ['Category', 'Author', 'Tags'],
+        })
+        .all();
+
+      blogRecords.forEach((record) => {
+        const category = record.fields.Category as string;
+        if (category && category.trim()) {
+          categories.add(category.trim());
+        }
+
+        const author = record.fields.Author as string;
+        if (author && author.trim()) {
+          authors.add(author.trim());
+        }
+
+        const tagsField = record.fields.Tags;
+        if (tagsField) {
+          if (typeof tagsField === 'string') {
+            tagsField.split(',').forEach((tag: string) => {
+              if (tag.trim()) tags.add(tag.trim());
+            });
+          } else if (Array.isArray(tagsField)) {
+            tagsField.forEach((tag: string) => {
+              if (tag && tag.trim()) tags.add(tag.trim());
+            });
+          }
+        }
+      });
+    } catch (err) {
+      console.log('Error fetching from Blog Posts:', err);
+    }
 
     // Convert to sorted arrays
     const sortFr = (a: string, b: string) => a.localeCompare(b, 'fr');
@@ -96,9 +121,66 @@ export async function GET(request: NextRequest) {
       tags: Array.from(tags).sort(sortFr),
     });
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error('Error fetching options:', error);
     return NextResponse.json(
       { error: 'Failed to fetch options' },
+      { status: 500 }
+    );
+  }
+}
+
+// POST - Add a new option to Blog_Options table
+export async function POST(request: NextRequest) {
+  try {
+    if (!(await checkAuth())) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { type, value } = await request.json();
+
+    if (!type || !value) {
+      return NextResponse.json(
+        { error: 'Type and value are required' },
+        { status: 400 }
+      );
+    }
+
+    if (!['Category', 'Author', 'Tag'].includes(type)) {
+      return NextResponse.json(
+        { error: 'Invalid type. Must be Category, Author, or Tag' },
+        { status: 400 }
+      );
+    }
+
+    const base = getAirtableBase();
+
+    // Check if already exists
+    const existing = await base(BLOG_OPTIONS_TABLE)
+      .select({
+        filterByFormula: `AND({Type} = '${type}', {Value} = '${value.replace(/'/g, "\\'")}')`,
+        maxRecords: 1,
+      })
+      .all();
+
+    if (existing.length > 0) {
+      return NextResponse.json({ success: true, message: 'Option already exists' });
+    }
+
+    // Create new option
+    await base(BLOG_OPTIONS_TABLE).create([
+      {
+        fields: {
+          Type: type,
+          Value: value.trim(),
+        },
+      },
+    ]);
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error adding option:', error);
+    return NextResponse.json(
+      { error: 'Failed to add option' },
       { status: 500 }
     );
   }

@@ -103,11 +103,24 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
     }
   }
 
+  async function saveOptionToAirtable(type: 'Category' | 'Author' | 'Tag', value: string) {
+    try {
+      await fetch('/api/admin/categories', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, value }),
+      });
+    } catch (err) {
+      console.error('Error saving option to Airtable:', err);
+    }
+  }
+
   function handleAddNewCategory() {
     if (newCategory.trim()) {
       const trimmed = newCategory.trim();
       if (!categories.includes(trimmed)) {
         setCategories((prev) => [...prev, trimmed].sort((a, b) => a.localeCompare(b, 'fr')));
+        saveOptionToAirtable('Category', trimmed);
       }
       setFormData((prev) => ({ ...prev, category: trimmed }));
       setNewCategory('');
@@ -130,6 +143,7 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
       const trimmed = newAuthor.trim();
       if (!authors.includes(trimmed)) {
         setAuthors((prev) => [...prev, trimmed].sort((a, b) => a.localeCompare(b, 'fr')));
+        saveOptionToAirtable('Author', trimmed);
       }
       setFormData((prev) => ({ ...prev, author: trimmed }));
       setNewAuthor('');
@@ -152,6 +166,7 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
       const trimmed = newTag.trim();
       if (!tags.includes(trimmed)) {
         setTags((prev) => [...prev, trimmed].sort((a, b) => a.localeCompare(b, 'fr')));
+        saveOptionToAirtable('Tag', trimmed);
       }
       setFormData((prev) => ({ ...prev, tags: trimmed }));
       setNewTag('');
