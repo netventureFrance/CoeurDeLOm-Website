@@ -51,7 +51,7 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
   const [newCategory, setNewCategory] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
   const [newTag, setNewTag] = useState('');
-  const [showImgurModal, setShowImgurModal] = useState(false);
+  const [showDriveModal, setShowDriveModal] = useState(false);
 
   const [formData, setFormData] = useState({
     slug: post?.slug || '',
@@ -98,31 +98,39 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
     }
   }, [existingOptions]);
 
-  // Convert Imgur page URLs to direct image URLs
-  function convertImgurUrl(url: string): string {
+  // Convert Google Drive share URLs to direct image URLs
+  function convertDriveUrl(url: string): string {
     if (!url) return url;
 
-    // Already a direct image URL
-    if (url.match(/^https?:\/\/i\.imgur\.com\/\w+\.\w+$/)) {
+    // Already a direct drive URL
+    if (url.includes('drive.google.com/uc?')) {
       return url;
     }
 
-    // Album URL: https://imgur.com/a/xiYhJbB -> https://i.imgur.com/xiYhJbB.jpg
-    const albumMatch = url.match(/imgur\.com\/a\/(\w+)/);
-    if (albumMatch) {
-      return `https://i.imgur.com/${albumMatch[1]}.jpg`;
+    // Extract file ID from various Google Drive URL formats
+    // Format 1: https://drive.google.com/file/d/FILE_ID/view
+    // Format 2: https://drive.google.com/open?id=FILE_ID
+    // Format 3: https://drive.google.com/uc?id=FILE_ID
+
+    let fileId = null;
+
+    const fileMatch = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (fileMatch) {
+      fileId = fileMatch[1];
     }
 
-    // Gallery URL: https://imgur.com/gallery/xiYhJbB -> https://i.imgur.com/xiYhJbB.jpg
-    const galleryMatch = url.match(/imgur\.com\/gallery\/(\w+)/);
-    if (galleryMatch) {
-      return `https://i.imgur.com/${galleryMatch[1]}.jpg`;
+    const openMatch = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+    if (openMatch) {
+      fileId = openMatch[1];
     }
 
-    // Simple page URL: https://imgur.com/xiYhJbB -> https://i.imgur.com/xiYhJbB.jpg
-    const simpleMatch = url.match(/imgur\.com\/(\w+)$/);
-    if (simpleMatch && simpleMatch[1] !== 'upload') {
-      return `https://i.imgur.com/${simpleMatch[1]}.jpg`;
+    const ucMatch = url.match(/drive\.google\.com\/uc\?.*id=([a-zA-Z0-9_-]+)/);
+    if (ucMatch) {
+      fileId = ucMatch[1];
+    }
+
+    if (fileId) {
+      return `https://drive.google.com/uc?export=view&id=${fileId}`;
     }
 
     return url;
@@ -132,9 +140,9 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
     const { name, value } = e.target;
-    // Auto-convert Imgur URLs to direct image URLs
-    if (name === 'imageUrl' && value.includes('imgur.com')) {
-      setFormData((prev) => ({ ...prev, [name]: convertImgurUrl(value) }));
+    // Auto-convert Google Drive URLs to direct image URLs
+    if (name === 'imageUrl' && value.includes('drive.google.com')) {
+      setFormData((prev) => ({ ...prev, [name]: convertDriveUrl(value) }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -551,11 +559,11 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                   <button
                     type="button"
                     onClick={() => {
-                      window.open('https://imgur.com/upload', 'imgur_upload', 'width=800,height=700');
-                      setShowImgurModal(true);
+                      window.open('https://drive.google.com/drive/my-drive', 'gdrive_upload', 'width=1000,height=700');
+                      setShowDriveModal(true);
                     }}
                     style={{
-                      backgroundColor: '#1bb76e',
+                      backgroundColor: '#4285f4',
                       color: 'white',
                       padding: '12px 20px',
                       borderRadius: '8px',
@@ -568,7 +576,7 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                       gap: '8px',
                     }}
                   >
-                    📤 Upload sur Imgur
+                    📤 Upload sur Google Drive
                   </button>
                 </div>
                 <label style={styles.label}>URL de l'image</label>
@@ -577,18 +585,18 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                   name="imageUrl"
                   value={formData.imageUrl}
                   onChange={handleChange}
-                  placeholder="https://i.imgur.com/xxxxx.jpg"
+                  placeholder="https://drive.google.com/file/d/..."
                   style={styles.input}
                 />
                 <p style={styles.helpText}>
-                  Collez l'URL directe de l'image (clic droit sur l'image → "Copier l'adresse de l'image")
+                  Collez le lien de partage Google Drive (converti automatiquement)
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Imgur Modal */}
-          {showImgurModal && (
+          {/* Google Drive Modal */}
+          {showDriveModal && (
             <div style={{
               position: 'fixed',
               top: 0,
@@ -610,59 +618,52 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                 boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
               }}>
                 <h3 style={{ margin: '0 0 16px 0', fontSize: '18px', color: '#1f2937' }}>
-                  📤 Upload Imgur
+                  📤 Upload Google Drive
                 </h3>
                 <div style={{
-                  backgroundColor: '#f0fdf4',
-                  border: '1px solid #22c55e',
+                  backgroundColor: '#eff6ff',
+                  border: '1px solid #3b82f6',
                   borderRadius: '8px',
                   padding: '16px',
                   marginBottom: '20px',
                 }}>
-                  <p style={{ margin: '0 0 12px 0', fontWeight: '600', color: '#166534' }}>
+                  <p style={{ margin: '0 0 12px 0', fontWeight: '600', color: '#1e40af' }}>
                     Instructions :
                   </p>
-                  <ol style={{ margin: '0', paddingLeft: '20px', color: '#15803d', fontSize: '14px', lineHeight: '1.8' }}>
-                    <li>Dans la fenêtre Imgur, glissez ou sélectionnez votre image</li>
-                    <li>Attendez la fin de l'upload</li>
-                    <li>Cliquez sur l'image uploadée pour l'ouvrir</li>
-                    <li>Faites <strong>clic droit directement sur l'image</strong></li>
-                    <li>Sélectionnez <strong>"Copier l'adresse de l'image"</strong> (pas "Copier le lien")</li>
-                    <li>L'URL doit commencer par <code style={{ backgroundColor: '#dcfce7', padding: '2px 6px', borderRadius: '4px' }}>https://i.imgur.com/</code></li>
+                  <ol style={{ margin: '0', paddingLeft: '20px', color: '#1e3a8a', fontSize: '14px', lineHeight: '1.8' }}>
+                    <li>Dans Google Drive, uploadez votre image (glisser-déposer ou + Nouveau)</li>
+                    <li>Clic droit sur l'image → <strong>"Partager"</strong></li>
+                    <li>Changez l'accès en <strong>"Tous les utilisateurs disposant du lien"</strong></li>
+                    <li>Cliquez sur <strong>"Copier le lien"</strong></li>
+                    <li>Collez le lien ci-dessous (conversion automatique)</li>
                   </ol>
                 </div>
                 <input
                   type="url"
-                  placeholder="https://i.imgur.com/xxxxxxx.jpg"
+                  placeholder="https://drive.google.com/file/d/..."
                   style={{
                     ...styles.input,
                     marginBottom: '8px',
                   }}
                   onChange={(e) => {
                     const url = e.target.value;
-                    if (url && url.includes('imgur.com')) {
-                      setFormData((prev) => ({ ...prev, imageUrl: convertImgurUrl(url) }));
+                    if (url && url.includes('drive.google.com')) {
+                      setFormData((prev) => ({ ...prev, imageUrl: convertDriveUrl(url) }));
                     }
                   }}
                   autoFocus
                 />
-                {formData.imageUrl && formData.imageUrl.includes('imgur.com') && (
+                {formData.imageUrl && formData.imageUrl.includes('drive.google.com') && (
                   <div style={{ marginBottom: '16px' }}>
-                    {formData.imageUrl.startsWith('https://i.imgur.com/') ? (
-                      <p style={{ margin: 0, color: '#16a34a', fontSize: '13px' }}>
-                        ✓ URL valide : {formData.imageUrl}
-                      </p>
-                    ) : (
-                      <p style={{ margin: 0, color: '#dc2626', fontSize: '13px' }}>
-                        ⚠️ L'URL doit commencer par https://i.imgur.com/
-                      </p>
-                    )}
+                    <p style={{ margin: 0, color: '#16a34a', fontSize: '13px' }}>
+                      ✓ URL convertie : {formData.imageUrl}
+                    </p>
                   </div>
                 )}
                 <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
                   <button
                     type="button"
-                    onClick={() => setShowImgurModal(false)}
+                    onClick={() => setShowDriveModal(false)}
                     style={{
                       padding: '10px 20px',
                       borderRadius: '8px',
@@ -676,12 +677,12 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                   </button>
                   <button
                     type="button"
-                    onClick={() => setShowImgurModal(false)}
+                    onClick={() => setShowDriveModal(false)}
                     style={{
                       padding: '10px 20px',
                       borderRadius: '8px',
                       border: 'none',
-                      backgroundColor: '#7c3aed',
+                      backgroundColor: '#4285f4',
                       color: 'white',
                       cursor: 'pointer',
                       fontWeight: '500',
