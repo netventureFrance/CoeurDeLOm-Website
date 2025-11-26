@@ -202,13 +202,15 @@ export async function PUT(request: NextRequest) {
       fields.Audio_File = updateData.audioUrl ? [{ url: updateData.audioUrl }] : [];
     }
 
+    console.log('Updating blog post with fields:', JSON.stringify(fields, null, 2));
     await base('Blog Posts').update(id, fields);
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error updating blog post:', error);
+    console.error('Error details:', error?.message || error?.error || 'Unknown error');
     return NextResponse.json(
-      { error: 'Failed to update blog post' },
+      { error: 'Failed to update blog post', details: error?.message || error?.error },
       { status: 500 }
     );
   }
