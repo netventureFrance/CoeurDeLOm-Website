@@ -72,10 +72,13 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
                     <span className="text-sm text-gray-500 mb-3 block">
                       {new Date(post.publishedDate).toLocaleDateString(lang)}
                     </span>
-                    <h2 className="text-2xl font-bold mb-3 text-primary group-hover:text-cyan transition-colors">
+                    <h2
+                      className="text-2xl font-normal mb-3 text-purple-900 group-hover:text-cyan transition-colors"
+                      style={{ fontFamily: "'Dancing Script', cursive" }}
+                    >
                       {post.title}
                     </h2>
-                    <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
+                    <p className="text-gray-600 mb-4">{post.excerpt}</p>
                     <Link
                       href={`/${lang}/blog/${post.slug}`}
                       className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
