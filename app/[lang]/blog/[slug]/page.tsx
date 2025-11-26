@@ -161,20 +161,6 @@ export default async function BlogPostPage({
                 {post.excerpt}
               </p>
             )}
-
-            {/* Tags */}
-            {post.tags && post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-6">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="bg-primary bg-opacity-10 text-primary px-4 py-2 rounded-full text-sm font-medium"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
           </header>
 
           {/* Post Content */}
