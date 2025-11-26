@@ -28,11 +28,16 @@ interface BlogEditorProps {
   post: BlogPost | null;
   onClose: () => void;
   onSave: () => void;
+  existingOptions?: {
+    categories: string[];
+    authors: string[];
+    tags: string[];
+  };
 }
 
 type Language = 'FR' | 'DE' | 'EN';
 
-export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
+export default function BlogEditor({ post, onClose, onSave, existingOptions }: BlogEditorProps) {
   const [activeTab, setActiveTab] = useState<Language>('FR');
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -61,30 +66,37 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
     contentEN: post?.contentEN || '',
     category: post?.category || '',
     tags: post?.tags || '',
-    author: post?.author || 'Valerie Heymann',
+    author: post?.author || '',
     publishedDate: post?.publishedDate || new Date().toISOString().split('T')[0],
     status: post?.status || 'Draft',
     imageUrl: post?.image || '',
     spotifyUrl: post?.spotifyUrl || '',
   });
 
-  // Fetch categories, authors, and tags on mount
+  // Initialize options from props or fetch from API
   useEffect(() => {
-    async function fetchOptions() {
-      try {
-        const response = await fetch('/api/admin/categories');
-        if (response.ok) {
-          const data = await response.json();
-          setCategories(data.categories || []);
-          setAuthors(data.authors || []);
-          setTags(data.tags || []);
+    if (existingOptions) {
+      setCategories(existingOptions.categories || []);
+      setAuthors(existingOptions.authors || []);
+      setTags(existingOptions.tags || []);
+    } else {
+      // Fallback to API if no options passed
+      async function fetchOptions() {
+        try {
+          const response = await fetch('/api/admin/categories');
+          if (response.ok) {
+            const data = await response.json();
+            setCategories(data.categories || []);
+            setAuthors(data.authors || []);
+            setTags(data.tags || []);
+          }
+        } catch (err) {
+          console.error('Error fetching options:', err);
         }
-      } catch (err) {
-        console.error('Error fetching options:', err);
       }
+      fetchOptions();
     }
-    fetchOptions();
-  }, []);
+  }, [existingOptions]);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>

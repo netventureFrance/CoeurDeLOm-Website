@@ -98,12 +98,20 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     setIsCreating(false);
   }
 
+  // Extract unique options from posts
+  const extractedOptions = {
+    categories: [...new Set(posts.map(p => p.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr')),
+    authors: [...new Set(posts.map(p => p.author).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr')),
+    tags: [...new Set(posts.flatMap(p => p.tags ? (typeof p.tags === 'string' ? p.tags.split(',').map(t => t.trim()) : p.tags) : []).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr')),
+  };
+
   if (selectedPost || isCreating) {
     return (
       <BlogEditor
         post={selectedPost}
         onClose={handleEditorClose}
         onSave={handleEditorSave}
+        existingOptions={extractedOptions}
       />
     );
   }
