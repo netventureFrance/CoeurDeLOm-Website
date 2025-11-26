@@ -2,6 +2,10 @@
   command = "npm run build"
   publish = ".next"
 
+# Sync blog images from Airtable before build
+[[plugins]]
+  package = "./netlify/plugins/sync-blog-images"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

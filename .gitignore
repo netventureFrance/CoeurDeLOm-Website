@@ -41,3 +41,6 @@ next-env.d.ts
 # IDE
 .vscode/
 .idea/
+
+# Blog images (synced from Airtable during Netlify build)
+/public/images/blog/
