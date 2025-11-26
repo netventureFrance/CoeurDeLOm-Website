@@ -2,17 +2,16 @@
   command = "npm run build"
   publish = ".next"
 
+[build.environment]
+  NODE_VERSION = "18"
+
+# Next.js plugin for Netlify
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 # Sync blog images from Airtable before build
 [[plugins]]
   package = "./netlify/plugins/sync-blog-images"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[build.environment]
-  NODE_VERSION = "18"
 
 # i18n redirects
 [[redirects]]
