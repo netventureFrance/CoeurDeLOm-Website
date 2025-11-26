@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface BlogPost {
   id: string;
@@ -35,7 +35,12 @@ type Language = 'FR' | 'DE' | 'EN';
 export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
   const [activeTab, setActiveTab] = useState<Language>('FR');
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState('');
+  const [categories, setCategories] = useState<string[]>([]);
+  const [showNewCategory, setShowNewCategory] = useState(false);
+  const [newCategory, setNewCategory] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     slug: post?.slug || '',
@@ -57,11 +62,84 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
     spotifyUrl: post?.spotifyUrl || '',
   });
 
+  // Fetch categories on mount
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await fetch('/api/admin/categories');
+        if (response.ok) {
+          const data = await response.json();
+          setCategories(data.categories || []);
+        }
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    }
+    fetchCategories();
+  }, []);
+
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function handleCategoryChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const value = e.target.value;
+    if (value === '__new__') {
+      setShowNewCategory(true);
+    } else {
+      setFormData((prev) => ({ ...prev, category: value }));
+      setShowNewCategory(false);
+    }
+  }
+
+  function handleAddNewCategory() {
+    if (newCategory.trim()) {
+      const trimmed = newCategory.trim();
+      if (!categories.includes(trimmed)) {
+        setCategories((prev) => [...prev, trimmed].sort((a, b) => a.localeCompare(b, 'fr')));
+      }
+      setFormData((prev) => ({ ...prev, category: trimmed }));
+      setNewCategory('');
+      setShowNewCategory(false);
+    }
+  }
+
+  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    setError('');
+
+    try {
+      const formDataUpload = new FormData();
+      formDataUpload.append('file', file);
+      formDataUpload.append('type', 'blog');
+
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formDataUpload,
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Erreur lors de l\'upload');
+      }
+
+      const data = await response.json();
+      setFormData((prev) => ({ ...prev, imageUrl: data.url }));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erreur lors de l\'upload');
+    } finally {
+      setIsUploading(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -195,14 +273,45 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
               </div>
               <div>
                 <label style={styles.label}>Catégorie</label>
-                <input
-                  type="text"
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  placeholder="Bien-être, Naturopathie..."
-                  style={styles.input}
-                />
+                {!showNewCategory ? (
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleCategoryChange}
+                    style={{ ...styles.input, cursor: 'pointer' }}
+                  >
+                    <option value="">-- Sélectionner --</option>
+                    {categories.map((cat) => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                    <option value="__new__">+ Ajouter une catégorie...</option>
+                  </select>
+                ) : (
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input
+                      type="text"
+                      value={newCategory}
+                      onChange={(e) => setNewCategory(e.target.value)}
+                      placeholder="Nouvelle catégorie..."
+                      style={{ ...styles.input, flex: 1 }}
+                      onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddNewCategory())}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddNewCategory}
+                      style={{ ...styles.saveBtn, padding: '8px 16px' }}
+                    >
+                      OK
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowNewCategory(false)}
+                      style={{ ...styles.backBtn, padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px' }}
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                )}
               </div>
               <div>
                 <label style={styles.label}>Date de publication</label>
@@ -222,14 +331,74 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
             <h2 style={styles.sectionTitle}>🖼️ Image de couverture</h2>
             <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
               {formData.imageUrl && (
-                <img
-                  src={formData.imageUrl}
-                  alt="Preview"
-                  style={{ width: '200px', height: '130px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #e5e7eb' }}
-                />
+                <div style={{ position: 'relative' }}>
+                  <img
+                    src={formData.imageUrl}
+                    alt="Preview"
+                    style={{ width: '200px', height: '130px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #e5e7eb' }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setFormData((prev) => ({ ...prev, imageUrl: '' }))}
+                    style={{
+                      position: 'absolute',
+                      top: '-8px',
+                      right: '-8px',
+                      width: '24px',
+                      height: '24px',
+                      borderRadius: '50%',
+                      backgroundColor: '#ef4444',
+                      color: 'white',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    title="Supprimer l'image"
+                  >
+                    x
+                  </button>
+                </div>
               )}
               <div style={{ flex: 1 }}>
-                <label style={styles.label}>URL de l'image</label>
+                {/* File Upload */}
+                <label style={styles.label}>Uploader depuis votre ordinateur</label>
+                <div style={{ marginBottom: '16px' }}>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                    onChange={handleFileUpload}
+                    style={{ display: 'none' }}
+                    id="image-upload"
+                  />
+                  <label
+                    htmlFor="image-upload"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '12px 20px',
+                      backgroundColor: isUploading ? '#9ca3af' : '#f3f4f6',
+                      border: '2px dashed #d1d5db',
+                      borderRadius: '8px',
+                      cursor: isUploading ? 'wait' : 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    {isUploading ? (
+                      <>Uploading...</>
+                    ) : (
+                      <>📁 Choisir un fichier</>
+                    )}
+                  </label>
+                  <p style={styles.helpText}>JPG, PNG, GIF ou WebP (max 5MB)</p>
+                </div>
+
+                {/* URL Input */}
+                <label style={styles.label}>Ou coller une URL</label>
                 <input
                   type="url"
                   name="imageUrl"
@@ -239,7 +408,7 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
                   style={styles.input}
                 />
                 <p style={styles.helpText}>
-                  Collez l'URL d'une image hébergée (Google Drive, Dropbox, Imgur, etc.)
+                  URL d'une image externe (Google Drive, Dropbox, Imgur, etc.)
                 </p>
               </div>
             </div>
