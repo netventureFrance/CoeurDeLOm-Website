@@ -102,8 +102,8 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
   function convertDriveUrl(url: string): string {
     if (!url) return url;
 
-    // Already a direct drive URL
-    if (url.includes('drive.google.com/uc?')) {
+    // Already a direct thumbnail URL
+    if (url.includes('lh3.googleusercontent.com') || url.includes('drive.google.com/thumbnail')) {
       return url;
     }
 
@@ -130,7 +130,8 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
     }
 
     if (fileId) {
-      return `https://drive.google.com/uc?export=view&id=${fileId}`;
+      // Use thumbnail endpoint with large size - more reliable than uc?export
+      return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1200`;
     }
 
     return url;
