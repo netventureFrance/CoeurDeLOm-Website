@@ -164,11 +164,16 @@ export default async function BlogPostPage({
           </header>
 
           {/* Post Content */}
-          <div className="prose prose-lg max-w-none">
-            <div className="text-gray-800 leading-relaxed whitespace-pre-wrap">
-              {post.content}
-            </div>
-          </div>
+          <div
+            className="prose prose-lg max-w-none text-gray-800 leading-relaxed
+              prose-p:mb-4 prose-p:leading-relaxed
+              prose-strong:text-gray-900 prose-strong:font-semibold
+              prose-h2:text-2xl prose-h2:font-semibold prose-h2:text-primary prose-h2:mt-8 prose-h2:mb-4
+              prose-h3:text-xl prose-h3:font-semibold prose-h3:text-primary prose-h3:mt-6 prose-h3:mb-3
+              prose-ul:my-4 prose-li:my-1
+              prose-a:text-primary prose-a:underline hover:prose-a:text-purple-700"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
 
           {/* Author Bio */}
           {post.author && (
