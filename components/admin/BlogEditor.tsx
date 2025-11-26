@@ -51,6 +51,7 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
   const [newCategory, setNewCategory] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
   const [newTag, setNewTag] = useState('');
+  const [showImgurModal, setShowImgurModal] = useState(false);
 
   const [formData, setFormData] = useState({
     slug: post?.slug || '',
@@ -449,26 +450,6 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
           <div style={styles.section}>
             <h2 style={styles.sectionTitle}>🖼️ Image de couverture</h2>
 
-            {/* Info box about Airtable upload */}
-            <div style={{
-              backgroundColor: '#f0f9ff',
-              border: '1px solid #0ea5e9',
-              borderRadius: '8px',
-              padding: '16px',
-              marginBottom: '20px',
-            }}>
-              <p style={{ margin: '0 0 8px 0', fontWeight: '600', color: '#0369a1' }}>
-                💡 Méthode recommandée : Upload via Airtable
-              </p>
-              <ol style={{ margin: '0', paddingLeft: '20px', color: '#0c4a6e', fontSize: '14px', lineHeight: '1.6' }}>
-                <li>Ouvrez <a href="https://airtable.com" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed', fontWeight: '500' }}>Airtable</a> et accédez à la table Blog Posts</li>
-                <li>Glissez-déposez votre image dans le champ "Image" de l'article</li>
-                <li>Cliquez sur l'image uploadée, puis sur "Expand record"</li>
-                <li>Faites clic droit sur l'image → "Copy image address"</li>
-                <li>Collez l'URL ci-dessous</li>
-              </ol>
-            </div>
-
             <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
               {formData.imageUrl && (
                 <div style={{ position: 'relative' }}>
@@ -503,21 +484,137 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                 </div>
               )}
               <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', gap: '12px', marginBottom: '12px' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      window.open('https://imgur.com/upload', 'imgur_upload', 'width=800,height=700');
+                      setShowImgurModal(true);
+                    }}
+                    style={{
+                      backgroundColor: '#1bb76e',
+                      color: 'white',
+                      padding: '12px 20px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontWeight: '600',
+                      fontSize: '15px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                  >
+                    📤 Upload sur Imgur
+                  </button>
+                </div>
                 <label style={styles.label}>URL de l'image</label>
                 <input
                   type="url"
                   name="imageUrl"
                   value={formData.imageUrl}
                   onChange={handleChange}
-                  placeholder="https://dl.airtable.com/.attachments/..."
+                  placeholder="https://i.imgur.com/xxxxx.jpg"
                   style={styles.input}
                 />
                 <p style={styles.helpText}>
-                  Alternatives : Hébergez votre image sur <a href="https://imgur.com/upload" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed' }}>Imgur</a> ou <a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed' }}>ImgBB</a> (gratuit)
+                  Collez l'URL directe de l'image (clic droit sur l'image → "Copier l'adresse de l'image")
                 </p>
               </div>
             </div>
           </div>
+
+          {/* Imgur Modal */}
+          {showImgurModal && (
+            <div style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+            }}>
+              <div style={{
+                backgroundColor: 'white',
+                borderRadius: '12px',
+                padding: '24px',
+                maxWidth: '500px',
+                width: '90%',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+              }}>
+                <h3 style={{ margin: '0 0 16px 0', fontSize: '18px', color: '#1f2937' }}>
+                  📤 Upload Imgur
+                </h3>
+                <div style={{
+                  backgroundColor: '#f0fdf4',
+                  border: '1px solid #22c55e',
+                  borderRadius: '8px',
+                  padding: '16px',
+                  marginBottom: '20px',
+                }}>
+                  <p style={{ margin: '0 0 12px 0', fontWeight: '600', color: '#166534' }}>
+                    Instructions :
+                  </p>
+                  <ol style={{ margin: '0', paddingLeft: '20px', color: '#15803d', fontSize: '14px', lineHeight: '1.8' }}>
+                    <li>Dans la fenêtre Imgur, uploadez votre image</li>
+                    <li>Une fois uploadée, faites <strong>clic droit</strong> sur l'image</li>
+                    <li>Sélectionnez <strong>"Copier l'adresse de l'image"</strong></li>
+                    <li>Collez l'URL ci-dessous</li>
+                  </ol>
+                </div>
+                <input
+                  type="url"
+                  placeholder="Collez l'URL ici (https://i.imgur.com/...)"
+                  style={{
+                    ...styles.input,
+                    marginBottom: '16px',
+                  }}
+                  onChange={(e) => {
+                    const url = e.target.value;
+                    if (url && (url.includes('imgur.com') || url.includes('i.imgur.com'))) {
+                      setFormData((prev) => ({ ...prev, imageUrl: url }));
+                    }
+                  }}
+                  autoFocus
+                />
+                <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                  <button
+                    type="button"
+                    onClick={() => setShowImgurModal(false)}
+                    style={{
+                      padding: '10px 20px',
+                      borderRadius: '8px',
+                      border: '1px solid #d1d5db',
+                      backgroundColor: 'white',
+                      cursor: 'pointer',
+                      fontWeight: '500',
+                    }}
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowImgurModal(false)}
+                    style={{
+                      padding: '10px 20px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      backgroundColor: '#7c3aed',
+                      color: 'white',
+                      cursor: 'pointer',
+                      fontWeight: '500',
+                    }}
+                  >
+                    Valider
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Podcast */}
           <div style={styles.section}>
