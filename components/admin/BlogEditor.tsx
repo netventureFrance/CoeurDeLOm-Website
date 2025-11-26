@@ -230,7 +230,8 @@ export default function BlogEditor({ post, onClose, onSave }: BlogEditorProps) {
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error || 'Erreur lors de la sauvegarde');
+        const errorMsg = data.details ? `${data.error}: ${data.details}` : data.error;
+        throw new Error(errorMsg || 'Erreur lors de la sauvegarde');
       }
 
       onSave();
