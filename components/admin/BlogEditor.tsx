@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import RichTextEditor from './RichTextEditor';
 
 interface BlogPost {
   id: string;
@@ -633,23 +634,14 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
               {/* Content */}
               <div>
                 <label style={styles.label}>Contenu complet</label>
-                <textarea
-                  name={`content${activeTab}`}
+                <RichTextEditor
                   value={formData[`content${activeTab}` as keyof typeof formData] as string}
-                  onChange={handleChange}
-                  rows={20}
-                  placeholder={`Écrivez votre article ici...
-
-Vous pouvez utiliser des sauts de ligne pour créer des paragraphes.
-
-Conseils de mise en forme :
-- Utilisez des lignes vides pour séparer les paragraphes
-- Commencez une ligne par - pour créer une liste
-- Utilisez MAJUSCULES pour les titres de section`}
-                  style={{ ...styles.textarea, minHeight: '400px', lineHeight: '1.6' }}
+                  onChange={(value) => setFormData((prev) => ({ ...prev, [`content${activeTab}`]: value }))}
+                  placeholder="Écrivez votre article ici..."
+                  minHeight="400px"
                 />
                 <p style={styles.helpText}>
-                  Le texte sera affiché tel quel. Utilisez des lignes vides pour séparer les paragraphes.
+                  Utilisez la barre d'outils pour formater le texte (gras, italique, listes, etc.)
                 </p>
               </div>
             </div>
