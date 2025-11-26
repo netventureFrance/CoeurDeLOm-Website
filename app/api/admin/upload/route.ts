@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
 
 // Check authentication via JWT token
 async function checkAuth(): Promise<boolean> {
@@ -31,6 +29,33 @@ async function checkAuth(): Promise<boolean> {
   }
 }
 
+// Upload to Imgur (free image hosting)
+async function uploadToImgur(buffer: Buffer, filename: string): Promise<string> {
+  const base64 = buffer.toString('base64');
+
+  const response = await fetch('https://api.imgur.com/3/image', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Client-ID 546c25a59c58ad7', // Public client ID for anonymous uploads
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      image: base64,
+      type: 'base64',
+      name: filename,
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    console.error('Imgur upload error:', error);
+    throw new Error('Failed to upload to Imgur');
+  }
+
+  const data = await response.json();
+  return data.data.link;
+}
+
 // POST - Upload file
 export async function POST(request: NextRequest) {
   try {
@@ -40,7 +65,6 @@ export async function POST(request: NextRequest) {
 
     const formData = await request.formData();
     const file = formData.get('file') as File;
-    const type = formData.get('type') as string || 'blog'; // blog, therapy, etc.
 
     if (!file) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
@@ -64,36 +88,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate unique filename
-    const timestamp = Date.now();
-    const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, '-');
-    const ext = path.extname(originalName) || '.jpg';
-    const baseName = path.basename(originalName, ext);
-    const filename = `${baseName}-${timestamp}${ext}`;
-
-    // Determine upload directory based on type
-    const uploadDir = path.join(process.cwd(), 'public', 'images', type);
-
-    // Ensure directory exists
-    await mkdir(uploadDir, { recursive: true });
-
-    // Write file
-    const filePath = path.join(uploadDir, filename);
+    // Convert file to buffer
     const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(filePath, buffer);
 
-    // Return the public URL
-    const publicUrl = `/images/${type}/${filename}`;
+    // Upload to Imgur and get public URL
+    const imageUrl = await uploadToImgur(buffer, file.name);
 
     return NextResponse.json({
       success: true,
-      url: publicUrl,
-      filename: filename,
+      url: imageUrl,
+      filename: file.name,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error uploading file:', error);
     return NextResponse.json(
-      { error: 'Failed to upload file' },
+      { error: 'Failed to upload file', details: error?.message },
       { status: 500 }
     );
   }
