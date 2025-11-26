@@ -51,6 +51,8 @@ export interface BlogPost {
   category?: string;
   tags?: string[];
   featuredImage?: string;
+  audioFile?: string;      // MP3 file URL from Airtable attachment
+  spotifyUrl?: string;     // Spotify episode/playlist URL for embedding
   author: string;
   publishedDate: string;
   status: string;
@@ -160,6 +162,8 @@ export async function getBlogPosts(language: string, limit?: number): Promise<Bl
         category: record.fields.Category as string | undefined,
         tags,
         featuredImage: record.fields.Featured_Image ? (record.fields.Featured_Image as any)[0]?.url : undefined,
+        audioFile: record.fields.Audio_File ? (record.fields.Audio_File as any)[0]?.url : undefined,
+        spotifyUrl: record.fields.Spotify_URL as string | undefined,
         author: record.fields.Author as string,
         publishedDate: record.fields.Published_Date as string,
         status: record.fields.Status as string,
@@ -209,6 +213,8 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
       category: record.fields.Category as string | undefined,
       tags,
       featuredImage: record.fields.Featured_Image ? (record.fields.Featured_Image as any)[0]?.url : undefined,
+      audioFile: record.fields.Audio_File ? (record.fields.Audio_File as any)[0]?.url : undefined,
+      spotifyUrl: record.fields.Spotify_URL as string | undefined,
       author: record.fields.Author as string,
       publishedDate: record.fields.Published_Date as string,
       status: record.fields.Status as string,

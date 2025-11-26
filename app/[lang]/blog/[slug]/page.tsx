@@ -5,6 +5,12 @@ import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
 
+// Revalidate every 60 seconds - blog updates from Airtable will appear within 1 minute
+export const revalidate = 60;
+
+// Allow new blog posts to be rendered on-demand (not just at build time)
+export const dynamicParams = true;
+
 export async function generateMetadata({
   params
 }: {
@@ -73,6 +79,49 @@ export default async function BlogPostPage({
                 alt={post.title}
                 className="w-full h-full object-cover"
               />
+            </div>
+          )}
+
+          {/* Audio Player - Spotify or MP3 */}
+          {(post.spotifyUrl || post.audioFile) && (
+            <div className="mb-8">
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                    </svg>
+                  </div>
+                  <span className="font-semibold text-primary">
+                    {lang === 'fr' ? 'Écouter le podcast' : lang === 'de' ? 'Podcast anhören' : 'Listen to podcast'}
+                  </span>
+                </div>
+
+                {post.spotifyUrl ? (
+                  // Spotify Embed
+                  <iframe
+                    src={post.spotifyUrl.replace('spotify.com/', 'spotify.com/embed/').replace('/episode/', '/episode/').replace('/show/', '/show/')}
+                    width="100%"
+                    height="152"
+                    frameBorder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                    className="rounded-xl"
+                  />
+                ) : post.audioFile ? (
+                  // HTML5 Audio Player for MP3
+                  <audio
+                    controls
+                    className="w-full"
+                    preload="metadata"
+                  >
+                    <source src={post.audioFile} type="audio/mpeg" />
+                    {lang === 'fr' ? 'Votre navigateur ne supporte pas l\'audio.' :
+                     lang === 'de' ? 'Ihr Browser unterstützt kein Audio.' :
+                     'Your browser does not support audio.'}
+                  </audio>
+                ) : null}
+              </div>
             </div>
           )}
 
