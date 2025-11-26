@@ -98,11 +98,46 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
     }
   }, [existingOptions]);
 
+  // Convert Imgur page URLs to direct image URLs
+  function convertImgurUrl(url: string): string {
+    if (!url) return url;
+
+    // Already a direct image URL
+    if (url.match(/^https?:\/\/i\.imgur\.com\/\w+\.\w+$/)) {
+      return url;
+    }
+
+    // Album URL: https://imgur.com/a/xiYhJbB -> https://i.imgur.com/xiYhJbB.jpg
+    const albumMatch = url.match(/imgur\.com\/a\/(\w+)/);
+    if (albumMatch) {
+      return `https://i.imgur.com/${albumMatch[1]}.jpg`;
+    }
+
+    // Gallery URL: https://imgur.com/gallery/xiYhJbB -> https://i.imgur.com/xiYhJbB.jpg
+    const galleryMatch = url.match(/imgur\.com\/gallery\/(\w+)/);
+    if (galleryMatch) {
+      return `https://i.imgur.com/${galleryMatch[1]}.jpg`;
+    }
+
+    // Simple page URL: https://imgur.com/xiYhJbB -> https://i.imgur.com/xiYhJbB.jpg
+    const simpleMatch = url.match(/imgur\.com\/(\w+)$/);
+    if (simpleMatch && simpleMatch[1] !== 'upload') {
+      return `https://i.imgur.com/${simpleMatch[1]}.jpg`;
+    }
+
+    return url;
+  }
+
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Auto-convert Imgur URLs to direct image URLs
+    if (name === 'imageUrl' && value.includes('imgur.com')) {
+      setFormData((prev) => ({ ...prev, [name]: convertImgurUrl(value) }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   }
 
   function handleCategoryChange(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -568,15 +603,15 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                 </div>
                 <input
                   type="url"
-                  placeholder="Collez l'URL ici (https://i.imgur.com/...)"
+                  placeholder="Collez l'URL ici (https://imgur.com/... ou https://i.imgur.com/...)"
                   style={{
                     ...styles.input,
                     marginBottom: '16px',
                   }}
                   onChange={(e) => {
                     const url = e.target.value;
-                    if (url && (url.includes('imgur.com') || url.includes('i.imgur.com'))) {
-                      setFormData((prev) => ({ ...prev, imageUrl: url }));
+                    if (url && url.includes('imgur.com')) {
+                      setFormData((prev) => ({ ...prev, imageUrl: convertImgurUrl(url) }));
                     }
                   }}
                   autoFocus
