@@ -153,9 +153,9 @@ export async function getBlogPosts(language: string, limit?: number): Promise<Bl
         }
       }
 
-      // Get image URL from attachment field
-      const imagesField = record.fields.Images as any[] | undefined;
-      const featuredImage = imagesField && imagesField.length > 0 ? imagesField[0]?.url : undefined;
+      // Get image URL from attachment field (field name is "Image" in Airtable)
+      const imageField = record.fields.Image as any[] | undefined;
+      const featuredImage = imageField && imageField.length > 0 ? imageField[0]?.url : undefined;
 
       // Auto-fill Published_Date if missing
       let publishedDate = record.fields.Published_Date as string;
@@ -258,7 +258,7 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
       content: content || contentFR,
       category: record.fields.Category as string | undefined,
       tags,
-      featuredImage: record.fields.Images ? (record.fields.Images as any)[0]?.url : undefined,
+      featuredImage: record.fields.Image ? (record.fields.Image as any)[0]?.url : undefined,
       audioFile: record.fields.Audio_File ? (record.fields.Audio_File as any)[0]?.url : undefined,
       spotifyUrl: record.fields.Spotify_URL as string | undefined,
       author: record.fields.Author as string,
