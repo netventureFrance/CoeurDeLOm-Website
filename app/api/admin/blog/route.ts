@@ -118,12 +118,24 @@ export async function POST(request: NextRequest) {
       Content_FR: data.contentFR || '',
       Content_DE: data.contentDE || '',
       Content_EN: data.contentEN || '',
-      Category: data.category || '',
-      Tags: data.tags || '',
-      Author: data.author || 'Valerie Heymann',
       Published_Date: data.publishedDate || new Date().toISOString().split('T')[0],
       Status: data.status || 'Draft',
     };
+
+    // Category is Multiple Select - send as array
+    if (data.category) {
+      fields.Category = Array.isArray(data.category) ? data.category : [data.category];
+    }
+
+    // Tags is Multiple Select - send as array
+    if (data.tags) {
+      fields.Tags = Array.isArray(data.tags) ? data.tags : [data.tags];
+    }
+
+    // Author is Single Select - only set if provided
+    if (data.author) {
+      fields.Author = data.author;
+    }
 
     // Add image if provided (as URL for Airtable to download)
     if (data.imageUrl) {
@@ -185,12 +197,32 @@ export async function PUT(request: NextRequest) {
     if (updateData.contentFR !== undefined) fields.Content_FR = updateData.contentFR;
     if (updateData.contentDE !== undefined) fields.Content_DE = updateData.contentDE;
     if (updateData.contentEN !== undefined) fields.Content_EN = updateData.contentEN;
-    if (updateData.category !== undefined) fields.Category = updateData.category;
-    if (updateData.tags !== undefined) fields.Tags = updateData.tags;
-    if (updateData.author !== undefined) fields.Author = updateData.author;
     if (updateData.publishedDate !== undefined) fields.Published_Date = updateData.publishedDate;
     if (updateData.status !== undefined) fields.Status = updateData.status;
     if (updateData.spotifyUrl !== undefined) fields.Spotify_URL = updateData.spotifyUrl;
+
+    // Category is Multiple Select - send as array
+    if (updateData.category !== undefined) {
+      if (updateData.category) {
+        fields.Category = Array.isArray(updateData.category) ? updateData.category : [updateData.category];
+      } else {
+        fields.Category = [];
+      }
+    }
+
+    // Tags is Multiple Select - send as array
+    if (updateData.tags !== undefined) {
+      if (updateData.tags) {
+        fields.Tags = Array.isArray(updateData.tags) ? updateData.tags : [updateData.tags];
+      } else {
+        fields.Tags = [];
+      }
+    }
+
+    // Author is Single Select - only update if provided and not empty
+    if (updateData.author !== undefined && updateData.author) {
+      fields.Author = updateData.author;
+    }
 
     // Handle image update
     if (updateData.imageUrl !== undefined) {
