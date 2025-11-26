@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import '../globals.css';
 
 export const metadata: Metadata = {
   title: 'Admin - Cœur de l\'OM',
@@ -11,8 +12,10 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {children}
-    </div>
+    <html lang="fr">
+      <body className="min-h-screen bg-gray-50">
+        {children}
+      </body>
+    </html>
   );
 }
