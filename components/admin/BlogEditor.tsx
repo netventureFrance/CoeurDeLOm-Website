@@ -288,9 +288,9 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
               onChange={handleChange}
               style={styles.select}
             >
-              <option value="Draft">Brouillon</option>
-              <option value="Unpublished">Non publié</option>
-              <option value="Published">Publié</option>
+              <option value="Draft">Draft</option>
+              <option value="Unpublished">Unpublished</option>
+              <option value="Published">Published</option>
             </select>
             <button
               onClick={handleSubmit}
