@@ -9,14 +9,9 @@ interface BlogPost {
   titleFR: string;
   titleDE: string;
   titleEN: string;
-  excerptFR: string;
-  excerptDE: string;
-  excerptEN: string;
   contentFR: string;
   contentDE: string;
   contentEN: string;
-  category: string;
-  tags: string;
   author: string;
   publishedDate: string;
   status: string;
@@ -98,19 +93,9 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     setIsCreating(false);
   }
 
-  // Extract unique options from posts
+  // Extract unique author options from posts
   const extractedOptions = {
-    categories: [...new Set(posts.flatMap(p => {
-      if (!p.category) return [];
-      return Array.isArray(p.category) ? p.category : [p.category];
-    }).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'fr')),
     authors: [...new Set(posts.map(p => p.author).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'fr')),
-    tags: [...new Set(posts.flatMap(p => {
-      if (!p.tags) return [];
-      if (Array.isArray(p.tags)) return p.tags;
-      if (typeof p.tags === 'string') return p.tags.split(',').map(t => t.trim());
-      return [];
-    }).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'fr')),
   };
 
   if (selectedPost || isCreating) {

@@ -9,14 +9,9 @@ interface BlogPost {
   titleFR: string;
   titleDE: string;
   titleEN: string;
-  excerptFR: string;
-  excerptDE: string;
-  excerptEN: string;
   contentFR: string;
   contentDE: string;
   contentEN: string;
-  category: string;
-  tags: string;
   author: string;
   publishedDate: string;
   status: string;
@@ -30,9 +25,7 @@ interface BlogEditorProps {
   onClose: () => void;
   onSave: () => void;
   existingOptions?: {
-    categories: string[];
     authors: string[];
-    tags: string[];
   };
 }
 
@@ -42,15 +35,9 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
   const [activeTab, setActiveTab] = useState<Language>('FR');
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState('');
-  const [categories, setCategories] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
-  const [tags, setTags] = useState<string[]>([]);
-  const [showNewCategory, setShowNewCategory] = useState(false);
   const [showNewAuthor, setShowNewAuthor] = useState(false);
-  const [showNewTag, setShowNewTag] = useState(false);
-  const [newCategory, setNewCategory] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
-  const [newTag, setNewTag] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -60,14 +47,9 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
     titleFR: post?.titleFR || '',
     titleDE: post?.titleDE || '',
     titleEN: post?.titleEN || '',
-    excerptFR: post?.excerptFR || '',
-    excerptDE: post?.excerptDE || '',
-    excerptEN: post?.excerptEN || '',
     contentFR: post?.contentFR || '',
     contentDE: post?.contentDE || '',
     contentEN: post?.contentEN || '',
-    category: post?.category || '',
-    tags: post?.tags || '',
     author: post?.author || '',
     publishedDate: post?.publishedDate || new Date().toISOString().split('T')[0],
     status: post?.status || 'Draft',
@@ -75,49 +57,29 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
     spotifyUrl: post?.spotifyUrl || '',
   });
 
-  // Always fetch options from API to get all available options
+  // Fetch author options from API
   useEffect(() => {
-    async function fetchOptions() {
+    async function fetchAuthors() {
       try {
         const response = await fetch('/api/admin/categories');
         if (response.ok) {
           const data = await response.json();
-          // Merge with existingOptions to ensure we have all options
-          const mergedCategories = new Set([
-            ...(data.categories || []),
-            ...(existingOptions?.categories || []),
-          ]);
           const mergedAuthors = new Set([
             ...(data.authors || []),
             ...(existingOptions?.authors || []),
           ]);
-          const mergedTags = new Set([
-            ...(data.tags || []),
-            ...(existingOptions?.tags || []),
-          ]);
-
-          setCategories(Array.from(mergedCategories).sort((a, b) => a.localeCompare(b, 'fr')));
           setAuthors(Array.from(mergedAuthors).sort((a, b) => a.localeCompare(b, 'fr')));
-          setTags(Array.from(mergedTags).sort((a, b) => a.localeCompare(b, 'fr')));
-        } else {
-          // Fallback to existingOptions if API fails
-          if (existingOptions) {
-            setCategories(existingOptions.categories || []);
-            setAuthors(existingOptions.authors || []);
-            setTags(existingOptions.tags || []);
-          }
+        } else if (existingOptions) {
+          setAuthors(existingOptions.authors || []);
         }
       } catch (err) {
-        console.error('Error fetching options:', err);
-        // Fallback to existingOptions on error
+        console.error('Error fetching authors:', err);
         if (existingOptions) {
-          setCategories(existingOptions.categories || []);
           setAuthors(existingOptions.authors || []);
-          setTags(existingOptions.tags || []);
         }
       }
     }
-    fetchOptions();
+    fetchAuthors();
   }, [existingOptions]);
 
   // Convert Google Drive share URLs to direct image URLs
@@ -171,38 +133,15 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
     }
   }
 
-  function handleCategoryChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const value = e.target.value;
-    if (value === '__new__') {
-      setShowNewCategory(true);
-    } else {
-      setFormData((prev) => ({ ...prev, category: value }));
-      setShowNewCategory(false);
-    }
-  }
-
-  async function saveOptionToAirtable(type: 'Category' | 'Author' | 'Tag', value: string) {
+  async function saveAuthorToAirtable(value: string) {
     try {
       await fetch('/api/admin/categories', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type, value }),
+        body: JSON.stringify({ type: 'Author', value }),
       });
     } catch (err) {
-      console.error('Error saving option to Airtable:', err);
-    }
-  }
-
-  function handleAddNewCategory() {
-    if (newCategory.trim()) {
-      const trimmed = newCategory.trim();
-      if (!categories.includes(trimmed)) {
-        setCategories((prev) => [...prev, trimmed].sort((a, b) => a.localeCompare(b, 'fr')));
-        saveOptionToAirtable('Category', trimmed);
-      }
-      setFormData((prev) => ({ ...prev, category: trimmed }));
-      setNewCategory('');
-      setShowNewCategory(false);
+      console.error('Error saving author to Airtable:', err);
     }
   }
 
@@ -221,34 +160,11 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
       const trimmed = newAuthor.trim();
       if (!authors.includes(trimmed)) {
         setAuthors((prev) => [...prev, trimmed].sort((a, b) => a.localeCompare(b, 'fr')));
-        saveOptionToAirtable('Author', trimmed);
+        saveAuthorToAirtable(trimmed);
       }
       setFormData((prev) => ({ ...prev, author: trimmed }));
       setNewAuthor('');
       setShowNewAuthor(false);
-    }
-  }
-
-  function handleTagChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const value = e.target.value;
-    if (value === '__new__') {
-      setShowNewTag(true);
-    } else {
-      setFormData((prev) => ({ ...prev, tags: value }));
-      setShowNewTag(false);
-    }
-  }
-
-  function handleAddNewTag() {
-    if (newTag.trim()) {
-      const trimmed = newTag.trim();
-      if (!tags.includes(trimmed)) {
-        setTags((prev) => [...prev, trimmed].sort((a, b) => a.localeCompare(b, 'fr')));
-        saveOptionToAirtable('Tag', trimmed);
-      }
-      setFormData((prev) => ({ ...prev, tags: trimmed }));
-      setNewTag('');
-      setShowNewTag(false);
     }
   }
 
@@ -453,48 +369,6 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                 )}
               </div>
               <div>
-                <label style={styles.label}>Catégorie</label>
-                {!showNewCategory ? (
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleCategoryChange}
-                    style={{ ...styles.input, cursor: 'pointer' }}
-                  >
-                    <option value="">-- Sélectionner --</option>
-                    {categories.map((cat) => (
-                      <option key={cat} value={cat}>{cat}</option>
-                    ))}
-                    <option value="__new__">+ Ajouter une catégorie...</option>
-                  </select>
-                ) : (
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <input
-                      type="text"
-                      value={newCategory}
-                      onChange={(e) => setNewCategory(e.target.value)}
-                      placeholder="Nouvelle catégorie..."
-                      style={{ ...styles.input, flex: 1 }}
-                      onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddNewCategory())}
-                    />
-                    <button
-                      type="button"
-                      onClick={handleAddNewCategory}
-                      style={{ ...styles.saveBtn, padding: '8px 16px' }}
-                    >
-                      OK
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setShowNewCategory(false)}
-                      style={{ ...styles.backBtn, padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px' }}
-                    >
-                      Annuler
-                    </button>
-                  </div>
-                )}
-              </div>
-              <div>
                 <label style={styles.label}>Date de publication</label>
                 <input
                   type="date"
@@ -503,48 +377,6 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                   onChange={handleChange}
                   style={styles.input}
                 />
-              </div>
-              <div>
-                <label style={styles.label}>Tag</label>
-                {!showNewTag ? (
-                  <select
-                    name="tags"
-                    value={formData.tags}
-                    onChange={handleTagChange}
-                    style={{ ...styles.input, cursor: 'pointer' }}
-                  >
-                    <option value="">-- Sélectionner --</option>
-                    {tags.map((tag) => (
-                      <option key={tag} value={tag}>{tag}</option>
-                    ))}
-                    <option value="__new__">+ Ajouter un tag...</option>
-                  </select>
-                ) : (
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <input
-                      type="text"
-                      value={newTag}
-                      onChange={(e) => setNewTag(e.target.value)}
-                      placeholder="Nouveau tag..."
-                      style={{ ...styles.input, flex: 1 }}
-                      onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddNewTag())}
-                    />
-                    <button
-                      type="button"
-                      onClick={handleAddNewTag}
-                      style={{ ...styles.saveBtn, padding: '8px 16px' }}
-                    >
-                      OK
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setShowNewTag(false)}
-                      style={{ ...styles.backBtn, padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '8px' }}
-                    >
-                      Annuler
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -719,19 +551,6 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                   onChange={handleChange}
                   placeholder={`Titre en ${tabs.find((t) => t.key === activeTab)?.label}`}
                   style={{ ...styles.input, fontSize: '18px', fontWeight: '600' }}
-                />
-              </div>
-
-              {/* Excerpt */}
-              <div style={{ marginBottom: '20px' }}>
-                <label style={styles.label}>Extrait (résumé affiché dans la liste)</label>
-                <textarea
-                  name={`excerpt${activeTab}`}
-                  value={formData[`excerpt${activeTab}` as keyof typeof formData] as string}
-                  onChange={handleChange}
-                  rows={4}
-                  placeholder={`Court résumé de l'article...`}
-                  style={styles.textarea}
                 />
               </div>
 
