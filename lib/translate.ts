@@ -33,20 +33,17 @@ export async function translateWithClaude(
       model: 'claude-3-haiku-20240307',
       max_tokens: 4096,
       temperature: 0.3,
+      system: `You are a professional translator. You translate French text to ${targetLanguage}.
+CRITICAL RULES:
+- Output ONLY the translated text, nothing else
+- NO preamble, NO commentary, NO explanations like "Here is the translation:"
+- Preserve ALL HTML tags exactly (<p>, <br>, <em>, <strong>, <ul>, <li>, <h2>, <h3>, etc.)
+- Keep paragraph structure and line breaks
+- Start your response directly with the translated content`,
       messages: [
         {
           role: 'user',
-          content: `Translate the following French text to ${targetLanguage}.
-
-IMPORTANT RULES:
-- Preserve ALL HTML tags exactly as they are (<p>, <br>, <em>, <strong>, <ul>, <li>, <h2>, <h3>, etc.)
-- Keep the same paragraph structure and line breaks
-- Maintain all formatting (bold, italic, lists, headings)
-- If there are any technical or spiritual terms, translate them appropriately for the target audience
-- Only return the translated text with HTML formatting preserved, nothing else
-
-French text:
-${text}`,
+          content: text,
         },
       ],
     });
