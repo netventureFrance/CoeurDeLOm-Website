@@ -159,7 +159,7 @@ export default function RichTextEditor({ value, onChange, placeholder, minHeight
           type="button"
           onClick={() => execCommand('formatBlock', 'h2')}
           style={toolbarStyles.button}
-          title="Titre"
+          title="Titre H2"
         >
           H2
         </button>
@@ -167,9 +167,33 @@ export default function RichTextEditor({ value, onChange, placeholder, minHeight
           type="button"
           onClick={() => execCommand('formatBlock', 'h3')}
           style={toolbarStyles.button}
-          title="Sous-titre"
+          title="Sous-titre H3"
         >
           H3
+        </button>
+        <button
+          type="button"
+          onClick={() => execCommand('formatBlock', 'h4')}
+          style={toolbarStyles.button}
+          title="Sous-titre H4"
+        >
+          H4
+        </button>
+        <button
+          type="button"
+          onClick={() => execCommand('formatBlock', 'h5')}
+          style={toolbarStyles.button}
+          title="Sous-titre H5"
+        >
+          H5
+        </button>
+        <button
+          type="button"
+          onClick={() => execCommand('formatBlock', 'h6')}
+          style={toolbarStyles.button}
+          title="Sous-titre H6"
+        >
+          H6
         </button>
         <button
           type="button"
