@@ -37,9 +37,13 @@ export async function translateWithClaude(
         {
           role: 'user',
           content: `Translate the following French text to ${targetLanguage}.
-Keep the same tone, style, and formatting.
-If there are any technical or spiritual terms, translate them appropriately for the target audience.
-Only return the translation, nothing else.
+
+IMPORTANT RULES:
+- Preserve ALL HTML tags exactly as they are (<p>, <br>, <em>, <strong>, <ul>, <li>, <h2>, <h3>, etc.)
+- Keep the same paragraph structure and line breaks
+- Maintain all formatting (bold, italic, lists, headings)
+- If there are any technical or spiritual terms, translate them appropriately for the target audience
+- Only return the translated text with HTML formatting preserved, nothing else
 
 French text:
 ${text}`,
