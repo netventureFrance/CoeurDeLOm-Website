@@ -8,6 +8,15 @@ import InteractiveTitle from '@/components/InteractiveTitle';
 // Revalidate every 60 seconds - blog updates from Airtable will appear within 1 minute
 export const revalidate = 60;
 
+// Strip HTML tags and get first ~150 characters for preview
+function getContentPreview(content: string, maxLength: number = 150): string {
+  // Remove HTML tags
+  const textOnly = content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  // Truncate and add ellipsis if needed
+  if (textOnly.length <= maxLength) return textOnly;
+  return textOnly.substring(0, maxLength).trim() + '...';
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
 
@@ -78,7 +87,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
                     >
                       {post.title}
                     </h2>
-                    <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                    <p className="text-gray-600 mb-4 line-clamp-3">{getContentPreview(post.content, 200)}</p>
                     <Link
                       href={`/${lang}/blog/${post.slug}`}
                       className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"

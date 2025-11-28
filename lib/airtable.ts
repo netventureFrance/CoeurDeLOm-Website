@@ -46,7 +46,6 @@ export interface BlogPost {
   id: string;
   slug: string;
   title: string;
-  excerpt: string;
   content: string;
   category?: string;
   tags?: string[];
@@ -140,7 +139,6 @@ export async function getBlogPosts(language: string, limit?: number): Promise<Bl
 
     return records.map((record) => {
       const titleField = `Title_${language.toUpperCase()}` as keyof typeof record.fields;
-      const excerptField = `Excerpt_${language.toUpperCase()}` as keyof typeof record.fields;
       const contentField = `Content_${language.toUpperCase()}` as keyof typeof record.fields;
 
       // Parse tags - handle both string (comma-separated) and array
@@ -176,7 +174,6 @@ export async function getBlogPosts(language: string, limit?: number): Promise<Bl
         id: record.id,
         slug: record.fields.Slug as string,
         title: (record.fields[titleField] as string) || (record.fields.Title_FR as string),
-        excerpt: (record.fields[excerptField] as string) || (record.fields.Excerpt_FR as string),
         content: (record.fields[contentField] as string) || (record.fields.Content_FR as string),
         category: record.fields.Category as string | undefined,
         tags,
@@ -215,28 +212,24 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
     const record = records[0];
     const langUpper = language.toUpperCase();
     const titleField = `Title_${langUpper}` as keyof typeof record.fields;
-    const excerptField = `Excerpt_${langUpper}` as keyof typeof record.fields;
     const contentField = `Content_${langUpper}` as keyof typeof record.fields;
 
     // Get French content (source for translations)
     const titleFR = record.fields.Title_FR as string || '';
-    const excerptFR = record.fields.Excerpt_FR as string || '';
     const contentFR = record.fields.Content_FR as string || '';
 
     // Get target language content
     let title = record.fields[titleField] as string || '';
-    let excerpt = record.fields[excerptField] as string || '';
     let content = record.fields[contentField] as string || '';
 
     // Auto-translate if target language content is missing (and language is DE or EN)
     if ((language === 'de' || language === 'en') && (!title || !content) && titleFR && contentFR) {
       console.log(`🔄 Auto-translating blog post "${slug}" to ${language}...`);
 
-      const translations = await translateBlogFields(titleFR, excerptFR, contentFR, language);
+      const translations = await translateBlogFields(titleFR, contentFR, language);
 
       // Update local variables with translations
       title = translations.title;
-      excerpt = translations.excerpt;
       content = translations.content;
 
       // Save translations to Airtable (fire and forget - don't wait)
@@ -267,7 +260,6 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
       id: record.id,
       slug: record.fields.Slug as string,
       title: title || titleFR,
-      excerpt: excerpt || excerptFR,
       content: content || contentFR,
       category: record.fields.Category as string | undefined,
       tags,
@@ -362,13 +354,12 @@ export async function submitChromoBioTestRegistration(data: ChromoBioTestSubmiss
 export async function updateBlogPostTranslations(
   recordId: string,
   language: 'de' | 'en',
-  translations: { title: string; excerpt: string; content: string }
+  translations: { title: string; content: string }
 ): Promise<boolean> {
   try {
     const langUpper = language.toUpperCase();
     await base('Blog Posts').update(recordId, {
       [`Title_${langUpper}`]: translations.title,
-      [`Excerpt_${langUpper}`]: translations.excerpt,
       [`Content_${langUpper}`]: translations.content,
     });
     console.log(`✅ Saved ${language} translations to Airtable for record ${recordId}`);

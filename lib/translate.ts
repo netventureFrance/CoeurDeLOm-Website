@@ -67,17 +67,15 @@ CRITICAL RULES:
  */
 export async function translateBlogFields(
   titleFR: string,
-  excerptFR: string,
   contentFR: string,
   targetLang: 'de' | 'en'
-): Promise<{ title: string; excerpt: string; content: string }> {
+): Promise<{ title: string; content: string }> {
   console.log(`🔄 Translating blog post to ${targetLang}...`);
 
-  const [title, excerpt, content] = await Promise.all([
+  const [title, content] = await Promise.all([
     translateWithClaude(titleFR, targetLang),
-    translateWithClaude(excerptFR, targetLang),
     translateWithClaude(contentFR, targetLang),
   ]);
 
-  return { title, excerpt, content };
+  return { title, content };
 }

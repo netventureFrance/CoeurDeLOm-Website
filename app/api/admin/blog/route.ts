@@ -68,9 +68,6 @@ export async function GET(request: NextRequest) {
         titleFR: record.fields.Title_FR,
         titleDE: record.fields.Title_DE,
         titleEN: record.fields.Title_EN,
-        excerptFR: record.fields.Excerpt_FR,
-        excerptDE: record.fields.Excerpt_DE,
-        excerptEN: record.fields.Excerpt_EN,
         contentFR: record.fields.Content_FR,
         contentDE: record.fields.Content_DE,
         contentEN: record.fields.Content_EN,
@@ -132,9 +129,6 @@ export async function POST(request: NextRequest) {
       Title_FR: data.titleFR || '',
       Title_DE: data.titleDE || '',
       Title_EN: data.titleEN || '',
-      Excerpt_FR: data.excerptFR || '',
-      Excerpt_DE: data.excerptDE || '',
-      Excerpt_EN: data.excerptEN || '',
       Content_FR: data.contentFR || '',
       Content_DE: data.contentDE || '',
       Content_EN: data.contentEN || '',
@@ -215,9 +209,6 @@ export async function PUT(request: NextRequest) {
     if (updateData.titleFR !== undefined) fields.Title_FR = updateData.titleFR;
     if (updateData.titleDE !== undefined) fields.Title_DE = updateData.titleDE;
     if (updateData.titleEN !== undefined) fields.Title_EN = updateData.titleEN;
-    if (updateData.excerptFR !== undefined) fields.Excerpt_FR = updateData.excerptFR;
-    if (updateData.excerptDE !== undefined) fields.Excerpt_DE = updateData.excerptDE;
-    if (updateData.excerptEN !== undefined) fields.Excerpt_EN = updateData.excerptEN;
     if (updateData.contentFR !== undefined) fields.Content_FR = updateData.contentFR;
     if (updateData.contentDE !== undefined) fields.Content_DE = updateData.contentDE;
     if (updateData.contentEN !== undefined) fields.Content_EN = updateData.contentEN;

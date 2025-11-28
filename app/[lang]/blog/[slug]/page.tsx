@@ -8,6 +8,13 @@ import InteractiveTitle from '@/components/InteractiveTitle';
 // Revalidate every 60 seconds - blog updates from Airtable will appear within 1 minute
 export const revalidate = 60;
 
+// Strip HTML tags and get first ~150 characters for preview/description
+function getContentPreview(content: string, maxLength: number = 160): string {
+  const textOnly = content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (textOnly.length <= maxLength) return textOnly;
+  return textOnly.substring(0, maxLength).trim() + '...';
+}
+
 // Allow new blog posts to be rendered on-demand (not just at build time)
 export const dynamicParams = true;
 
@@ -25,12 +32,13 @@ export async function generateMetadata({
     };
   }
 
+  const description = getContentPreview(post.content);
   return {
     title: post.title,
-    description: post.excerpt,
+    description,
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description,
       images: post.featuredImage ? [post.featuredImage] : ['/Coeur-de-lOm-Alpha-Kopie.png'],
     },
   };
