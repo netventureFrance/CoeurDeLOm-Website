@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Clean status value - remove any extra quotes
-    let status = data.status || 'Brouillon';
+    let status = data.status || 'Draft';
     if (typeof status === 'string') {
       // Remove all leading/trailing quotes and whitespace repeatedly
       while (/^["'\s]|["'\s]$/.test(status)) {

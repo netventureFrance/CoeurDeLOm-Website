@@ -126,7 +126,7 @@ export async function getNewsPromos(language: string): Promise<NewsPromo[]> {
 export async function getBlogPosts(language: string, limit?: number): Promise<BlogPost[]> {
   try {
     const selectOptions: any = {
-      filterByFormula: `AND({Status} = 'Publié')`,
+      filterByFormula: `AND({Status} = 'Published')`,
       sort: [{ field: 'Published_Date', direction: 'desc' }],
     };
 
