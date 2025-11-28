@@ -53,12 +53,13 @@ export async function GET(request: NextRequest) {
     const categories = new Set<string>();
     const authors = new Set<string>();
     const tags = new Set<string>();
+    const statuses = new Set<string>();
 
     // Fetch existing values from Blog Posts
     try {
       const blogRecords = await base('Blog Posts')
         .select({
-          fields: ['Category', 'Author', 'Tags'],
+          fields: ['Category', 'Author', 'Tags', 'Status'],
         })
         .all();
 
@@ -95,6 +96,12 @@ export async function GET(request: NextRequest) {
             });
           }
         }
+
+        // Status is Single Select - returns string
+        const status = record.fields.Status as string;
+        if (status && status.trim()) {
+          statuses.add(status.trim());
+        }
       });
     } catch (err: any) {
       console.log('Error fetching from Blog Posts:', err?.message || err);
@@ -107,6 +114,7 @@ export async function GET(request: NextRequest) {
       categories: Array.from(categories).sort(sortFr),
       authors: Array.from(authors).sort(sortFr),
       tags: Array.from(tags).sort(sortFr),
+      statuses: Array.from(statuses).sort(sortFr),
     };
 
     console.log('Returning options:', result);

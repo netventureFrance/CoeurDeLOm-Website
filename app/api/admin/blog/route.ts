@@ -103,6 +103,7 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await request.json();
+    console.log('Received data.status:', JSON.stringify(data.status));
     const base = getAirtableBase();
 
     // Generate slug from French title if not provided
@@ -119,8 +120,12 @@ export async function POST(request: NextRequest) {
     // Clean status value - remove any extra quotes
     let status = data.status || 'Draft';
     if (typeof status === 'string') {
-      status = status.replace(/^["']+|["']+$/g, '').trim();
+      // Remove all leading/trailing quotes and whitespace repeatedly
+      while (/^["'\s]|["'\s]$/.test(status)) {
+        status = status.replace(/^["'\s]+|["'\s]+$/g, '');
+      }
     }
+    console.log('Cleaned status:', JSON.stringify(status));
 
     const fields: any = {
       Slug: slug,
@@ -217,7 +222,16 @@ export async function PUT(request: NextRequest) {
     if (updateData.contentDE !== undefined) fields.Content_DE = updateData.contentDE;
     if (updateData.contentEN !== undefined) fields.Content_EN = updateData.contentEN;
     if (updateData.publishedDate !== undefined) fields.Published_Date = updateData.publishedDate;
-    if (updateData.status !== undefined) fields.Status = updateData.status;
+    if (updateData.status !== undefined) {
+      let status = updateData.status;
+      // Clean status value - remove any extra quotes
+      if (typeof status === 'string') {
+        while (/^["'\s]|["'\s]$/.test(status)) {
+          status = status.replace(/^["'\s]+|["'\s]+$/g, '');
+        }
+      }
+      fields.Status = status;
+    }
     if (updateData.spotifyUrl !== undefined) fields.Spotify_URL = updateData.spotifyUrl;
 
     // Category is Multiple Select - send as array
