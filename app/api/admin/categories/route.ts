@@ -40,9 +40,7 @@ async function checkAuth(): Promise<boolean> {
   }
 }
 
-const BLOG_OPTIONS_TABLE = 'tblGWAGY3hYMRBC4y';
-
-// GET - Fetch all options from Blog_Options table + existing values from Blog Posts
+// GET - Fetch all options from existing Blog Posts
 export async function GET(request: NextRequest) {
   try {
     if (!(await checkAuth())) {
@@ -52,34 +50,11 @@ export async function GET(request: NextRequest) {
 
     const base = getAirtableBase();
 
-    // Fetch from Blog_Options table
     const categories = new Set<string>();
     const authors = new Set<string>();
     const tags = new Set<string>();
 
-    try {
-      const optionsRecords = await base(BLOG_OPTIONS_TABLE)
-        .select({
-          fields: ['Type', 'Value'],
-        })
-        .all();
-
-      console.log('Blog_Options records found:', optionsRecords.length);
-      optionsRecords.forEach((record) => {
-        const type = record.fields.Type as string;
-        const value = record.fields.Value as string;
-        console.log('Option:', type, value);
-        if (value && value.trim()) {
-          if (type === 'Category') categories.add(value.trim());
-          else if (type === 'Author') authors.add(value.trim());
-          else if (type === 'Tag') tags.add(value.trim());
-        }
-      });
-    } catch (err: any) {
-      console.log('Blog_Options table error:', err?.message || err);
-    }
-
-    // Also fetch existing values from Blog Posts (for backwards compatibility)
+    // Fetch existing values from Blog Posts
     try {
       const blogRecords = await base('Blog Posts')
         .select({
@@ -146,58 +121,19 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Add a new option to Blog_Options table
+// POST - Accept new options (will be saved with the blog post)
 export async function POST(request: NextRequest) {
   try {
     if (!(await checkAuth())) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { type, value } = await request.json();
-
-    if (!type || !value) {
-      return NextResponse.json(
-        { error: 'Type and value are required' },
-        { status: 400 }
-      );
-    }
-
-    if (!['Category', 'Author', 'Tag'].includes(type)) {
-      return NextResponse.json(
-        { error: 'Invalid type. Must be Category, Author, or Tag' },
-        { status: 400 }
-      );
-    }
-
-    const base = getAirtableBase();
-
-    // Check if already exists
-    const existing = await base(BLOG_OPTIONS_TABLE)
-      .select({
-        filterByFormula: `AND({Type} = '${type}', {Value} = '${value.replace(/'/g, "\\'")}')`,
-        maxRecords: 1,
-      })
-      .all();
-
-    if (existing.length > 0) {
-      return NextResponse.json({ success: true, message: 'Option already exists' });
-    }
-
-    // Create new option
-    await base(BLOG_OPTIONS_TABLE).create([
-      {
-        fields: {
-          Type: type,
-          Value: value.trim(),
-        },
-      },
-    ]);
-
+    // Options are saved with the blog post, no separate storage needed
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error adding option:', error);
+    console.error('Error in options POST:', error);
     return NextResponse.json(
-      { error: 'Failed to add option' },
+      { error: 'Failed to process option' },
       { status: 500 }
     );
   }
