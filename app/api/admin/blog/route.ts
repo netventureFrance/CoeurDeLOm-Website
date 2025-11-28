@@ -159,10 +159,14 @@ export async function POST(request: NextRequest) {
       id: record[0].id,
       slug: slug,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating blog post:', error);
     return NextResponse.json(
-      { error: 'Failed to create blog post' },
+      {
+        error: 'Failed to create blog post',
+        details: error?.message || error?.toString(),
+        airtableError: error?.error || null
+      },
       { status: 500 }
     );
   }
