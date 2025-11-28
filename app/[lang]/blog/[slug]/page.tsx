@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { type Locale, getDictionary } from '@/lib/i18n';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/airtable';
 import { Metadata } from 'next';
@@ -82,6 +83,12 @@ export default async function BlogPostPage({
   if (!post) {
     notFound();
   }
+
+  // Fetch all posts to find previous/next
+  const allPosts = await getBlogPosts(lang);
+  const currentIndex = allPosts.findIndex(p => p.slug === slug);
+  const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+  const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 
   return (
     <main className="relative min-h-screen pt-40 pb-20 overflow-hidden">
@@ -207,6 +214,66 @@ export default async function BlogPostPage({
                 </h3>
               </div>
             </div>
+          )}
+
+          {/* Navigation to other posts */}
+          {(prevPost || nextPost) && (
+            <nav className="mt-12 pt-8 border-t border-gray-200">
+              <div className="flex justify-between items-stretch gap-4">
+                {/* Previous Post */}
+                {prevPost ? (
+                  <Link
+                    href={`/${lang}/blog/${prevPost.slug}`}
+                    className="flex-1 group p-4 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-all"
+                  >
+                    <span className="text-sm text-gray-500 flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                      {lang === 'fr' ? 'Article précédent' : lang === 'de' ? 'Vorheriger Artikel' : 'Previous post'}
+                    </span>
+                    <h4 className="mt-1 font-semibold text-primary group-hover:text-purple-700 transition-colors line-clamp-2">
+                      {prevPost.title}
+                    </h4>
+                  </Link>
+                ) : (
+                  <div className="flex-1" />
+                )}
+
+                {/* Next Post */}
+                {nextPost ? (
+                  <Link
+                    href={`/${lang}/blog/${nextPost.slug}`}
+                    className="flex-1 group p-4 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-all text-right"
+                  >
+                    <span className="text-sm text-gray-500 flex items-center justify-end gap-1">
+                      {lang === 'fr' ? 'Article suivant' : lang === 'de' ? 'Nächster Artikel' : 'Next post'}
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                    <h4 className="mt-1 font-semibold text-primary group-hover:text-purple-700 transition-colors line-clamp-2">
+                      {nextPost.title}
+                    </h4>
+                  </Link>
+                ) : (
+                  <div className="flex-1" />
+                )}
+              </div>
+
+              {/* Back to blog list */}
+              <div className="mt-6 text-center">
+                <Link
+                  href={`/${lang}/blog`}
+                  className="inline-flex items-center gap-2 text-primary hover:text-purple-700 font-medium transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                  </svg>
+                  {lang === 'fr' ? 'Tous les articles' : lang === 'de' ? 'Alle Artikel' : 'All posts'}
+                </Link>
+              </div>
+            </nav>
           )}
         </div>
       </article>
