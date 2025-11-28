@@ -153,22 +153,13 @@ export async function getBlogPosts(language: string, limit?: number): Promise<Bl
         }
       }
 
-      // Get image - use local path based on slug (synced via scripts/sync-blog-images.js)
+      // Get image - use URL from Airtable attachment
       const slug = record.fields.Slug as string;
       const imageField = record.fields.Image as any[] | undefined;
       let featuredImage: string | undefined;
-      if (imageField && imageField.length > 0 && slug) {
-        // Determine extension from attachment type
-        const attachment = imageField[0];
-        const typeMap: { [key: string]: string } = {
-          'image/png': '.png',
-          'image/jpeg': '.jpg',
-          'image/jpg': '.jpg',
-          'image/gif': '.gif',
-          'image/webp': '.webp',
-        };
-        const ext = typeMap[attachment.type] || '.jpg';
-        featuredImage = `/images/blog/${slug}${ext}`;
+      if (imageField && imageField.length > 0) {
+        // Use the actual URL from the attachment (works with ImgBB, Airtable CDN, etc.)
+        featuredImage = imageField[0].url;
       }
 
       // Auto-fill Published_Date if missing
@@ -264,20 +255,12 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
       }
     }
 
-    // Get image - use local path based on slug (synced via scripts/sync-blog-images.js)
+    // Get image - use URL from Airtable attachment
     const imageField = record.fields.Image as any[] | undefined;
     let featuredImage: string | undefined;
     if (imageField && imageField.length > 0) {
-      const attachment = imageField[0];
-      const typeMap: { [key: string]: string } = {
-        'image/png': '.png',
-        'image/jpeg': '.jpg',
-        'image/jpg': '.jpg',
-        'image/gif': '.gif',
-        'image/webp': '.webp',
-      };
-      const ext = typeMap[attachment.type] || '.jpg';
-      featuredImage = `/images/blog/${slug}${ext}`;
+      // Use the actual URL from the attachment (works with ImgBB, Airtable CDN, etc.)
+      featuredImage = imageField[0].url;
     }
 
     return {
