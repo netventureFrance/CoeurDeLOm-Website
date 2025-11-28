@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import RichTextEditor from './RichTextEditor';
 
 interface BlogPost {
@@ -54,6 +54,9 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
   const [showDriveModal, setShowDriveModal] = useState(false);
   const [driveImages, setDriveImages] = useState<Array<{id: string; name: string; thumbnail: string; url: string}>>([]);
   const [loadingDriveImages, setLoadingDriveImages] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     slug: post?.slug || '',
@@ -280,6 +283,43 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
   function selectDriveImage(url: string) {
     setFormData((prev) => ({ ...prev, imageUrl: url }));
     setShowDriveModal(false);
+  }
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    setUploadMessage('');
+    setError('');
+
+    try {
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file);
+
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: uploadFormData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.details || data.error || 'Erreur lors du téléchargement');
+      }
+
+      // Set the image URL from ImgBB
+      setFormData((prev) => ({ ...prev, imageUrl: data.url }));
+      setUploadMessage('Image téléchargée avec succès!');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erreur lors du téléchargement');
+    } finally {
+      setIsUploading(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -608,6 +648,60 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
                 </div>
               )}
               <div style={{ flex: 1 }}>
+                {/* File Upload Button */}
+                <div style={{ marginBottom: '16px' }}>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    accept="image/jpeg,image/png,image/gif,image/webp"
+                    onChange={handleImageUpload}
+                    style={{ display: 'none' }}
+                    id="image-upload"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploading}
+                    style={{
+                      backgroundColor: isUploading ? '#9ca3af' : '#10b981',
+                      color: 'white',
+                      padding: '14px 24px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      cursor: isUploading ? 'wait' : 'pointer',
+                      fontWeight: '600',
+                      fontSize: '15px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      width: '100%',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {isUploading ? (
+                      <>⏳ Téléchargement en cours...</>
+                    ) : (
+                      <>📤 Télécharger une image depuis votre ordinateur</>
+                    )}
+                  </button>
+                  <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '6px', textAlign: 'center' }}>
+                    JPEG, PNG, GIF, WebP (max 32MB)
+                  </p>
+                  {uploadMessage && (
+                    <p style={{ fontSize: '13px', color: '#10b981', marginTop: '8px', textAlign: 'center' }}>
+                      ✓ {uploadMessage}
+                    </p>
+                  )}
+                </div>
+
+                {/* Divider */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '20px 0' }}>
+                  <div style={{ flex: 1, height: '1px', backgroundColor: '#e5e7eb' }} />
+                  <span style={{ fontSize: '13px', color: '#9ca3af' }}>OU</span>
+                  <div style={{ flex: 1, height: '1px', backgroundColor: '#e5e7eb' }} />
+                </div>
+
+                {/* Google Drive Options */}
                 <div style={{ display: 'flex', gap: '12px', marginBottom: '12px' }}>
                   <button
                     type="button"
