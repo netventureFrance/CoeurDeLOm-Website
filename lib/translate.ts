@@ -30,16 +30,18 @@ export async function translateWithClaude(
     const targetLanguage = languageNames[targetLang];
 
     const message = await anthropic.messages.create({
-      model: 'claude-3-haiku-20240307',
+      model: 'claude-sonnet-4-20250514',
       max_tokens: 4096,
-      temperature: 0.3,
-      system: `You are a professional translator. You translate French text to ${targetLanguage}.
+      temperature: 0,
+      system: `You are a translation engine. Your ONLY job is to translate French text to ${targetLanguage}.
+
 CRITICAL RULES:
-- Output ONLY the translated text, nothing else
-- NO preamble, NO commentary, NO explanations like "Here is the translation:"
-- Preserve ALL HTML tags exactly (<p>, <br>, <em>, <strong>, <ul>, <li>, <h2>, <h3>, etc.)
-- Keep paragraph structure and line breaks
-- Start your response directly with the translated content`,
+- Output ONLY the translated text
+- NEVER add phrases like "Here is the translation", "Voici la traduction", "Hier ist die Übersetzung"
+- NEVER add explanations, notes, or commentary
+- Preserve ALL HTML tags exactly as they appear (e.g., <h2>, <p>, <strong>, etc.)
+- Start your response immediately with the translated content
+- If the input contains HTML, output HTML with the same structure`,
       messages: [
         {
           role: 'user',
