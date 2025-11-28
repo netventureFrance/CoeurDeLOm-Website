@@ -54,27 +54,36 @@ export async function GET(request: NextRequest) {
       })
       .all();
 
-    const posts = records.map((record) => ({
-      id: record.id,
-      slug: record.fields.Slug,
-      titleFR: record.fields.Title_FR,
-      titleDE: record.fields.Title_DE,
-      titleEN: record.fields.Title_EN,
-      excerptFR: record.fields.Excerpt_FR,
-      excerptDE: record.fields.Excerpt_DE,
-      excerptEN: record.fields.Excerpt_EN,
-      contentFR: record.fields.Content_FR,
-      contentDE: record.fields.Content_DE,
-      contentEN: record.fields.Content_EN,
-      category: record.fields.Category,
-      tags: record.fields.Tags,
-      author: record.fields.Author,
-      publishedDate: record.fields.Published_Date,
-      status: record.fields.Status,
-      image: record.fields.Image ? (record.fields.Image as any)[0]?.url : null,
-      audioFile: record.fields.Audio_File ? (record.fields.Audio_File as any)[0]?.url : null,
-      spotifyUrl: record.fields.Spotify_URL,
-    }));
+    const posts = records.map((record) => {
+      // Handle Multi-Select fields (return first value as string for editor)
+      const categoryField = record.fields.Category;
+      const category = Array.isArray(categoryField) ? categoryField[0] : categoryField;
+
+      const tagsField = record.fields.Tags;
+      const tags = Array.isArray(tagsField) ? tagsField[0] : tagsField;
+
+      return {
+        id: record.id,
+        slug: record.fields.Slug,
+        titleFR: record.fields.Title_FR,
+        titleDE: record.fields.Title_DE,
+        titleEN: record.fields.Title_EN,
+        excerptFR: record.fields.Excerpt_FR,
+        excerptDE: record.fields.Excerpt_DE,
+        excerptEN: record.fields.Excerpt_EN,
+        contentFR: record.fields.Content_FR,
+        contentDE: record.fields.Content_DE,
+        contentEN: record.fields.Content_EN,
+        category: category || '',
+        tags: tags || '',
+        author: record.fields.Author || '',
+        publishedDate: record.fields.Published_Date,
+        status: record.fields.Status || 'Draft',
+        image: record.fields.Image ? (record.fields.Image as any)[0]?.url : null,
+        audioFile: record.fields.Audio_File ? (record.fields.Audio_File as any)[0]?.url : null,
+        spotifyUrl: record.fields.Spotify_URL,
+      };
+    });
 
     return NextResponse.json(posts);
   } catch (error) {
@@ -107,6 +116,12 @@ export async function POST(request: NextRequest) {
         .replace(/^-+|-+$/g, ''); // Trim hyphens
     }
 
+    // Clean status value - remove any extra quotes
+    let status = data.status || 'Draft';
+    if (typeof status === 'string') {
+      status = status.replace(/^["']+|["']+$/g, '').trim();
+    }
+
     const fields: any = {
       Slug: slug,
       Title_FR: data.titleFR || '',
@@ -119,7 +134,7 @@ export async function POST(request: NextRequest) {
       Content_DE: data.contentDE || '',
       Content_EN: data.contentEN || '',
       Published_Date: data.publishedDate || new Date().toISOString().split('T')[0],
-      Status: data.status || 'Draft',
+      Status: status,
     };
 
     // Category is Multiple Select - send as array
