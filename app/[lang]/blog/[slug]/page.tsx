@@ -9,10 +9,12 @@ import InteractiveTitle from '@/components/InteractiveTitle';
 export const revalidate = 60;
 
 // Strip HTML tags and get first ~160 characters for preview/description
-// Skips headings (h1-h6) at the start to show actual content
+// Skips headings (h1-h6) and strong/bold text at the start to show actual content
 function getContentPreview(content: string, maxLength: number = 160): string {
-  // Remove heading tags at the start (h1-h6 with their content)
-  let cleaned = content.replace(/^(\s*<h[1-6][^>]*>.*?<\/h[1-6]>\s*)+/gi, '');
+  // Remove all heading tags (h1-h6) anywhere in the content
+  let cleaned = content.replace(/<h[1-6][^>]*>[\s\S]*?<\/h[1-6]>/gi, '');
+  // Also remove strong/bold tags that might be used as subtitles at the start
+  cleaned = cleaned.replace(/^(\s*<p>\s*<strong>[\s\S]*?<\/strong>\s*<\/p>\s*)+/gi, '');
   // Remove all remaining HTML tags
   const textOnly = cleaned.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
   if (textOnly.length <= maxLength) return textOnly;
