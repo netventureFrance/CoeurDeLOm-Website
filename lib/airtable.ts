@@ -806,7 +806,6 @@ export async function saveChromoBioTestResults(
       Brief_Deficient: results.briefInterpretation.deficient,
       Detailed_Interpretation: results.detailedInterpretation,
       Status: 'Completed',
-      Completed_At: new Date().toISOString(),
     });
 
     console.log(`✅ Saved ChromoBio test results for record ${testRecordId}`);
