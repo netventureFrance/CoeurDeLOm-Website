@@ -70,39 +70,50 @@ function generateEmailTemplate(content: string, language: string = 'fr'): string
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="color-scheme" content="light">
+        <meta name="supported-color-schemes" content="light">
+        <style>
+          :root { color-scheme: light; }
+          @media (prefers-color-scheme: dark) {
+            body, .email-body { background-color: #f5f0ff !important; }
+            .email-content { background-color: #ffffff !important; color: #333333 !important; }
+            .email-header { background-color: #ffffff !important; }
+            p, h1, h2, h3, td, div { color: inherit !important; }
+          }
+        </style>
       </head>
-      <body style="margin: 0; padding: 0; background-color: #f5f0ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f0ff; padding: 20px 0;">
+      <body class="email-body" style="margin: 0; padding: 0; background-color: #f5f0ff !important; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-font-smoothing: antialiased;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f0ff !important; padding: 20px 0;">
           <tr>
             <td align="center">
-              <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;">
+              <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                 <!-- Header with white background -->
                 <tr>
-                  <td style="background: #ffffff; padding: 30px; border-radius: 16px 16px 0 0; text-align: center; border-bottom: 3px solid #7C3AED;">
-                    <img src="${LOGO_URL}" alt="Coeur de l'OM" style="height: 70px; margin-bottom: 15px;" />
-                    <p style="color: #7C3AED; margin: 0; font-size: 28px; font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive; font-style: italic;">Cœur de l'Om</p>
+                  <td class="email-header" style="background-color: #ffffff !important; padding: 35px 30px; text-align: center; border-bottom: 3px solid #7C3AED;">
+                    <img src="${LOGO_URL}" alt="Coeur de l'OM" style="height: 80px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;" />
+                    <h1 style="color: #7C3AED !important; margin: 0; font-size: 36px; font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive; font-style: italic; font-weight: normal; letter-spacing: 2px;">Cœur de l'Om</h1>
                   </td>
                 </tr>
 
                 <!-- Main content -->
                 <tr>
-                  <td style="background-color: #ffffff; padding: 40px 30px;">
+                  <td class="email-content" style="background-color: #ffffff !important; padding: 40px 35px; color: #333333 !important;">
                     ${content}
                   </td>
                 </tr>
 
                 <!-- Footer -->
                 <tr>
-                  <td style="background: linear-gradient(135deg, #4C1D95 0%, #5B21B6 50%, #7C3AED 100%); padding: 30px; border-radius: 0 0 16px 16px; text-align: center;">
-                    <a href="${SITE_URL}" style="display: inline-block; background: white; color: #7C3AED; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; margin-bottom: 20px;">
+                  <td style="background: linear-gradient(135deg, #4C1D95 0%, #5B21B6 50%, #7C3AED 100%); padding: 30px; text-align: center;">
+                    <a href="${SITE_URL}" style="display: inline-block; background: white; color: #7C3AED !important; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; margin-bottom: 20px;">
                       ${footer.visit}
                     </a>
-                    <p style="color: rgba(255,255,255,0.8); margin: 15px 0 5px 0; font-size: 13px;">
+                    <p style="color: rgba(255,255,255,0.9) !important; margin: 15px 0 5px 0; font-size: 13px;">
                       ${footer.address}<br>
                       ${footer.city}
                     </p>
                     <p style="margin: 10px 0 0 0;">
-                      <a href="mailto:contact@coeurdelom.fr" style="color: white; text-decoration: none; font-size: 13px;">contact@coeurdelom.fr</a>
+                      <a href="mailto:contact@coeurdelom.fr" style="color: white !important; text-decoration: none; font-size: 13px;">contact@coeurdelom.fr</a>
                     </p>
                   </td>
                 </tr>
