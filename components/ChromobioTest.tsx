@@ -54,9 +54,10 @@ interface ChromobioTestProps {
     };
   };
   lang?: string;
+  userEmail: string;
 }
 
-export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTestProps) {
+export default function ChromobioTest({ dictionary, lang = 'fr', userEmail }: ChromobioTestProps) {
   const [grid, setGrid] = useState<Circle[][]>([]);
   const [currentRow, setCurrentRow] = useState(0);
   const [gameState, setGameState] = useState<GameState>('playing');
@@ -66,6 +67,7 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
     short: { excess: string; balanced: string; shortage: string };
     detailed: string;
   } | null>(null);
+  const [resultsSaved, setResultsSaved] = useState(false);
 
   // Initialize the grid with random colors
   useEffect(() => {
@@ -110,6 +112,44 @@ export default function ChromobioTest({ dictionary, lang = 'fr' }: ChromobioTest
       if (response.ok) {
         const data = await response.json();
         setAiInterpretation(data);
+
+        // Save results to Airtable and send email
+        if (userEmail && !resultsSaved) {
+          try {
+            // Build colorValues object for API
+            const colorValues: { [key: string]: number } = {};
+            COLORS.forEach(color => {
+              colorValues[color.name] = remainingCounts[color.id];
+            });
+
+            const resultsResponse = await fetch('/api/chromobio-results', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: userEmail,
+                colorValues,
+                briefInterpretation: {
+                  excess: data.short.excess,
+                  balanced: data.short.balanced,
+                  deficient: data.short.shortage,
+                },
+                detailedInterpretation: data.detailed,
+              }),
+            });
+
+            if (resultsResponse.ok) {
+              setResultsSaved(true);
+              console.log('✅ Results saved and email sent');
+            } else {
+              const errorData = await resultsResponse.json();
+              console.error('Failed to save results:', errorData);
+            }
+          } catch (saveError) {
+            console.error('Error saving results:', saveError);
+          }
+        }
       } else {
         console.error('Failed to generate AI interpretation');
       }

@@ -22,7 +22,7 @@ interface ChromoBioPreTestFormProps {
     restrictedDays: string;
     restrictedInfo: string;
   };
-  onSuccess: () => void;
+  onSuccess: (email: string) => void;
 }
 
 export default function ChromoBioPreTestForm({
@@ -67,7 +67,7 @@ export default function ChromoBioPreTestForm({
       const data = await response.json();
 
       if (response.ok) {
-        onSuccess();
+        onSuccess(formData.email);
       } else if (response.status === 403 && data.error === 'test_restricted') {
         setStatus('restricted');
         setRestrictedDays(data.daysRemaining);

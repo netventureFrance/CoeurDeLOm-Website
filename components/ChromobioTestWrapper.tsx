@@ -53,14 +53,18 @@ export default function ChromobioTestWrapper({
   testDict,
 }: ChromobioTestWrapperProps) {
   const [hasAccess, setHasAccess] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
 
-  const handlePreTestSuccess = () => {
+  const handlePreTestSuccess = (email: string) => {
+    setUserEmail(email);
     setHasAccess(true);
+    // Scroll to top when test starts
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Show the actual test if user has access
   if (hasAccess) {
-    return <ChromobioTest dictionary={testDict} lang={lang} />;
+    return <ChromobioTest dictionary={testDict} lang={lang} userEmail={userEmail} />;
   }
 
   // Show the pre-test form
