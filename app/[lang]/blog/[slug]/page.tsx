@@ -6,8 +6,8 @@ import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
 
-// Revalidate every 60 seconds - blog updates from Airtable will appear within 1 minute
-export const revalidate = 60;
+// Force dynamic rendering to always fetch fresh data from Airtable
+export const dynamic = 'force-dynamic';
 
 // Strip HTML tags and get first ~160 characters for preview/description
 // Skips headings (h1-h6) and strong/bold text at the start to show actual content
