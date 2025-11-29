@@ -11,7 +11,7 @@ import { sendChromoBioResults } from '@/lib/resend';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, colorValues, briefInterpretation, detailedInterpretation, chartImageUrl } = body;
+    const { email, colorValues, briefInterpretation, detailedInterpretation } = body;
 
     // Validate required fields
     if (!email || !colorValues || !briefInterpretation || !detailedInterpretation) {
@@ -50,7 +50,6 @@ export async function POST(request: NextRequest) {
         deficient: briefInterpretation.deficient || '',
       },
       detailedInterpretation,
-      chartImageUrl,
     };
 
     // Save results to Airtable

@@ -107,7 +107,6 @@ export interface ChromoBioTestResults {
   colorValues: ChromoBioColorValues;
   briefInterpretation: ChromoBioBriefInterpretation;
   detailedInterpretation: string;
-  chartImageUrl?: string;  // Optional screenshot/image of the chart
 }
 
 export interface NewsPromo {
@@ -806,7 +805,6 @@ export async function saveChromoBioTestResults(
       Brief_Balanced: results.briefInterpretation.balanced,
       Brief_Deficient: results.briefInterpretation.deficient,
       Detailed_Interpretation: results.detailedInterpretation,
-      Chart_Image_URL: results.chartImageUrl || '',
       Status: 'Completed',
       Completed_At: new Date().toISOString(),
     });

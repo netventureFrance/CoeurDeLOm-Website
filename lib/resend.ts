@@ -271,11 +271,7 @@ export async function sendChromoBioResults(
             Votre Profil Chromatique
           </h2>
 
-          ${results.chartImageUrl ? `
-            <div style="text-align: center; margin: 20px 0;">
-              <img src="${results.chartImageUrl}" alt="Profil chromatique" style="max-width: 100%; border-radius: 10px;" />
-            </div>
-          ` : colorBarHtml}
+          ${colorBarHtml}
 
           <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px; margin-top: 30px;">
             Interprétation brève
