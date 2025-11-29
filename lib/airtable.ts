@@ -290,7 +290,7 @@ export async function submitChromoBioTestWithContact(
       {
         fields: {
           Contact: [contactId],
-          Test_Date: new Date().toISOString().split('T')[0],
+          Test_Date: new Date().toISOString(), // Full datetime (ISO 8601)
           Status: 'New',
           IP_Address: ipAddress,
           IP_Location: ipLocation,
@@ -816,6 +816,7 @@ export async function saveChromoBioTestResults(
       Brief_Deficient: results.briefInterpretation.deficient,
       Detailed_Interpretation: results.detailedInterpretation,
       Status: 'Completed',
+      Completed_At: new Date().toISOString(), // Full datetime (ISO 8601)
     });
 
     console.log(`✅ Saved ChromoBio test results for record ${testRecordId}`);
