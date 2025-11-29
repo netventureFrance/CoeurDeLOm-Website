@@ -97,11 +97,11 @@ export default async function BlogPostPage({
         <div className="max-w-4xl mx-auto">
           {/* Featured Image */}
           {post.featuredImage && (
-            <div className="relative h-96 w-full overflow-hidden rounded-3xl mb-8">
+            <div className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-3xl mb-8">
               <img
                 src={post.featuredImage}
                 alt={post.title}
-                className="w-full h-full object-cover"
+                className="w-full h-auto"
               />
             </div>
           )}

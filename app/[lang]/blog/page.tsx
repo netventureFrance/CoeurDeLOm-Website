@@ -94,7 +94,7 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
                   className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group"
                 >
                   {post.featuredImage && (
-                    <div className="relative h-48 overflow-hidden">
+                    <div className="relative aspect-square overflow-hidden">
                       <img
                         src={post.featuredImage}
                         alt={post.title}
