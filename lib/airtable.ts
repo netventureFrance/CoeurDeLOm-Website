@@ -14,6 +14,13 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   process.env.AIRTABLE_BASE_ID
 );
 
+/**
+ * Escape string for use in Airtable formula (prevents formula injection)
+ */
+function escapeFormulaString(str: string): string {
+  return str.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
 // --- Local Data Cache (generated during Netlify build) ---
 interface LocalBlogPost {
   id: string;
@@ -325,7 +332,7 @@ export async function getBlogPostBySlug(slug: string, language: string): Promise
   try {
     const records = await base('Blog Posts')
       .select({
-        filterByFormula: `AND({Slug} = '${slug}', {Status} = 'Published')`,
+        filterByFormula: `AND({Slug} = '${escapeFormulaString(slug)}', {Status} = 'Published')`,
         maxRecords: 1,
       })
       .all();
@@ -414,8 +421,8 @@ export async function checkChromoBioTestEligibility(
     const records = await base('ChromoBio_Tests')
       .select({
         filterByFormula: `AND(
-          LOWER({Name}) = LOWER('${name.replace(/'/g, "\\'")}'),
-          LOWER({Email}) = LOWER('${email.replace(/'/g, "\\'")}'),
+          LOWER({Name}) = LOWER('${escapeFormulaString(name)}'),
+          LOWER({Email}) = LOWER('${escapeFormulaString(email)}'),
           {Submitted_At} >= '${fourWeeksAgoStr}'
         )`,
         sort: [{ field: 'Submitted_At', direction: 'desc' }],
