@@ -1,6 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { submitContactForm } from '@/lib/airtable';
+import { submitContactFormWithMessage } from '@/lib/airtable';
 import { sendContactConfirmation, sendAdminNotification } from '@/lib/resend';
+
+// Get client IP address from request headers
+function getClientIp(request: NextRequest): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) {
+    return forwarded.split(',')[0].trim();
+  }
+  const realIp = request.headers.get('x-real-ip');
+  if (realIp) {
+    return realIp;
+  }
+  return '127.0.0.1';
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,8 +36,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Submit to Airtable
-    const success = await submitContactForm({
+    // Get client IP
+    const ipAddress = getClientIp(request);
+
+    // Submit to Airtable (creates contact + linked message with IP)
+    const success = await submitContactFormWithMessage({
       name,
       email,
       phone,
@@ -32,7 +48,7 @@ export async function POST(request: NextRequest) {
       language: language || 'fr',
       gdprConsent,
       newsletterConsent: newsletterConsent || false,
-    });
+    }, ipAddress);
 
     if (success) {
       // Send confirmation email to user

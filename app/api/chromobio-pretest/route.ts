@@ -1,5 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkChromoBioTestEligibility, submitChromoBioTestRegistration } from '@/lib/airtable';
+import { checkChromoBioTestEligibilityByEmail, submitChromoBioTestWithContact } from '@/lib/airtable';
+
+// Get client IP address from request headers
+function getClientIp(request: NextRequest): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) {
+    return forwarded.split(',')[0].trim();
+  }
+  const realIp = request.headers.get('x-real-ip');
+  if (realIp) {
+    return realIp;
+  }
+  return '127.0.0.1';
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,7 +36,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user can take the test (4-week restriction)
-    const eligibility = await checkChromoBioTestEligibility(name, email);
+    const eligibility = await checkChromoBioTestEligibilityByEmail(email);
 
     if (!eligibility.canTake) {
       return NextResponse.json(
@@ -36,14 +49,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Submit registration to Airtable
-    const success = await submitChromoBioTestRegistration({
+    // Get client IP
+    const ipAddress = getClientIp(request);
+
+    // Submit registration to Airtable (creates contact + linked test record with IP)
+    const success = await submitChromoBioTestWithContact({
       name,
       email,
       phone,
       language: language || 'fr',
       gdprConsent,
-    });
+    }, ipAddress);
 
     if (success) {
       return NextResponse.json({ success: true });

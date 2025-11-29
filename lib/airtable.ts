@@ -109,7 +109,234 @@ export interface BlogPost {
 }
 
 /**
- * Submit contact form to Airtable
+ * Lookup IP address location using ip-api.com (free, no API key needed)
+ */
+export async function getIpLocation(ip: string): Promise<string> {
+  try {
+    // Skip for localhost/private IPs
+    if (ip === '127.0.0.1' || ip === '::1' || ip.startsWith('192.168.') || ip.startsWith('10.')) {
+      return 'Local';
+    }
+
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=city,country`);
+    if (response.ok) {
+      const data = await response.json();
+      if (data.city && data.country) {
+        return `${data.city}, ${data.country}`;
+      }
+    }
+    return 'Unknown';
+  } catch (error) {
+    console.error('IP lookup error:', error);
+    return 'Unknown';
+  }
+}
+
+/**
+ * Find existing contact by email or create a new one
+ */
+export async function findOrCreateContact(data: {
+  name: string;
+  email: string;
+  phone?: string;
+  language: string;
+  gdprConsent: boolean;
+  newsletterConsent?: boolean;
+}): Promise<string> {
+  try {
+    // Search for existing contact by email
+    const existingRecords = await base('Contact Submissions')
+      .select({
+        filterByFormula: `LOWER({Email}) = LOWER('${escapeFormulaString(data.email)}')`,
+        maxRecords: 1,
+      })
+      .all();
+
+    if (existingRecords.length > 0) {
+      // Update existing contact if needed
+      const record = existingRecords[0];
+      const updates: Record<string, any> = {};
+
+      // Update fields if they've changed
+      if (data.name && data.name !== record.fields.Name) {
+        updates.Name = data.name;
+      }
+      if (data.phone && data.phone !== record.fields.Phone) {
+        updates.Phone = data.phone;
+      }
+
+      if (Object.keys(updates).length > 0) {
+        await base('Contact Submissions').update(record.id, updates);
+      }
+
+      return record.id;
+    }
+
+    // Create new contact
+    const newRecords = await base('Contact Submissions').create([
+      {
+        fields: {
+          Name: data.name,
+          Email: data.email,
+          Phone: data.phone || '',
+          Language: data.language.toUpperCase(),
+          GDPR_Consent: data.gdprConsent,
+          Newsletter_Consent: data.newsletterConsent || false,
+          Submitted_At: new Date().toISOString(),
+          Status: 'New',
+        },
+      },
+    ]);
+
+    return newRecords[0].id;
+  } catch (error) {
+    console.error('Error finding/creating contact:', error);
+    throw error;
+  }
+}
+
+/**
+ * Submit contact form - creates/updates contact and adds message to Messages table
+ */
+export async function submitContactFormWithMessage(
+  data: ContactSubmission,
+  ipAddress: string
+): Promise<boolean> {
+  try {
+    // Get IP location
+    const ipLocation = await getIpLocation(ipAddress);
+
+    // Find or create contact
+    const contactId = await findOrCreateContact({
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      language: data.language,
+      gdprConsent: data.gdprConsent,
+      newsletterConsent: data.newsletterConsent,
+    });
+
+    // Create message linked to contact
+    await base('Messages').create([
+      {
+        fields: {
+          Contact: [contactId],
+          Message: data.message,
+          Sent_At: new Date().toISOString(),
+          IP_Address: ipAddress,
+          IP_Location: ipLocation,
+          Status: 'New',
+        },
+      },
+    ]);
+
+    return true;
+  } catch (error) {
+    console.error('Error submitting contact form with message:', error);
+    return false;
+  }
+}
+
+/**
+ * Submit ChromoBio test registration - creates/updates contact and adds test record
+ */
+export async function submitChromoBioTestWithContact(
+  data: ChromoBioTestSubmission,
+  ipAddress: string
+): Promise<boolean> {
+  try {
+    // Get IP location
+    const ipLocation = await getIpLocation(ipAddress);
+
+    // Find or create contact
+    const contactId = await findOrCreateContact({
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      language: data.language,
+      gdprConsent: data.gdprConsent,
+    });
+
+    // Create ChromoBio test record linked to contact
+    await base('ChromoBio_Tests').create([
+      {
+        fields: {
+          Contact: [contactId],
+          Test_Date: new Date().toISOString().split('T')[0],
+          Status: 'New',
+          IP_Address: ipAddress,
+          IP_Location: ipLocation,
+        },
+      },
+    ]);
+
+    return true;
+  } catch (error) {
+    console.error('Error submitting ChromoBio test:', error);
+    return false;
+  }
+}
+
+/**
+ * Check ChromoBio test eligibility using linked contact records
+ */
+export async function checkChromoBioTestEligibilityByEmail(
+  email: string
+): Promise<{ canTake: boolean; lastTestDate?: string; daysRemaining?: number }> {
+  try {
+    const fourWeeksAgo = new Date();
+    fourWeeksAgo.setDate(fourWeeksAgo.getDate() - 28);
+    const fourWeeksAgoStr = fourWeeksAgo.toISOString().split('T')[0];
+
+    // First find the contact by email
+    const contacts = await base('Contact Submissions')
+      .select({
+        filterByFormula: `LOWER({Email}) = LOWER('${escapeFormulaString(email)}')`,
+        maxRecords: 1,
+      })
+      .all();
+
+    if (contacts.length === 0) {
+      return { canTake: true };
+    }
+
+    const contactId = contacts[0].id;
+
+    // Check for recent tests linked to this contact
+    const recentTests = await base('ChromoBio_Tests')
+      .select({
+        filterByFormula: `AND(
+          FIND('${contactId}', ARRAYJOIN({Contact})) > 0,
+          {Test_Date} >= '${fourWeeksAgoStr}'
+        )`,
+        sort: [{ field: 'Test_Date', direction: 'desc' }],
+        maxRecords: 1,
+      })
+      .all();
+
+    if (recentTests.length === 0) {
+      return { canTake: true };
+    }
+
+    const lastTestDate = recentTests[0].fields.Test_Date as string;
+    const lastTest = new Date(lastTestDate);
+    const nextAllowedDate = new Date(lastTest);
+    nextAllowedDate.setDate(nextAllowedDate.getDate() + 28);
+    const daysRemaining = Math.ceil((nextAllowedDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+
+    return {
+      canTake: false,
+      lastTestDate,
+      daysRemaining: Math.max(0, daysRemaining),
+    };
+  } catch (error) {
+    console.error('Error checking ChromoBio test eligibility:', error);
+    return { canTake: true };
+  }
+}
+
+/**
+ * Submit contact form to Airtable (legacy - kept for backwards compatibility)
  */
 export async function submitContactForm(data: ContactSubmission): Promise<boolean> {
   try {
