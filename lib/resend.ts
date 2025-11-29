@@ -34,6 +34,86 @@ export async function sendEmail({ to, subject, html, from }: SendEmailParams): P
   }
 }
 
+// Base URL for assets in emails
+const SITE_URL = 'https://coeurdelom.fr';
+const LOGO_URL = `${SITE_URL}/images/logo.png`;
+
+/**
+ * Generate email wrapper with logo and branding
+ */
+function generateEmailTemplate(content: string, language: string = 'fr'): string {
+  const footerTexts = {
+    fr: {
+      visit: 'Visitez notre site',
+      address: '140, Rue du Pioch de Boutonnet B1',
+      city: '34090 Montpellier, France',
+    },
+    en: {
+      visit: 'Visit our website',
+      address: '140, Rue du Pioch de Boutonnet B1',
+      city: '34090 Montpellier, France',
+    },
+    de: {
+      visit: 'Besuchen Sie unsere Website',
+      address: '140, Rue du Pioch de Boutonnet B1',
+      city: '34090 Montpellier, Frankreich',
+    },
+  };
+
+  const lang = language.toLowerCase() as 'fr' | 'en' | 'de';
+  const footer = footerTexts[lang] || footerTexts.fr;
+
+  return `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #f5f0ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f0ff; padding: 20px 0;">
+          <tr>
+            <td align="center">
+              <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;">
+                <!-- Header with gradient -->
+                <tr>
+                  <td style="background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 50%, #4C1D95 100%); padding: 30px; border-radius: 16px 16px 0 0; text-align: center;">
+                    <img src="${LOGO_URL}" alt="Coeur de l'OM" style="height: 60px; margin-bottom: 10px;" />
+                    <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 14px; letter-spacing: 1px;">Bien-être holistique & Chromothérapie</p>
+                  </td>
+                </tr>
+
+                <!-- Main content -->
+                <tr>
+                  <td style="background-color: #ffffff; padding: 40px 30px;">
+                    ${content}
+                  </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                  <td style="background: linear-gradient(135deg, #4C1D95 0%, #5B21B6 50%, #7C3AED 100%); padding: 30px; border-radius: 0 0 16px 16px; text-align: center;">
+                    <a href="${SITE_URL}" style="display: inline-block; background: white; color: #7C3AED; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; margin-bottom: 20px;">
+                      ${footer.visit}
+                    </a>
+                    <p style="color: rgba(255,255,255,0.8); margin: 15px 0 5px 0; font-size: 13px;">
+                      ${footer.address}<br>
+                      ${footer.city}
+                    </p>
+                    <p style="margin: 10px 0 0 0;">
+                      <a href="mailto:contact@coeurdelom.fr" style="color: white; text-decoration: none; font-size: 13px;">contact@coeurdelom.fr</a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>
+  `;
+}
+
 /**
  * Send contact confirmation email to user
  */
@@ -43,80 +123,96 @@ export async function sendContactConfirmation(
   language: string = 'fr'
 ): Promise<boolean> {
   const subjects = {
-    fr: 'Confirmation de votre message - Cœur de l\'OM',
-    en: 'Confirmation of your message - Cœur de l\'OM',
-    de: 'Bestätigung Ihrer Nachricht - Cœur de l\'OM',
+    fr: 'Merci pour votre message - Coeur de l\'OM',
+    en: 'Thank you for your message - Coeur de l\'OM',
+    de: 'Vielen Dank für Ihre Nachricht - Coeur de l\'OM',
   };
 
-  const messages = {
+  const contents = {
     fr: `
-      <html>
-        <body style="font-family: Arial, sans-serif; color: #333;">
-          <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2 style="color: #7C3AED;">Merci de nous avoir contactés !</h2>
-            <p>Bonjour ${name},</p>
-            <p>Nous avons bien reçu votre message et nous vous en remercions.</p>
-            <p>Valérie vous répondra dans les plus brefs délais.</p>
-            <p>À très bientôt,</p>
-            <p><strong>L'équipe Cœur de l'OM</strong></p>
-            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-            <p style="font-size: 12px; color: #666;">
-              Cœur de l'OM<br>
-              140, Rue du Pioch de Boutonnet B1<br>
-              34090 Montpellier<br>
-              contact@coeurdelom.fr
-            </p>
-          </div>
-        </body>
-      </html>
+      <h1 style="color: #7C3AED; margin: 0 0 20px 0; font-size: 24px;">Merci de nous avoir contactés !</h1>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">
+        Bonjour <strong>${name}</strong>,
+      </p>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">
+        Nous avons bien reçu votre message et nous vous en remercions chaleureusement.
+      </p>
+
+      <div style="background: linear-gradient(135deg, #f5f0ff 0%, #ede9fe 100%); border-left: 4px solid #7C3AED; padding: 20px; border-radius: 0 12px 12px 0; margin: 25px 0;">
+        <p style="color: #5B21B6; font-size: 16px; line-height: 1.6; margin: 0;">
+          <strong>Valérie</strong> prendra connaissance de votre message et vous répondra personnellement dans les plus brefs délais.
+        </p>
+      </div>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0;">
+        En attendant, n'hésitez pas à explorer notre site pour découvrir nos services de bien-être holistique, chromothérapie et accompagnement personnalisé.
+      </p>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 25px 0 0 0;">
+        À très bientôt,<br>
+        <strong style="color: #7C3AED;">L'équipe Coeur de l'OM</strong>
+      </p>
     `,
     en: `
-      <html>
-        <body style="font-family: Arial, sans-serif; color: #333;">
-          <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2 style="color: #7C3AED;">Thank you for contacting us!</h2>
-            <p>Hello ${name},</p>
-            <p>We have received your message and thank you for reaching out.</p>
-            <p>Valérie will respond to you as soon as possible.</p>
-            <p>See you soon,</p>
-            <p><strong>The Cœur de l'OM Team</strong></p>
-            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-            <p style="font-size: 12px; color: #666;">
-              Cœur de l'OM<br>
-              140, Rue du Pioch de Boutonnet B1<br>
-              34090 Montpellier<br>
-              contact@coeurdelom.fr
-            </p>
-          </div>
-        </body>
-      </html>
+      <h1 style="color: #7C3AED; margin: 0 0 20px 0; font-size: 24px;">Thank you for contacting us!</h1>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">
+        Hello <strong>${name}</strong>,
+      </p>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">
+        We have received your message and thank you warmly for reaching out.
+      </p>
+
+      <div style="background: linear-gradient(135deg, #f5f0ff 0%, #ede9fe 100%); border-left: 4px solid #7C3AED; padding: 20px; border-radius: 0 12px 12px 0; margin: 25px 0;">
+        <p style="color: #5B21B6; font-size: 16px; line-height: 1.6; margin: 0;">
+          <strong>Valérie</strong> will review your message and respond to you personally as soon as possible.
+        </p>
+      </div>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0;">
+        In the meantime, feel free to explore our website to discover our holistic wellness services, chromotherapy and personalized support.
+      </p>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 25px 0 0 0;">
+        See you soon,<br>
+        <strong style="color: #7C3AED;">The Coeur de l'OM Team</strong>
+      </p>
     `,
     de: `
-      <html>
-        <body style="font-family: Arial, sans-serif; color: #333;">
-          <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h2 style="color: #7C3AED;">Vielen Dank für Ihre Nachricht!</h2>
-            <p>Hallo ${name},</p>
-            <p>Wir haben Ihre Nachricht erhalten und danken Ihnen dafür.</p>
-            <p>Valérie wird Ihnen so schnell wie möglich antworten.</p>
-            <p>Bis bald,</p>
-            <p><strong>Das Cœur de l'OM Team</strong></p>
-            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-            <p style="font-size: 12px; color: #666;">
-              Cœur de l'OM<br>
-              140, Rue du Pioch de Boutonnet B1<br>
-              34090 Montpellier<br>
-              contact@coeurdelom.fr
-            </p>
-          </div>
-        </body>
-      </html>
+      <h1 style="color: #7C3AED; margin: 0 0 20px 0; font-size: 24px;">Vielen Dank für Ihre Nachricht!</h1>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">
+        Hallo <strong>${name}</strong>,
+      </p>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">
+        Wir haben Ihre Nachricht erhalten und danken Ihnen herzlich dafür.
+      </p>
+
+      <div style="background: linear-gradient(135deg, #f5f0ff 0%, #ede9fe 100%); border-left: 4px solid #7C3AED; padding: 20px; border-radius: 0 12px 12px 0; margin: 25px 0;">
+        <p style="color: #5B21B6; font-size: 16px; line-height: 1.6; margin: 0;">
+          <strong>Valérie</strong> wird Ihre Nachricht lesen und Ihnen so schnell wie möglich persönlich antworten.
+        </p>
+      </div>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0;">
+        In der Zwischenzeit können Sie gerne unsere Website erkunden, um unsere ganzheitlichen Wellness-Dienste, Chromotherapie und persönliche Begleitung zu entdecken.
+      </p>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 25px 0 0 0;">
+        Bis bald,<br>
+        <strong style="color: #7C3AED;">Das Coeur de l'OM Team</strong>
+      </p>
     `,
   };
 
   const lang = language.toLowerCase() as 'fr' | 'en' | 'de';
   const subject = subjects[lang] || subjects.fr;
-  const html = messages[lang] || messages.fr;
+  const content = contents[lang] || contents.fr;
+  const html = generateEmailTemplate(content, lang);
 
   return sendEmail({ to: email, subject, html });
 }
@@ -132,21 +228,45 @@ export async function sendAdminNotification(
 ): Promise<boolean> {
   const adminEmail = process.env.ADMIN_EMAIL || 'contact@coeurdelom.fr';
 
-  const html = `
-    <html>
-      <body style="font-family: Arial, sans-serif; color: #333;">
-        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #7C3AED;">Nouveau message de contact</h2>
-          <p><strong>Nom :</strong> ${name}</p>
-          <p><strong>Email :</strong> ${email}</p>
-          <p><strong>Newsletter :</strong> ${newsletterConsent ? 'Oui' : 'Non'}</p>
-          <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-          <p><strong>Message :</strong></p>
-          <p style="background: #f5f5f5; padding: 15px; border-radius: 5px;">${message.replace(/\n/g, '<br>')}</p>
-        </div>
-      </body>
-    </html>
+  const content = `
+    <h1 style="color: #7C3AED; margin: 0 0 20px 0; font-size: 24px;">Nouveau message de contact</h1>
+
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+      <tr>
+        <td style="padding: 12px; background: #f5f0ff; border-radius: 8px 0 0 0; font-weight: 600; color: #5B21B6; width: 120px;">Nom</td>
+        <td style="padding: 12px; background: #faf8ff; border-radius: 0 8px 0 0;">${name}</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px; background: #f5f0ff; font-weight: 600; color: #5B21B6;">Email</td>
+        <td style="padding: 12px; background: #faf8ff;">
+          <a href="mailto:${email}" style="color: #7C3AED;">${email}</a>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 12px; background: #f5f0ff; border-radius: 0 0 0 8px; font-weight: 600; color: #5B21B6;">Newsletter</td>
+        <td style="padding: 12px; background: #faf8ff; border-radius: 0 0 8px 0;">
+          ${newsletterConsent
+            ? '<span style="color: #059669; font-weight: 600;">Oui</span>'
+            : '<span style="color: #6b7280;">Non</span>'}
+        </td>
+      </tr>
+    </table>
+
+    <div style="margin-top: 25px;">
+      <h3 style="color: #5B21B6; margin: 0 0 10px 0; font-size: 16px;">Message :</h3>
+      <div style="background: linear-gradient(135deg, #f5f0ff 0%, #ede9fe 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #7C3AED;">
+        <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0; white-space: pre-wrap;">${message.replace(/\n/g, '<br>')}</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 25px; text-align: center;">
+      <a href="mailto:${email}?subject=Re: Votre message sur Coeur de l'OM" style="display: inline-block; background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%); color: white; padding: 14px 30px; border-radius: 25px; text-decoration: none; font-weight: 600;">
+        Répondre à ${name}
+      </a>
+    </div>
   `;
+
+  const html = generateEmailTemplate(content, 'fr');
 
   return sendEmail({
     to: adminEmail,
@@ -234,79 +354,73 @@ export async function sendChromoBioResults(
   // Build interpretation sections
   const interpretationHtml = `
     <div style="margin: 20px 0;">
-      <h3 style="color: #e74c3c; margin-bottom: 10px;">En excès</h3>
-      <p style="background: #fdf2f2; padding: 15px; border-radius: 8px; border-left: 4px solid #e74c3c;">
+      <h3 style="color: #e74c3c; margin-bottom: 10px; font-size: 16px;">En excès</h3>
+      <p style="background: #fdf2f2; padding: 15px; border-radius: 8px; border-left: 4px solid #e74c3c; margin: 0; color: #333; line-height: 1.6;">
         ${results.briefInterpretation.excess}
       </p>
     </div>
 
     <div style="margin: 20px 0;">
-      <h3 style="color: #27ae60; margin-bottom: 10px;">Équilibré</h3>
-      <p style="background: #f2fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #27ae60;">
+      <h3 style="color: #27ae60; margin-bottom: 10px; font-size: 16px;">Équilibré</h3>
+      <p style="background: #f2fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #27ae60; margin: 0; color: #333; line-height: 1.6;">
         ${results.briefInterpretation.balanced}
       </p>
     </div>
 
     <div style="margin: 20px 0;">
-      <h3 style="color: #3498db; margin-bottom: 10px;">En déficience</h3>
-      <p style="background: #f2f8fd; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
+      <h3 style="color: #3498db; margin-bottom: 10px; font-size: 16px;">En déficience</h3>
+      <p style="background: #f2f8fd; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db; margin: 0; color: #333; line-height: 1.6;">
         ${results.briefInterpretation.deficient}
       </p>
     </div>
   `;
 
-  const html = `
-    <html>
-      <body style="font-family: Arial, sans-serif; color: #333; background: #f9f9f9;">
-        <div style="max-width: 700px; margin: 0 auto; padding: 20px; background: white; border-radius: 12px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #7C3AED; margin: 0;">Vos Résultats ChromoBioÉnergie</h1>
-            <p style="color: #666;">Test réalisé le ${new Date().toLocaleDateString('fr-FR')}</p>
-          </div>
+  const content = `
+    <div style="text-align: center; margin-bottom: 25px;">
+      <h1 style="color: #7C3AED; margin: 0 0 10px 0; font-size: 24px;">Vos Résultats ChromoBioÉnergie</h1>
+      <p style="color: #666; margin: 0; font-size: 14px;">Test réalisé le ${new Date().toLocaleDateString('fr-FR')}</p>
+    </div>
 
-          <p>Bonjour ${name},</p>
-          <p>Merci d'avoir réalisé le test ChromoBioÉnergie. Voici vos résultats :</p>
+    <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">
+      Bonjour <strong>${name}</strong>,
+    </p>
 
-          <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px;">
-            Votre Profil Chromatique
-          </h2>
+    <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 25px 0;">
+      Merci d'avoir réalisé le test ChromoBioÉnergie. Voici vos résultats personnalisés :
+    </p>
 
-          ${colorBarHtml}
+    <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px; margin: 0 0 20px 0; font-size: 18px;">
+      Votre Profil Chromatique
+    </h2>
 
-          <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px; margin-top: 30px;">
-            Interprétation brève
-          </h2>
+    ${colorBarHtml}
 
-          ${interpretationHtml}
+    <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px; margin: 30px 0 20px 0; font-size: 18px;">
+      Interprétation brève
+    </h2>
 
-          <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px; margin-top: 30px;">
-            Interprétation approfondie
-          </h2>
+    ${interpretationHtml}
 
-          <div style="background: #f8f5ff; padding: 20px; border-radius: 10px; margin: 20px 0;">
-            ${results.detailedInterpretation.split('\n').map(p => `<p style="margin: 10px 0;">${p}</p>`).join('')}
-          </div>
+    <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px; margin: 30px 0 20px 0; font-size: 18px;">
+      Interprétation approfondie
+    </h2>
 
-          <div style="background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%); color: white; padding: 20px; border-radius: 10px; margin: 30px 0; text-align: center;">
-            <h3 style="margin: 0 0 10px 0;">Envie d'aller plus loin ?</h3>
-            <p style="margin: 0 0 15px 0;">Valérie peut vous accompagner pour une exploration approfondie de votre profil chromatique avec les Flacons Équilibre d'Aura-Soma.</p>
-            <a href="https://www.coeurdelom.fr/fr/contact" style="display: inline-block; background: white; color: #7C3AED; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: bold;">
-              Prendre rendez-vous
-            </a>
-          </div>
+    <div style="background: linear-gradient(135deg, #f5f0ff 0%, #ede9fe 100%); padding: 20px; border-radius: 12px; margin: 0 0 25px 0;">
+      ${results.detailedInterpretation.split('\n').map(p => `<p style="margin: 10px 0; color: #333; line-height: 1.7;">${p}</p>`).join('')}
+    </div>
 
-          <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
-
-          <p style="font-size: 12px; color: #666; text-align: center;">
-            Coeur de l'OM<br>
-            140, Rue du Pioch de Boutonnet B1<br>
-            34090 Montpellier<br>
-            contact@coeurdelom.fr
-          </p>
-        </div>
-      </body>
-    </html>
+    <div style="background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%); color: white; padding: 25px; border-radius: 12px; margin: 25px 0; text-align: center;">
+      <h3 style="margin: 0 0 12px 0; font-size: 18px;">Envie d'aller plus loin ?</h3>
+      <p style="margin: 0 0 18px 0; font-size: 15px; line-height: 1.6; opacity: 0.95;">
+        <strong>Valérie</strong> peut vous accompagner pour une exploration approfondie de votre profil chromatique avec les Flacons Équilibre d'Aura-Soma.
+      </p>
+      <a href="${SITE_URL}/fr/contact" style="display: inline-block; background: white; color: #7C3AED; padding: 14px 30px; border-radius: 25px; text-decoration: none; font-weight: 600;">
+        Prendre rendez-vous
+      </a>
+    </div>
   `;
+
+  const html = generateEmailTemplate(content, lang);
 
   if (!resend) {
     console.warn('Resend API key not configured. Email not sent.');
