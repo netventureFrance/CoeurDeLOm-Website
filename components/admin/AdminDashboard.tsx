@@ -16,6 +16,7 @@ interface BlogPost {
   publishedDate: string;
   status: string;
   image: string | null;
+  imageUrl: string | null; // Permanent ImgBB URL
   audioFile: string | null;
   spotifyUrl: string | null;
 }

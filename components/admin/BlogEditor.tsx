@@ -16,6 +16,7 @@ interface BlogPost {
   publishedDate: string;
   status: string;
   image: string | null;
+  imageUrl: string | null; // Permanent ImgBB URL
   audioFile: string | null;
   spotifyUrl: string | null;
 }
@@ -53,7 +54,7 @@ export default function BlogEditor({ post, onClose, onSave, existingOptions }: B
     author: post?.author || '',
     publishedDate: post?.publishedDate || new Date().toISOString().split('T')[0],
     status: post?.status || 'Draft',
-    imageUrl: post?.image || '',
+    imageUrl: post?.imageUrl || post?.image || '', // Prefer permanent ImgBB URL
     spotifyUrl: post?.spotifyUrl || '',
   });
 

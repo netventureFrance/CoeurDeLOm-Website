@@ -77,6 +77,7 @@ export async function GET(request: NextRequest) {
         publishedDate: record.fields.Published_Date,
         status: record.fields.Status || 'Draft',
         image: record.fields.Image ? (record.fields.Image as any)[0]?.url : null,
+        imageUrl: record.fields.Image_URL || null, // Permanent ImgBB URL
         audioFile: record.fields.Audio_File ? (record.fields.Audio_File as any)[0]?.url : null,
         spotifyUrl: record.fields.Spotify_URL,
       };
@@ -152,8 +153,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Add image if provided (as URL for Airtable to download)
+    // Also save to Image_URL text field for permanent ImgBB URL storage
     if (data.imageUrl) {
       fields.Image = [{ url: data.imageUrl }];
+      fields.Image_URL = data.imageUrl; // Permanent URL in text field
     }
 
     // Add audio file if provided
@@ -249,8 +252,10 @@ export async function PUT(request: NextRequest) {
     }
 
     // Handle image update
+    // Also update Image_URL text field for permanent ImgBB URL storage
     if (updateData.imageUrl !== undefined) {
       fields.Image = updateData.imageUrl ? [{ url: updateData.imageUrl }] : [];
+      fields.Image_URL = updateData.imageUrl || ''; // Permanent URL in text field
     }
 
     // Handle audio update
