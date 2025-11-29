@@ -13,6 +13,19 @@
 [[plugins]]
   package = "./netlify/plugins/sync-blog-images"
 
+# Redirect .net to .fr (must be first)
+[[redirects]]
+  from = "https://coeurdelom.net/*"
+  to = "https://coeurdelom.fr/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.coeurdelom.net/*"
+  to = "https://coeurdelom.fr/:splat"
+  status = 301
+  force = true
+
 # i18n redirects
 [[redirects]]
   from = "/"
