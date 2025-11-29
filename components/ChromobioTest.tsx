@@ -22,7 +22,7 @@ const COLORS = [
   { id: 14, name: 'Or', hex: '#FFBE00', rgb: [255, 190, 0] },
   { id: 15, name: 'Orange', hex: '#FF7D00', rgb: [255, 125, 0] },
   { id: 16, name: 'Rouge', hex: '#FF0200', rgb: [255, 2, 0] },
-  { id: 17, name: 'Ecarlate', hex: '#FF007D', rgb: [255, 0, 125] },
+  { id: 17, name: 'Écarlate', hex: '#FF007D', rgb: [255, 0, 125] },
   { id: 18, name: 'Framboise', hex: '#FF00BE', rgb: [255, 0, 190] },
 ];
 
