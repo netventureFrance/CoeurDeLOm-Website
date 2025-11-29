@@ -330,23 +330,26 @@ export async function checkChromoBioTestEligibilityByEmail(
 
     const contactId = contacts[0].id;
 
-    // Check for recent tests linked to this contact
+    // Fetch recent tests and filter by Contact in JS
+    // (ARRAYJOIN formula doesn't work for linked record IDs in Airtable)
     const recentTests = await base('ChromoBio_Tests')
       .select({
-        filterByFormula: `AND(
-          FIND('${contactId}', ARRAYJOIN({Contact})) > 0,
-          {Test_Date} >= '${fourWeeksAgoStr}'
-        )`,
+        filterByFormula: `{Test_Date} >= '${fourWeeksAgoStr}'`,
         sort: [{ field: 'Test_Date', direction: 'desc' }],
-        maxRecords: 1,
       })
       .all();
 
-    if (recentTests.length === 0) {
+    // Filter tests that are linked to this contact
+    const matchingTests = recentTests.filter(test => {
+      const contactLinks = test.fields.Contact as string[] | undefined;
+      return contactLinks && contactLinks.includes(contactId);
+    });
+
+    if (matchingTests.length === 0) {
       return { canTake: true };
     }
 
-    const lastTestDate = recentTests[0].fields.Test_Date as string;
+    const lastTestDate = matchingTests[0].fields.Test_Date as string;
     const lastTest = new Date(lastTestDate);
     const nextAllowedDate = new Date(lastTest);
     nextAllowedDate.setDate(nextAllowedDate.getDate() + 28);
@@ -767,24 +770,31 @@ export async function findRecentChromoBioTest(email: string): Promise<string | n
       .all();
 
     if (contacts.length === 0) {
+      console.log(`findRecentChromoBioTest: No contact found for email ${email}`);
       return null;
     }
 
     const contactId = contacts[0].id;
+    console.log(`findRecentChromoBioTest: Found contact ${contactId} for email ${email}`);
 
-    // Find the most recent test for this contact that doesn't have results yet
+    // Fetch tests with Status = 'New' or 'In Progress' and filter by Contact in JS
+    // (ARRAYJOIN formula doesn't work for linked record IDs in Airtable)
     const tests = await base('ChromoBio_Tests')
       .select({
-        filterByFormula: `AND(
-          FIND('${contactId}', ARRAYJOIN({Contact})) > 0,
-          OR({Status} = 'New', {Status} = 'In Progress')
-        )`,
+        filterByFormula: `OR({Status} = 'New', {Status} = 'In Progress')`,
         sort: [{ field: 'Test_Date', direction: 'desc' }],
-        maxRecords: 1,
       })
       .all();
 
-    return tests.length > 0 ? tests[0].id : null;
+    // Filter tests that are linked to this contact
+    const matchingTests = tests.filter(test => {
+      const contactLinks = test.fields.Contact as string[] | undefined;
+      return contactLinks && contactLinks.includes(contactId);
+    });
+
+    console.log(`findRecentChromoBioTest: Found ${matchingTests.length} matching test(s) for contact ${contactId}`);
+
+    return matchingTests.length > 0 ? matchingTests[0].id : null;
   } catch (error) {
     console.error('Error finding recent ChromoBio test:', error);
     return null;
