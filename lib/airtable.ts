@@ -812,7 +812,7 @@ export async function saveChromoBioTestResults(
     // Try to save with Completed_At field
     try {
       await base('ChromoBio_Tests').update(testRecordId, {
-        Results_JSON: JSON.stringify(results.colorValues),
+        Results: JSON.stringify(results.colorValues),
         Brief_Excess: results.briefInterpretation.excess,
         Brief_Balanced: results.briefInterpretation.balanced,
         Brief_Deficient: results.briefInterpretation.deficient,
@@ -824,7 +824,7 @@ export async function saveChromoBioTestResults(
       // If Completed_At field doesn't exist, save without it
       console.warn('Completed_At field may not exist, saving without it');
       await base('ChromoBio_Tests').update(testRecordId, {
-        Results_JSON: JSON.stringify(results.colorValues),
+        Results: JSON.stringify(results.colorValues),
         Brief_Excess: results.briefInterpretation.excess,
         Brief_Balanced: results.briefInterpretation.balanced,
         Brief_Deficient: results.briefInterpretation.deficient,

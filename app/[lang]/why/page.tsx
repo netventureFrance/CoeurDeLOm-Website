@@ -45,7 +45,7 @@ export default async function WhyPage({ params }: { params: Promise<{ lang: stri
   return (
     <main className="relative min-h-screen pt-40 pb-20 overflow-hidden">
       <AnimatedBackground />
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-8">
