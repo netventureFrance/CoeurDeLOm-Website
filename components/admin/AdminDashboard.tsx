@@ -31,6 +31,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState('');
+  const [deployStatus, setDeployStatus] = useState<'idle' | 'deploying' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     fetchPosts();
@@ -94,6 +95,29 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     setIsCreating(false);
   }
 
+  async function handleDeploy() {
+    if (deployStatus === 'deploying') return;
+
+    setDeployStatus('deploying');
+    try {
+      const response = await fetch('/api/admin/deploy', {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        setDeployStatus('success');
+        // Reset to idle after 5 seconds
+        setTimeout(() => setDeployStatus('idle'), 5000);
+      } else {
+        setDeployStatus('error');
+        setTimeout(() => setDeployStatus('idle'), 5000);
+      }
+    } catch (err) {
+      setDeployStatus('error');
+      setTimeout(() => setDeployStatus('idle'), 5000);
+    }
+  }
+
   // Extract unique author options from posts
   const extractedOptions = {
     authors: [...new Set(posts.map(p => p.author).filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'fr')),
@@ -118,6 +142,10 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     logo: { width: '40px', height: '40px', marginRight: '12px' },
     title: { fontSize: '20px', fontWeight: 'bold', color: '#1f2937', margin: 0 },
     logoutBtn: { padding: '8px 16px', color: '#6b7280', background: 'none', border: '1px solid #e5e7eb', borderRadius: '8px', cursor: 'pointer' },
+    deployBtn: { padding: '8px 16px', backgroundColor: '#10b981', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px' },
+    deployBtnDisabled: { backgroundColor: '#9ca3af', cursor: 'not-allowed' },
+    deployBtnSuccess: { backgroundColor: '#059669' },
+    deployBtnError: { backgroundColor: '#dc2626' },
     main: { maxWidth: '1000px', margin: '0 auto', padding: '32px 24px' },
     topBar: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' },
     subtitle: { fontSize: '18px', fontWeight: '600', color: '#1f2937', margin: 0 },
@@ -153,9 +181,46 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
             <img src="/Coeur-de-lOm-Alpha-Kopie.png" alt="Logo" style={styles.logo} />
             <h1 style={styles.title}>Gestion du Blog</h1>
           </div>
-          <button onClick={onLogout} style={styles.logoutBtn}>
-            Se déconnecter
-          </button>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <button
+              onClick={handleDeploy}
+              disabled={deployStatus === 'deploying'}
+              style={{
+                ...styles.deployBtn,
+                ...(deployStatus === 'deploying' ? styles.deployBtnDisabled : {}),
+                ...(deployStatus === 'success' ? styles.deployBtnSuccess : {}),
+                ...(deployStatus === 'error' ? styles.deployBtnError : {}),
+              }}
+            >
+              {deployStatus === 'idle' && (
+                <>
+                  <span>🚀</span>
+                  Publier le site
+                </>
+              )}
+              {deployStatus === 'deploying' && (
+                <>
+                  <span style={{ animation: 'spin 1s linear infinite', display: 'inline-block' }}>⏳</span>
+                  Publication...
+                </>
+              )}
+              {deployStatus === 'success' && (
+                <>
+                  <span>✅</span>
+                  Publication lancée !
+                </>
+              )}
+              {deployStatus === 'error' && (
+                <>
+                  <span>❌</span>
+                  Erreur
+                </>
+              )}
+            </button>
+            <button onClick={onLogout} style={styles.logoutBtn}>
+              Se déconnecter
+            </button>
+          </div>
         </div>
       </header>
 
