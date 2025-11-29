@@ -276,7 +276,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                   ...styles.badge,
                   ...(post.status === 'Published' ? styles.badgePublished : styles.badgeDraft)
                 }}>
-                  {post.status === 'Published' ? '✓ Publié' : '◐ Brouillon'}
+                  {post.status === 'Published' ? '✓ Publié' : '○ Non publié'}
                 </span>
 
                 {/* Date */}
