@@ -73,14 +73,22 @@ function generateEmailTemplate(content: string, language: string = 'fr'): string
         <meta name="color-scheme" content="light">
         <meta name="supported-color-schemes" content="light">
         <style>
-          :root { color-scheme: light; }
+          :root { color-scheme: light only; }
+          * { color-scheme: light only !important; }
           @media (prefers-color-scheme: dark) {
-            body, .email-body { background-color: #f5f0ff !important; }
-            .email-content { background-color: #ffffff !important; color: #333333 !important; }
-            .email-header { background-color: #ffffff !important; }
-            p, h1, h2, h3, td, div { color: inherit !important; }
+            body, .email-body, table, tr, td { background-color: #f5f0ff !important; }
+            .email-content, .content-cell { background-color: #ffffff !important; color: #333333 !important; }
+            .email-header, .header-cell { background-color: #ffffff !important; }
+            .white-bg { background-color: #ffffff !important; }
+            p, h1, h2, h3, td, div, span { color: inherit !important; }
           }
+          [data-ogsc], [data-ogsb] { background-color: #ffffff !important; }
         </style>
+        <!--[if mso]>
+        <style type="text/css">
+          body, table, td { background-color: #ffffff !important; }
+        </style>
+        <![endif]-->
       </head>
       <body class="email-body" style="margin: 0; padding: 0; background-color: #f5f0ff !important; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-font-smoothing: antialiased;">
         <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f0ff !important; padding: 20px 0;">
@@ -310,32 +318,39 @@ const COLOR_HEX: { [key: string]: string } = {
 };
 
 /**
- * Generate HTML for color bar visualization
+ * Generate HTML for color circles visualization (stacked circles like on website)
  */
-function generateColorBarHtml(colorValues: { [key: string]: number }): string {
-  let barsHtml = '';
+function generateColorCirclesHtml(colorValues: { [key: string]: number }): string {
+  let columnsHtml = '';
 
   for (const color of CHROMOBIO_COLORS) {
     const value = colorValues[color] || 0;
     const hexColor = COLOR_HEX[color] || '#888';
-    const heightPercent = (value / 8) * 100;
 
-    barsHtml += `
-      <div style="display: inline-block; text-align: center; margin: 0 2px; width: 40px;">
-        <div style="height: 80px; display: flex; flex-direction: column; justify-content: flex-end;">
-          <div style="background: ${hexColor}; width: 30px; height: ${heightPercent}%; margin: 0 auto; border-radius: 3px;"></div>
+    // Generate stacked circles
+    let circlesHtml = '';
+    for (let i = 0; i < value; i++) {
+      circlesHtml += `<div style="width: 16px; height: 16px; border-radius: 50%; background-color: ${hexColor}; margin: 2px auto;"></div>`;
+    }
+
+    columnsHtml += `
+      <td style="vertical-align: bottom; text-align: center; padding: 0 2px; width: 28px;">
+        <div style="min-height: 150px; display: table-cell; vertical-align: bottom;">
+          ${circlesHtml}
         </div>
-        <div style="font-size: 10px; color: #666; margin-top: 4px;">${value}</div>
-        <div style="font-size: 8px; color: #999; writing-mode: vertical-rl; text-orientation: mixed; height: 60px; overflow: hidden;">${color}</div>
-      </div>
+        <div style="font-size: 11px; color: #ffffff; font-weight: bold; margin-top: 4px;">${value}</div>
+        <div style="font-size: 7px; color: #cccccc; margin-top: 2px; white-space: nowrap; transform: rotate(-45deg); transform-origin: center; height: 40px; line-height: 40px;">${color}</div>
+      </td>
     `;
   }
 
   return `
-    <div style="background: #1a1a2e; padding: 20px; border-radius: 10px; overflow-x: auto;">
-      <div style="display: flex; justify-content: center; align-items: flex-end;">
-        ${barsHtml}
-      </div>
+    <div class="white-bg" style="background: #1f2937 !important; padding: 20px 10px; border-radius: 12px; overflow-x: auto;">
+      <table cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+        <tr>
+          ${columnsHtml}
+        </tr>
+      </table>
     </div>
   `;
 }
@@ -360,8 +375,8 @@ export async function sendChromoBioResults(
   const lang = language.toLowerCase() as 'fr' | 'en' | 'de';
   const subject = subjects[lang] || subjects.fr;
 
-  // Generate color visualization
-  const colorBarHtml = generateColorBarHtml(results.colorValues);
+  // Generate color visualization with stacked circles
+  const colorCirclesHtml = generateColorCirclesHtml(results.colorValues);
 
   // Build interpretation sections
   const interpretationHtml = `
@@ -405,7 +420,7 @@ export async function sendChromoBioResults(
       Votre Profil Chromatique
     </h2>
 
-    ${colorBarHtml}
+    ${colorCirclesHtml}
 
     <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px; margin: 30px 0 20px 0; font-size: 18px;">
       Interprétation brève
