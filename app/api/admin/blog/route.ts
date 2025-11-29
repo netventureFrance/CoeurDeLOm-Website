@@ -79,6 +79,7 @@ export async function GET(request: NextRequest) {
         image: record.fields.Image ? (record.fields.Image as any)[0]?.url : null,
         imageUrl: record.fields.Image_URL || null, // Permanent ImgBB URL
         audioFile: record.fields.Audio_File ? (record.fields.Audio_File as any)[0]?.url : null,
+        audioUrl: record.fields.Audio_URL || null, // Permanent audio URL
         spotifyUrl: record.fields.Spotify_URL,
       };
     });
@@ -160,8 +161,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Add audio file if provided
+    // Also save to Audio_URL text field for permanent URL storage
     if (data.audioUrl) {
       fields.Audio_File = [{ url: data.audioUrl }];
+      fields.Audio_URL = data.audioUrl; // Permanent URL in text field
     }
 
     // Add Spotify URL if provided
@@ -259,8 +262,10 @@ export async function PUT(request: NextRequest) {
     }
 
     // Handle audio update
+    // Also update Audio_URL text field for permanent URL storage
     if (updateData.audioUrl !== undefined) {
       fields.Audio_File = updateData.audioUrl ? [{ url: updateData.audioUrl }] : [];
+      fields.Audio_URL = updateData.audioUrl || ''; // Permanent URL in text field
     }
 
     console.log('Updating blog post with fields:', JSON.stringify(fields, null, 2));
