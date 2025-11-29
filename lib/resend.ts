@@ -36,7 +36,8 @@ export async function sendEmail({ to, subject, html, from }: SendEmailParams): P
 
 // Base URL for assets in emails
 const SITE_URL = 'https://coeurdelom.fr';
-const LOGO_URL = `${SITE_URL}/images/logo.png`;
+// Use Netlify subdomain for logo to ensure it always loads (regardless of DNS caching)
+const LOGO_URL = 'https://coeurdelom.netlify.app/images/logo.png';
 
 /**
  * Generate email wrapper with logo and branding
