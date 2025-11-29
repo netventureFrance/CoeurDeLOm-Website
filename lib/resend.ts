@@ -46,18 +46,12 @@ function generateEmailTemplate(content: string, language: string = 'fr'): string
   const footerTexts = {
     fr: {
       visit: 'Visitez notre site',
-      address: '140, Rue du Pioch de Boutonnet B1',
-      city: '34090 Montpellier, France',
     },
     en: {
       visit: 'Visit our website',
-      address: '140, Rue du Pioch de Boutonnet B1',
-      city: '34090 Montpellier, France',
     },
     de: {
       visit: 'Besuchen Sie unsere Website',
-      address: '140, Rue du Pioch de Boutonnet B1',
-      city: '34090 Montpellier, Frankreich',
     },
   };
 
@@ -116,11 +110,7 @@ function generateEmailTemplate(content: string, language: string = 'fr'): string
                     <a href="${SITE_URL}" style="display: inline-block; background: white; color: #7C3AED !important; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; margin-bottom: 20px;">
                       ${footer.visit}
                     </a>
-                    <p style="color: rgba(255,255,255,0.9) !important; margin: 15px 0 5px 0; font-size: 13px;">
-                      ${footer.address}<br>
-                      ${footer.city}
-                    </p>
-                    <p style="margin: 10px 0 0 0;">
+                    <p style="margin: 15px 0 0 0;">
                       <a href="mailto:contact@coeurdelom.fr" style="color: white !important; text-decoration: none; font-size: 13px;">contact@coeurdelom.fr</a>
                     </p>
                   </td>
