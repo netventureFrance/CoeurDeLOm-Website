@@ -39,8 +39,9 @@ export async function POST(request: NextRequest) {
     const buildHookUrl = process.env.NETLIFY_BUILD_HOOK_URL;
 
     if (!buildHookUrl) {
+      console.error('NETLIFY_BUILD_HOOK_URL not set');
       return NextResponse.json(
-        { error: 'Build hook not configured' },
+        { error: 'Build hook not configured. Add NETLIFY_BUILD_HOOK_URL to environment variables.' },
         { status: 500 }
       );
     }
@@ -51,8 +52,10 @@ export async function POST(request: NextRequest) {
     });
 
     if (!response.ok) {
+      const text = await response.text();
+      console.error('Netlify build hook failed:', response.status, text);
       return NextResponse.json(
-        { error: 'Failed to trigger deploy' },
+        { error: `Failed to trigger deploy: ${response.status}` },
         { status: 500 }
       );
     }
@@ -64,7 +67,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Deploy trigger error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: `Internal server error: ${error instanceof Error ? error.message : 'Unknown'}` },
       { status: 500 }
     );
   }
