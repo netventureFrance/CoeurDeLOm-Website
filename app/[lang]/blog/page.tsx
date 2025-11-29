@@ -8,6 +8,24 @@ import InteractiveTitle from '@/components/InteractiveTitle';
 // Force dynamic rendering to always fetch fresh data from Airtable
 export const dynamic = 'force-dynamic';
 
+// Decode HTML entities
+function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&rsquo;/g, "'")
+    .replace(/&lsquo;/g, "'")
+    .replace(/&rdquo;/g, '"')
+    .replace(/&ldquo;/g, '"')
+    .replace(/&hellip;/g, '...')
+    .replace(/&mdash;/g, '—')
+    .replace(/&ndash;/g, '–');
+}
+
 // Strip HTML tags and get first ~150 characters for preview
 // Skips headings (h1-h6) and strong/bold text at the start to show actual content
 function getContentPreview(content: string, maxLength: number = 200): string {
@@ -16,7 +34,9 @@ function getContentPreview(content: string, maxLength: number = 200): string {
   // Also remove strong/bold tags that might be used as subtitles at the start
   cleaned = cleaned.replace(/^(\s*<p>\s*<strong>[\s\S]*?<\/strong>\s*<\/p>\s*)+/gi, '');
   // Remove all remaining HTML tags
-  const textOnly = cleaned.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  let textOnly = cleaned.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  // Decode HTML entities
+  textOnly = decodeHtmlEntities(textOnly);
   // Truncate and add ellipsis if needed
   if (textOnly.length <= maxLength) return textOnly;
   return textOnly.substring(0, maxLength).trim() + '...';
