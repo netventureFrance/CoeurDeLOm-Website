@@ -81,6 +81,35 @@ export interface ChromoBioTestSubmission {
   gdprConsent: boolean;
 }
 
+// ChromoBio color names in order (18 colors)
+export const CHROMOBIO_COLORS = [
+  'Magenta', 'Pourpre', 'Violet', 'Bleu Roi', 'Indigo', 'Bleu',
+  'Cyan', 'Bleu Turquoise', 'Vert Turquoise', 'Vert', 'Citron', 'Pomme',
+  'Jaune', 'Or', 'Orange', 'Rouge', 'Écarlate', 'Framboise'
+] as const;
+
+export type ChromoBioColor = typeof CHROMOBIO_COLORS[number];
+
+// Color values (0-8 for each color)
+export interface ChromoBioColorValues {
+  [color: string]: number;
+}
+
+// Brief interpretation sections
+export interface ChromoBioBriefInterpretation {
+  excess: string;      // En excès
+  balanced: string;    // Équilibré
+  deficient: string;   // En déficience
+}
+
+// Full test results
+export interface ChromoBioTestResults {
+  colorValues: ChromoBioColorValues;
+  briefInterpretation: ChromoBioBriefInterpretation;
+  detailedInterpretation: string;
+  chartImageUrl?: string;  // Optional screenshot/image of the chart
+}
+
 export interface NewsPromo {
   id: string;
   title: string;
@@ -722,5 +751,101 @@ export async function updateBlogPostTranslations(
   } catch (error) {
     console.error('Error updating blog post translations:', error);
     return false;
+  }
+}
+
+/**
+ * Find the most recent ChromoBio test record for an email (for updating with results)
+ */
+export async function findRecentChromoBioTest(email: string): Promise<string | null> {
+  try {
+    // First find the contact
+    const contacts = await base('Contact Submissions')
+      .select({
+        filterByFormula: `LOWER({Email}) = LOWER('${escapeFormulaString(email)}')`,
+        maxRecords: 1,
+      })
+      .all();
+
+    if (contacts.length === 0) {
+      return null;
+    }
+
+    const contactId = contacts[0].id;
+
+    // Find the most recent test for this contact that doesn't have results yet
+    const tests = await base('ChromoBio_Tests')
+      .select({
+        filterByFormula: `AND(
+          FIND('${contactId}', ARRAYJOIN({Contact})) > 0,
+          OR({Status} = 'New', {Status} = 'In Progress')
+        )`,
+        sort: [{ field: 'Test_Date', direction: 'desc' }],
+        maxRecords: 1,
+      })
+      .all();
+
+    return tests.length > 0 ? tests[0].id : null;
+  } catch (error) {
+    console.error('Error finding recent ChromoBio test:', error);
+    return null;
+  }
+}
+
+/**
+ * Save ChromoBio test results to an existing test record
+ */
+export async function saveChromoBioTestResults(
+  testRecordId: string,
+  results: ChromoBioTestResults
+): Promise<boolean> {
+  try {
+    await base('ChromoBio_Tests').update(testRecordId, {
+      Results_JSON: JSON.stringify(results.colorValues),
+      Brief_Excess: results.briefInterpretation.excess,
+      Brief_Balanced: results.briefInterpretation.balanced,
+      Brief_Deficient: results.briefInterpretation.deficient,
+      Detailed_Interpretation: results.detailedInterpretation,
+      Chart_Image_URL: results.chartImageUrl || '',
+      Status: 'Completed',
+      Completed_At: new Date().toISOString(),
+    });
+
+    console.log(`✅ Saved ChromoBio test results for record ${testRecordId}`);
+    return true;
+  } catch (error) {
+    console.error('Error saving ChromoBio test results:', error);
+    return false;
+  }
+}
+
+/**
+ * Get contact info from a ChromoBio test record
+ */
+export async function getChromoBioTestWithContact(testRecordId: string): Promise<{
+  testId: string;
+  contactName: string;
+  contactEmail: string;
+  language: string;
+} | null> {
+  try {
+    const testRecord = await base('ChromoBio_Tests').find(testRecordId);
+    const contactIds = testRecord.fields.Contact as string[];
+
+    if (!contactIds || contactIds.length === 0) {
+      return null;
+    }
+
+    const contactRecord = await base('Contact Submissions').find(contactIds[0]);
+
+    return {
+      testId: testRecordId,
+      contactName: contactRecord.fields.Name as string,
+      contactEmail: contactRecord.fields.Email as string,
+      language: (contactRecord.fields.Language as string)?.toLowerCase() || 'fr',
+    };
+  } catch (error) {
+    console.error('Error getting ChromoBio test with contact:', error);
+    return null;
   }
 }
