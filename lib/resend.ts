@@ -76,11 +76,11 @@ function generateEmailTemplate(content: string, language: string = 'fr'): string
           <tr>
             <td align="center">
               <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;">
-                <!-- Header with gradient -->
+                <!-- Header with white background -->
                 <tr>
-                  <td style="background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 50%, #4C1D95 100%); padding: 30px; border-radius: 16px 16px 0 0; text-align: center;">
-                    <img src="${LOGO_URL}" alt="Coeur de l'OM" style="height: 60px; margin-bottom: 10px;" />
-                    <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 14px; letter-spacing: 1px;">Bien-être holistique & Chromothérapie</p>
+                  <td style="background: #ffffff; padding: 30px; border-radius: 16px 16px 0 0; text-align: center; border-bottom: 3px solid #7C3AED;">
+                    <img src="${LOGO_URL}" alt="Coeur de l'OM" style="height: 70px; margin-bottom: 15px;" />
+                    <p style="color: #7C3AED; margin: 0; font-size: 28px; font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive; font-style: italic;">Cœur de l'Om</p>
                   </td>
                 </tr>
 
