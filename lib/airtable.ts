@@ -809,15 +809,29 @@ export async function saveChromoBioTestResults(
   results: ChromoBioTestResults
 ): Promise<boolean> {
   try {
-    await base('ChromoBio_Tests').update(testRecordId, {
-      Results_JSON: JSON.stringify(results.colorValues),
-      Brief_Excess: results.briefInterpretation.excess,
-      Brief_Balanced: results.briefInterpretation.balanced,
-      Brief_Deficient: results.briefInterpretation.deficient,
-      Detailed_Interpretation: results.detailedInterpretation,
-      Status: 'Completed',
-      Completed_At: new Date().toISOString(), // Full datetime (ISO 8601)
-    });
+    // Try to save with Completed_At field
+    try {
+      await base('ChromoBio_Tests').update(testRecordId, {
+        Results_JSON: JSON.stringify(results.colorValues),
+        Brief_Excess: results.briefInterpretation.excess,
+        Brief_Balanced: results.briefInterpretation.balanced,
+        Brief_Deficient: results.briefInterpretation.deficient,
+        Detailed_Interpretation: results.detailedInterpretation,
+        Status: 'Completed',
+        Completed_At: new Date().toISOString(), // Full datetime (ISO 8601)
+      });
+    } catch (fieldError) {
+      // If Completed_At field doesn't exist, save without it
+      console.warn('Completed_At field may not exist, saving without it');
+      await base('ChromoBio_Tests').update(testRecordId, {
+        Results_JSON: JSON.stringify(results.colorValues),
+        Brief_Excess: results.briefInterpretation.excess,
+        Brief_Balanced: results.briefInterpretation.balanced,
+        Brief_Deficient: results.briefInterpretation.deficient,
+        Detailed_Interpretation: results.detailedInterpretation,
+        Status: 'Completed',
+      });
+    }
 
     console.log(`✅ Saved ChromoBio test results for record ${testRecordId}`);
     return true;
