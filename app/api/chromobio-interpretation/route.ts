@@ -63,7 +63,7 @@ Please generate TWO interpretations in **${languageInstructions}**:
    - Make each sentence intriguing and curiosity-provoking
    - Hint at deeper insights without revealing everything
    - Mention specific colors and what they might reveal
-   - End with an invitation to discover more with Valérie
+   - End with an invitation to discover more through a personalized session
    - Encourage them to trust their intuition
    - Make it appealing enough to want to learn more
    - NO markdown, NO asterisks, NO special formatting - plain text only
@@ -71,8 +71,8 @@ Please generate TWO interpretations in **${languageInstructions}**:
 2. **DETAILED INTERPRETATION** (for the full reading):
    - Write 3-5 paragraphs of deep psychological and energetic analysis
    - Explain what the color pattern reveals about their current life situation
-   - Discuss the energetic implications using ChromoBioEnergie and Aura-Soma principles
-   - Mention how Equilibrium bottles and color therapy could help restore balance
+   - Discuss the energetic implications using ChromoBioEnergie principles
+   - Mention how color essences (essences de couleurs) could help restore balance
    - Reference chakras, energy flow, and emotional patterns
    - Be warm, empathetic, and professionally insightful
    - NO markdown, NO asterisks, NO special formatting - plain text only
@@ -98,9 +98,9 @@ Important content guidelines:
 - Write naturally and fluently in ${languageInstructions}
 - Be specific about the colors mentioned in each category
 - Make the short interpretation curiosity-provoking and inviting
-- Hint that Valérie can help them understand the deeper meaning
+- Suggest that a personalized session can help understand the deeper meaning (avoid mentioning specific practitioner names)
 - Encourage trusting their intuition about the colors they chose
-- In detailed interpretation, reference Aura-Soma Equilibrium bottles and ChromoBioEnergie
+- In detailed interpretation, reference ChromoBioEnergie and color essences (essences de couleurs) - NEVER mention "Aura-Soma" or "Equilibrium bottles"
 - Emphasize extreme cases (0 or 8) as they are energetically significant
 - Make the detailed interpretation insightful and worth discovering`;
 
