@@ -31,8 +31,6 @@ interface Event {
   endDate: string;
   status: string;
   language: string;
-  featuredImage: string | null;
-  imageUrl: string | null;
 }
 
 type TabType = 'blog' | 'events';
@@ -457,22 +455,8 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
               <div>
                 {events.map((event) => (
                   <div key={event.id} style={styles.card}>
-                    {/* Thumbnail */}
-                    {(event.imageUrl || event.featuredImage) ? (
-                      <img
-                        src={event.imageUrl || event.featuredImage || ''}
-                        alt=""
-                        style={styles.thumbnail}
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                          (e.target as HTMLImageElement).nextElementSibling?.removeAttribute('style');
-                        }}
-                      />
-                    ) : null}
-                    <div style={{
-                      ...styles.noImage,
-                      display: (event.imageUrl || event.featuredImage) ? 'none' : 'flex'
-                    }}>🗓️</div>
+                    {/* Icon */}
+                    <div style={styles.noImage}>🗓️</div>
 
                     {/* Info */}
                     <div style={styles.postInfo}>

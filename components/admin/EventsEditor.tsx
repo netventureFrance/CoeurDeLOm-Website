@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import RichTextEditor from './RichTextEditor';
 
 interface Event {
@@ -12,8 +12,6 @@ interface Event {
   endDate: string;
   status: string;
   language: string;
-  featuredImage: string | null;
-  imageUrl: string | null;
 }
 
 interface EventsEditorProps {
@@ -25,9 +23,6 @@ interface EventsEditorProps {
 export default function EventsEditor({ event, onClose, onSave }: EventsEditorProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadMessage, setUploadMessage] = useState('');
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     title: event?.title || '',
@@ -37,7 +32,6 @@ export default function EventsEditor({ event, onClose, onSave }: EventsEditorPro
     endDate: event?.endDate || '',
     status: event?.status || 'Offline',
     language: event?.language || 'FR',
-    imageUrl: event?.imageUrl || event?.featuredImage || '',
   });
 
   function handleChange(
@@ -45,41 +39,6 @@ export default function EventsEditor({ event, onClose, onSave }: EventsEditorPro
   ) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  }
-
-  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setIsUploading(true);
-    setUploadMessage('');
-    setError('');
-
-    try {
-      const uploadFormData = new FormData();
-      uploadFormData.append('file', file);
-
-      const response = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: uploadFormData,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.details || data.error || 'Erreur lors du téléchargement');
-      }
-
-      setFormData((prev) => ({ ...prev, imageUrl: data.url }));
-      setUploadMessage('Image téléchargée avec succès!');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erreur lors du téléchargement');
-    } finally {
-      setIsUploading(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -206,11 +165,11 @@ export default function EventsEditor({ event, onClose, onSave }: EventsEditorPro
               <div>
                 <label style={styles.label}>Lien (optionnel)</label>
                 <input
-                  type="url"
+                  type="text"
                   name="link"
                   value={formData.link}
                   onChange={handleChange}
-                  placeholder="https://..."
+                  placeholder="/fr/contact ou https://..."
                   style={styles.input}
                 />
                 <p style={styles.helpText}>URL vers laquelle l'événement redirige</p>
@@ -243,100 +202,6 @@ export default function EventsEditor({ event, onClose, onSave }: EventsEditorPro
                   style={styles.input}
                 />
                 <p style={styles.helpText}>Laissez vide pour un événement d'un jour</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Image */}
-          <div style={styles.section}>
-            <h2 style={styles.sectionTitle}>Image (optionnel)</h2>
-
-            <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
-              {formData.imageUrl && (
-                <div style={{ position: 'relative' }}>
-                  <img
-                    src={formData.imageUrl}
-                    alt="Preview"
-                    style={{ width: '200px', height: '130px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #e5e7eb' }}
-                    onError={(e) => {
-                      const img = e.target as HTMLImageElement;
-                      img.style.display = 'none';
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setFormData((prev) => ({ ...prev, imageUrl: '' }))}
-                    style={{
-                      position: 'absolute',
-                      top: '-8px',
-                      right: '-8px',
-                      width: '24px',
-                      height: '24px',
-                      borderRadius: '50%',
-                      backgroundColor: '#ef4444',
-                      color: 'white',
-                      border: 'none',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                    title="Supprimer l'image"
-                  >
-                    x
-                  </button>
-                </div>
-              )}
-              <div style={{ flex: 1 }}>
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  accept="image/jpeg,image/png,image/gif,image/webp"
-                  onChange={handleImageUpload}
-                  style={{ display: 'none' }}
-                  id="event-image-upload"
-                />
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={isUploading}
-                  style={{
-                    backgroundColor: isUploading ? '#9ca3af' : '#10b981',
-                    color: 'white',
-                    padding: '14px 24px',
-                    borderRadius: '8px',
-                    border: 'none',
-                    cursor: isUploading ? 'wait' : 'pointer',
-                    fontWeight: '600',
-                    fontSize: '15px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    width: '100%',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {isUploading ? 'Téléchargement en cours...' : 'Télécharger une image'}
-                </button>
-                <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '6px', textAlign: 'center' }}>
-                  JPEG, PNG, GIF, WebP (max 32MB)
-                </p>
-                {uploadMessage && (
-                  <p style={{ fontSize: '13px', color: '#10b981', marginTop: '8px', textAlign: 'center' }}>
-                    {uploadMessage}
-                  </p>
-                )}
-
-                <label style={{ ...styles.label, marginTop: '16px' }}>Ou coller une URL directement</label>
-                <input
-                  type="url"
-                  name="imageUrl"
-                  value={formData.imageUrl}
-                  onChange={handleChange}
-                  placeholder="https://..."
-                  style={styles.input}
-                />
               </div>
             </div>
           </div>

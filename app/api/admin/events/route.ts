@@ -63,8 +63,6 @@ export async function GET(request: NextRequest) {
       endDate: record.fields.End_Date || '',
       status: record.fields.Status || 'Offline',
       language: record.fields.Language || 'FR',
-      featuredImage: record.fields.Featured_Image ? (record.fields.Featured_Image as any)[0]?.url : null,
-      imageUrl: record.fields.Image_URL || null,
     }));
 
     return NextResponse.json(events);
@@ -107,12 +105,6 @@ export async function POST(request: NextRequest) {
     // End date is optional
     if (data.endDate) {
       fields.End_Date = data.endDate;
-    }
-
-    // Add image if provided
-    if (data.imageUrl) {
-      fields.Featured_Image = [{ url: data.imageUrl }];
-      fields.Image_URL = data.imageUrl;
     }
 
     const record = await base('News_Promos').create([{ fields }]);
@@ -166,12 +158,6 @@ export async function PUT(request: NextRequest) {
         }
       }
       fields.Status = status;
-    }
-
-    // Handle image update
-    if (updateData.imageUrl !== undefined) {
-      fields.Featured_Image = updateData.imageUrl ? [{ url: updateData.imageUrl }] : [];
-      fields.Image_URL = updateData.imageUrl || '';
     }
 
     await base('News_Promos').update(id, fields);
