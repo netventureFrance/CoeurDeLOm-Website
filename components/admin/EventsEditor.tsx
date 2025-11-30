@@ -153,7 +153,7 @@ export default function EventsEditor({ event, onClose, onSave }: EventsEditorPro
               onChange={handleChange}
               style={styles.select}
             >
-              <option value="Draft">Draft</option>
+              <option value="Draft">Offline</option>
               <option value="Published">Published</option>
             </select>
             <button
