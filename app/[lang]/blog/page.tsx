@@ -94,13 +94,13 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
                   className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group"
                 >
                   {post.featuredImage && (
-                    <div className="relative aspect-square overflow-hidden">
+                    <Link href={`/${lang}/blog/${post.slug}`} className="block relative aspect-square overflow-hidden cursor-pointer">
                       <img
                         src={post.featuredImage}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
-                    </div>
+                    </Link>
                   )}
                   <div className="p-6">
                     <span className="text-sm text-gray-500 mb-3 block">
@@ -110,7 +110,9 @@ export default async function BlogPage({ params }: { params: Promise<{ lang: str
                       className="text-2xl font-normal mb-3 text-purple-900 group-hover:text-cyan transition-colors"
                       style={{ fontFamily: "'Dancing Script', cursive" }}
                     >
-                      {post.title}
+                      <Link href={`/${lang}/blog/${post.slug}`} className="hover:underline">
+                        {post.title}
+                      </Link>
                     </h2>
                     <p className="text-gray-600 mb-4 line-clamp-3">{getContentPreview(post.content, 200)}</p>
                     <Link
