@@ -107,11 +107,7 @@ export default function OfficeCarousel() {
             })}
 
             {/* Subtle vignette overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 pointer-events-none z-20" />
-
-            {/* Animated corner accent */}
-            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-purple-500/20 to-transparent pointer-events-none z-20" />
-            <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-cyan-500/20 to-transparent pointer-events-none z-20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none z-20" />
           </div>
 
           {/* Navigation Arrows */}
