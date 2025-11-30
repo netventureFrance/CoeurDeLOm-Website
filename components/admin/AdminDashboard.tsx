@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import BlogEditor from './BlogEditor';
+import EventsEditor from './EventsEditor';
 
 interface BlogPost {
   id: string;
@@ -16,25 +17,45 @@ interface BlogPost {
   publishedDate: string;
   status: string;
   image: string | null;
-  imageUrl: string | null; // Permanent ImgBB URL
+  imageUrl: string | null;
   audioFile: string | null;
   spotifyUrl: string | null;
 }
+
+interface Event {
+  id: string;
+  title: string;
+  content: string;
+  link: string;
+  startDate: string;
+  endDate: string;
+  status: string;
+  language: string;
+  featuredImage: string | null;
+  imageUrl: string | null;
+}
+
+type TabType = 'blog' | 'events';
 
 interface AdminDashboardProps {
   onLogout: () => void;
 }
 
 export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
+  const [activeTab, setActiveTab] = useState<TabType>('blog');
   const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isCreating, setIsCreating] = useState(false);
+  const [isCreatingEvent, setIsCreatingEvent] = useState(false);
   const [error, setError] = useState('');
   const [deployStatus, setDeployStatus] = useState<'idle' | 'deploying' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     fetchPosts();
+    fetchEvents();
   }, []);
 
   async function fetchPosts() {
@@ -51,6 +72,20 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
       setError('Erreur de connexion');
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  async function fetchEvents() {
+    try {
+      const response = await fetch('/api/admin/events');
+      if (response.ok) {
+        const data = await response.json();
+        setEvents(data);
+      } else {
+        setError('Erreur lors du chargement des événements');
+      }
+    } catch (err) {
+      setError('Erreur de connexion');
     }
   }
 
@@ -95,6 +130,48 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     setIsCreating(false);
   }
 
+  // Event handlers
+  async function handleDeleteEvent(id: string, title: string) {
+    if (!confirm(`Supprimer l'événement "${title}" ?`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/admin/events?id=${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setEvents(events.filter((e) => e.id !== id));
+      } else {
+        setError('Erreur lors de la suppression');
+      }
+    } catch (err) {
+      setError('Erreur de connexion');
+    }
+  }
+
+  function handleEditEvent(event: Event) {
+    setSelectedEvent(event);
+    setIsCreatingEvent(false);
+  }
+
+  function handleCreateEvent() {
+    setSelectedEvent(null);
+    setIsCreatingEvent(true);
+  }
+
+  function handleEventEditorClose() {
+    setSelectedEvent(null);
+    setIsCreatingEvent(false);
+  }
+
+  async function handleEventEditorSave() {
+    await fetchEvents();
+    setSelectedEvent(null);
+    setIsCreatingEvent(false);
+  }
+
   async function handleDeploy() {
     if (deployStatus === 'deploying') return;
 
@@ -134,10 +211,24 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     );
   }
 
+  if (selectedEvent || isCreatingEvent) {
+    return (
+      <EventsEditor
+        event={selectedEvent}
+        onClose={handleEventEditorClose}
+        onSave={handleEventEditorSave}
+      />
+    );
+  }
+
   // Inline styles for reliability
   const styles = {
     container: { minHeight: '100vh', backgroundColor: '#f9fafb', fontFamily: 'system-ui, sans-serif' },
-    header: { backgroundColor: 'white', borderBottom: '1px solid #e5e7eb', padding: '16px 24px' },
+    header: { backgroundColor: 'white', borderBottom: 'none', padding: '16px 24px' },
+    tabBar: { backgroundColor: 'white', borderBottom: '1px solid #e5e7eb', padding: '0 24px' },
+    tabBarContent: { maxWidth: '1000px', margin: '0 auto', display: 'flex', gap: '0' },
+    tab: { padding: '16px 24px', cursor: 'pointer', border: 'none', background: 'none', fontSize: '16px', fontWeight: '500', color: '#6b7280', borderBottom: '2px solid transparent', marginBottom: '-1px' },
+    tabActive: { color: '#7c3aed', borderBottomColor: '#7c3aed' },
     headerContent: { maxWidth: '1000px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
     logo: { width: '40px', height: '40px', marginRight: '12px' },
     title: { fontSize: '20px', fontWeight: 'bold', color: '#1f2937', margin: 0 },
@@ -179,7 +270,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
         <div style={styles.headerContent}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <img src="/Coeur-de-lOm-Alpha-Kopie.png" alt="Logo" style={styles.logo} />
-            <h1 style={styles.title}>Gestion du Blog</h1>
+            <h1 style={styles.title}>Administration</h1>
           </div>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <button
@@ -224,94 +315,203 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
         </div>
       </header>
 
-      {/* Main */}
-      <main style={styles.main}>
-        <div style={styles.topBar}>
-          <h2 style={styles.subtitle}>Articles ({posts.length})</h2>
-          <button onClick={handleCreate} style={styles.newBtn}>
-            + Nouvel article
+      {/* Tab Bar */}
+      <div style={styles.tabBar}>
+        <div style={styles.tabBarContent}>
+          <button
+            onClick={() => setActiveTab('blog')}
+            style={{
+              ...styles.tab,
+              ...(activeTab === 'blog' ? styles.tabActive : {}),
+            }}
+          >
+            Blog ({posts.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('events')}
+            style={{
+              ...styles.tab,
+              ...(activeTab === 'events' ? styles.tabActive : {}),
+            }}
+          >
+            Événements ({events.length})
           </button>
         </div>
+      </div>
 
-        {error && <div style={styles.error}>⚠️ {error}</div>}
+      {/* Main */}
+      <main style={styles.main}>
+        {error && <div style={styles.error}>{error}</div>}
 
-        {isLoading ? (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '48px' }}>
-            <div style={styles.spinner}></div>
-          </div>
-        ) : posts.length === 0 ? (
-          <div style={styles.empty}>
-            <p style={{ fontSize: '18px', color: '#6b7280', marginBottom: '8px' }}>Aucun article</p>
-            <p style={{ color: '#9ca3af' }}>Cliquez sur "Nouvel article" pour commencer</p>
-          </div>
-        ) : (
-          <div>
-            {posts.map((post) => (
-              <div key={post.id} style={styles.card}>
-                {/* Thumbnail */}
-                {post.image && post.image.startsWith('http') ? (
-                  <img
-                    src={post.image}
-                    alt=""
-                    style={styles.thumbnail}
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                      (e.target as HTMLImageElement).nextElementSibling?.removeAttribute('style');
-                    }}
-                  />
-                ) : null}
-                <div style={{
-                  ...styles.noImage,
-                  display: post.image && post.image.startsWith('http') ? 'none' : 'flex'
-                }}>🖼️</div>
+        {/* Blog Tab Content */}
+        {activeTab === 'blog' && (
+          <>
+            <div style={styles.topBar}>
+              <h2 style={styles.subtitle}>Articles ({posts.length})</h2>
+              <button onClick={handleCreate} style={styles.newBtn}>
+                + Nouvel article
+              </button>
+            </div>
 
-                {/* Info */}
-                <div style={styles.postInfo}>
-                  <h3 style={styles.postTitle}>{post.titleFR || 'Sans titre'}</h3>
-                  <p style={styles.postSlug}>{post.slug}</p>
-                </div>
-
-                {/* Status */}
-                <span style={{
-                  ...styles.badge,
-                  ...(post.status === 'Published' ? styles.badgePublished : styles.badgeDraft)
-                }}>
-                  {post.status === 'Published' ? '✓ Publié' : '○ Non publié'}
-                </span>
-
-                {/* Date */}
-                <span style={styles.date}>
-                  {post.publishedDate ? new Date(post.publishedDate).toLocaleDateString('fr-FR') : '-'}
-                </span>
-
-                {/* Actions */}
-                <div style={styles.actions}>
-                  <button
-                    onClick={() => handleEdit(post)}
-                    style={{ ...styles.actionBtn, ...styles.editBtn }}
-                  >
-                    ✏️ Modifier
-                  </button>
-                  <button
-                    onClick={() => handleDelete(post.id, post.titleFR || 'cet article')}
-                    style={{ ...styles.actionBtn, ...styles.deleteBtn }}
-                  >
-                    🗑️ Supprimer
-                  </button>
-                  {post.status === 'Published' && (
-                    <a
-                      href={`/fr/blog/${post.slug}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ ...styles.actionBtn, ...styles.viewBtn, textDecoration: 'none' }}
-                    >
-                      👁️ Voir
-                    </a>
-                  )}
-                </div>
+            {isLoading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', padding: '48px' }}>
+                <div style={styles.spinner}></div>
               </div>
-            ))}
-          </div>
+            ) : posts.length === 0 ? (
+              <div style={styles.empty}>
+                <p style={{ fontSize: '18px', color: '#6b7280', marginBottom: '8px' }}>Aucun article</p>
+                <p style={{ color: '#9ca3af' }}>Cliquez sur "Nouvel article" pour commencer</p>
+              </div>
+            ) : (
+              <div>
+                {posts.map((post) => (
+                  <div key={post.id} style={styles.card}>
+                    {/* Thumbnail */}
+                    {post.image && post.image.startsWith('http') ? (
+                      <img
+                        src={post.image}
+                        alt=""
+                        style={styles.thumbnail}
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                          (e.target as HTMLImageElement).nextElementSibling?.removeAttribute('style');
+                        }}
+                      />
+                    ) : null}
+                    <div style={{
+                      ...styles.noImage,
+                      display: post.image && post.image.startsWith('http') ? 'none' : 'flex'
+                    }}>🖼️</div>
+
+                    {/* Info */}
+                    <div style={styles.postInfo}>
+                      <h3 style={styles.postTitle}>{post.titleFR || 'Sans titre'}</h3>
+                      <p style={styles.postSlug}>{post.slug}</p>
+                    </div>
+
+                    {/* Status */}
+                    <span style={{
+                      ...styles.badge,
+                      ...(post.status === 'Published' ? styles.badgePublished : styles.badgeDraft)
+                    }}>
+                      {post.status === 'Published' ? '✓ Publié' : '○ Non publié'}
+                    </span>
+
+                    {/* Date */}
+                    <span style={styles.date}>
+                      {post.publishedDate ? new Date(post.publishedDate).toLocaleDateString('fr-FR') : '-'}
+                    </span>
+
+                    {/* Actions */}
+                    <div style={styles.actions}>
+                      <button
+                        onClick={() => handleEdit(post)}
+                        style={{ ...styles.actionBtn, ...styles.editBtn }}
+                      >
+                        ✏️ Modifier
+                      </button>
+                      <button
+                        onClick={() => handleDelete(post.id, post.titleFR || 'cet article')}
+                        style={{ ...styles.actionBtn, ...styles.deleteBtn }}
+                      >
+                        🗑️ Supprimer
+                      </button>
+                      {post.status === 'Published' && (
+                        <a
+                          href={`/fr/blog/${post.slug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ ...styles.actionBtn, ...styles.viewBtn, textDecoration: 'none' }}
+                        >
+                          👁️ Voir
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Events Tab Content */}
+        {activeTab === 'events' && (
+          <>
+            <div style={styles.topBar}>
+              <h2 style={styles.subtitle}>Événements ({events.length})</h2>
+              <button onClick={handleCreateEvent} style={styles.newBtn}>
+                + Nouvel événement
+              </button>
+            </div>
+
+            {isLoading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', padding: '48px' }}>
+                <div style={styles.spinner}></div>
+              </div>
+            ) : events.length === 0 ? (
+              <div style={styles.empty}>
+                <p style={{ fontSize: '18px', color: '#6b7280', marginBottom: '8px' }}>Aucun événement</p>
+                <p style={{ color: '#9ca3af' }}>Cliquez sur "Nouvel événement" pour commencer</p>
+              </div>
+            ) : (
+              <div>
+                {events.map((event) => (
+                  <div key={event.id} style={styles.card}>
+                    {/* Thumbnail */}
+                    {(event.imageUrl || event.featuredImage) ? (
+                      <img
+                        src={event.imageUrl || event.featuredImage || ''}
+                        alt=""
+                        style={styles.thumbnail}
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                          (e.target as HTMLImageElement).nextElementSibling?.removeAttribute('style');
+                        }}
+                      />
+                    ) : null}
+                    <div style={{
+                      ...styles.noImage,
+                      display: (event.imageUrl || event.featuredImage) ? 'none' : 'flex'
+                    }}>🗓️</div>
+
+                    {/* Info */}
+                    <div style={styles.postInfo}>
+                      <h3 style={styles.postTitle}>{event.title || 'Sans titre'}</h3>
+                      <p style={styles.postSlug}>
+                        {event.startDate ? new Date(event.startDate).toLocaleDateString('fr-FR') : '-'}
+                        {event.endDate && ` → ${new Date(event.endDate).toLocaleDateString('fr-FR')}`}
+                        {event.language && ` • ${event.language}`}
+                      </p>
+                    </div>
+
+                    {/* Status */}
+                    <span style={{
+                      ...styles.badge,
+                      ...(event.status === 'Published' ? styles.badgePublished : styles.badgeDraft)
+                    }}>
+                      {event.status === 'Published' ? '✓ Actif' : '○ Inactif'}
+                    </span>
+
+                    {/* Actions */}
+                    <div style={styles.actions}>
+                      <button
+                        onClick={() => handleEditEvent(event)}
+                        style={{ ...styles.actionBtn, ...styles.editBtn }}
+                      >
+                        ✏️ Modifier
+                      </button>
+                      <button
+                        onClick={() => handleDeleteEvent(event.id, event.title || 'cet événement')}
+                        style={{ ...styles.actionBtn, ...styles.deleteBtn }}
+                      >
+                        🗑️ Supprimer
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </main>
     </div>
