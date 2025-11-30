@@ -35,7 +35,7 @@ export default function EventsEditor({ event, onClose, onSave }: EventsEditorPro
     link: event?.link || '',
     startDate: event?.startDate || new Date().toISOString().split('T')[0],
     endDate: event?.endDate || '',
-    status: event?.status || 'Draft',
+    status: event?.status || 'Offline',
     language: event?.language || 'FR',
     imageUrl: event?.imageUrl || event?.featuredImage || '',
   });
@@ -153,8 +153,8 @@ export default function EventsEditor({ event, onClose, onSave }: EventsEditorPro
               onChange={handleChange}
               style={styles.select}
             >
-              <option value="Draft">Offline</option>
-              <option value="Published">Published</option>
+              <option value="Active">Active</option>
+              <option value="Offline">Offline</option>
             </select>
             <button
               onClick={handleSubmit}

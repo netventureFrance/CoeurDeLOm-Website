@@ -487,9 +487,9 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                     {/* Status */}
                     <span style={{
                       ...styles.badge,
-                      ...(event.status === 'Published' ? styles.badgePublished : styles.badgeDraft)
+                      ...(event.status === 'Active' ? styles.badgePublished : styles.badgeDraft)
                     }}>
-                      {event.status === 'Published' ? '✓ Actif' : '○ Inactif'}
+                      {event.status === 'Active' ? '✓ Actif' : '○ Offline'}
                     </span>
 
                     {/* Actions */}

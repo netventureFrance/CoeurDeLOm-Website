@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
       link: record.fields.Link || '',
       startDate: record.fields.Start_Date || '',
       endDate: record.fields.End_Date || '',
-      status: record.fields.Status || 'Draft',
+      status: record.fields.Status || 'Offline',
       language: record.fields.Language || 'FR',
       featuredImage: record.fields.Featured_Image ? (record.fields.Featured_Image as any)[0]?.url : null,
       imageUrl: record.fields.Image_URL || null,
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
     const base = getAirtableBase();
 
     // Clean status value
-    let status = data.status || 'Draft';
+    let status = data.status || 'Offline';
     if (typeof status === 'string') {
       while (/^["'\s]|["'\s]$/.test(status)) {
         status = status.replace(/^["'\s]+|["'\s]+$/g, '');
