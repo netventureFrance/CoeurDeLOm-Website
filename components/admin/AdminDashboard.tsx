@@ -691,6 +691,22 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
               />
             </div>
 
+            {/* Messages Section */}
+            <div style={styles.topBar}>
+              <h2 style={styles.subtitle}>Messages</h2>
+            </div>
+
+            <div style={{ backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden', marginBottom: '32px' }}>
+              <iframe
+                className="airtable-embed"
+                src="https://airtable.com/embed/appRQaqXOUs5bLMIs/shrG8llK19ARVuPfc?viewControls=on"
+                frameBorder="0"
+                width="100%"
+                height="500"
+                style={{ background: 'transparent', border: 'none' }}
+              />
+            </div>
+
             {/* Chromo Test Section */}
             <div style={styles.topBar}>
               <h2 style={styles.subtitle}>Chromo Test</h2>
