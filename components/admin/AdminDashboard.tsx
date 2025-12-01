@@ -675,17 +675,34 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
         {/* Airtable Tab Content */}
         {activeTab === 'airtable' && (
           <>
+            {/* Contacts Section */}
             <div style={styles.topBar}>
               <h2 style={styles.subtitle}>Contacts</h2>
             </div>
 
-            <div style={{ backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+            <div style={{ backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden', marginBottom: '32px' }}>
               <iframe
                 className="airtable-embed"
                 src="https://airtable.com/embed/appRQaqXOUs5bLMIs/shrmaFspdZIfozZci?viewControls=on"
                 frameBorder="0"
                 width="100%"
-                height="600"
+                height="500"
+                style={{ background: 'transparent', border: 'none' }}
+              />
+            </div>
+
+            {/* Chromo Test Section */}
+            <div style={styles.topBar}>
+              <h2 style={styles.subtitle}>Chromo Test</h2>
+            </div>
+
+            <div style={{ backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+              <iframe
+                className="airtable-embed"
+                src="https://airtable.com/embed/appRQaqXOUs5bLMIs/shrkD0uFJdOE90mNq?viewControls=on"
+                frameBorder="0"
+                width="100%"
+                height="500"
                 style={{ background: 'transparent', border: 'none' }}
               />
             </div>
