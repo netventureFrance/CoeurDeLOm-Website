@@ -42,7 +42,7 @@ interface CarouselImage {
   status: string;
 }
 
-type TabType = 'blog' | 'events' | 'carousel';
+type TabType = 'blog' | 'events' | 'carousel' | 'airtable';
 
 interface AdminDashboardProps {
   onLogout: () => void;
@@ -426,6 +426,15 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
           >
             Carrousel ({carouselImages.length})
           </button>
+          <button
+            onClick={() => setActiveTab('airtable')}
+            style={{
+              ...styles.tab,
+              ...(activeTab === 'airtable' ? styles.tabActive : {}),
+            }}
+          >
+            Airtable
+          </button>
         </div>
       </div>
 
@@ -660,6 +669,26 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                 ))}
               </div>
             )}
+          </>
+        )}
+
+        {/* Airtable Tab Content */}
+        {activeTab === 'airtable' && (
+          <>
+            <div style={styles.topBar}>
+              <h2 style={styles.subtitle}>Contacts</h2>
+            </div>
+
+            <div style={{ backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+              <iframe
+                className="airtable-embed"
+                src="https://airtable.com/embed/appRQaqXOUs5bLMIs/shrmaFspdZIfozZci?viewControls=on"
+                frameBorder="0"
+                width="100%"
+                height="600"
+                style={{ background: 'transparent', border: 'none' }}
+              />
+            </div>
           </>
         )}
       </main>
