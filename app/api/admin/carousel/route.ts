@@ -51,15 +51,15 @@ export async function GET(request: NextRequest) {
     }
 
     const base = getAirtableBase();
+
+    // Fetch all records without sort (in case Order field doesn't exist)
     const records = await base(CAROUSEL_TABLE)
-      .select({
-        sort: [{ field: 'Order', direction: 'asc' }],
-      })
+      .select({})
       .all();
 
     const images = records.map((record) => {
       // Get image URL - prefer Image_URL, fallback to attachment
-      let imageUrl = record.fields.Image_URL || '';
+      let imageUrl = (record.fields.Image_URL as string) || '';
       if (!imageUrl && record.fields.Image && Array.isArray(record.fields.Image)) {
         const attachment = record.fields.Image[0] as any;
         imageUrl = attachment?.url || '';
@@ -68,14 +68,17 @@ export async function GET(request: NextRequest) {
       return {
         id: record.id,
         imageUrl: imageUrl,
-        order: record.fields.Order || 0,
-        altText: record.fields.Alt_Text || '',
-        status: record.fields.Status || 'Inactive',
+        order: (record.fields.Order as number) || 0,
+        altText: (record.fields.Alt_Text as string) || '',
+        status: (record.fields.Status as string) || 'Active',
       };
     });
 
+    // Sort by order in JavaScript
+    images.sort((a, b) => a.order - b.order);
+
     return NextResponse.json(images);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching carousel images:', error);
     return NextResponse.json(
       { error: 'Failed to fetch carousel images' },

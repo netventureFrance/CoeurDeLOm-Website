@@ -267,19 +267,22 @@ module.exports = {
       console.log('\n🔄 Syncing carousel images from Airtable...\n');
 
       try {
+        // Fetch all carousel records (filter by Status in JS if field exists)
         const carouselRecords = await base(CAROUSEL_TABLE)
-          .select({
-            filterByFormula: `{Status} = 'Active'`,
-            sort: [{ field: 'Order', direction: 'asc' }],
-          })
+          .select({})
           .all();
 
-        console.log(`🎠 Found ${carouselRecords.length} active carousel images\n`);
+        // Filter active records and sort by order
+        const activeRecords = carouselRecords
+          .filter(r => !r.fields.Status || r.fields.Status === 'Active')
+          .sort((a, b) => (a.fields.Order || 0) - (b.fields.Order || 0));
+
+        console.log(`🎠 Found ${activeRecords.length} active carousel images\n`);
 
         const carouselImages = [];
         let carouselImagesDownloaded = 0;
 
-        for (const record of carouselRecords) {
+        for (const record of activeRecords) {
           const order = record.fields.Order || 0;
           const altText = record.fields.Alt_Text || '';
 
