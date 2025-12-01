@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.airtableusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+      },
     ],
   },
   async rewrites() {

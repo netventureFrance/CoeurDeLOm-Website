@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 
-const officeImages = [
+// Default fallback images (used if no carousel data from Airtable)
+const defaultImages = [
   { src: '/images/office/IMG_2681.jpeg', alt: 'Espace méditation avec coussins et vue jardin' },
   { src: '/images/office/IMG_2682.jpeg', alt: 'Salle de méditation avec symbole Om' },
   { src: '/images/office/IMG_2665.jpeg', alt: 'Cercle de méditation avec bols chantants' },
@@ -14,22 +15,55 @@ const officeImages = [
   { src: '/images/office/IMG_2671.jpeg', alt: 'Coussin de méditation avec mandala' },
 ];
 
+interface CarouselImage {
+  id: string;
+  order: number;
+  altText: string;
+  localPath: string | null;
+  remoteUrl: string;
+}
+
 export default function OfficeCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [zoomDirection, setZoomDirection] = useState<'in' | 'out'>('in');
+  const [images, setImages] = useState<{ src: string; alt: string }[]>(defaultImages);
+
+  // Load carousel images from manifest on mount
+  useEffect(() => {
+    async function loadCarouselImages() {
+      try {
+        const response = await fetch('/data/carousel-images.json');
+        if (response.ok) {
+          const data: CarouselImage[] = await response.json();
+          if (data && data.length > 0) {
+            // Convert to the format we need, preferring local path
+            const loadedImages = data.map((img) => ({
+              src: img.localPath || img.remoteUrl,
+              alt: img.altText || `Image du cabinet ${img.order}`,
+            }));
+            setImages(loadedImages);
+          }
+        }
+      } catch (error) {
+        // Keep default images on error
+        console.log('Using default carousel images');
+      }
+    }
+    loadCarouselImages();
+  }, []);
 
   const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % officeImages.length);
+    setCurrentIndex((prev) => (prev + 1) % images.length);
     // Alternate zoom direction for variety
     setZoomDirection((prev) => prev === 'in' ? 'out' : 'in');
-  }, []);
+  }, [images.length]);
 
   const goToPrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + officeImages.length) % officeImages.length);
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
     setZoomDirection((prev) => prev === 'in' ? 'out' : 'in');
-  }, []);
+  }, [images.length]);
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
@@ -70,7 +104,7 @@ export default function OfficeCarousel() {
         >
           {/* Main Image Container */}
           <div className="relative aspect-[16/9] w-full bg-gray-100">
-            {officeImages.map((image, index) => {
+            {images.map((image, index) => {
               const isActive = index === currentIndex;
               // Determine zoom animation based on alternating pattern
               const shouldZoomIn = index % 2 === 0;
@@ -134,13 +168,13 @@ export default function OfficeCarousel() {
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/20 z-30">
             <div
               className="h-full bg-gradient-to-r from-purple-500 to-cyan-500 transition-all duration-300"
-              style={{ width: `${((currentIndex + 1) / officeImages.length) * 100}%` }}
+              style={{ width: `${((currentIndex + 1) / images.length) * 100}%` }}
             />
           </div>
 
           {/* Dots Navigation */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-30">
-            {officeImages.map((_, index) => (
+            {images.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}

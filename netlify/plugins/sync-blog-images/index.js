@@ -1,10 +1,12 @@
 /**
- * Netlify Build Plugin: Sync Blog Content from Airtable
+ * Netlify Build Plugin: Sync Blog & Carousel Content from Airtable
  *
- * Downloads all blog data during build for fast static serving:
+ * Downloads all blog and carousel data during build for fast static serving:
  * - Blog posts content (all languages) → /public/data/blog-posts.json
- * - Images → /public/images/blog/{slug}.{ext}
+ * - Blog images → /public/images/blog/{slug}.{ext}
  * - Audio files → /public/audio/blog/{slug}.mp3
+ * - Carousel images → /public/images/office/{order}.{ext}
+ * - Carousel manifest → /public/data/carousel-images.json
  *
  * This eliminates runtime Airtable API calls for maximum performance.
  */
@@ -16,9 +18,14 @@ const https = require('https');
 const http = require('http');
 
 const IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'blog');
+const CAROUSEL_DIR = path.join(process.cwd(), 'public', 'images', 'office');
 const AUDIO_DIR = path.join(process.cwd(), 'public', 'audio', 'blog');
 const DATA_DIR = path.join(process.cwd(), 'public', 'data');
 const BLOG_DATA_PATH = path.join(DATA_DIR, 'blog-posts.json');
+const CAROUSEL_DATA_PATH = path.join(DATA_DIR, 'carousel-images.json');
+
+// Airtable table ID for Carousel_Images
+const CAROUSEL_TABLE = 'tblLtxTVqDjiUfQIc';
 
 function downloadFile(url, filepath) {
   return new Promise((resolve, reject) => {
@@ -110,7 +117,7 @@ module.exports = {
     }
 
     // Ensure directories exist
-    [IMAGES_DIR, AUDIO_DIR, DATA_DIR].forEach(dir => {
+    [IMAGES_DIR, CAROUSEL_DIR, AUDIO_DIR, DATA_DIR].forEach(dir => {
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
@@ -249,13 +256,101 @@ module.exports = {
         fs.writeFileSync(path.join(AUDIO_DIR, 'manifest.json'), JSON.stringify(audioManifest, null, 2));
       }
 
-      console.log(`\n✨ Sync complete!`);
+      console.log(`\n✨ Blog sync complete!`);
       console.log(`   📄 Blog posts: ${blogPosts.length}`);
       console.log(`   🖼️  Images downloaded: ${imagesDownloaded}`);
       console.log(`   🎵 Audio downloaded: ${audioDownloaded}`);
 
+      // ============================================
+      // SYNC CAROUSEL IMAGES
+      // ============================================
+      console.log('\n🔄 Syncing carousel images from Airtable...\n');
+
+      try {
+        const carouselRecords = await base(CAROUSEL_TABLE)
+          .select({
+            filterByFormula: `{Status} = 'Active'`,
+            sort: [{ field: 'Order', direction: 'asc' }],
+          })
+          .all();
+
+        console.log(`🎠 Found ${carouselRecords.length} active carousel images\n`);
+
+        const carouselImages = [];
+        let carouselImagesDownloaded = 0;
+
+        for (const record of carouselRecords) {
+          const order = record.fields.Order || 0;
+          const altText = record.fields.Alt_Text || '';
+
+          console.log(`🖼️  Processing carousel image #${order}`);
+
+          // Get image URL - prefer Image_URL, fallback to attachment
+          let imgUrl = null;
+          let imgExt = '.jpg';
+
+          const imageUrl = record.fields.Image_URL;
+          const imageField = record.fields.Image;
+
+          if (imageUrl && typeof imageUrl === 'string' && imageUrl.trim()) {
+            imgUrl = imageUrl.trim();
+            imgExt = getExtensionFromUrl(imgUrl, '.jpg');
+          } else if (imageField && Array.isArray(imageField) && imageField.length > 0) {
+            imgUrl = imageField[0].url;
+            imgExt = getExtensionFromAttachment(imageField[0], '.jpg');
+          }
+
+          if (imgUrl) {
+            const imgFilename = `carousel-${order}${imgExt}`;
+            const imgPath = path.join(CAROUSEL_DIR, imgFilename);
+
+            try {
+              const result = await downloadFile(imgUrl, imgPath);
+              const localPath = `/images/office/${imgFilename}`;
+
+              carouselImages.push({
+                id: record.id,
+                order,
+                altText,
+                localPath,
+                remoteUrl: imgUrl,
+              });
+
+              if (!result.skipped) {
+                carouselImagesDownloaded++;
+                console.log(`   ✅ Downloaded: ${imgFilename}`);
+              } else {
+                console.log(`   ⏭️  Skipped (exists): ${imgFilename}`);
+              }
+            } catch (err) {
+              console.error(`   ❌ Failed: ${err.message}`);
+              // Keep remote URL as fallback
+              carouselImages.push({
+                id: record.id,
+                order,
+                altText,
+                localPath: null,
+                remoteUrl: imgUrl,
+              });
+            }
+          }
+        }
+
+        // Write carousel data
+        fs.writeFileSync(CAROUSEL_DATA_PATH, JSON.stringify(carouselImages, null, 2));
+        console.log(`\n📋 Carousel data saved to: ${CAROUSEL_DATA_PATH}`);
+
+        console.log(`\n✨ Carousel sync complete!`);
+        console.log(`   🎠 Carousel images: ${carouselImages.length}`);
+        console.log(`   🖼️  Downloaded: ${carouselImagesDownloaded}`);
+
+      } catch (carouselError) {
+        console.error('⚠️  Error syncing carousel (non-fatal):', carouselError.message);
+        // Don't fail the build for carousel errors
+      }
+
     } catch (error) {
-      console.error('❌ Error syncing blog content:', error.message);
+      console.error('❌ Error syncing content:', error.message);
       // Don't fail the build, just log the error
     }
   },

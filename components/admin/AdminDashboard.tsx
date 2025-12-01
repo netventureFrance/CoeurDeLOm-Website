@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import BlogEditor from './BlogEditor';
 import EventsEditor from './EventsEditor';
+import CarouselEditor from './CarouselEditor';
 
 interface BlogPost {
   id: string;
@@ -33,7 +34,15 @@ interface Event {
   language: string;
 }
 
-type TabType = 'blog' | 'events';
+interface CarouselImage {
+  id: string;
+  imageUrl: string;
+  order: number;
+  altText: string;
+  status: string;
+}
+
+type TabType = 'blog' | 'events' | 'carousel';
 
 interface AdminDashboardProps {
   onLogout: () => void;
@@ -43,17 +52,21 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<TabType>('blog');
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
+  const [carouselImages, setCarouselImages] = useState<CarouselImage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [selectedCarouselImage, setSelectedCarouselImage] = useState<CarouselImage | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [isCreatingEvent, setIsCreatingEvent] = useState(false);
+  const [isCreatingCarouselImage, setIsCreatingCarouselImage] = useState(false);
   const [error, setError] = useState('');
   const [deployStatus, setDeployStatus] = useState<'idle' | 'deploying' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     fetchPosts();
     fetchEvents();
+    fetchCarouselImages();
   }, []);
 
   async function fetchPosts() {
@@ -81,6 +94,20 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
         setEvents(data);
       } else {
         setError('Erreur lors du chargement des événements');
+      }
+    } catch (err) {
+      setError('Erreur de connexion');
+    }
+  }
+
+  async function fetchCarouselImages() {
+    try {
+      const response = await fetch('/api/admin/carousel');
+      if (response.ok) {
+        const data = await response.json();
+        setCarouselImages(data);
+      } else {
+        setError('Erreur lors du chargement des images du carrousel');
       }
     } catch (err) {
       setError('Erreur de connexion');
@@ -170,6 +197,48 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     setIsCreatingEvent(false);
   }
 
+  // Carousel handlers
+  async function handleDeleteCarouselImage(id: string) {
+    if (!confirm('Supprimer cette image du carrousel ?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/admin/carousel?id=${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setCarouselImages(carouselImages.filter((img) => img.id !== id));
+      } else {
+        setError('Erreur lors de la suppression');
+      }
+    } catch (err) {
+      setError('Erreur de connexion');
+    }
+  }
+
+  function handleEditCarouselImage(image: CarouselImage) {
+    setSelectedCarouselImage(image);
+    setIsCreatingCarouselImage(false);
+  }
+
+  function handleCreateCarouselImage() {
+    setSelectedCarouselImage(null);
+    setIsCreatingCarouselImage(true);
+  }
+
+  function handleCarouselEditorClose() {
+    setSelectedCarouselImage(null);
+    setIsCreatingCarouselImage(false);
+  }
+
+  async function handleCarouselEditorSave() {
+    await fetchCarouselImages();
+    setSelectedCarouselImage(null);
+    setIsCreatingCarouselImage(false);
+  }
+
   async function handleDeploy() {
     if (deployStatus === 'deploying') return;
 
@@ -215,6 +284,20 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
         event={selectedEvent}
         onClose={handleEventEditorClose}
         onSave={handleEventEditorSave}
+      />
+    );
+  }
+
+  if (selectedCarouselImage || isCreatingCarouselImage) {
+    const nextOrder = carouselImages.length > 0
+      ? Math.max(...carouselImages.map(img => img.order)) + 1
+      : 0;
+    return (
+      <CarouselEditor
+        image={selectedCarouselImage}
+        onClose={handleCarouselEditorClose}
+        onSave={handleCarouselEditorSave}
+        nextOrder={nextOrder}
       />
     );
   }
@@ -333,6 +416,15 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
             }}
           >
             Événements ({events.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('carousel')}
+            style={{
+              ...styles.tab,
+              ...(activeTab === 'carousel' ? styles.tabActive : {}),
+            }}
+          >
+            Carrousel ({carouselImages.length})
           </button>
         </div>
       </div>
@@ -486,6 +578,79 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                       </button>
                       <button
                         onClick={() => handleDeleteEvent(event.id, event.title || 'cet événement')}
+                        style={{ ...styles.actionBtn, ...styles.deleteBtn }}
+                      >
+                        🗑️ Supprimer
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Carousel Tab Content */}
+        {activeTab === 'carousel' && (
+          <>
+            <div style={styles.topBar}>
+              <h2 style={styles.subtitle}>Images du carrousel ({carouselImages.length})</h2>
+              <button onClick={handleCreateCarouselImage} style={styles.newBtn}>
+                + Nouvelle image
+              </button>
+            </div>
+
+            {isLoading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', padding: '48px' }}>
+                <div style={styles.spinner}></div>
+              </div>
+            ) : carouselImages.length === 0 ? (
+              <div style={styles.empty}>
+                <p style={{ fontSize: '18px', color: '#6b7280', marginBottom: '8px' }}>Aucune image</p>
+                <p style={{ color: '#9ca3af' }}>Cliquez sur "Nouvelle image" pour commencer</p>
+              </div>
+            ) : (
+              <div>
+                {carouselImages.map((image) => (
+                  <div key={image.id} style={styles.card}>
+                    {/* Thumbnail */}
+                    {image.imageUrl ? (
+                      <img
+                        src={image.imageUrl}
+                        alt={image.altText || ''}
+                        style={styles.thumbnail}
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <div style={styles.noImage}>🖼️</div>
+                    )}
+
+                    {/* Info */}
+                    <div style={styles.postInfo}>
+                      <h3 style={styles.postTitle}>{image.altText || `Image #${image.order}`}</h3>
+                      <p style={styles.postSlug}>Ordre: {image.order}</p>
+                    </div>
+
+                    {/* Status */}
+                    <span style={{
+                      ...styles.badge,
+                      ...(image.status === 'Active' ? styles.badgePublished : styles.badgeDraft)
+                    }}>
+                      {image.status === 'Active' ? '✓ Active' : '○ Inactive'}
+                    </span>
+
+                    {/* Actions */}
+                    <div style={styles.actions}>
+                      <button
+                        onClick={() => handleEditCarouselImage(image)}
+                        style={{ ...styles.actionBtn, ...styles.editBtn }}
+                      >
+                        ✏️ Modifier
+                      </button>
+                      <button
+                        onClick={() => handleDeleteCarouselImage(image.id)}
                         style={{ ...styles.actionBtn, ...styles.deleteBtn }}
                       >
                         🗑️ Supprimer

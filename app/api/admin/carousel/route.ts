@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import Airtable from 'airtable';
 
+// Airtable table ID for Carousel_Images
+const CAROUSEL_TABLE = 'tblLtxTVqDjiUfQIc';
+
 // Initialize Airtable
 function getAirtableBase() {
   if (!process.env.AIRTABLE_API_KEY || !process.env.AIRTABLE_BASE_ID) {
@@ -40,7 +43,7 @@ async function checkAuth(): Promise<boolean> {
   }
 }
 
-// GET - List all events
+// GET - List all carousel images
 export async function GET(request: NextRequest) {
   try {
     if (!(await checkAuth())) {
@@ -48,34 +51,40 @@ export async function GET(request: NextRequest) {
     }
 
     const base = getAirtableBase();
-    const records = await base('News_Promos')
+    const records = await base(CAROUSEL_TABLE)
       .select({
-        sort: [{ field: 'Start_Date', direction: 'desc' }],
+        sort: [{ field: 'Order', direction: 'asc' }],
       })
       .all();
 
-    const events = records.map((record) => ({
-      id: record.id,
-      title: record.fields.Title || '',
-      content: record.fields.Content || '',
-      link: record.fields.Link || '',
-      startDate: record.fields.Start_Date || '',
-      endDate: record.fields.End_Date || '',
-      status: record.fields.Status || 'Offline',
-      language: record.fields.Language || 'FR',
-    }));
+    const images = records.map((record) => {
+      // Get image URL - prefer Image_URL, fallback to attachment
+      let imageUrl = record.fields.Image_URL || '';
+      if (!imageUrl && record.fields.Image && Array.isArray(record.fields.Image)) {
+        const attachment = record.fields.Image[0] as any;
+        imageUrl = attachment?.url || '';
+      }
 
-    return NextResponse.json(events);
+      return {
+        id: record.id,
+        imageUrl: imageUrl,
+        order: record.fields.Order || 0,
+        altText: record.fields.Alt_Text || '',
+        status: record.fields.Status || 'Inactive',
+      };
+    });
+
+    return NextResponse.json(images);
   } catch (error) {
-    console.error('Error fetching events:', error);
+    console.error('Error fetching carousel images:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch events' },
+      { error: 'Failed to fetch carousel images' },
       { status: 500 }
     );
   }
 }
 
-// POST - Create new event
+// POST - Create new carousel image
 export async function POST(request: NextRequest) {
   try {
     if (!(await checkAuth())) {
@@ -86,47 +95,33 @@ export async function POST(request: NextRequest) {
     const base = getAirtableBase();
 
     // Clean status value
-    let status = data.status || 'Offline';
+    let status = data.status || 'Inactive';
     if (typeof status === 'string') {
-      while (/^["'\s]|["'\s]$/.test(status)) {
-        status = status.replace(/^["'\s]+|["'\s]+$/g, '');
-      }
+      status = status.replace(/^["'\s]+|["'\s]+$/g, '');
     }
-
-    // Handle link - convert relative paths to text or leave as-is
-    let link = data.link || '';
-    // Don't send empty string to URL field, use null instead
-    const linkValue = link.trim() === '' ? null : link;
 
     const fields: any = {
-      Title: data.title || '',
-      Content: data.content || '',
-      Start_Date: data.startDate || new Date().toISOString().split('T')[0],
+      Order: data.order || 0,
+      Alt_Text: data.altText || '',
       Status: status,
-      Language: data.language || 'FR',
     };
 
-    // Only include Link if it has a value (avoids Airtable URL validation on empty)
-    if (linkValue !== null) {
-      fields.Link = linkValue;
+    // Handle image URL
+    if (data.imageUrl && data.imageUrl.trim() !== '') {
+      fields.Image_URL = data.imageUrl;
     }
 
-    // End date is optional
-    if (data.endDate) {
-      fields.End_Date = data.endDate;
-    }
-
-    const record = await base('News_Promos').create([{ fields }]);
+    const record = await base(CAROUSEL_TABLE).create([{ fields }]);
 
     return NextResponse.json({
       success: true,
       id: record[0].id,
     });
   } catch (error: any) {
-    console.error('Error creating event:', error);
+    console.error('Error creating carousel image:', error);
     return NextResponse.json(
       {
-        error: 'Failed to create event',
+        error: 'Failed to create carousel image',
         details: error?.message || error?.toString(),
       },
       { status: 500 }
@@ -134,7 +129,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// PUT - Update existing event
+// PUT - Update existing carousel image
 export async function PUT(request: NextRequest) {
   try {
     if (!(await checkAuth())) {
@@ -145,51 +140,44 @@ export async function PUT(request: NextRequest) {
     const { id, ...updateData } = data;
 
     if (!id) {
-      return NextResponse.json({ error: 'Event ID required' }, { status: 400 });
+      return NextResponse.json({ error: 'Image ID required' }, { status: 400 });
     }
 
     const base = getAirtableBase();
 
     const fields: any = {};
 
-    if (updateData.title !== undefined) fields.Title = updateData.title;
-    if (updateData.content !== undefined) fields.Content = updateData.content;
-    if (updateData.link !== undefined) {
-      // Handle link - only include if non-empty to avoid URL validation issues
-      const linkValue = updateData.link.trim();
-      if (linkValue !== '') {
-        fields.Link = linkValue;
+    if (updateData.imageUrl !== undefined) {
+      if (updateData.imageUrl.trim() !== '') {
+        fields.Image_URL = updateData.imageUrl;
       } else {
-        fields.Link = null; // Clear the field
+        fields.Image_URL = null;
       }
     }
-    if (updateData.startDate !== undefined) fields.Start_Date = updateData.startDate;
-    if (updateData.endDate !== undefined) fields.End_Date = updateData.endDate || null;
-    if (updateData.language !== undefined) fields.Language = updateData.language;
+    if (updateData.order !== undefined) fields.Order = updateData.order;
+    if (updateData.altText !== undefined) fields.Alt_Text = updateData.altText;
 
     if (updateData.status !== undefined) {
       let status = updateData.status;
       if (typeof status === 'string') {
-        while (/^["'\s]|["'\s]$/.test(status)) {
-          status = status.replace(/^["'\s]+|["'\s]+$/g, '');
-        }
+        status = status.replace(/^["'\s]+|["'\s]+$/g, '');
       }
       fields.Status = status;
     }
 
-    await base('News_Promos').update(id, fields);
+    await base(CAROUSEL_TABLE).update(id, fields);
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
-    console.error('Error updating event:', error);
+    console.error('Error updating carousel image:', error);
     return NextResponse.json(
-      { error: 'Failed to update event', details: error?.message || error?.error },
+      { error: 'Failed to update carousel image', details: error?.message || error?.error },
       { status: 500 }
     );
   }
 }
 
-// DELETE - Delete event
+// DELETE - Delete carousel image
 export async function DELETE(request: NextRequest) {
   try {
     if (!(await checkAuth())) {
@@ -200,17 +188,17 @@ export async function DELETE(request: NextRequest) {
     const id = searchParams.get('id');
 
     if (!id) {
-      return NextResponse.json({ error: 'Event ID required' }, { status: 400 });
+      return NextResponse.json({ error: 'Image ID required' }, { status: 400 });
     }
 
     const base = getAirtableBase();
-    await base('News_Promos').destroy(id);
+    await base(CAROUSEL_TABLE).destroy(id);
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting event:', error);
+    console.error('Error deleting carousel image:', error);
     return NextResponse.json(
-      { error: 'Failed to delete event' },
+      { error: 'Failed to delete carousel image' },
       { status: 500 }
     );
   }
