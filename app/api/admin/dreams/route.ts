@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { sendDreamInterpretation } from '@/lib/resend';
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 
@@ -89,6 +90,9 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json();
     const interpretation = data.content?.[0]?.text || 'No interpretation available';
+
+    // Send email to Valérie with dream and interpretation
+    await sendDreamInterpretation(dream, interpretation, lang);
 
     return NextResponse.json({ interpretation });
   } catch (error) {
