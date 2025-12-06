@@ -466,15 +466,36 @@ export async function sendChromoBioResults(
 export async function sendDreamInterpretation(
   dream: string,
   interpretation: string,
-  language: string = 'fr'
+  language: string = 'FR'
 ): Promise<boolean> {
   const adminEmail = process.env.ADMIN_EMAIL || 'contact@coeurdelom.fr';
 
-  const langLabels: Record<string, string> = {
-    FR: 'Français',
-    DE: 'Deutsch',
-    EN: 'English',
+  const translations: Record<string, { title: string; dream: string; interpretation: string; subject: string; locale: string }> = {
+    FR: {
+      title: 'Nouvelle Interprétation de Rêve',
+      dream: 'Le Rêve',
+      interpretation: 'Interprétation',
+      subject: 'Nouvelle interprétation de rêve',
+      locale: 'fr-FR',
+    },
+    DE: {
+      title: 'Neue Traumdeutung',
+      dream: 'Der Traum',
+      interpretation: 'Deutung',
+      subject: 'Neue Traumdeutung',
+      locale: 'de-DE',
+    },
+    EN: {
+      title: 'New Dream Interpretation',
+      dream: 'The Dream',
+      interpretation: 'Interpretation',
+      subject: 'New dream interpretation',
+      locale: 'en-GB',
+    },
   };
+
+  const lang = language.toUpperCase();
+  const t = translations[lang] || translations.FR;
 
   // Add inline styles to the HTML interpretation
   const styledInterpretation = interpretation
@@ -487,16 +508,15 @@ export async function sendDreamInterpretation(
   const content = `
     <div style="text-align: center; margin-bottom: 25px;">
       <h1 style="color: #7C3AED; margin: 0 0 10px 0; font-size: 24px;">
-        <span style="font-size: 32px;">🌙</span> Nouvelle Interprétation de Rêve
+        <span style="font-size: 32px;">🌙</span> ${t.title}
       </h1>
       <p style="color: #666; margin: 0; font-size: 14px;">
-        ${new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-        • Langue: ${langLabels[language] || language}
+        ${new Date().toLocaleDateString(t.locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
       </p>
     </div>
 
     <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px; margin: 0 0 20px 0; font-size: 18px;">
-      <span style="margin-right: 8px;">💭</span> Le Rêve
+      <span style="margin-right: 8px;">💭</span> ${t.dream}
     </h2>
 
     <div style="background: linear-gradient(135deg, #f5f0ff 0%, #ede9fe 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #7C3AED; margin: 0 0 30px 0;">
@@ -504,7 +524,7 @@ export async function sendDreamInterpretation(
     </div>
 
     <h2 style="color: #7C3AED; border-bottom: 2px solid #7C3AED; padding-bottom: 10px; margin: 0 0 20px 0; font-size: 18px;">
-      <span style="margin-right: 8px;">🔮</span> Interprétation
+      <span style="margin-right: 8px;">🔮</span> ${t.interpretation}
     </h2>
 
     <div style="background: #ffffff; padding: 20px; border-radius: 12px; border: 2px solid #7C3AED; margin: 0;">
@@ -512,11 +532,11 @@ export async function sendDreamInterpretation(
     </div>
   `;
 
-  const html = generateEmailTemplate(content, 'fr');
+  const html = generateEmailTemplate(content, lang.toLowerCase());
 
   return sendEmail({
     to: adminEmail,
-    subject: `🌙 Nouvelle interprétation de rêve`,
+    subject: `🌙 ${t.subject}`,
     html,
   });
 }
