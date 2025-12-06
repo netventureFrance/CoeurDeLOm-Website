@@ -2,15 +2,16 @@
 
 import { useRef, useCallback } from 'react';
 
-// Bowl sounds mapped to each therapy (C, D, E, F, G, A, B for 7 therapies)
+// Bowl sounds mapped to each therapy - ordered from deep to high
+// C (do) → D (ré) → E (mi) → F (fa) → G (sol) → A (la) → B (si)
 const BOWL_SOUNDS = [
-  '/sounds/bowl-c.mp3', // Reiki
-  '/sounds/bowl-d.mp3', // Soins Vibratoires
-  '/sounds/bowl-e.mp3', // Méditation
-  '/sounds/bowl-f.mp3', // Chromobio-Énergie
-  '/sounds/bowl-g.mp3', // Tambour Chamanique
-  '/sounds/bowl-a.mp3', // Massage Amma
-  '/sounds/bowl-b.mp3', // Feng Shui
+  '/sounds/bowl-c.mp3', // Reiki - DO (deepest)
+  '/sounds/bowl-d.mp3', // Soins Vibratoires - RÉ
+  '/sounds/bowl-e.mp3', // Méditation - MI
+  '/sounds/bowl-f.mp3', // Chromobio-Énergie - FA
+  '/sounds/bowl-g.mp3', // Tambour Chamanique - SOL
+  '/sounds/bowl-a.mp3', // Massage Amma - LA
+  '/sounds/bowl-b.mp3', // Feng Shui - SI (highest)
 ];
 
 interface TherapyCardProps {
