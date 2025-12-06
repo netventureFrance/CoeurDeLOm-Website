@@ -476,6 +476,14 @@ export async function sendDreamInterpretation(
     EN: 'English',
   };
 
+  // Add inline styles to the HTML interpretation
+  const styledInterpretation = interpretation
+    .replace(/<h3>/g, '<h3 style="color: #7C3AED; margin: 20px 0 10px 0; font-size: 16px;">')
+    .replace(/<p>/g, '<p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 12px 0;">')
+    .replace(/<ul>/g, '<ul style="color: #333; font-size: 15px; line-height: 1.7; margin: 10px 0; padding-left: 20px;">')
+    .replace(/<li>/g, '<li style="margin-bottom: 8px;">')
+    .replace(/<strong>/g, '<strong style="color: #5B21B6;">');
+
   const content = `
     <div style="text-align: center; margin-bottom: 25px;">
       <h1 style="color: #7C3AED; margin: 0 0 10px 0; font-size: 24px;">
@@ -500,7 +508,7 @@ export async function sendDreamInterpretation(
     </h2>
 
     <div style="background: #ffffff; padding: 20px; border-radius: 12px; border: 2px solid #7C3AED; margin: 0;">
-      <p style="color: #333; font-size: 15px; line-height: 1.8; margin: 0; white-space: pre-wrap;">${interpretation.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+      ${styledInterpretation}
     </div>
   `;
 

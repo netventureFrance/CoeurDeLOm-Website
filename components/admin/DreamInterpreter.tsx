@@ -87,13 +87,22 @@ export default function DreamInterpreter() {
     error: { backgroundColor: '#fef2f2', color: '#dc2626', padding: '12px 16px', borderRadius: '8px', marginBottom: '16px' },
     resultCard: { backgroundColor: '#f5f3ff', borderRadius: '12px', padding: '24px', marginTop: '24px', border: '2px solid #7c3aed' },
     resultTitle: { fontSize: '18px', fontWeight: '600', color: '#7c3aed', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' },
-    resultText: { color: '#1f2937', fontSize: '16px', lineHeight: '1.7', whiteSpace: 'pre-wrap' as const },
     spinner: { width: '20px', height: '20px', border: '2px solid white', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite', display: 'inline-block' },
   };
 
+  // CSS for HTML interpretation content
+  const interpretationStyles = `
+    .dream-interpretation h3 { color: #7c3aed; margin: 20px 0 10px 0; font-size: 17px; font-weight: 600; }
+    .dream-interpretation h3:first-child { margin-top: 0; }
+    .dream-interpretation p { color: #1f2937; font-size: 15px; line-height: 1.7; margin: 0 0 12px 0; }
+    .dream-interpretation ul { color: #1f2937; font-size: 15px; line-height: 1.7; margin: 10px 0; padding-left: 24px; }
+    .dream-interpretation li { margin-bottom: 8px; }
+    .dream-interpretation strong { color: #5b21b6; }
+  `;
+
   return (
     <div style={styles.container}>
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } } ${interpretationStyles}`}</style>
 
       <div style={styles.card}>
         <h2 style={styles.title}>
@@ -169,7 +178,10 @@ export default function DreamInterpreter() {
               <span>🔮</span>
               {language === 'FR' ? 'Interprétation' : language === 'DE' ? 'Deutung' : 'Interpretation'}
             </h3>
-            <div style={styles.resultText}>{interpretation}</div>
+            <div
+              className="dream-interpretation"
+              dangerouslySetInnerHTML={{ __html: interpretation }}
+            />
           </div>
         )}
       </div>
