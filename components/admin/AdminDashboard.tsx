@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import BlogEditor from './BlogEditor';
 import EventsEditor from './EventsEditor';
 import CarouselEditor from './CarouselEditor';
+import DreamInterpreter from './DreamInterpreter';
 
 interface BlogPost {
   id: string;
@@ -42,7 +43,7 @@ interface CarouselImage {
   status: string;
 }
 
-type TabType = 'blog' | 'events' | 'carousel' | 'airtable';
+type TabType = 'blog' | 'events' | 'carousel' | 'dreams' | 'airtable';
 
 interface AdminDashboardProps {
   onLogout: () => void;
@@ -427,6 +428,15 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
             Carrousel ({carouselImages.length})
           </button>
           <button
+            onClick={() => setActiveTab('dreams')}
+            style={{
+              ...styles.tab,
+              ...(activeTab === 'dreams' ? styles.tabActive : {}),
+            }}
+          >
+            Rêves
+          </button>
+          <button
             onClick={() => setActiveTab('airtable')}
             style={{
               ...styles.tab,
@@ -670,6 +680,11 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
               </div>
             )}
           </>
+        )}
+
+        {/* Dreams Tab Content */}
+        {activeTab === 'dreams' && (
+          <DreamInterpreter />
         )}
 
         {/* Airtable Tab Content */}
