@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
 import TherapyFAQ from '@/components/TherapyFAQ';
+import TherapyCard from '@/components/TherapyCard';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -109,43 +110,13 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
         {/* Cards Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 max-w-[1800px] mx-auto mb-40">
           {therapies.map((therapy, index) => (
-            <div
+            <TherapyCard
               key={therapy.title}
-              className={`${therapy.rotation} hover:rotate-0 hover:scale-110 transition-all duration-500 group`}
-            >
-              <a
-                href={`#therapy-${index}`}
-                className="cursor-pointer block"
-              >
-                <div
-                  className="relative w-full aspect-square shadow-lg group-hover:shadow-2xl bg-white"
-                  style={{
-                    maskImage: 'radial-gradient(circle at center, black 50%, transparent 50%)',
-                    WebkitMaskImage: 'radial-gradient(circle at center, black 50%, transparent 50%)',
-                    maskSize: 'cover',
-                    WebkitMaskSize: 'cover',
-                    maskRepeat: 'no-repeat',
-                    WebkitMaskRepeat: 'no-repeat'
-                  } as React.CSSProperties}
-                >
-                {/* Image - Circular masked */}
-                {therapy.image && (
-                  <img
-                    src={therapy.image}
-                    alt={therapy.title}
-                    className="absolute inset-0 w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-500"
-                  />
-                )}
-
-                {/* Title overlay - Only visible on hover */}
-                <div className="absolute inset-0 bg-white/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-12">
-                  <h3 className="text-[9px] md:text-[10px] font-bold text-purple-900 text-center leading-[1.2] max-w-[65%]">
-                    {therapy.title}
-                  </h3>
-                </div>
-              </div>
-              </a>
-            </div>
+              title={therapy.title}
+              image={therapy.image}
+              rotation={therapy.rotation}
+              index={index}
+            />
           ))}
         </div>
 
