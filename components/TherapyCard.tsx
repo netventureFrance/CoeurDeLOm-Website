@@ -31,18 +31,11 @@ export default function TherapyCard({ title, image, rotation, index }: TherapyCa
       audioRef.current = null;
     }
 
-    const soundUrl = BOWL_SOUNDS[index] || BOWL_SOUNDS[0];
-    console.log('Playing sound:', index, soundUrl);
-
-    const audio = new Audio(soundUrl);
+    const audio = new Audio(BOWL_SOUNDS[index] || BOWL_SOUNDS[0]);
     audio.volume = 0.4;
     audioRef.current = audio;
 
-    audio.play().then(() => {
-      console.log('Audio playing successfully:', index);
-    }).catch((e) => {
-      console.log('Audio play failed:', index, e);
-    });
+    audio.play().catch(() => {});
   }, [index]);
 
   const stopSound = useCallback(() => {
