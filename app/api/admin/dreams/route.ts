@@ -89,42 +89,57 @@ export async function POST(request: NextRequest) {
       EN: `Interpret this dream in English:\n\n${dream}`,
     };
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 2000,
-        system: systemPrompt,
-        messages: [
-          {
-            role: 'user',
-            content: userPrompts[lang],
-          },
-        ],
-      }),
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
 
-    if (!response.ok) {
-      const errorData = await response.text();
-      console.error('Anthropic API error:', errorData);
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 2000,
+          system: systemPrompt,
+          messages: [
+            {
+              role: 'user',
+              content: userPrompts[lang],
+            },
+          ],
+        }),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error('Anthropic API error:', response.status, errorData);
+        return NextResponse.json(
+          { error: `API error: ${response.status}` },
+          { status: 500 }
+        );
+      }
+
+      const data = await response.json();
+      const interpretation = data.content?.[0]?.text || 'No interpretation available';
+
+      // Send email to Valérie with dream and interpretation
+      await sendDreamInterpretation(dream, interpretation, lang);
+
+      return NextResponse.json({ interpretation });
+    } catch (fetchError) {
+      clearTimeout(timeoutId);
+      console.error('Fetch error:', fetchError);
       return NextResponse.json(
-        { error: 'Failed to analyze dream' },
+        { error: 'Request timeout or network error' },
         { status: 500 }
       );
     }
-
-    const data = await response.json();
-    const interpretation = data.content?.[0]?.text || 'No interpretation available';
-
-    // Send email to Valérie with dream and interpretation
-    await sendDreamInterpretation(dream, interpretation, lang);
-
-    return NextResponse.json({ interpretation });
   } catch (error) {
     console.error('Dream interpretation error:', error);
     return NextResponse.json(
