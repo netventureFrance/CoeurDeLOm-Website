@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useCallback, useEffect, useState } from 'react';
+import { useRef, useCallback } from 'react';
 
 // Bowl sounds mapped to each therapy (C, D, E, F, G, A, B for 7 therapies)
 const BOWL_SOUNDS = [
@@ -22,94 +22,37 @@ interface TherapyCardProps {
 
 export default function TherapyCard({ title, image, rotation, index }: TherapyCardProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const fadeIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const [isAudioEnabled, setIsAudioEnabled] = useState(false);
-
-  // Preload audio on mount
-  useEffect(() => {
-    const audio = new Audio(BOWL_SOUNDS[index] || BOWL_SOUNDS[0]);
-    audio.preload = 'auto';
-    audio.volume = 0;
-    audioRef.current = audio;
-
-    // Enable audio after any user interaction on the page
-    const enableAudio = () => {
-      setIsAudioEnabled(true);
-      // Play and immediately pause to unlock audio
-      audio.play().then(() => {
-        audio.pause();
-        audio.currentTime = 0;
-      }).catch(() => {});
-    };
-
-    document.addEventListener('click', enableAudio, { once: true });
-    document.addEventListener('touchstart', enableAudio, { once: true });
-    document.addEventListener('scroll', enableAudio, { once: true });
-
-    return () => {
-      document.removeEventListener('click', enableAudio);
-      document.removeEventListener('touchstart', enableAudio);
-      document.removeEventListener('scroll', enableAudio);
-      if (fadeIntervalRef.current) {
-        clearInterval(fadeIntervalRef.current);
-      }
-    };
-  }, [index]);
 
   const playSound = useCallback(() => {
-    if (!audioRef.current) return;
-
-    // Clear any existing fade interval
-    if (fadeIntervalRef.current) {
-      clearInterval(fadeIntervalRef.current);
-      fadeIntervalRef.current = null;
+    // Create new audio each time for reliability
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
     }
 
-    const audio = audioRef.current;
+    const audio = new Audio(BOWL_SOUNDS[index] || BOWL_SOUNDS[0]);
+    audio.volume = 0.4;
+    audioRef.current = audio;
 
-    // Reset and play
-    audio.currentTime = 0;
-    audio.volume = 0;
-    audio.play().catch(() => {
-      // Autoplay might be blocked
+    audio.play().catch((e) => {
+      console.log('Audio play failed:', e);
     });
-
-    // Fade in
-    let volume = 0;
-    fadeIntervalRef.current = setInterval(() => {
-      if (audio && volume < 0.4) {
-        volume += 0.05;
-        audio.volume = Math.min(volume, 0.4);
-      } else if (fadeIntervalRef.current) {
-        clearInterval(fadeIntervalRef.current);
-        fadeIntervalRef.current = null;
-      }
-    }, 50);
-  }, []);
+  }, [index]);
 
   const stopSound = useCallback(() => {
-    if (!audioRef.current) return;
-
-    // Clear any existing fade interval
-    if (fadeIntervalRef.current) {
-      clearInterval(fadeIntervalRef.current);
-      fadeIntervalRef.current = null;
-    }
-
-    // Fade out
-    const audio = audioRef.current;
-    fadeIntervalRef.current = setInterval(() => {
-      if (audio.volume > 0.05) {
-        audio.volume -= 0.05;
-      } else {
-        audio.pause();
-        audio.volume = 0;
-        if (fadeIntervalRef.current) {
-          clearInterval(fadeIntervalRef.current);
-          fadeIntervalRef.current = null;
+    if (audioRef.current) {
+      // Quick fade out
+      const audio = audioRef.current;
+      const fadeOut = setInterval(() => {
+        if (audio.volume > 0.1) {
+          audio.volume -= 0.1;
+        } else {
+          clearInterval(fadeOut);
+          audio.pause();
+          audio.volume = 0;
         }
-      }
-    }, 50);
+      }, 50);
+    }
   }, []);
 
   return (
