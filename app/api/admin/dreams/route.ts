@@ -83,6 +83,12 @@ export async function POST(request: NextRequest) {
     const lang = language && ['FR', 'DE', 'EN'].includes(language) ? language : 'FR';
     const systemPrompt = systemPrompts[lang];
 
+    const userPrompts: Record<string, string> = {
+      FR: `Interprète ce rêve en français:\n\n${dream}`,
+      DE: `Interpretiere diesen Traum auf Deutsch:\n\n${dream}`,
+      EN: `Interpret this dream in English:\n\n${dream}`,
+    };
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -97,7 +103,7 @@ export async function POST(request: NextRequest) {
         messages: [
           {
             role: 'user',
-            content: `Voici le rêve à interpréter:\n\n${dream}`,
+            content: userPrompts[lang],
           },
         ],
       }),
