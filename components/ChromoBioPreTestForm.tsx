@@ -211,7 +211,7 @@ export default function ChromoBioPreTestForm({
                   setUserAnswer(e.target.value);
                   setShowMathError(false);
                 }}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                className="w-24 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
               />
             </div>
 
