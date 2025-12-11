@@ -25,6 +25,9 @@ interface ChromobioTestWrapperProps {
     restricted: string;
     restrictedDays: string;
     restrictedInfo: string;
+    securityQuestion: string;
+    securityQuestionError: string;
+    tooFast: string;
   };
   testDict: {
     title: string;

@@ -40,7 +40,10 @@
     "error": "An error occurred. Please try again.",
     "gdprConsent": "I agree that my personal data may be used to respond to my contact request",
     "newsletterConsent": "I would like to subscribe to the newsletter to receive news and offers",
-    "gdprRequired": "You must accept the privacy policy to continue"
+    "gdprRequired": "You must accept the privacy policy to continue",
+    "securityQuestion": "Security question",
+    "securityQuestionError": "Incorrect answer to security question",
+    "tooFast": "Please take your time to fill out the form"
   },
   "about": {
     "title": "Who am I?",
@@ -679,7 +682,10 @@
     "error": "An error occurred. Please try again.",
     "restricted": "You have already taken the test recently.",
     "restrictedDays": "You can retake the test in {days} days.",
-    "restrictedInfo": "The test is accessible once every 4 weeks to allow for significant evolution of your energetic profile."
+    "restrictedInfo": "The test is accessible once every 4 weeks to allow for significant evolution of your energetic profile.",
+    "securityQuestion": "Security question",
+    "securityQuestionError": "Incorrect answer to security question",
+    "tooFast": "Please take your time to fill out the form"
   },
   "chromobiotest": {
     "title": "ChromobioTest",

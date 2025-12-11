@@ -40,7 +40,10 @@
     "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
     "gdprConsent": "Ich stimme zu, dass meine persönlichen Daten zur Beantwortung meiner Kontaktanfrage verwendet werden dürfen",
     "newsletterConsent": "Ich möchte den Newsletter abonnieren, um Neuigkeiten und Angebote zu erhalten",
-    "gdprRequired": "Sie müssen die Datenschutzrichtlinie akzeptieren, um fortzufahren"
+    "gdprRequired": "Sie müssen die Datenschutzrichtlinie akzeptieren, um fortzufahren",
+    "securityQuestion": "Sicherheitsfrage",
+    "securityQuestionError": "Falsche Antwort auf die Sicherheitsfrage",
+    "tooFast": "Bitte nehmen Sie sich Zeit, das Formular auszufüllen"
   },
   "about": {
     "title": "Wer bin ich?",
@@ -679,7 +682,10 @@
     "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
     "restricted": "Sie haben den Test kürzlich bereits durchgeführt.",
     "restrictedDays": "Sie können den Test in {days} Tagen wiederholen.",
-    "restrictedInfo": "Der Test ist einmal alle 4 Wochen zugänglich, um eine signifikante Entwicklung Ihres energetischen Profils zu ermöglichen."
+    "restrictedInfo": "Der Test ist einmal alle 4 Wochen zugänglich, um eine signifikante Entwicklung Ihres energetischen Profils zu ermöglichen.",
+    "securityQuestion": "Sicherheitsfrage",
+    "securityQuestionError": "Falsche Antwort auf die Sicherheitsfrage",
+    "tooFast": "Bitte nehmen Sie sich Zeit, das Formular auszufüllen"
   },
   "chromobiotest": {
     "title": "ChromobioTest",

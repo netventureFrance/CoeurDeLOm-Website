@@ -18,7 +18,28 @@ function getClientIp(request: NextRequest): string {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, message, language, gdprConsent, newsletterConsent } = body;
+    const { name, email, phone, message, language, gdprConsent, newsletterConsent, mathAnswer, expectedAnswer, formLoadTime } = body;
+
+    // Anti-bot: Check time (minimum 1 second to fill form)
+    if (formLoadTime) {
+      const timeSpent = Date.now() - formLoadTime;
+      if (timeSpent < 1000) {
+        console.log('Bot detected: Form submitted too fast', { timeSpent, ip: getClientIp(request) });
+        return NextResponse.json(
+          { error: 'Form submitted too quickly' },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Anti-bot: Validate math answer
+    if (mathAnswer !== expectedAnswer) {
+      console.log('Bot detected: Wrong math answer', { mathAnswer, expectedAnswer, ip: getClientIp(request) });
+      return NextResponse.json(
+        { error: 'Invalid security answer' },
+        { status: 400 }
+      );
+    }
 
     // Validate required fields
     if (!name || !email || !message) {

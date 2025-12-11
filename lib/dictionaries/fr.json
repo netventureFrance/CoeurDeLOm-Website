@@ -40,7 +40,10 @@
     "error": "Une erreur s'est produite. Veuillez réessayer.",
     "gdprConsent": "J'accepte que mes données personnelles soient utilisées pour répondre à ma demande de contact",
     "newsletterConsent": "Je souhaite m'abonner à la newsletter pour recevoir les actualités et offres",
-    "gdprRequired": "Vous devez accepter la politique de confidentialité pour continuer"
+    "gdprRequired": "Vous devez accepter la politique de confidentialité pour continuer",
+    "securityQuestion": "Question de sécurité",
+    "securityQuestionError": "Réponse incorrecte à la question de sécurité",
+    "tooFast": "Veuillez prendre le temps de remplir le formulaire"
   },
   "about": {
     "title": "Qui suis-je ?",
@@ -679,7 +682,10 @@
     "error": "Une erreur s'est produite. Veuillez réessayer.",
     "restricted": "Vous avez déjà effectué le test récemment.",
     "restrictedDays": "Vous pourrez refaire le test dans {days} jours.",
-    "restrictedInfo": "Le test est accessible une fois toutes les 4 semaines pour permettre une évolution significative de votre profil énergétique."
+    "restrictedInfo": "Le test est accessible une fois toutes les 4 semaines pour permettre une évolution significative de votre profil énergétique.",
+    "securityQuestion": "Question de sécurité",
+    "securityQuestionError": "Réponse incorrecte à la question de sécurité",
+    "tooFast": "Veuillez prendre le temps de remplir le formulaire"
   },
   "chromobiotest": {
     "title": "ChromobioTest",

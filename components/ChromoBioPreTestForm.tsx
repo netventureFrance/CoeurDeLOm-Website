@@ -1,7 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { type Locale } from '@/lib/i18n';
+
+// Generate random math question
+function generateMathQuestion(): { num1: number; num2: number; answer: number } {
+  const num1 = Math.floor(Math.random() * 8) + 2; // 2-9
+  const num2 = Math.floor(Math.random() * 8) + 1; // 1-8
+  return { num1, num2, answer: num1 + num2 };
+}
 
 interface ChromoBioPreTestFormProps {
   lang: Locale;
@@ -21,6 +28,9 @@ interface ChromoBioPreTestFormProps {
     restricted: string;
     restrictedDays: string;
     restrictedInfo: string;
+    securityQuestion: string;
+    securityQuestionError: string;
+    tooFast: string;
   };
   onSuccess: (email: string) => void;
 }
@@ -40,8 +50,43 @@ export default function ChromoBioPreTestForm({
   const [showGdprError, setShowGdprError] = useState(false);
   const [restrictedDays, setRestrictedDays] = useState<number | null>(null);
 
+  // Anti-bot: math question
+  const [mathQuestion, setMathQuestion] = useState({ num1: 0, num2: 0, answer: 0 });
+  const [userAnswer, setUserAnswer] = useState('');
+  const [showMathError, setShowMathError] = useState(false);
+
+  // Anti-bot: time check (form load timestamp)
+  const [formLoadTime] = useState(() => Date.now());
+  const [showTooFastError, setShowTooFastError] = useState(false);
+
+  // Generate math question on mount
+  useEffect(() => {
+    setMathQuestion(generateMathQuestion());
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Reset error states
+    setShowGdprError(false);
+    setShowMathError(false);
+    setShowTooFastError(false);
+
+    // Check time (minimum 1 second to fill the form)
+    const timeSpent = Date.now() - formLoadTime;
+    if (timeSpent < 1000) {
+      setShowTooFastError(true);
+      return;
+    }
+
+    // Check math answer
+    if (parseInt(userAnswer, 10) !== mathQuestion.answer) {
+      setShowMathError(true);
+      // Generate a new question on error
+      setMathQuestion(generateMathQuestion());
+      setUserAnswer('');
+      return;
+    }
 
     // Check GDPR consent
     if (!formData.gdprConsent) {
@@ -49,7 +94,6 @@ export default function ChromoBioPreTestForm({
       return;
     }
 
-    setShowGdprError(false);
     setStatus('loading');
 
     try {
@@ -61,6 +105,10 @@ export default function ChromoBioPreTestForm({
         body: JSON.stringify({
           ...formData,
           language: lang,
+          // Anti-bot fields
+          mathAnswer: parseInt(userAnswer, 10),
+          expectedAnswer: mathQuestion.answer,
+          formLoadTime: formLoadTime,
         }),
       });
 
@@ -148,6 +196,36 @@ export default function ChromoBioPreTestForm({
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
               />
             </div>
+
+            {/* Security Question (Anti-bot) */}
+            <div>
+              <label htmlFor="securityAnswer" className="block text-sm font-medium text-gray-700 mb-2">
+                {dictionary.securityQuestion}: {mathQuestion.num1} + {mathQuestion.num2} = ? <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                id="securityAnswer"
+                required
+                value={userAnswer}
+                onChange={(e) => {
+                  setUserAnswer(e.target.value);
+                  setShowMathError(false);
+                }}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+              />
+            </div>
+
+            {showMathError && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
+                {dictionary.securityQuestionError}
+              </div>
+            )}
+
+            {showTooFastError && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
+                {dictionary.tooFast}
+              </div>
+            )}
 
             {/* GDPR Consent */}
             <div className="flex items-start gap-3">
