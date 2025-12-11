@@ -6,8 +6,8 @@ import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
 
-// Force dynamic rendering to always fetch fresh data from Airtable
-export const dynamic = 'force-dynamic';
+// Revalidate pages every hour (3600 seconds) for fresh content while staying fast
+export const revalidate = 3600;
 
 // Strip HTML tags and get first ~160 characters for preview/description
 // Skips headings (h1-h6) and strong/bold text at the start to show actual content

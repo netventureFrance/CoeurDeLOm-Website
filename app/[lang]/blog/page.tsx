@@ -5,8 +5,8 @@ import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
 
-// Force dynamic rendering to always fetch fresh data from Airtable
-export const dynamic = 'force-dynamic';
+// Revalidate every hour for fresh content while staying fast
+export const revalidate = 3600;
 
 // Decode HTML entities
 function decodeHtmlEntities(text: string): string {
