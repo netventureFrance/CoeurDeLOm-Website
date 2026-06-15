@@ -52,17 +52,18 @@ const GLYPH: Record<string, string> = {
 };
 const GRID_ORDER = ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'chiron', 'northnode', 'lilith'];
 
-const ASPECTS_DEF = [
-  { glyph: '☌', angle: 0, orb: 8, color: '#1f2937' },   // conjonction
-  { glyph: '⚹', angle: 60, orb: 6, color: '#2563eb' },  // sextile
-  { glyph: '□', angle: 90, orb: 7, color: '#dc2626' },  // carré
-  { glyph: '△', angle: 120, orb: 8, color: '#2563eb' }, // trigone
-  { glyph: '☍', angle: 180, orb: 8, color: '#dc2626' }, // opposition
+// Single source of truth for aspect styling (wheel lines, grid, and legend).
+const ASPECT_TYPES = [
+  { key: 'conjunction', name: 'Conjonction', glyph: '☌', angle: 0, orb: 8, color: '#7c3aed' },
+  { key: 'sextile', name: 'Sextile', glyph: '⚹', angle: 60, orb: 6, color: '#2563eb' },
+  { key: 'square', name: 'Carré', glyph: '□', angle: 90, orb: 7, color: '#dc2626' },
+  { key: 'trine', name: 'Trigone', glyph: '△', angle: 120, orb: 8, color: '#16a34a' },
+  { key: 'opposition', name: 'Opposition', glyph: '☍', angle: 180, orb: 8, color: '#ea580c' },
 ];
 function aspectBetween(l1: number, l2: number) {
   let d = Math.abs(norm360(l1) - norm360(l2)) % 360;
   if (d > 180) d = 360 - d;
-  for (const a of ASPECTS_DEF) {
+  for (const a of ASPECT_TYPES) {
     const delta = Math.abs(d - a.angle);
     if (delta <= a.orb) return { glyph: a.glyph, color: a.color, orb: delta };
   }
@@ -122,15 +123,11 @@ export default function AstrologyTool() {
       if (cancelled || !wheelRef.current) return;
       wheelRef.current.innerHTML = '';
       const size = Math.min(560, wheelRef.current.clientWidth || 520);
-      // Aspect lines colour-coded by type (red = hard, green/blue = soft).
+      // Aspect lines colour-coded by type (shared with the grid + legend).
       const ASPECT_SETTINGS = {
-        ASPECTS: {
-          conjunction: { degree: 0, orbit: 8, color: '#7c3aed' },
-          sextile: { degree: 60, orbit: 6, color: '#2563eb' },
-          square: { degree: 90, orbit: 7, color: '#dc2626' },
-          trine: { degree: 120, orbit: 8, color: '#16a34a' },
-          opposition: { degree: 180, orbit: 8, color: '#ea580c' },
-        },
+        ASPECTS: Object.fromEntries(
+          ASPECT_TYPES.map((a) => [a.key, { degree: a.angle, orbit: a.orb, color: a.color }])
+        ),
       };
       const c = new Chart('astro-wheel', size, size, ASPECT_SETTINGS);
       const data: any = { planets: chart.renderPlanets };
@@ -447,6 +444,14 @@ export default function AstrologyTool() {
           ) : (
             <>
               <div id="astro-wheel" ref={wheelRef} style={{ display: 'flex', justifyContent: 'center' }} />
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', justifyContent: 'center', margin: '10px 0 4px', fontSize: '12px', color: '#6b7280' }}>
+                {ASPECT_TYPES.map((a) => (
+                  <span key={a.key} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                    <span style={{ width: '16px', borderTop: `2px solid ${a.color}` }} />
+                    <span style={{ color: a.color }}>{a.glyph}</span> {a.name}
+                  </span>
+                ))}
+              </div>
               <table style={s.table}>
                 <thead><tr><th style={s.th}>Astre</th><th style={s.th}>Position</th><th style={s.th}>Signe</th><th style={s.th}>Maison</th></tr></thead>
                 <tbody>
