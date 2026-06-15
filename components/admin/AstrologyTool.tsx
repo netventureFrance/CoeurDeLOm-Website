@@ -1,0 +1,364 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+type Language = 'FR' | 'DE' | 'EN';
+
+const SIGNS_FR = [
+  'Bélier', 'Taureau', 'Gémeaux', 'Cancer', 'Lion', 'Vierge',
+  'Balance', 'Scorpion', 'Sagittaire', 'Capricorne', 'Verseau', 'Poissons',
+];
+
+// circular-natal-horoscope-js keys → French label + @astrodraw/astrochart name
+const BODY_FR: Record<string, string> = {
+  sun: 'Soleil', moon: 'Lune', mercury: 'Mercure', venus: 'Vénus', mars: 'Mars',
+  jupiter: 'Jupiter', saturn: 'Saturne', uranus: 'Uranus', neptune: 'Neptune',
+  pluto: 'Pluton', chiron: 'Chiron', sirius: 'Sirius',
+  northnode: 'Nœud Nord', southnode: 'Nœud Sud', lilith: 'Lilith',
+};
+const ASTROCHART_NAME: Record<string, string> = {
+  sun: 'Sun', moon: 'Moon', mercury: 'Mercury', venus: 'Venus', mars: 'Mars',
+  jupiter: 'Jupiter', saturn: 'Saturn', uranus: 'Uranus', neptune: 'Neptune',
+  pluto: 'Pluto', chiron: 'Chiron', lilith: 'Lilith',
+  northnode: 'NNode', southnode: 'SNode',
+};
+
+const ZODIAC_LABEL: Record<string, string> = {
+  tropical: 'Tropical (occidental)', sidereal: 'Sidéral (védique)',
+};
+const HOUSE_LABEL: Record<string, string> = {
+  placidus: 'Placidus', 'whole-sign': 'Signe entier', koch: 'Koch',
+  'equal-house': 'Maisons égales', campanus: 'Campanus',
+  regiomontanus: 'Regiomontanus', topocentric: 'Topocentrique',
+};
+const SPEECH_LANG: Record<Language, string> = { FR: 'fr-FR', DE: 'de-DE', EN: 'en-US' };
+const FEMALE_VOICES: Record<Language, string[]> = {
+  FR: ['Aurélie', 'Audrey', 'Amélie', 'Sandy', 'Shelley', 'Flo'],
+  DE: ['Anna', 'Petra', 'Helena', 'Sandy'],
+  EN: ['Samantha', 'Ava', 'Allison', 'Karen', 'Serena'],
+};
+
+const norm360 = (d: number) => ((d % 360) + 360) % 360;
+
+interface Body { key: string; label: string; longitude: number; sign: string; position: string; retrograde: boolean; house: number | null; }
+interface Angle { longitude: number; sign: string; position: string; }
+interface ChartResult {
+  bodies: Body[]; ascendant: Angle | null; midheaven: Angle | null;
+  aspects: { from: string; to: string; type: string; orb: number }[];
+  renderPlanets: Record<string, number[]>; cusps: number[];
+  zodiac: string; houseSystem: string; summary: string;
+}
+
+function lon(obj: any): number | null {
+  const cp = obj?.ChartPosition;
+  if (!cp) return null;
+  const v = [cp.Ecliptic?.DecimalDegrees, cp.StartPosition?.Ecliptic?.DecimalDegrees, cp.Horizon?.DecimalDegrees]
+    .find((x) => typeof x === 'number');
+  return typeof v === 'number' ? norm360(v) : null;
+}
+function fmt(longitude: number) {
+  const idx = Math.floor(longitude / 30) % 12;
+  const deg = longitude - idx * 30;
+  const min = Math.floor((deg % 1) * 60).toString().padStart(2, '0');
+  return { sign: SIGNS_FR[idx], position: `${Math.floor(deg)}° ${SIGNS_FR[idx]} ${min}'` };
+}
+
+export default function AstrologyTool() {
+  const [name, setName] = useState('');
+  const [date, setDate] = useState('1990-06-21');
+  const [time, setTime] = useState('14:30');
+  const [place, setPlace] = useState('Paris, France');
+  const [lat, setLat] = useState('48.8566');
+  const [lng, setLng] = useState('2.3522');
+  const [zodiac, setZodiac] = useState('tropical');
+  const [house, setHouse] = useState('placidus');
+  const [language, setLanguage] = useState<Language>('FR');
+
+  const [geoMsg, setGeoMsg] = useState('');
+  const [chart, setChart] = useState<ChartResult | null>(null);
+  const [reading, setReading] = useState('');
+  const [error, setError] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
+
+  const wheelRef = useRef<HTMLDivElement>(null);
+
+  // Render the SVG wheel whenever a new chart is computed.
+  useEffect(() => {
+    if (!chart || !wheelRef.current) return;
+    let cancelled = false;
+    (async () => {
+      const { Chart } = await import('@astrodraw/astrochart');
+      if (cancelled || !wheelRef.current) return;
+      wheelRef.current.innerHTML = '';
+      const size = Math.min(560, wheelRef.current.clientWidth || 520);
+      const c = new Chart('astro-wheel', size, size);
+      const data: any = { planets: chart.renderPlanets };
+      if (chart.cusps.length === 12) data.cusps = chart.cusps;
+      c.radix(data);
+    })();
+    return () => { cancelled = true; };
+  }, [chart]);
+
+  async function handleGeocode() {
+    setGeoMsg('Recherche…');
+    try {
+      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(place.trim())}&count=1&language=fr&format=json`;
+      const res = await fetch(url);
+      const data = await res.json();
+      const hit = data.results?.[0];
+      if (!hit) throw new Error('Aucun lieu trouvé');
+      setLat(hit.latitude.toFixed(4));
+      setLng(hit.longitude.toFixed(4));
+      const full = [hit.name, hit.admin1, hit.country].filter(Boolean).join(', ');
+      setPlace(full);
+      setGeoMsg(`✓ ${full} — ${hit.timezone}`);
+    } catch (e: any) {
+      setGeoMsg(`⚠ ${e.message}. Saisissez lat/long manuellement.`);
+    }
+  }
+
+  async function handleCalculate() {
+    setError('');
+    try {
+      const { Origin, Horoscope } = await import('circular-natal-horoscope-js/dist/index.js');
+      const [y, m, d] = date.split('-').map(Number);
+      const [hh, mm] = time.split(':').map(Number);
+      const origin = new Origin({
+        year: y, month: m - 1, date: d, hour: hh, minute: mm,
+        latitude: parseFloat(lat), longitude: parseFloat(lng),
+      });
+      const horoscope = new Horoscope({
+        origin, houseSystem: house, zodiac,
+        aspectPoints: ['bodies', 'points', 'angles'],
+        aspectWithPoints: ['bodies', 'points', 'angles'],
+        aspectTypes: ['major'], language: 'en',
+      });
+
+      const renderPlanets: Record<string, number[]> = {};
+      const bodies: Body[] = [];
+      const raw = [...(horoscope.CelestialBodies?.all ?? []), ...(horoscope.CelestialPoints?.all ?? [])];
+      for (const b of raw) {
+        const L = lon(b);
+        if (L == null) continue;
+        const name = ASTROCHART_NAME[b.key];
+        if (name) renderPlanets[name] = [L];
+        const f = fmt(L);
+        bodies.push({
+          key: b.key, label: BODY_FR[b.key] ?? b.label ?? b.key, longitude: L,
+          sign: f.sign, position: f.position, retrograde: !!b.isRetrograde, house: b.House?.id ?? null,
+        });
+      }
+
+      const ascL = lon(horoscope.Ascendant);
+      const mcL = lon(horoscope.Midheaven);
+      const ascendant = ascL != null ? { longitude: ascL, ...fmt(ascL) } : null;
+      const midheaven = mcL != null ? { longitude: mcL, ...fmt(mcL) } : null;
+      const cusps = (horoscope.Houses ?? []).map((h: any) => lon(h)).filter((x: number | null) => x != null) as number[];
+      const aspects = (horoscope.Aspects?.all ?? []).slice(0, 20).map((a: any) => ({
+        from: a.point1Label ?? a.point1Key, to: a.point2Label ?? a.point2Key,
+        type: a.aspect?.label ?? a.type, orb: a.orb,
+      }));
+
+      // Build the text summary sent to Claude.
+      const lines: string[] = [];
+      if (ascendant) lines.push(`- Ascendant : ${ascendant.position}`);
+      if (midheaven) lines.push(`- Milieu du Ciel : ${midheaven.position}`);
+      for (const b of bodies) {
+        lines.push(`- ${b.label} : ${b.position}${b.retrograde ? ' (rétrograde)' : ''}${b.house ? `, maison ${b.house}` : ''}`);
+      }
+      const aspLines = aspects.map((a: any) => `- ${a.from} ${a.type} ${a.to} (orbe ${Number(a.orb).toFixed(1)}°)`);
+      const summary = `PLACEMENTS :\n${lines.join('\n')}\n\nASPECTS MAJEURS :\n${aspLines.join('\n') || '(aucun)'}`;
+
+      setReading('');
+      setChart({ bodies, ascendant, midheaven, aspects, renderPlanets, cusps, zodiac, houseSystem: house, summary });
+    } catch (e: any) {
+      setError(`Erreur de calcul : ${e.message}`);
+    }
+  }
+
+  async function handleGenerate() {
+    if (!chart) return;
+    setIsGenerating(true);
+    setError('');
+    setReading('');
+    try {
+      const res = await fetch('/api/admin/astro-interpretation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          summary: chart.summary,
+          meta: {
+            name, date, time, place,
+            zodiac: ZODIAC_LABEL[chart.zodiac], houseSystem: HOUSE_LABEL[chart.houseSystem],
+          },
+          language,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      setReading(data.reading);
+    } catch (e: any) {
+      setError(`Erreur lors de la génération : ${e.message}`);
+    } finally {
+      setIsGenerating(false);
+    }
+  }
+
+  function handleSpeak() {
+    const synth = window.speechSynthesis;
+    if (!synth) return;
+    if (synth.speaking) { synth.cancel(); setSpeaking(false); return; }
+    const tmp = document.createElement('div');
+    tmp.innerHTML = reading;
+    const text = (tmp.textContent || '').trim();
+    if (!text) return;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = SPEECH_LANG[language];
+    const voices = synth.getVoices();
+    const pool = voices.filter((v) => v.lang?.toLowerCase().startsWith(language.toLowerCase().slice(0, 2)));
+    const search = pool.length ? pool : voices;
+    let voice: SpeechSynthesisVoice | undefined;
+    for (const n of FEMALE_VOICES[language]) { voice = search.find((v) => v.name.includes(n)); if (voice) break; }
+    if (!voice) voice = search.find((v) => /female|femme|weiblich/i.test(v.name)) || search[0];
+    if (voice) u.voice = voice;
+    u.rate = 0.96; u.pitch = 1.05;
+    u.onend = () => setSpeaking(false);
+    u.onerror = () => setSpeaking(false);
+    synth.speak(u);
+    setSpeaking(true);
+  }
+
+  const s = {
+    container: { maxWidth: '1000px', margin: '0 auto' },
+    grid: { display: 'grid', gridTemplateColumns: '340px 1fr', gap: '24px', alignItems: 'start' as const },
+    card: { backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', padding: '24px' },
+    title: { fontSize: '24px', fontWeight: 600, color: '#1f2937', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '12px' },
+    subtitle: { color: '#6b7280', fontSize: '14px', marginBottom: '20px' },
+    label: { display: 'block', fontSize: '13px', color: '#6b7280', fontWeight: 500, marginBottom: '12px' },
+    input: { width: '100%', marginTop: '4px', padding: '9px 11px', borderRadius: '8px', border: '1px solid #e5e7eb', fontSize: '14px', fontFamily: 'inherit', boxSizing: 'border-box' as const, outline: 'none' },
+    row: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' },
+    ghostBtn: { marginTop: '6px', padding: '8px 14px', borderRadius: '8px', border: '1px solid #e5e7eb', background: 'white', color: '#7c3aed', cursor: 'pointer', fontSize: '13px', fontWeight: 500 },
+    primaryBtn: { width: '100%', marginTop: '8px', padding: '12px', borderRadius: '8px', border: 'none', background: '#7c3aed', color: 'white', cursor: 'pointer', fontWeight: 600, fontSize: '15px' },
+    langTabs: { display: 'flex', gap: '8px', margin: '16px 0' },
+    langTab: { padding: '8px 14px', borderRadius: '8px', border: '2px solid #e5e7eb', background: 'white', cursor: 'pointer', fontSize: '13px', fontWeight: 500 },
+    langTabActive: { borderColor: '#7c3aed', background: '#f5f3ff', color: '#7c3aed' },
+    hint: { fontSize: '12px', color: '#6b7280', margin: '6px 0', lineHeight: 1.4 },
+    error: { backgroundColor: '#fef2f2', color: '#dc2626', padding: '12px 16px', borderRadius: '8px', marginBottom: '16px' },
+    table: { width: '100%', borderCollapse: 'collapse' as const, marginTop: '16px', fontSize: '14px' },
+    th: { textAlign: 'left' as const, padding: '6px 8px', borderBottom: '1px solid #e5e7eb', color: '#6b7280', fontWeight: 500 },
+    td: { padding: '6px 8px', borderBottom: '1px solid #f3f4f6', color: '#1f2937' },
+    angleTd: { padding: '6px 8px', borderBottom: '1px solid #f3f4f6', color: '#7c3aed', fontWeight: 600 },
+    resultCard: { backgroundColor: '#f5f3ff', borderRadius: '12px', padding: '24px', marginTop: '24px', border: '2px solid #7c3aed' },
+    spinner: { width: '18px', height: '18px', border: '2px solid white', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite', display: 'inline-block', marginRight: '8px', verticalAlign: 'middle' },
+  };
+  const readingCss = `
+    .astro-reading h3 { color: #7c3aed; margin: 18px 0 8px; font-size: 17px; font-weight: 600; }
+    .astro-reading h3:first-child { margin-top: 0; }
+    .astro-reading p { color: #1f2937; font-size: 15px; line-height: 1.7; margin: 0 0 12px; }
+    .astro-reading strong { color: #5b21b6; }
+  `;
+
+  return (
+    <div style={s.container}>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } } ${readingCss} #astro-wheel svg { max-width: 100%; height: auto; }`}</style>
+
+      <div style={s.grid}>
+        {/* ── Form ── */}
+        <div style={s.card}>
+          <h2 style={s.title}><span style={{ fontSize: '30px' }}>✦</span> Astrologie</h2>
+          <p style={s.subtitle}>Thème natal précis + lecture rédigée par l&apos;IA dans la voix de Valérie.</p>
+
+          {error && <div style={s.error}>{error}</div>}
+
+          <label style={s.label}>Nom (client)
+            <input style={s.input} value={name} onChange={(e) => setName(e.target.value)} placeholder="ex. Marie Dupont" />
+          </label>
+          <div style={s.row}>
+            <label style={s.label}>Date de naissance
+              <input style={s.input} type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            </label>
+            <label style={s.label}>Heure
+              <input style={s.input} type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+            </label>
+          </div>
+          <label style={s.label}>Lieu de naissance
+            <input style={s.input} value={place} onChange={(e) => setPlace(e.target.value)} placeholder="Ville, Pays" />
+          </label>
+          <button type="button" style={s.ghostBtn} onClick={handleGeocode}>Rechercher le lieu ↻</button>
+          {geoMsg && <p style={s.hint}>{geoMsg}</p>}
+          <div style={s.row}>
+            <label style={s.label}>Latitude
+              <input style={s.input} type="number" step="0.0001" value={lat} onChange={(e) => setLat(e.target.value)} />
+            </label>
+            <label style={s.label}>Longitude
+              <input style={s.input} type="number" step="0.0001" value={lng} onChange={(e) => setLng(e.target.value)} />
+            </label>
+          </div>
+          <div style={s.row}>
+            <label style={s.label}>Zodiaque
+              <select style={s.input} value={zodiac} onChange={(e) => setZodiac(e.target.value)}>
+                <option value="tropical">Tropical (occidental)</option>
+                <option value="sidereal">Sidéral (védique)</option>
+              </select>
+            </label>
+            <label style={s.label}>Système de maisons
+              <select style={s.input} value={house} onChange={(e) => setHouse(e.target.value)}>
+                {Object.entries(HOUSE_LABEL).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </label>
+          </div>
+          <button type="button" style={s.primaryBtn} onClick={handleCalculate}>Calculer le thème</button>
+        </div>
+
+        {/* ── Chart + table ── */}
+        <div style={s.card}>
+          <h3 style={{ ...s.title, fontSize: '18px' }}>Thème</h3>
+          {!chart ? (
+            <p style={s.hint}>Renseignez les données puis cliquez sur « Calculer le thème ».</p>
+          ) : (
+            <>
+              <div id="astro-wheel" ref={wheelRef} style={{ display: 'flex', justifyContent: 'center' }} />
+              <table style={s.table}>
+                <thead><tr><th style={s.th}>Astre</th><th style={s.th}>Position</th><th style={s.th}>Signe</th><th style={s.th}>Maison</th></tr></thead>
+                <tbody>
+                  {chart.ascendant && <tr><td style={s.angleTd}>Ascendant</td><td style={s.angleTd}>{chart.ascendant.position}</td><td style={s.angleTd}>{chart.ascendant.sign}</td><td style={s.angleTd}>—</td></tr>}
+                  {chart.midheaven && <tr><td style={s.angleTd}>Milieu du Ciel</td><td style={s.angleTd}>{chart.midheaven.position}</td><td style={s.angleTd}>{chart.midheaven.sign}</td><td style={s.angleTd}>—</td></tr>}
+                  {chart.bodies.map((b) => (
+                    <tr key={b.key}>
+                      <td style={s.td}>{b.label}{b.retrograde ? ' ℞' : ''}</td>
+                      <td style={s.td}>{b.position}</td>
+                      <td style={s.td}>{b.sign}</td>
+                      <td style={s.td}>{b.house ?? '—'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              {/* AI reading */}
+              <div style={s.langTabs}>
+                {(['FR', 'DE', 'EN'] as Language[]).map((l) => (
+                  <button key={l} type="button" onClick={() => setLanguage(l)}
+                    style={{ ...s.langTab, ...(language === l ? s.langTabActive : {}) }}>{l}</button>
+                ))}
+              </div>
+              <button type="button" style={{ ...s.primaryBtn, opacity: isGenerating ? 0.6 : 1 }} disabled={isGenerating} onClick={handleGenerate}>
+                {isGenerating ? <><span style={s.spinner} />Rédaction de la lecture…</> : '✨ Générer la lecture'}
+              </button>
+
+              {reading && (
+                <div style={s.resultCard}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                    <h3 style={{ fontSize: '17px', fontWeight: 600, color: '#7c3aed', margin: 0 }}>🔮 Lecture</h3>
+                    <button type="button" style={s.ghostBtn} onClick={handleSpeak}>{speaking ? '■ Arrêter' : '🔊 Lire à voix haute'}</button>
+                  </div>
+                  <div className="astro-reading" dangerouslySetInnerHTML={{ __html: reading }} />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
