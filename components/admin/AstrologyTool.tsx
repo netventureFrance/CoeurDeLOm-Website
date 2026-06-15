@@ -191,6 +191,19 @@ export default function AstrologyTool() {
     return canvas.toDataURL('image/png');
   }
 
+  async function loadImageDataUrl(url: string): Promise<string | null> {
+    try {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      return await new Promise<string | null>((resolve) => {
+        const r = new FileReader();
+        r.onload = () => resolve(r.result as string);
+        r.onerror = () => resolve(null);
+        r.readAsDataURL(blob);
+      });
+    } catch { return null; }
+  }
+
   async function exportPdf() {
     if (!chart) return;
     setPdfBusy(true);
@@ -204,13 +217,19 @@ export default function AstrologyTool() {
         r: parseInt(hex.slice(1, 3), 16), g: parseInt(hex.slice(3, 5), 16), b: parseInt(hex.slice(5, 7), 16),
       });
 
-      // Page 1 — header, wheel, legend
+      // Page 1 — branded header, wheel, legend
       let y = M;
-      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(15); pdf.setTextColor(31, 41, 55);
-      pdf.text('Thème natal', M, y + 3); y += 7;
-      pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(107, 114, 128);
+      const logo = await loadImageDataUrl('/Coeur-de-lOm-Alpha-Kopie.png');
+      if (logo) pdf.addImage(logo, 'PNG', M, y, 14, 14);
+      const tx = logo ? M + 18 : M;
+      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(16); pdf.setTextColor(39, 19, 64);
+      pdf.text("Cœur de l'OM", tx, y + 6);
+      pdf.setFont('helvetica', 'normal'); pdf.setFontSize(11); pdf.setTextColor(39, 19, 64);
+      pdf.text('Thème natal', tx, y + 12);
+      y += 18;
+      pdf.setFontSize(9); pdf.setTextColor(107, 114, 128);
       const meta = `${name ? name + ' — ' : ''}${date} ${time}  ·  ${place}  ·  ${ZODIAC_LABEL[chart.zodiac] || chart.zodiac}  ·  ${HOUSE_LABEL[chart.houseSystem] || chart.houseSystem}`;
-      pdf.text(pdf.splitTextToSize(meta, CW), M, y + 3); y += 10;
+      pdf.text(pdf.splitTextToSize(meta, CW), M, y + 3); y += 9;
 
       const svgEl = wheelRef.current?.querySelector('svg') as SVGSVGElement | null;
       if (svgEl) {
@@ -230,7 +249,8 @@ export default function AstrologyTool() {
       // One subject per page; long sections flow across pages.
       const sections = [
         { id: 'pdf-sec-table', title: 'Positions' },
-        { id: 'pdf-sec-extras', title: 'Éléments, maisons & aspects' },
+        { id: 'pdf-sec-extras', title: 'Éléments & maisons' },
+        { id: 'pdf-sec-aspects', title: 'Aspects' },
         { id: 'pdf-sec-reading', title: 'Lecture' },
       ];
       for (const sec of sections) {
@@ -239,14 +259,36 @@ export default function AstrologyTool() {
         const canvas = await html2canvas(el, { scale: 2, backgroundColor: '#ffffff' });
         pdf.addPage();
         let py = M;
-        pdf.setFont('helvetica', 'bold'); pdf.setFontSize(13); pdf.setTextColor(124, 58, 237);
+        pdf.setFont('helvetica', 'bold'); pdf.setFontSize(13); pdf.setTextColor(39, 19, 64);
         pdf.text(sec.title, M, py + 3); py += 8;
         const imgW = CW;
         const pxPerMM = canvas.width / imgW;
+
+        // Read the whole canvas once to find blank rows (so we break between
+        // lines/rows, never through text).
+        const cctx = canvas.getContext('2d')!;
+        const pixels = cctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        const isBlankRow = (yRow: number): boolean => {
+          const base = yRow * canvas.width * 4;
+          for (let x = 0; x < canvas.width; x++) {
+            const i = base + x * 4;
+            if (pixels[i] < 248 || pixels[i + 1] < 248 || pixels[i + 2] < 248) return false;
+          }
+          return true;
+        };
+
         let srcY = 0;
-        let avail = H - py - M;
+        let avail = H - py - 16;
         while (srcY < canvas.height) {
-          const sliceH = Math.min(canvas.height - srcY, Math.floor(avail * pxPerMM));
+          let sliceH = Math.min(canvas.height - srcY, Math.floor(avail * pxPerMM));
+          // If more remains, back the cut up to the nearest blank row so a line
+          // isn't split across pages.
+          if (srcY + sliceH < canvas.height) {
+            const minCut = srcY + Math.floor(sliceH * 0.45);
+            for (let r = srcY + sliceH; r > minCut; r--) {
+              if (isBlankRow(r)) { sliceH = r - srcY; break; }
+            }
+          }
           const slice = document.createElement('canvas');
           slice.width = canvas.width; slice.height = sliceH;
           const sctx = slice.getContext('2d')!;
@@ -254,8 +296,17 @@ export default function AstrologyTool() {
           sctx.drawImage(canvas, 0, srcY, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
           pdf.addImage(slice.toDataURL('image/png'), 'PNG', M, py, imgW, sliceH / pxPerMM);
           srcY += sliceH;
-          if (srcY < canvas.height) { pdf.addPage(); py = M; avail = H - 2 * M; }
+          if (srcY < canvas.height) { pdf.addPage(); py = M; avail = H - M - 16; }
         }
+      }
+      // Branded footer on every page: contact + page number.
+      const total = pdf.getNumberOfPages();
+      for (let p = 1; p <= total; p++) {
+        pdf.setPage(p);
+        pdf.setDrawColor(39, 19, 64); pdf.setLineWidth(0.3); pdf.line(M, H - 12, W - M, H - 12);
+        pdf.setFont('helvetica', 'normal'); pdf.setFontSize(7.5); pdf.setTextColor(120, 120, 120);
+        pdf.text("Valérie Jourdan · Cœur de l'OM · contact@coeurdelom.fr · coeurdelom.fr", M, H - 8);
+        pdf.text(`Page ${p}/${total}`, W - M, H - 8, { align: 'right' });
       }
       pdf.save(`theme-${(name || 'natal').replace(/\s+/g, '_')}.pdf`);
     } catch (e) {
@@ -741,6 +792,7 @@ export default function AstrologyTool() {
                 const bar = (n: number, max: number) => ({ background: '#7c3aed', height: '12px', width: `${(n / max) * 90 + 6}px`, borderRadius: '3px', display: 'inline-block' });
 
                 return (
+                  <>
                   <div id="pdf-sec-extras">
                     <h3 style={secTitle}>Éléments &amp; modes</h3>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
@@ -780,7 +832,9 @@ export default function AstrologyTool() {
                         </tbody>
                       </table>
                     ) : <p style={s.hint}>Cuspides indisponibles pour ce système de maisons.</p>}
+                  </div>
 
+                  <div id="pdf-sec-aspects">
                     <h3 style={secTitle}>Aspects</h3>
                     <div style={{ overflowX: 'auto' }}>
                       <table style={{ borderCollapse: 'collapse' }}>
@@ -802,6 +856,7 @@ export default function AstrologyTool() {
                       </table>
                     </div>
                   </div>
+                  </>
                 );
               })()}
 
