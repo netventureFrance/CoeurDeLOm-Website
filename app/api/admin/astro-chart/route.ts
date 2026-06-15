@@ -50,6 +50,40 @@ const HOUSE_CODE: Record<string, string> = {
 
 const norm360 = (d: number) => ((d % 360) + 360) % 360;
 
+// Éris & Sedna have no public ephemeris files, so we compute them from JPL
+// orbital elements (epoch JD 2461200.5). Validated vs known positions
+// (Éris ≈ 24° Bélier 2024, Sedna ≈ 29° Taureau 2024). They move so slowly that
+// element-based geocentric longitude is accurate to well under a degree.
+const DEG = Math.PI / 180;
+const TNO_EPOCH = 2461200.5;
+const TNO_ELEMENTS = {
+  eris: { label: 'Éris', a: 67.93394687853566, e: 0.4382385347971672, inc: 43.9258279471791, node: 36.00477044417249, peri: 150.7949235840312, M0: 211.774434275007 },
+  sedna: { label: 'Sedna', a: 543.7195289104732, e: 0.8598824585187618, inc: 11.92527582847476, node: 144.5061662673739, peri: 311.0987725939751, M0: 358.5956944005428 },
+};
+type Elements = (typeof TNO_ELEMENTS)[keyof typeof TNO_ELEMENTS];
+
+// Geocentric ecliptic longitude (tropical) from heliocentric Keplerian elements,
+// using the Sun's geocentric longitude/distance to place the Earth.
+function tnoGeoLongitude(jd: number, el: Elements, sunLon: number, sunDist: number): number {
+  const n = 0.9856076686 / Math.pow(el.a, 1.5); // mean motion °/day
+  const M = norm360(el.M0 + n * (jd - TNO_EPOCH)) * DEG;
+  let E = M;
+  for (let k = 0; k < 100; k++) {
+    const d = (E - el.e * Math.sin(E) - M) / (1 - el.e * Math.cos(E));
+    E -= d;
+    if (Math.abs(d) < 1e-12) break;
+  }
+  const xv = el.a * (Math.cos(E) - el.e);
+  const yv = el.a * Math.sqrt(1 - el.e * el.e) * Math.sin(E);
+  const r = Math.hypot(xv, yv);
+  const u = Math.atan2(yv, xv) + el.peri * DEG; // argument of latitude
+  const O = el.node * DEG, i = el.inc * DEG;
+  const hx = r * (Math.cos(O) * Math.cos(u) - Math.sin(O) * Math.sin(u) * Math.cos(i));
+  const hy = r * (Math.sin(O) * Math.cos(u) + Math.cos(O) * Math.sin(u) * Math.cos(i));
+  const ls = sunLon * DEG;
+  return norm360(Math.atan2(hy + sunDist * Math.sin(ls), hx + sunDist * Math.cos(ls)) / DEG);
+}
+
 // Initialise the WASM engine once and reuse across invocations.
 let swePromise: Promise<any> | null = null;
 function getSwe() {
@@ -122,11 +156,25 @@ export async function POST(request: Request) {
       } catch { /* skip if unavailable */ }
     }
 
+    // Éris & Sedna from orbital elements (no ephemeris file needed).
+    const sunA = swe.calc_ut(jd, 0, MOSEPH);     // Sun at jd
+    const sunB = swe.calc_ut(jd + 1, 0, MOSEPH); // Sun +1d (for retrograde test)
+    let ayan = 0;
+    if (zodiac === 'sidereal') { try { ayan = swe.get_ayanamsa_ut(jd); } catch { ayan = 0; } }
+    const tno = (Object.keys(TNO_ELEMENTS) as (keyof typeof TNO_ELEMENTS)[]).map((key) => {
+      const el = TNO_ELEMENTS[key];
+      const lonA = tnoGeoLongitude(jd, el, sunA[0], sunA[2]);
+      const lonB = tnoGeoLongitude(jd + 1, el, sunB[0], sunB[2]);
+      const step = ((lonB - lonA + 540) % 360) - 180; // signed daily motion
+      const longitude = zodiac === 'sidereal' ? norm360(lonA - ayan) : lonA;
+      return { key, label: el.label, longitude, retrograde: step < 0 };
+    });
+
     const hsys = HOUSE_CODE[houseSystem] || 'P';
     const h = swe.houses_ex(jd, houseFlags, latitude, longitude, hsys);
     const vertexLon = norm360(h.ascmc[3]);
 
-    return NextResponse.json({ uranian, asteroids, vertex: { longitude: vertexLon } });
+    return NextResponse.json({ uranian, asteroids, tno, vertex: { longitude: vertexLon } });
   } catch (err) {
     console.error('astro-chart error:', err);
     const detail = err instanceof Error ? `${err.name}: ${err.message}` : String(err);

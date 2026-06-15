@@ -122,7 +122,17 @@ export default function AstrologyTool() {
       if (cancelled || !wheelRef.current) return;
       wheelRef.current.innerHTML = '';
       const size = Math.min(560, wheelRef.current.clientWidth || 520);
-      const c = new Chart('astro-wheel', size, size);
+      // Aspect lines colour-coded by type (red = hard, green/blue = soft).
+      const ASPECT_SETTINGS = {
+        ASPECTS: {
+          conjunction: { degree: 0, orbit: 8, color: '#7c3aed' },
+          sextile: { degree: 60, orbit: 6, color: '#2563eb' },
+          square: { degree: 90, orbit: 7, color: '#dc2626' },
+          trine: { degree: 120, orbit: 8, color: '#16a34a' },
+          opposition: { degree: 180, orbit: 8, color: '#ea580c' },
+        },
+      };
+      const c = new Chart('astro-wheel', size, size, ASPECT_SETTINGS);
       const data: any = { planets: chart.renderPlanets };
       if (chart.cusps.length === 12) data.cusps = chart.cusps;
       const radix = c.radix(data);
@@ -248,6 +258,10 @@ export default function AstrologyTool() {
           for (const a of extra.asteroids ?? []) {
             const f = fmt(a.longitude);
             bodies.push({ key: a.key, label: a.label, longitude: a.longitude, sign: f.sign, position: f.position, retrograde: !!a.retrograde, house: houseOf(a.longitude) });
+          }
+          for (const t of extra.tno ?? []) {
+            const f = fmt(t.longitude);
+            bodies.push({ key: t.key, label: t.label, longitude: t.longitude, sign: f.sign, position: f.position, retrograde: !!t.retrograde, house: houseOf(t.longitude) });
           }
           if (extra.vertex) {
             const fv = fmt(extra.vertex.longitude);
