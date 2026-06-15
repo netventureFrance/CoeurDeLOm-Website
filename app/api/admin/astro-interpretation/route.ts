@@ -98,7 +98,7 @@ ${summary}`;
         // omitted from the streamed text; we only emit text deltas below).
         const params: any = {
           model: 'claude-opus-4-8',
-          max_tokens: 5000,
+          max_tokens: 9000,
           thinking: { type: 'adaptive' },
           system: SYSTEM_PROMPT,
           messages: [{ role: 'user', content: userPrompt }],
