@@ -52,6 +52,22 @@ const GLYPH: Record<string, string> = {
 };
 const GRID_ORDER = ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'chiron', 'northnode', 'lilith'];
 
+// Extra bodies to plot on the wheel: our body-key -> astrochart symbol name.
+// 'fortune' uses astrochart's built-in Fortune glyph; the rest get a short
+// custom label via CUSTOM_SYMBOL_FN (astrochart has no glyph for them).
+const WHEEL_EXTRA_NAME: Record<string, string> = {
+  cupido: 'Cupido', hades: 'Hades', zeus: 'Zeus', kronos: 'Kronos', apollon: 'Apollon',
+  admetos: 'Admetos', vulkanus: 'Vulkanus', poseidon: 'Poseidon',
+  ceres: 'Ceres', pallas: 'Pallas', juno: 'Juno', vesta: 'Vesta',
+  eris: 'Eris', sedna: 'Sedna', vertex: 'Vertex', fortune: 'Fortune',
+};
+const WHEEL_LABEL: Record<string, string> = {
+  Cupido: 'Cup', Hades: 'Had', Zeus: 'Zeu', Kronos: 'Kro', Apollon: 'Apo',
+  Admetos: 'Adm', Vulkanus: 'Vul', Poseidon: 'Pos',
+  Ceres: 'Cér', Pallas: 'Pal', Juno: 'Jun', Vesta: 'Ves',
+  Eris: 'Éri', Sedna: 'Sed', Vertex: 'Vx',
+};
+
 // Single source of truth for aspect styling (wheel lines, grid, and legend).
 const ASPECT_TYPES = [
   { key: 'conjunction', name: 'Conjonction', glyph: '☌', angle: 0, orb: 8, color: '#7c3aed' },
@@ -123,14 +139,37 @@ export default function AstrologyTool() {
       if (cancelled || !wheelRef.current) return;
       wheelRef.current.innerHTML = '';
       const size = Math.min(560, wheelRef.current.clientWidth || 520);
-      // Aspect lines colour-coded by type (shared with the grid + legend).
+      // Draw a short label for the extra bodies (astrochart has no glyph for
+      // them); return null for everything else so built-in glyphs are used.
+      const customSymbol = (name: string, x: number, y: number) => {
+        const label = WHEEL_LABEL[name];
+        if (!label) return null;
+        const el = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        el.setAttribute('x', String(x));
+        el.setAttribute('y', String(y));
+        el.setAttribute('text-anchor', 'middle');
+        el.setAttribute('dominant-baseline', 'central');
+        el.setAttribute('font-size', '10');
+        el.setAttribute('font-weight', '700');
+        el.setAttribute('fill', '#5b21b6');
+        el.textContent = label;
+        return el;
+      };
       const ASPECT_SETTINGS = {
         ASPECTS: Object.fromEntries(
           ASPECT_TYPES.map((a) => [a.key, { degree: a.angle, orbit: a.orb, color: a.color }])
         ),
+        CUSTOM_SYMBOL_FN: customSymbol,
       };
-      const c = new Chart('astro-wheel', size, size, ASPECT_SETTINGS);
-      const data: any = { planets: chart.renderPlanets };
+      const c = new Chart('astro-wheel', size, size, ASPECT_SETTINGS as any);
+      // Plot the classic bodies plus the extra ones (Uranian, asteroids, Éris,
+      // Sedna, Vertex, Part de Fortune).
+      const planets: Record<string, number[]> = { ...chart.renderPlanets };
+      for (const b of chart.bodies) {
+        const nm = WHEEL_EXTRA_NAME[b.key];
+        if (nm && !planets[nm]) planets[nm] = [b.longitude];
+      }
+      const data: any = { planets };
       if (chart.cusps.length === 12) data.cusps = chart.cusps;
       const radix = c.radix(data);
       // radix.aspects() ignores custom colours/orbs (rebuilds with library
