@@ -190,7 +190,9 @@ export default function AstrologyTool() {
       // Uranian / trans-Neptunian planets + Vertex (server-side Swiss Ephemeris),
       // computed at the exact same UT moment. If unavailable, the base chart still renders.
       try {
-        const utc = origin.utcTime as Date;
+        // origin.utcTime may be a moment-like object in the browser build — coerce to a real Date.
+        const utc = new Date(origin.utcTime);
+        if (isNaN(utc.getTime())) throw new Error('UTC indisponible');
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), 8000);
         const res = await fetch('/api/admin/astro-chart', {
