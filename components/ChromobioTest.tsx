@@ -109,8 +109,32 @@ export default function ChromobioTest({ dictionary, lang = 'fr', userEmail }: Ch
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      if (response.ok && response.body) {
+        // The interpretation is streamed as raw delimited text; read it fully then parse.
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let raw = '';
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          raw += decoder.decode(value, { stream: true });
+        }
+        const extractSection = (text: string, start: string, end: string): string => {
+          const s = text.indexOf(start);
+          if (s === -1) return '';
+          const cs = s + start.length;
+          const e = text.indexOf(end, cs);
+          if (e === -1) return text.substring(cs).trim();
+          return text.substring(cs, e).trim();
+        };
+        const data = {
+          short: {
+            excess: extractSection(raw, '===SHORT_EXCESS===', '===SHORT_BALANCED==='),
+            balanced: extractSection(raw, '===SHORT_BALANCED===', '===SHORT_SHORTAGE==='),
+            shortage: extractSection(raw, '===SHORT_SHORTAGE===', '===DETAILED==='),
+          },
+          detailed: extractSection(raw, '===DETAILED===', '===END==='),
+        };
         setAiInterpretation(data);
 
         // Save results to Airtable and send email

@@ -52,12 +52,20 @@ export default function DreamInterpreter() {
         body: JSON.stringify({ dream: dreamText, language }),
       });
 
-      if (!response.ok) {
+      if (!response.ok || !response.body) {
         throw new Error('Failed to analyze dream');
       }
 
-      const data = await response.json();
-      setInterpretation(data.interpretation);
+      // Stream the interpretation in as it's written.
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let acc = '';
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        acc += decoder.decode(value, { stream: true });
+        setInterpretation(acc);
+      }
     } catch (err) {
       setError(language === 'FR' ? 'Erreur lors de l\'analyse' : language === 'DE' ? 'Fehler bei der Analyse' : 'Error during analysis');
     } finally {

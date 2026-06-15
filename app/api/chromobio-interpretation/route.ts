@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60; // allow long Opus generations (streamed)
 
 interface ColorResult {
   id: number;
@@ -104,64 +105,36 @@ Important content guidelines:
 - Emphasize extreme cases (0 or 8) as they are energetically significant
 - Make the detailed interpretation insightful and worth discovering`;
 
-    console.log('📤 Sending request to Claude API...');
+    console.log('📤 Streaming request to Claude API...');
 
-    const message = await anthropic.messages.create({
-      model: 'claude-opus-4-8',
-      max_tokens: 2048,
-      messages: [
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
+    // Stream the raw delimited text so long Opus generations don't hit the
+    // serverless timeout. The client parses the ===SECTION=== delimiters
+    // (same format as before) once the stream completes.
+    const encoder = new TextEncoder();
+    const readable = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        try {
+          const stream = anthropic.messages.stream({
+            model: 'claude-opus-4-8',
+            max_tokens: 4000,
+            messages: [{ role: 'user', content: prompt }],
+          });
+          for await (const event of stream) {
+            if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+              controller.enqueue(encoder.encode(event.delta.text));
+            }
+          }
+          controller.close();
+        } catch (err) {
+          console.error('ChromoBio interpretation stream error:', err);
+          controller.error(err);
+        }
+      },
     });
 
-    console.log('📥 Received response from Claude API');
-
-    // Extract the text from Claude's response
-    let responseText = message.content[0].type === 'text' ? message.content[0].text : '';
-    console.log('📄 Claude raw response (first 500 chars):', responseText.substring(0, 500));
-
-    // Parse using delimiters instead of JSON parsing
-    const extractSection = (text: string, startDelimiter: string, endDelimiter: string): string => {
-      const startIndex = text.indexOf(startDelimiter);
-      if (startIndex === -1) {
-        console.error(`❌ Delimiter not found: ${startDelimiter}`);
-        return '';
-      }
-      const contentStart = startIndex + startDelimiter.length;
-      const endIndex = text.indexOf(endDelimiter, contentStart);
-      if (endIndex === -1) {
-        console.error(`❌ End delimiter not found: ${endDelimiter}`);
-        return '';
-      }
-      return text.substring(contentStart, endIndex).trim();
-    };
-
-    // Extract each section
-    const shortExcess = extractSection(responseText, '===SHORT_EXCESS===', '===SHORT_BALANCED===');
-    const shortBalanced = extractSection(responseText, '===SHORT_BALANCED===', '===SHORT_SHORTAGE===');
-    const shortShortage = extractSection(responseText, '===SHORT_SHORTAGE===', '===DETAILED===');
-    const detailed = extractSection(responseText, '===DETAILED===', '===END===');
-
-    console.log('✅ SHORT EXCESS:', shortExcess.substring(0, 100) + '...');
-    console.log('✅ SHORT BALANCED:', shortBalanced.substring(0, 100) + '...');
-    console.log('✅ SHORT SHORTAGE:', shortShortage.substring(0, 100) + '...');
-    console.log('✅ DETAILED length:', detailed.length, 'characters');
-    console.log('✅ DETAILED preview:', detailed.substring(0, 200) + '...');
-
-    // Construct the response object
-    const interpretation = {
-      short: {
-        excess: shortExcess,
-        balanced: shortBalanced,
-        shortage: shortShortage,
-      },
-      detailed: detailed,
-    };
-
-    return NextResponse.json(interpretation);
+    return new Response(readable, {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },
+    });
   } catch (error) {
     console.error('Error generating interpretation:', error);
     return NextResponse.json(
