@@ -299,19 +299,49 @@ export default function AstrologyTool() {
         pdf.text(sec.title, M, py + 3); py += 9;
 
         if (sec.id === 'pdf-sec-reading') {
-          // Each paragraph as its own image (keeps bold/colour); a whole
-          // paragraph moves to the next page rather than being split.
-          const blocks = (Array.from(el.children) as HTMLElement[]).filter((n) => (n.textContent || '').trim());
-          const nodes = blocks.length ? blocks : [el];
-          for (const node of nodes) {
-            const c = await html2canvas(node, { scale: 2, backgroundColor: '#ffffff' });
-            const hMM = (c.height * CW) / c.width;
-            if (hMM > bottomY - py && hMM <= bottomY - M) { pdf.addPage(); py = M; }
-            if (hMM <= bottomY - py) {
-              pdf.addImage(c.toDataURL('image/png'), 'PNG', M, py, CW, hMM);
-              py += hMM + 2;
+          // Render the reading as real text (never clips a line) with bold/colour
+          // word-runs preserved (<strong> = purple, <h3> = brand heading).
+          const lhP = 5.4, lhH = 6.5;
+          const drawWrapped = (
+            tokens: { t: string; b: boolean }[], lh: number, size: number,
+            nrm: [number, number, number], bld: [number, number, number],
+          ) => {
+            pdf.setFontSize(size);
+            let x = M;
+            if (py + lh > bottomY) { pdf.addPage(); py = M; }
+            for (const tok of tokens) {
+              for (const w of tok.t.split(/(\s+)/)) {
+                if (!w) continue;
+                const isSpace = /^\s+$/.test(w);
+                pdf.setFont('helvetica', tok.b ? 'bold' : 'normal');
+                const ww = pdf.getTextWidth(w);
+                if (!isSpace && x > M && x + ww > M + CW) { py += lh; x = M; if (py + lh > bottomY) { pdf.addPage(); py = M; } }
+                if (isSpace && x === M) continue;
+                const col = tok.b ? bld : nrm;
+                pdf.setTextColor(col[0], col[1], col[2]);
+                pdf.text(w, x, py);
+                x += ww;
+              }
+            }
+            py += lh;
+          };
+          const nodes = (Array.from(el.children) as HTMLElement[]).filter((n) => (n.textContent || '').trim());
+          const para = nodes.length ? nodes : [el];
+          for (const node of para) {
+            if (node.tagName.toLowerCase() === 'h3') {
+              py += 3;
+              if (py + lhH * 2 > bottomY) { pdf.addPage(); py = M; } // keep heading with its text
+              drawWrapped([{ t: node.textContent || '', b: true }], lhH, 11.5, [39, 19, 64], [39, 19, 64]);
+              py += 1;
             } else {
-              py = addCanvasSliced(c, py); // paragraph taller than a full page
+              const tokens: { t: string; b: boolean }[] = [];
+              node.childNodes.forEach((ch) => {
+                if (ch.nodeType === 3) tokens.push({ t: ch.textContent || '', b: false });
+                else { const e = ch as HTMLElement; tokens.push({ t: e.textContent || '', b: e.tagName?.toLowerCase() === 'strong' }); }
+              });
+              if (!tokens.length) tokens.push({ t: node.textContent || '', b: false });
+              drawWrapped(tokens, lhP, 10, [31, 41, 55], [124, 58, 237]);
+              py += 3;
             }
           }
         } else {
