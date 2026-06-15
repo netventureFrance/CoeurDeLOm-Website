@@ -160,6 +160,16 @@ export default function AstrologyTool() {
         type: a.aspect?.label ?? a.type, orb: a.orb,
       }));
 
+      // House assignment helper for the added points.
+      const houseOf = (lng: number): number | null => {
+        if (cusps.length !== 12) return null;
+        for (let i = 0; i < 12; i++) {
+          const span = norm360(cusps[(i + 1) % 12] - cusps[i]);
+          if (norm360(lng - cusps[i]) < span) return i + 1;
+        }
+        return null;
+      };
+
       // Part de Fortune (sect-based: jour = Asc + Lune − Soleil ; nuit = Asc + Soleil − Lune).
       const sunB = bodies.find((b) => b.key === 'sun');
       const moonB = bodies.find((b) => b.key === 'moon');
@@ -168,19 +178,45 @@ export default function AstrologyTool() {
         const fortuneLon = norm360(
           ascL + (dayChart ? moonB.longitude - sunB.longitude : sunB.longitude - moonB.longitude)
         );
-        const houseOf = (lng: number): number | null => {
-          if (cusps.length !== 12) return null;
-          for (let i = 0; i < 12; i++) {
-            const span = norm360(cusps[(i + 1) % 12] - cusps[i]);
-            if (norm360(lng - cusps[i]) < span) return i + 1;
-          }
-          return null;
-        };
         const f = fmt(fortuneLon);
         bodies.push({
           key: 'fortune', label: 'Part de Fortune', longitude: fortuneLon,
           sign: f.sign, position: f.position, retrograde: false, house: houseOf(fortuneLon),
         });
+      }
+
+      // Uranian / trans-Neptunian planets + Vertex (server-side Swiss Ephemeris),
+      // computed at the exact same UT moment. If unavailable, the base chart still renders.
+      try {
+        const utc = origin.utcTime as Date;
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 8000);
+        const res = await fetch('/api/admin/astro-chart', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
+          body: JSON.stringify({
+            utc: {
+              year: utc.getUTCFullYear(), month: utc.getUTCMonth() + 1, day: utc.getUTCDate(),
+              hour: utc.getUTCHours() + utc.getUTCMinutes() / 60 + utc.getUTCSeconds() / 3600,
+            },
+            latitude: parseFloat(lat), longitude: parseFloat(lng), zodiac, houseSystem: house,
+          }),
+        });
+        clearTimeout(timer);
+        if (res.ok) {
+          const extra = await res.json();
+          for (const u of extra.uranian ?? []) {
+            const f = fmt(u.longitude);
+            bodies.push({ key: u.key, label: u.label, longitude: u.longitude, sign: f.sign, position: f.position, retrograde: !!u.retrograde, house: houseOf(u.longitude) });
+          }
+          if (extra.vertex) {
+            const fv = fmt(extra.vertex.longitude);
+            bodies.push({ key: 'vertex', label: 'Vertex', longitude: extra.vertex.longitude, sign: fv.sign, position: fv.position, retrograde: false, house: houseOf(extra.vertex.longitude) });
+          }
+        }
+      } catch {
+        /* advanced points unavailable — keep the base chart */
       }
 
       // Build the text summary sent to Claude.

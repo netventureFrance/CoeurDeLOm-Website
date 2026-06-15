@@ -7,3 +7,9 @@ declare module 'circular-natal-horoscope-js/dist/index.js' {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export const Horoscope: any;
 }
+
+declare module 'swisseph-wasm' {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const SwissEph: any;
+  export default SwissEph;
+}
