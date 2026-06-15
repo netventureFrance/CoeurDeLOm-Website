@@ -94,12 +94,12 @@ ${summary}`;
   const readable = new ReadableStream<Uint8Array>({
     async start(controller) {
       try {
-        // Adaptive thinking → deeper, better-synthesised reading (thinking is
-        // omitted from the streamed text; we only emit text deltas below).
+        // Thinking off: it shares the token budget and was truncating long
+        // (esp. German) readings. The prompt's depth/synthesis instructions
+        // carry the quality, and "respond directly" keeps reasoning out of the text.
         const params: any = {
           model: 'claude-opus-4-8',
           max_tokens: 9000,
-          thinking: { type: 'adaptive' },
           system: SYSTEM_PROMPT,
           messages: [{ role: 'user', content: userPrompt }],
         };
