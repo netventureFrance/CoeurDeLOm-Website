@@ -129,6 +129,7 @@ export default function AstrologyTool() {
   const [speaking, setSpeaking] = useState(false);
   const [clients, setClients] = useState<any[]>([]);
   const [clientMsg, setClientMsg] = useState('');
+  const [pdfBusy, setPdfBusy] = useState(false);
 
   const wheelRef = useRef<HTMLDivElement>(null);
 
@@ -165,6 +166,103 @@ export default function AstrologyTool() {
       await loadClients();
     } catch (e: any) {
       setClientMsg(`⚠ ${e.message}`);
+    }
+  }
+
+  // ── Clean PDF export (downloaded, no print dialog, one subject per page) ──
+  async function svgToPng(svg: SVGSVGElement, targetW: number): Promise<string> {
+    const vb = svg.viewBox?.baseVal;
+    const w = (vb && vb.width) || svg.clientWidth || 560;
+    const h = (vb && vb.height) || svg.clientHeight || 560;
+    const clone = svg.cloneNode(true) as SVGSVGElement;
+    clone.setAttribute('width', String(w));
+    clone.setAttribute('height', String(h));
+    const xml = new XMLSerializer().serializeToString(clone);
+    const src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(xml);
+    const img = new Image();
+    await new Promise<void>((res, rej) => { img.onload = () => res(); img.onerror = rej; img.src = src; });
+    const scale = targetW / w;
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(w * scale);
+    canvas.height = Math.round(h * scale);
+    const ctx = canvas.getContext('2d')!;
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL('image/png');
+  }
+
+  async function exportPdf() {
+    if (!chart) return;
+    setPdfBusy(true);
+    try {
+      const [jsPdfMod, h2cMod] = await Promise.all([import('jspdf'), import('html2canvas')]);
+      const JsPDF: any = (jsPdfMod as any).default || (jsPdfMod as any).jsPDF;
+      const html2canvas: any = (h2cMod as any).default;
+      const pdf = new JsPDF('p', 'mm', 'a4');
+      const W = 210, H = 297, M = 12, CW = W - 2 * M;
+      const hexToRgb = (hex: string) => ({
+        r: parseInt(hex.slice(1, 3), 16), g: parseInt(hex.slice(3, 5), 16), b: parseInt(hex.slice(5, 7), 16),
+      });
+
+      // Page 1 — header, wheel, legend
+      let y = M;
+      pdf.setFont('helvetica', 'bold'); pdf.setFontSize(15); pdf.setTextColor(31, 41, 55);
+      pdf.text('Thème natal', M, y + 3); y += 7;
+      pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9); pdf.setTextColor(107, 114, 128);
+      const meta = `${name ? name + ' — ' : ''}${date} ${time}  ·  ${place}  ·  ${ZODIAC_LABEL[chart.zodiac] || chart.zodiac}  ·  ${HOUSE_LABEL[chart.houseSystem] || chart.houseSystem}`;
+      pdf.text(pdf.splitTextToSize(meta, CW), M, y + 3); y += 10;
+
+      const svgEl = wheelRef.current?.querySelector('svg') as SVGSVGElement | null;
+      if (svgEl) {
+        const png = await svgToPng(svgEl, 1400);
+        const size = Math.min(CW, 150);
+        pdf.addImage(png, 'PNG', (W - size) / 2, y, size, size);
+        y += size + 6;
+      }
+      pdf.setFontSize(8); let lx = M;
+      for (const a of ASPECT_TYPES) {
+        const c = hexToRgb(a.color);
+        pdf.setDrawColor(c.r, c.g, c.b); pdf.setLineWidth(0.7); pdf.line(lx, y, lx + 6, y);
+        pdf.setTextColor(90, 90, 90); pdf.text(a.name, lx + 7.5, y + 1);
+        lx += 7.5 + pdf.getTextWidth(a.name) + 6;
+      }
+
+      // One subject per page; long sections flow across pages.
+      const sections = [
+        { id: 'pdf-sec-table', title: 'Positions' },
+        { id: 'pdf-sec-extras', title: 'Éléments, maisons & aspects' },
+        { id: 'pdf-sec-reading', title: 'Lecture' },
+      ];
+      for (const sec of sections) {
+        const el = document.getElementById(sec.id);
+        if (!el) continue;
+        const canvas = await html2canvas(el, { scale: 2, backgroundColor: '#ffffff' });
+        pdf.addPage();
+        let py = M;
+        pdf.setFont('helvetica', 'bold'); pdf.setFontSize(13); pdf.setTextColor(124, 58, 237);
+        pdf.text(sec.title, M, py + 3); py += 8;
+        const imgW = CW;
+        const pxPerMM = canvas.width / imgW;
+        let srcY = 0;
+        let avail = H - py - M;
+        while (srcY < canvas.height) {
+          const sliceH = Math.min(canvas.height - srcY, Math.floor(avail * pxPerMM));
+          const slice = document.createElement('canvas');
+          slice.width = canvas.width; slice.height = sliceH;
+          const sctx = slice.getContext('2d')!;
+          sctx.fillStyle = '#ffffff'; sctx.fillRect(0, 0, slice.width, slice.height);
+          sctx.drawImage(canvas, 0, srcY, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
+          pdf.addImage(slice.toDataURL('image/png'), 'PNG', M, py, imgW, sliceH / pxPerMM);
+          srcY += sliceH;
+          if (srcY < canvas.height) { pdf.addPage(); py = M; avail = H - 2 * M; }
+        }
+      }
+      pdf.save(`theme-${(name || 'natal').replace(/\s+/g, '_')}.pdf`);
+    } catch (e) {
+      console.error('PDF export error:', e);
+      alert('Échec de l\'export PDF.');
+    } finally {
+      setPdfBusy(false);
     }
   }
 
@@ -571,7 +669,9 @@ export default function AstrologyTool() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
             <h3 style={{ ...s.title, fontSize: '18px', margin: 0 }}>Thème</h3>
             {chart && (
-              <button type="button" className="no-print" style={s.ghostBtn} onClick={() => window.print()}>📄 Exporter en PDF</button>
+              <button type="button" style={{ ...s.ghostBtn, opacity: pdfBusy ? 0.6 : 1 }} disabled={pdfBusy} onClick={exportPdf}>
+                {pdfBusy ? 'Génération du PDF…' : '📄 Exporter en PDF'}
+              </button>
             )}
           </div>
           {chart && (
@@ -592,7 +692,7 @@ export default function AstrologyTool() {
                   </span>
                 ))}
               </div>
-              <table style={s.table}>
+              <table id="pdf-sec-table" style={s.table}>
                 <thead><tr><th style={s.th}>Astre</th><th style={s.th}>Position</th><th style={s.th}>Signe</th><th style={s.th}>Maison</th></tr></thead>
                 <tbody>
                   {chart.ascendant && <tr><td style={s.angleTd}>Ascendant</td><td style={s.angleTd}>{chart.ascendant.position}</td><td style={s.angleTd}>{chart.ascendant.sign}</td><td style={s.angleTd}>—</td></tr>}
@@ -641,7 +741,7 @@ export default function AstrologyTool() {
                 const bar = (n: number, max: number) => ({ background: '#7c3aed', height: '12px', width: `${(n / max) * 90 + 6}px`, borderRadius: '3px', display: 'inline-block' });
 
                 return (
-                  <div>
+                  <div id="pdf-sec-extras">
                     <h3 style={secTitle}>Éléments &amp; modes</h3>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                       <div>
@@ -722,7 +822,7 @@ export default function AstrologyTool() {
                     <h3 style={{ fontSize: '17px', fontWeight: 600, color: '#7c3aed', margin: 0 }}>🔮 Lecture</h3>
                     <button type="button" style={s.ghostBtn} onClick={handleSpeak}>{speaking ? '■ Arrêter' : '🔊 Lire à voix haute'}</button>
                   </div>
-                  <div className="astro-reading" dangerouslySetInnerHTML={{ __html: reading }} />
+                  <div id="pdf-sec-reading" className="astro-reading" dangerouslySetInnerHTML={{ __html: reading }} />
                 </div>
               )}
             </>
