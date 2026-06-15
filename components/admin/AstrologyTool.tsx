@@ -133,8 +133,31 @@ export default function AstrologyTool() {
       const data: any = { planets: chart.renderPlanets };
       if (chart.cusps.length === 12) data.cusps = chart.cusps;
       const radix = c.radix(data);
-      // Draw the aspect lines inside the wheel (conjunctions, oppositions, etc.).
-      try { radix.aspects(); } catch { /* renderer has no aspect support */ }
+      // radix.aspects() ignores custom colours/orbs (rebuilds with library
+      // defaults — no sextile, opposition green). So compute the aspects between
+      // the plotted bodies ourselves and pass them in, colour-coded by type.
+      try {
+        const pts = Object.entries(chart.renderPlanets).map(([name, arr]) => ({ name, pos: (arr as number[])[0] }));
+        const wheelAspects: any[] = [];
+        for (let i = 0; i < pts.length; i++) {
+          for (let j = i + 1; j < pts.length; j++) {
+            let dd = Math.abs(pts[i].pos - pts[j].pos) % 360;
+            if (dd > 180) dd = 360 - dd;
+            for (const t of ASPECT_TYPES) {
+              if (Math.abs(dd - t.angle) <= t.orb) {
+                wheelAspects.push({
+                  aspect: { name: t.key, degree: t.angle, orbit: t.orb, color: t.color },
+                  point: { name: pts[i].name, position: pts[i].pos },
+                  toPoint: { name: pts[j].name, position: pts[j].pos },
+                  precision: '0',
+                });
+                break;
+              }
+            }
+          }
+        }
+        radix.aspects(wheelAspects);
+      } catch { /* aspect drawing unavailable */ }
     })();
     return () => { cancelled = true; };
   }, [chart]);
