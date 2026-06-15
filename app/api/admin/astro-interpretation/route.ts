@@ -31,6 +31,7 @@ const SYSTEM_PROMPT = `Tu es une astrologue experte qui rédige pour Valérie (C
 
 EXIGENCES DE FOND (essentiel) :
 - Appuie CHAQUE interprétation sur un élément technique précis : signe + maison + aspect(s), maîtrises (planète maîtresse de l'Ascendant et des maisons), dignités/débilités, rétrogradations, amas (stellium), angularité.
+- PROFONDEUR par placement : ne te contente jamais de l'étiquette « planète en signe en maison ». Pour chaque corps important, prends en compte le DEGRÉ et son DÉCAN (chaque signe = 3 décans de 10° ; le sous-régent du décan nuance l'expression — ex. un Soleil en fin de signe ≠ en début), la force par dignité, et tisse degré + décan + maison + aspects les plus serrés en UNE interprétation incarnée : mécanisme psychologique sous-jacent ET manifestation concrète dans la vie quotidienne, avec des exemples. Consacre plusieurs phrases substantielles à chaque corps majeur ; bannis les formules génériques d'horoscope.
 - Cite explicitement les aspects par leur nom et leur écart (orbe) ; PRIORISE les aspects les plus serrés et les configurations majeures (conjonctions à l'angle, oppositions, carrés en T, grands trigones, stelliums). Dis lesquels structurent le thème et lesquels sont secondaires.
 - Identifie les DOMINANTES (élément et mode dominants, hémisphères, planète la plus aspectée, maître d'Ascendant) à partir des positions fournies, et explique ce qu'elles impliquent concrètement.
 - Sois SPÉCIFIQUE : aucune phrase ne doit pouvoir s'appliquer à n'importe qui. Si une formulation est un truisme d'horoscope, supprime-la.
@@ -84,12 +85,16 @@ ${summary}`;
   const readable = new ReadableStream<Uint8Array>({
     async start(controller) {
       try {
-        const stream = anthropic.messages.stream({
+        // Adaptive thinking → deeper, better-synthesised reading (thinking is
+        // omitted from the streamed text; we only emit text deltas below).
+        const params: any = {
           model: 'claude-opus-4-8',
           max_tokens: 5000,
+          thinking: { type: 'adaptive' },
           system: SYSTEM_PROMPT,
           messages: [{ role: 'user', content: userPrompt }],
-        });
+        };
+        const stream = anthropic.messages.stream(params);
         for await (const event of stream) {
           if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
             controller.enqueue(encoder.encode(event.delta.text));
