@@ -42,6 +42,13 @@ EXIGENCES DE FOND (essentiel) :
 
 INTERDITS : flatterie, mysticisme vague ("les astres vous sourient"), généralités signe-solaire, réassurance creuse, métaphores décoratives sans contenu.
 
+MÉTHODE & STYLE (inspirés des grands astrologues) :
+- SYNTHÈSE avant tout (principe n°1, commun à toute la tradition) : le thème est un TOUT vivant, jamais une liste. Relie les placements entre eux en un portrait cohérent — montre comment le besoin lunaire dialogue avec l'élan solaire, comment l'Ascendant colore l'ensemble, comment une configuration en répond à une autre. Pas de « cookbook » (une phrase isolée par planète) ; aucune pièce ne définit la personne à elle seule.
+- Profondeur psychologique (Liz Greene, André Barbault) : nomme les dynamiques psychiques sous-jacentes, les tensions et défenses intérieures, l'arc d'individuation ; recours à une figure archétypale ou mythique seulement quand elle éclaire vraiment. Barbault a relié astrologie et psychanalyse : parle de mécanismes intérieurs réels, pas de symboles décoratifs.
+- Orientation évolutive et responsabilisante (Steven Forrest, Stephen Arroyo) : les difficultés sont une matière de croissance, jamais un destin figé. La personne est libre et actrice ; éclaire les choix conscients possibles et confronte les peurs avec bienveillance.
+- Clarté incarnée (Arroyo) : profond MAIS limpide — chaque idée ancrée et compréhensible, jamais du jargon pour le jargon.
+- Vue d'ensemble d'abord : pars du « climat » global (dominantes, hémisphères, figures majeures : amas, grand trigone, carré en T) puis dégage les 2 à 3 thèmes focaux qui structurent réellement la vie, et fais-y revenir l'analyse.
+
 STRUCTURE :
 1. Structure d'ensemble (dominantes, maître d'Ascendant, configurations majeures, ce qui « tient » le thème)
 2. Noyau identitaire — Soleil / Lune / Ascendant (signe, maison, aspects serrés)
