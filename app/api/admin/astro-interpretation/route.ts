@@ -5,6 +5,7 @@ import crypto from 'crypto';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60; // allow long Opus generations (streamed)
 
 // Mirror the admin auth guard used by /api/admin/auth (stateless HMAC token).
 function verifyAdmin(token: string | undefined): boolean {
@@ -44,45 +45,56 @@ FORMATAGE : réponds directement avec la lecture finale en HTML (sans <html>, <h
 Environ 600 mots. Écris naturellement et entièrement dans la langue demandée.`;
 
 export async function POST(request: Request) {
-  try {
-    const cookieStore = await cookies();
-    if (!verifyAdmin(cookieStore.get('admin_token')?.value)) {
-      return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
-    }
+  const cookieStore = await cookies();
+  if (!verifyAdmin(cookieStore.get('admin_token')?.value)) {
+    return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
+  }
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return NextResponse.json({ error: 'AI service not configured' }, { status: 500 });
+  }
 
-    if (!process.env.ANTHROPIC_API_KEY) {
-      return NextResponse.json({ error: 'AI service not configured' }, { status: 500 });
-    }
+  const { summary, meta, language } = await request.json();
+  if (!summary) return NextResponse.json({ error: 'Missing chart data' }, { status: 400 });
 
-    const { summary, meta, language } = await request.json();
-    if (!summary) return NextResponse.json({ error: 'Missing chart data' }, { status: 400 });
-
-    const lang = ['FR', 'DE', 'EN'].includes(language) ? language : 'FR';
-
-    const userPrompt = `Rédige la lecture du thème natal ENTIÈREMENT en ${LANGUAGE_NAME[lang]}.
+  const lang = ['FR', 'DE', 'EN'].includes(language) ? language : 'FR';
+  const userPrompt = `Rédige la lecture du thème natal ENTIÈREMENT en ${LANGUAGE_NAME[lang]}.
 
 CLIENT : ${meta?.name || '(sans nom)'} — né(e) le ${meta?.date || '?'} à ${meta?.time || '?'}, ${meta?.place || '?'}
 ZODIAQUE : ${meta?.zodiac || '?'} · MAISONS : ${meta?.houseSystem || '?'}
 
 ${summary}`;
 
-    const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-    const message = await anthropic.messages.create({
-      model: 'claude-opus-4-8',
-      max_tokens: 4000,
-      system: SYSTEM_PROMPT,
-      messages: [{ role: 'user', content: userPrompt }],
-    });
+  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-    const reading = message.content
-      .filter((b) => b.type === 'text')
-      .map((b) => (b as { text: string }).text)
-      .join('\n')
-      .trim();
+  // Stream the text back so we don't hit the serverless sync-timeout on long
+  // Opus generations. The client reads the body chunk by chunk.
+  const encoder = new TextEncoder();
+  const readable = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      try {
+        const stream = anthropic.messages.stream({
+          model: 'claude-opus-4-8',
+          max_tokens: 4000,
+          system: SYSTEM_PROMPT,
+          messages: [{ role: 'user', content: userPrompt }],
+        });
+        for await (const event of stream) {
+          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+            controller.enqueue(encoder.encode(event.delta.text));
+          }
+        }
+        controller.close();
+      } catch (err) {
+        console.error('Astro interpretation stream error:', err);
+        controller.error(err);
+      }
+    },
+  });
 
-    return NextResponse.json({ reading });
-  } catch (error) {
-    console.error('Astro interpretation error:', error);
-    return NextResponse.json({ error: 'Failed to generate interpretation' }, { status: 500 });
-  }
+  return new Response(readable, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'no-store',
+    },
+  });
 }

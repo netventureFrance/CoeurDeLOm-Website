@@ -195,9 +195,22 @@ export default function AstrologyTool() {
           language,
         }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
-      setReading(data.reading);
+      if (!res.ok || !res.body) {
+        // Error responses are JSON; read the message if we can.
+        const msg = await res.text().catch(() => '');
+        try { throw new Error(JSON.parse(msg).error || `HTTP ${res.status}`); }
+        catch { throw new Error(msg || `HTTP ${res.status}`); }
+      }
+      // Stream the reading in as it's written.
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let acc = '';
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        acc += decoder.decode(value, { stream: true });
+        setReading(acc);
+      }
     } catch (e: any) {
       setError(`Erreur lors de la génération : ${e.message}`);
     } finally {
