@@ -65,7 +65,7 @@ function aspectBetween(l1: number, l2: number) {
   if (d > 180) d = 360 - d;
   for (const a of ASPECT_TYPES) {
     const delta = Math.abs(d - a.angle);
-    if (delta <= a.orb) return { glyph: a.glyph, color: a.color, orb: delta };
+    if (delta <= a.orb) return { glyph: a.glyph, name: a.name, color: a.color, orb: delta };
   }
   return null;
 }
@@ -195,10 +195,7 @@ export default function AstrologyTool() {
       const ascendant = ascL != null ? { longitude: ascL, ...fmt(ascL) } : null;
       const midheaven = mcL != null ? { longitude: mcL, ...fmt(mcL) } : null;
       const cusps = (horoscope.Houses ?? []).map((h: any) => lon(h)).filter((x: number | null) => x != null) as number[];
-      const aspects = (horoscope.Aspects?.all ?? []).slice(0, 20).map((a: any) => ({
-        from: a.point1Label ?? a.point1Key, to: a.point2Label ?? a.point2Key,
-        type: a.aspect?.label ?? a.type, orb: a.orb,
-      }));
+      // (Aspects are computed below, over ALL bodies including the added points.)
 
       // House assignment helper for the added points.
       const houseOf = (lng: number): number | null => {
@@ -272,6 +269,22 @@ export default function AstrologyTool() {
         setAdvancedError(e?.name === 'AbortError' ? 'délai dépassé (timeout 8s)' : (e?.message || 'indisponible'));
       }
 
+      // Aspects across EVERY body + angle (incl. uraniennes, astéroïdes, Éris,
+      // Sedna, Vertex, Part de Fortune) so the reading covers them all.
+      const aspectPoints = [
+        ...bodies.map((b) => ({ label: b.label, lon: b.longitude })),
+        ...(ascendant ? [{ label: 'Ascendant', lon: ascendant.longitude }] : []),
+        ...(midheaven ? [{ label: 'Milieu du Ciel', lon: midheaven.longitude }] : []),
+      ];
+      const aspects: { from: string; to: string; type: string; orb: number }[] = [];
+      for (let i = 0; i < aspectPoints.length; i++) {
+        for (let j = i + 1; j < aspectPoints.length; j++) {
+          const a = aspectBetween(aspectPoints[i].lon, aspectPoints[j].lon);
+          if (a) aspects.push({ from: aspectPoints[i].label, to: aspectPoints[j].label, type: a.name, orb: a.orb });
+        }
+      }
+      aspects.sort((x, y) => x.orb - y.orb);
+
       // Build the text summary sent to Claude.
       const lines: string[] = [];
       if (ascendant) lines.push(`- Ascendant : ${ascendant.position}`);
@@ -279,8 +292,8 @@ export default function AstrologyTool() {
       for (const b of bodies) {
         lines.push(`- ${b.label} : ${b.position}${b.retrograde ? ' (rétrograde)' : ''}${b.house ? `, maison ${b.house}` : ''}`);
       }
-      const aspLines = aspects.map((a: any) => `- ${a.from} ${a.type} ${a.to} (orbe ${Number(a.orb).toFixed(1)}°)`);
-      const summary = `PLACEMENTS :\n${lines.join('\n')}\n\nASPECTS MAJEURS :\n${aspLines.join('\n') || '(aucun)'}`;
+      const aspLines = aspects.slice(0, 50).map((a) => `- ${a.from} ${a.type} ${a.to} (orbe ${a.orb.toFixed(1)}°)`);
+      const summary = `PLACEMENTS :\n${lines.join('\n')}\n\nASPECTS MAJEURS (du plus serré au plus large) :\n${aspLines.join('\n') || '(aucun)'}`;
 
       setReading('');
       setChart({ bodies, ascendant, midheaven, aspects, renderPlanets, cusps, zodiac, houseSystem: house, summary });
@@ -523,6 +536,11 @@ export default function AstrologyTool() {
                     </div>
 
                     <h3 style={secTitle}>Maisons (cuspides)</h3>
+                    <p style={{ ...s.hint, marginTop: 0 }}>
+                      Calculées avec le système <strong>{HOUSE_LABEL[chart.houseSystem] || chart.houseSystem}</strong>.
+                      {(chart.houseSystem === 'whole-sign' || chart.houseSystem === 'equal-house') &&
+                        ' Avec ce système chaque maison débute à 0° du signe — choisissez « Placidus » pour des cuspides en degrés (comme dans Sarastro).'}
+                    </p>
                     {chart.cusps.length === 12 ? (
                       <table style={{ ...s.table, marginTop: 0 }}>
                         <tbody>
