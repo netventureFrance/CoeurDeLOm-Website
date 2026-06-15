@@ -40,6 +40,35 @@ const FEMALE_VOICES: Record<Language, string[]> = {
 
 const norm360 = (d: number) => ((d % 360) + 360) % 360;
 
+// Element / modality of each sign (index 0 = Bélier … 11 = Poissons).
+const SIGN_ELEMENT_FR = ['Feu', 'Terre', 'Air', 'Eau', 'Feu', 'Terre', 'Air', 'Eau', 'Feu', 'Terre', 'Air', 'Eau'];
+const SIGN_MODE_FR = ['Cardinal', 'Fixe', 'Mutable', 'Cardinal', 'Fixe', 'Mutable', 'Cardinal', 'Fixe', 'Mutable', 'Cardinal', 'Fixe', 'Mutable'];
+const signIndex = (lon: number) => Math.floor(norm360(lon) / 30) % 12;
+
+// Glyphs + order for the aspect grid (classic bodies + Chiron, nodes, Lilith).
+const GLYPH: Record<string, string> = {
+  sun: '☉', moon: '☽', mercury: '☿', venus: '♀', mars: '♂', jupiter: '♃', saturn: '♄',
+  uranus: '♅', neptune: '♆', pluto: '♇', chiron: '⚷', northnode: '☊', lilith: '⚸',
+};
+const GRID_ORDER = ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'chiron', 'northnode', 'lilith'];
+
+const ASPECTS_DEF = [
+  { glyph: '☌', angle: 0, orb: 8, color: '#1f2937' },   // conjonction
+  { glyph: '⚹', angle: 60, orb: 6, color: '#2563eb' },  // sextile
+  { glyph: '□', angle: 90, orb: 7, color: '#dc2626' },  // carré
+  { glyph: '△', angle: 120, orb: 8, color: '#2563eb' }, // trigone
+  { glyph: '☍', angle: 180, orb: 8, color: '#dc2626' }, // opposition
+];
+function aspectBetween(l1: number, l2: number) {
+  let d = Math.abs(norm360(l1) - norm360(l2)) % 360;
+  if (d > 180) d = 360 - d;
+  for (const a of ASPECTS_DEF) {
+    const delta = Math.abs(d - a.angle);
+    if (delta <= a.orb) return { glyph: a.glyph, color: a.color, orb: delta };
+  }
+  return null;
+}
+
 interface Body { key: string; label: string; longitude: number; sign: string; position: string; retrograde: boolean; house: number | null; }
 interface Angle { longitude: number; sign: string; position: string; }
 interface ChartResult {
@@ -425,6 +454,92 @@ export default function AstrologyTool() {
                   ⚠ Points avancés (uraniennes / Vertex) indisponibles — {advancedError}
                 </p>
               )}
+
+              {/* Distribution + maisons + grille d'aspects (parité avec la mise en page Sarastro de Val) */}
+              {(() => {
+                const cell = { width: '24px', height: '24px', textAlign: 'center' as const, border: '1px solid #eef0f4', fontSize: '13px' };
+                const head = { ...cell, color: '#6b7280', fontWeight: 600 };
+                const secTitle = { fontSize: '15px', fontWeight: 600, color: '#1f2937', margin: '20px 0 10px' };
+
+                const pts: { glyph: string; lon: number }[] = [];
+                for (const k of GRID_ORDER) {
+                  const b = chart.bodies.find((x) => x.key === k);
+                  if (b) pts.push({ glyph: GLYPH[k] || b.label, lon: b.longitude });
+                }
+                if (chart.ascendant) pts.push({ glyph: 'AC', lon: chart.ascendant.longitude });
+                if (chart.midheaven) pts.push({ glyph: 'MC', lon: chart.midheaven.longitude });
+
+                const elem: Record<string, number> = { Feu: 0, Terre: 0, Air: 0, Eau: 0 };
+                const mode: Record<string, number> = { Cardinal: 0, Fixe: 0, Mutable: 0 };
+                const add = (lon: number) => { const i = signIndex(lon); elem[SIGN_ELEMENT_FR[i]]++; mode[SIGN_MODE_FR[i]]++; };
+                for (const k of ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto']) {
+                  const b = chart.bodies.find((x) => x.key === k); if (b) add(b.longitude);
+                }
+                if (chart.ascendant) add(chart.ascendant.longitude);
+                if (chart.midheaven) add(chart.midheaven.longitude);
+                const maxE = Math.max(1, ...Object.values(elem));
+                const maxM = Math.max(1, ...Object.values(mode));
+                const bar = (n: number, max: number) => ({ background: '#7c3aed', height: '12px', width: `${(n / max) * 90 + 6}px`, borderRadius: '3px', display: 'inline-block' });
+
+                return (
+                  <div>
+                    <h3 style={secTitle}>Éléments &amp; modes</h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                      <div>
+                        {(['Feu', 'Terre', 'Air', 'Eau'] as const).map((e) => (
+                          <div key={e} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '5px', fontSize: '13px' }}>
+                            <span style={{ width: '46px', color: '#6b7280' }}>{e}</span>
+                            <span style={bar(elem[e], maxE)} /><span>{elem[e]}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div>
+                        {(['Cardinal', 'Fixe', 'Mutable'] as const).map((m) => (
+                          <div key={m} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '5px', fontSize: '13px' }}>
+                            <span style={{ width: '62px', color: '#6b7280' }}>{m}</span>
+                            <span style={bar(mode[m], maxM)} /><span>{mode[m]}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <h3 style={secTitle}>Maisons (cuspides)</h3>
+                    {chart.cusps.length === 12 ? (
+                      <table style={{ ...s.table, marginTop: 0 }}>
+                        <tbody>
+                          {[0, 1, 2, 3, 4, 5].map((i) => (
+                            <tr key={i}>
+                              <td style={s.td}><strong>{i + 1}</strong>&nbsp;&nbsp;{fmt(chart.cusps[i]).position}</td>
+                              <td style={s.td}><strong>{i + 7}</strong>&nbsp;&nbsp;{fmt(chart.cusps[i + 6]).position}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : <p style={s.hint}>Cuspides indisponibles pour ce système de maisons.</p>}
+
+                    <h3 style={secTitle}>Aspects</h3>
+                    <div style={{ overflowX: 'auto' }}>
+                      <table style={{ borderCollapse: 'collapse' }}>
+                        <tbody>
+                          {pts.map((rp, i) => i === 0 ? null : (
+                            <tr key={i}>
+                              <td style={head}>{rp.glyph}</td>
+                              {pts.slice(0, i).map((cp, j) => {
+                                const a = aspectBetween(rp.lon, cp.lon);
+                                return <td key={j} style={cell} title={a ? `${a.orb.toFixed(1)}°` : ''}>{a ? <span style={{ color: a.color }}>{a.glyph}</span> : ''}</td>;
+                              })}
+                            </tr>
+                          ))}
+                          <tr>
+                            <td style={head} />
+                            {pts.slice(0, pts.length - 1).map((cp, j) => <td key={j} style={head}>{cp.glyph}</td>)}
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* AI reading */}
               <div style={s.langTabs}>
