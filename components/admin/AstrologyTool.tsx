@@ -160,6 +160,29 @@ export default function AstrologyTool() {
         type: a.aspect?.label ?? a.type, orb: a.orb,
       }));
 
+      // Part de Fortune (sect-based: jour = Asc + Lune − Soleil ; nuit = Asc + Soleil − Lune).
+      const sunB = bodies.find((b) => b.key === 'sun');
+      const moonB = bodies.find((b) => b.key === 'moon');
+      if (sunB && moonB && ascL != null) {
+        const dayChart = sunB.house != null && sunB.house >= 7 && sunB.house <= 12;
+        const fortuneLon = norm360(
+          ascL + (dayChart ? moonB.longitude - sunB.longitude : sunB.longitude - moonB.longitude)
+        );
+        const houseOf = (lng: number): number | null => {
+          if (cusps.length !== 12) return null;
+          for (let i = 0; i < 12; i++) {
+            const span = norm360(cusps[(i + 1) % 12] - cusps[i]);
+            if (norm360(lng - cusps[i]) < span) return i + 1;
+          }
+          return null;
+        };
+        const f = fmt(fortuneLon);
+        bodies.push({
+          key: 'fortune', label: 'Part de Fortune', longitude: fortuneLon,
+          sign: f.sign, position: f.position, retrograde: false, house: houseOf(fortuneLon),
+        });
+      }
+
       // Build the text summary sent to Claude.
       const lines: string[] = [];
       if (ascendant) lines.push(`- Ascendant : ${ascendant.position}`);
