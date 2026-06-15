@@ -48,6 +48,7 @@ STRUCTURE :
 4. Affectivité & valeurs — Vénus, Lune, axe des relations
 5. Énergie, action & tensions — Mars et les aspects durs majeurs
 6. Axe d'évolution — Nœuds, Saturne, et points spécifiques présents (Part de Fortune, etc.)
+7. En résumé — clôture par une synthèse en langage clair, chaleureux et accessible, SANS AUCUN degré, nom de planète technique, position de maison chiffrée, ni terme d'aspect (interdits ici : « carré », « trigone », « sextile », « conjonction », « orbe », numéros de maison…). Ce paragraphe doit pouvoir être lu seul par quelqu'un qui ne connaît rien à l'astrologie. Dégage : qui est cette personne dans les grandes lignes, ses forces, ses défis intérieurs, et 3 à 4 pistes concrètes de travail sur soi et de connaissance de soi. Sous-titre : « En résumé — pistes pour se connaître ».
 
 FORMATAGE : réponds directement avec la lecture finale en HTML (sans <html>, <head>, <body>, sans réflexion préalable visible) :
 - <h3> pour les titres de section
@@ -85,7 +86,7 @@ ${summary}`;
       try {
         const stream = anthropic.messages.stream({
           model: 'claude-opus-4-8',
-          max_tokens: 4000,
+          max_tokens: 5000,
           system: SYSTEM_PROMPT,
           messages: [{ role: 'user', content: userPrompt }],
         });
