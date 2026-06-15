@@ -399,7 +399,13 @@ export default function AstrologyTool() {
 
   return (
     <div style={s.container}>
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } } ${readingCss} #astro-wheel svg { max-width: 100%; height: auto; }`}</style>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } } ${readingCss} #astro-wheel svg { max-width: 100%; height: auto; }
+        @media print {
+          body * { visibility: hidden !important; }
+          #astro-print-area, #astro-print-area * { visibility: visible !important; }
+          #astro-print-area { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none !important; padding: 0 !important; }
+          .no-print { display: none !important; }
+        }`}</style>
 
       <div style={s.grid}>
         {/* ── Form ── */}
@@ -450,8 +456,18 @@ export default function AstrologyTool() {
         </div>
 
         {/* ── Chart + table ── */}
-        <div style={s.card}>
-          <h3 style={{ ...s.title, fontSize: '18px' }}>Thème</h3>
+        <div style={s.card} id="astro-print-area">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+            <h3 style={{ ...s.title, fontSize: '18px', margin: 0 }}>Thème</h3>
+            {chart && (
+              <button type="button" className="no-print" style={s.ghostBtn} onClick={() => window.print()}>📄 Exporter en PDF</button>
+            )}
+          </div>
+          {chart && (
+            <p style={{ ...s.hint, marginTop: '4px' }}>
+              {name && <strong>{name} — </strong>}{date} {time} · {place} · {ZODIAC_LABEL[chart.zodiac] || chart.zodiac} · {HOUSE_LABEL[chart.houseSystem] || chart.houseSystem}
+            </p>
+          )}
           {!chart ? (
             <p style={s.hint}>Renseignez les données puis cliquez sur « Calculer le thème ».</p>
           ) : (
