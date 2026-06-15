@@ -127,8 +127,46 @@ export default function AstrologyTool() {
   const [advancedError, setAdvancedError] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [speaking, setSpeaking] = useState(false);
+  const [clients, setClients] = useState<any[]>([]);
+  const [clientMsg, setClientMsg] = useState('');
 
   const wheelRef = useRef<HTMLDivElement>(null);
+
+  // Load saved clients (from Airtable) for the dropdown.
+  async function loadClients() {
+    try {
+      const r = await fetch('/api/admin/astro-clients');
+      if (r.ok) { const d = await r.json(); setClients(d.clients || []); }
+    } catch { /* ignore */ }
+  }
+  useEffect(() => { loadClients(); }, []);
+
+  function loadClient(id: string) {
+    const c = clients.find((x) => x.id === id);
+    if (!c) return;
+    setName(c.name); setDate(c.date); setTime(c.time); setPlace(c.place);
+    setLat(c.latitude); setLng(c.longitude);
+    setZodiac(c.zodiac || 'tropical'); setHouse(c.houseSystem || 'placidus');
+    setClientMsg(`✓ « ${c.name} » chargé — cliquez sur Calculer`);
+  }
+
+  async function saveClient() {
+    if (!name.trim()) { setClientMsg('⚠ Entrez un nom avant d\'enregistrer'); return; }
+    setClientMsg('Enregistrement…');
+    try {
+      const r = await fetch('/api/admin/astro-clients', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, date, time, place, latitude: lat, longitude: lng, zodiac, houseSystem: house }),
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || `HTTP ${r.status}`);
+      setClientMsg('✓ Client enregistré');
+      await loadClients();
+    } catch (e: any) {
+      setClientMsg(`⚠ ${e.message}`);
+    }
+  }
 
   // Render the SVG wheel whenever a new chart is computed.
   useEffect(() => {
@@ -477,7 +515,18 @@ export default function AstrologyTool() {
 
           {error && <div style={s.error}>{error}</div>}
 
-          <label style={s.label}>Nom (client)
+          <label style={s.label}>Clients enregistrés
+            <select style={s.input} value="" onChange={(e) => { if (e.target.value) loadClient(e.target.value); }}>
+              <option value="">— Charger un client —</option>
+              {clients.map((c) => (
+                <option key={c.id} value={c.id}>{c.name}{c.date ? ` (${c.date})` : ''}</option>
+              ))}
+            </select>
+          </label>
+          <button type="button" style={s.ghostBtn} onClick={saveClient}>💾 Enregistrer ce client</button>
+          {clientMsg && <p style={s.hint}>{clientMsg}</p>}
+
+          <label style={{ ...s.label, marginTop: '8px' }}>Nom (client)
             <input style={s.input} value={name} onChange={(e) => setName(e.target.value)} placeholder="ex. Marie Dupont" />
           </label>
           <div style={s.row}>

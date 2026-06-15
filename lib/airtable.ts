@@ -841,6 +841,105 @@ export async function saveChromoBioTestResults(
   }
 }
 
+// --- Astrology saved clients ---------------------------------------------
+
+const ASTRO_TABLE = 'Astro_Clients';
+
+export interface AstroClient {
+  id?: string;
+  name: string;
+  date: string;
+  time: string;
+  place: string;
+  latitude: string;
+  longitude: string;
+  zodiac: string;
+  houseSystem: string;
+}
+
+// Best-effort: create the Astro_Clients table via the Meta API if it's missing.
+// Requires a token with schema scopes; if unavailable we silently skip (the
+// record create will then surface a clear "table missing" error).
+async function ensureAstroClientsTable(): Promise<void> {
+  const baseId = process.env.AIRTABLE_BASE_ID as string;
+  const headers = {
+    Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
+    'Content-Type': 'application/json',
+  };
+  try {
+    const listRes = await fetch(`https://api.airtable.com/v0/meta/bases/${baseId}/tables`, { headers });
+    if (!listRes.ok) return; // no schema scope — assume the table exists
+    const data = await listRes.json();
+    if ((data.tables || []).some((t: any) => t.name === ASTRO_TABLE)) return;
+    await fetch(`https://api.airtable.com/v0/meta/bases/${baseId}/tables`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        name: ASTRO_TABLE,
+        fields: [
+          { name: 'Name', type: 'singleLineText' },
+          { name: 'Birth_Date', type: 'singleLineText' },
+          { name: 'Birth_Time', type: 'singleLineText' },
+          { name: 'Place', type: 'singleLineText' },
+          { name: 'Latitude', type: 'singleLineText' },
+          { name: 'Longitude', type: 'singleLineText' },
+          { name: 'Zodiac', type: 'singleLineText' },
+          { name: 'House_System', type: 'singleLineText' },
+          { name: 'Created_At', type: 'singleLineText' },
+        ],
+      }),
+    });
+  } catch (e) {
+    console.error('ensureAstroClientsTable error:', e);
+  }
+}
+
+export async function getAstroClients(): Promise<AstroClient[]> {
+  try {
+    const records = await base(ASTRO_TABLE)
+      .select({ sort: [{ field: 'Name', direction: 'asc' }] })
+      .all();
+    return records.map((r) => ({
+      id: r.id,
+      name: (r.fields.Name as string) || '',
+      date: (r.fields.Birth_Date as string) || '',
+      time: (r.fields.Birth_Time as string) || '',
+      place: (r.fields.Place as string) || '',
+      latitude: (r.fields.Latitude as string) || '',
+      longitude: (r.fields.Longitude as string) || '',
+      zodiac: (r.fields.Zodiac as string) || 'tropical',
+      houseSystem: (r.fields.House_System as string) || 'placidus',
+    }));
+  } catch (error) {
+    console.error('Error fetching astro clients:', error);
+    return [];
+  }
+}
+
+export async function saveAstroClient(data: AstroClient): Promise<string> {
+  await ensureAstroClientsTable();
+  const created = await base(ASTRO_TABLE).create([
+    {
+      fields: {
+        Name: data.name,
+        Birth_Date: data.date,
+        Birth_Time: data.time,
+        Place: data.place,
+        Latitude: String(data.latitude),
+        Longitude: String(data.longitude),
+        Zodiac: data.zodiac,
+        House_System: data.houseSystem,
+        Created_At: new Date().toISOString(),
+      },
+    },
+  ]);
+  return created[0].id;
+}
+
+export async function deleteAstroClient(id: string): Promise<void> {
+  await base(ASTRO_TABLE).destroy(id);
+}
+
 /**
  * Get contact info from a ChromoBio test record
  */
