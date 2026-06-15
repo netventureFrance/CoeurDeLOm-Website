@@ -253,41 +253,30 @@ export default function AstrologyTool() {
         { id: 'pdf-sec-aspects', title: 'Aspects' },
         { id: 'pdf-sec-reading', title: 'Lecture' },
       ];
-      for (const sec of sections) {
-        const el = document.getElementById(sec.id);
-        if (!el) continue;
-        const canvas = await html2canvas(el, { scale: 2, backgroundColor: '#ffffff' });
-        pdf.addPage();
-        let py = M;
-        pdf.setFont('helvetica', 'bold'); pdf.setFontSize(13); pdf.setTextColor(39, 19, 64);
-        pdf.text(sec.title, M, py + 3); py += 8;
+      // Slice a tall canvas across pages, backing each cut up to a blank row so
+      // a line/row is never split. Returns the new y.
+      const bottomY = H - 16;
+      const addCanvasSliced = (canvas: HTMLCanvasElement, startPy: number): number => {
         const imgW = CW;
         const pxPerMM = canvas.width / imgW;
-
-        // Read the whole canvas once to find blank rows (so we break between
-        // lines/rows, never through text).
         const cctx = canvas.getContext('2d')!;
         const pixels = cctx.getImageData(0, 0, canvas.width, canvas.height).data;
         const isBlankRow = (yRow: number): boolean => {
-          const base = yRow * canvas.width * 4;
+          const b = yRow * canvas.width * 4;
           for (let x = 0; x < canvas.width; x++) {
-            const i = base + x * 4;
+            const i = b + x * 4;
             if (pixels[i] < 248 || pixels[i + 1] < 248 || pixels[i + 2] < 248) return false;
           }
           return true;
         };
-
         let srcY = 0;
-        let avail = H - py - 16;
+        let py = startPy;
+        let avail = bottomY - py;
         while (srcY < canvas.height) {
           let sliceH = Math.min(canvas.height - srcY, Math.floor(avail * pxPerMM));
-          // If more remains, back the cut up to the nearest blank row so a line
-          // isn't split across pages.
           if (srcY + sliceH < canvas.height) {
-            const minCut = srcY + Math.floor(sliceH * 0.45);
-            for (let r = srcY + sliceH; r > minCut; r--) {
-              if (isBlankRow(r)) { sliceH = r - srcY; break; }
-            }
+            const minCut = srcY + Math.floor(sliceH * 0.4);
+            for (let r = srcY + sliceH; r > minCut; r--) { if (isBlankRow(r)) { sliceH = r - srcY; break; } }
           }
           const slice = document.createElement('canvas');
           slice.width = canvas.width; slice.height = sliceH;
@@ -295,8 +284,39 @@ export default function AstrologyTool() {
           sctx.fillStyle = '#ffffff'; sctx.fillRect(0, 0, slice.width, slice.height);
           sctx.drawImage(canvas, 0, srcY, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
           pdf.addImage(slice.toDataURL('image/png'), 'PNG', M, py, imgW, sliceH / pxPerMM);
-          srcY += sliceH;
-          if (srcY < canvas.height) { pdf.addPage(); py = M; avail = H - M - 16; }
+          srcY += sliceH; py += sliceH / pxPerMM + 2;
+          if (srcY < canvas.height) { pdf.addPage(); py = M; avail = bottomY - M; }
+        }
+        return py;
+      };
+
+      for (const sec of sections) {
+        const el = document.getElementById(sec.id);
+        if (!el) continue;
+        pdf.addPage();
+        let py = M;
+        pdf.setFont('helvetica', 'bold'); pdf.setFontSize(13); pdf.setTextColor(39, 19, 64);
+        pdf.text(sec.title, M, py + 3); py += 9;
+
+        if (sec.id === 'pdf-sec-reading') {
+          // Each paragraph as its own image (keeps bold/colour); a whole
+          // paragraph moves to the next page rather than being split.
+          const blocks = (Array.from(el.children) as HTMLElement[]).filter((n) => (n.textContent || '').trim());
+          const nodes = blocks.length ? blocks : [el];
+          for (const node of nodes) {
+            const c = await html2canvas(node, { scale: 2, backgroundColor: '#ffffff' });
+            const hMM = (c.height * CW) / c.width;
+            if (hMM > bottomY - py && hMM <= bottomY - M) { pdf.addPage(); py = M; }
+            if (hMM <= bottomY - py) {
+              pdf.addImage(c.toDataURL('image/png'), 'PNG', M, py, CW, hMM);
+              py += hMM + 2;
+            } else {
+              py = addCanvasSliced(c, py); // paragraph taller than a full page
+            }
+          }
+        } else {
+          const canvas = await html2canvas(el, { scale: 2, backgroundColor: '#ffffff' });
+          py = addCanvasSliced(canvas, py);
         }
       }
       // Branded footer on every page: contact + page number.
