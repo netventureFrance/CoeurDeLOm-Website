@@ -94,6 +94,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ uranian, vertex: { longitude: vertexLon } });
   } catch (err) {
     console.error('astro-chart error:', err);
-    return NextResponse.json({ error: 'Calcul des points avancés indisponible' }, { status: 500 });
+    const detail = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
+    return NextResponse.json({ error: detail }, { status: 500 });
   }
 }

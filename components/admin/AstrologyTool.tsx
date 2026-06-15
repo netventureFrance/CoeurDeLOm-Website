@@ -78,6 +78,7 @@ export default function AstrologyTool() {
   const [chart, setChart] = useState<ChartResult | null>(null);
   const [reading, setReading] = useState('');
   const [error, setError] = useState('');
+  const [advancedError, setAdvancedError] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [speaking, setSpeaking] = useState(false);
 
@@ -120,6 +121,7 @@ export default function AstrologyTool() {
 
   async function handleCalculate() {
     setError('');
+    setAdvancedError('');
     try {
       const { Origin, Horoscope } = await import('circular-natal-horoscope-js/dist/index.js');
       const [y, m, d] = date.split('-').map(Number);
@@ -214,9 +216,12 @@ export default function AstrologyTool() {
             const fv = fmt(extra.vertex.longitude);
             bodies.push({ key: 'vertex', label: 'Vertex', longitude: extra.vertex.longitude, sign: fv.sign, position: fv.position, retrograde: false, house: houseOf(extra.vertex.longitude) });
           }
+        } else {
+          const d = await res.json().catch(() => ({}));
+          setAdvancedError(d.error || `HTTP ${res.status}`);
         }
-      } catch {
-        /* advanced points unavailable — keep the base chart */
+      } catch (e: any) {
+        setAdvancedError(e?.name === 'AbortError' ? 'délai dépassé (timeout 8s)' : (e?.message || 'indisponible'));
       }
 
       // Build the text summary sent to Claude.
@@ -406,6 +411,12 @@ export default function AstrologyTool() {
                   ))}
                 </tbody>
               </table>
+
+              {advancedError && (
+                <p style={{ ...s.hint, color: '#b45309' }}>
+                  ⚠ Points avancés (uraniennes / Vertex) indisponibles — {advancedError}
+                </p>
+              )}
 
               {/* AI reading */}
               <div style={s.langTabs}>
