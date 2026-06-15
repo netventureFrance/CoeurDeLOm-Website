@@ -96,7 +96,9 @@ export default function AstrologyTool() {
       const c = new Chart('astro-wheel', size, size);
       const data: any = { planets: chart.renderPlanets };
       if (chart.cusps.length === 12) data.cusps = chart.cusps;
-      c.radix(data);
+      const radix = c.radix(data);
+      // Draw the aspect lines inside the wheel (conjunctions, oppositions, etc.).
+      try { radix.aspects(); } catch { /* renderer has no aspect support */ }
     })();
     return () => { cancelled = true; };
   }, [chart]);
@@ -213,6 +215,10 @@ export default function AstrologyTool() {
           for (const u of extra.uranian ?? []) {
             const f = fmt(u.longitude);
             bodies.push({ key: u.key, label: u.label, longitude: u.longitude, sign: f.sign, position: f.position, retrograde: !!u.retrograde, house: houseOf(u.longitude) });
+          }
+          for (const a of extra.asteroids ?? []) {
+            const f = fmt(a.longitude);
+            bodies.push({ key: a.key, label: a.label, longitude: a.longitude, sign: f.sign, position: f.position, retrograde: !!a.retrograde, house: houseOf(a.longitude) });
           }
           if (extra.vertex) {
             const fv = fmt(extra.vertex.longitude);

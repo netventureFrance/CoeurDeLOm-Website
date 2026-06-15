@@ -2,7 +2,7 @@
 const nextConfig = {
   // Ensure the Swiss Ephemeris WASM file is bundled with the astro-chart function.
   outputFileTracingIncludes: {
-    '/api/admin/astro-chart': ['./node_modules/swisseph-wasm/wasm/**'],
+    '/api/admin/astro-chart': ['./node_modules/swisseph-wasm/wasm/**', './ephe/**'],
   },
   images: {
     remotePatterns: [

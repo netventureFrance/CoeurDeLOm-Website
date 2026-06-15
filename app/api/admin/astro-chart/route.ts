@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
 import SwissEph from 'swisseph-wasm';
 
 export const runtime = 'nodejs';
@@ -20,6 +22,14 @@ function verifyAdmin(token: string | undefined): boolean {
     return false;
   }
 }
+
+// Main asteroids (from seas_18.se1) — Swiss Ephemeris body ids.
+const ASTEROIDS: { id: number; key: string; label: string }[] = [
+  { id: 17, key: 'ceres', label: 'Cérès' },
+  { id: 18, key: 'pallas', label: 'Pallas (Athéna)' },
+  { id: 19, key: 'juno', label: 'Junon' },
+  { id: 20, key: 'vesta', label: 'Vesta' },
+];
 
 // Uranian / trans-Neptunian planets (Hamburg School) — Swiss Ephemeris body ids.
 const URANIAN: { id: number; key: string; label: string }[] = [
@@ -45,8 +55,19 @@ let swePromise: Promise<any> | null = null;
 function getSwe() {
   if (!swePromise) {
     swePromise = (async () => {
-      const swe = new SwissEph();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const swe: any = new SwissEph();
       await swe.initSwissEph();
+      // Load the main-asteroid ephemeris (Cérès, Pallas, Junon, Vesta, Chiron).
+      try {
+        const FS = swe.SweModule.FS;
+        try { FS.mkdir('sweph'); } catch { /* already exists */ }
+        const file = path.join(process.cwd(), 'ephe', 'seas_18.se1');
+        FS.writeFile('sweph/seas_18.se1', new Uint8Array(fs.readFileSync(file)));
+        swe.set_ephe_path('sweph');
+      } catch (e) {
+        console.error('asteroid ephemeris load failed:', e);
+      }
       return swe;
     })();
   }
@@ -87,11 +108,25 @@ export async function POST(request: Request) {
       return { key, label, longitude: lon, retrograde: r[3] < 0 };
     });
 
+    // Asteroids need the Swiss Ephemeris file (loaded above), not Moshier.
+    const SWIEPH = swe.SEFLG_SWIEPH ?? 2;
+    let astFlags = SWIEPH | SPEED;
+    if (zodiac === 'sidereal') astFlags |= SIDEREAL;
+    const asteroids: { key: string; label: string; longitude: number; retrograde: boolean }[] = [];
+    for (const { id, key, label } of ASTEROIDS) {
+      try {
+        const r = swe.calc_ut(jd, id, astFlags);
+        if (r && typeof r[0] === 'number' && !isNaN(r[0])) {
+          asteroids.push({ key, label, longitude: norm360(r[0]), retrograde: r[3] < 0 });
+        }
+      } catch { /* skip if unavailable */ }
+    }
+
     const hsys = HOUSE_CODE[houseSystem] || 'P';
     const h = swe.houses_ex(jd, houseFlags, latitude, longitude, hsys);
     const vertexLon = norm360(h.ascmc[3]);
 
-    return NextResponse.json({ uranian, vertex: { longitude: vertexLon } });
+    return NextResponse.json({ uranian, asteroids, vertex: { longitude: vertexLon } });
   } catch (err) {
     console.error('astro-chart error:', err);
     const detail = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
