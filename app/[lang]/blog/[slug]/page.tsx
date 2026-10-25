@@ -5,6 +5,7 @@ import { getBlogPostBySlug, getBlogPosts } from '@/lib/airtable';
 import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
+import { openGraphFor, SITE_URL } from '@/lib/seo';
 
 // Revalidate pages every hour (3600 seconds) for fresh content while staying fast
 export const revalidate = 3600;
@@ -43,11 +44,14 @@ export async function generateMetadata({
   return {
     title: post.title,
     description,
-    openGraph: {
+    // Slugs are translated per language, so only a self-canonical (no hreflang map)
+    alternates: { canonical: `${SITE_URL}/${lang}/blog/${slug}` },
+    openGraph: openGraphFor(lang, `/blog/${slug}`, {
       title: post.title,
       description,
-      images: post.featuredImage ? [post.featuredImage] : ['/Coeur-de-lOm-Alpha-Kopie.png'],
-    },
+      type: 'article',
+      ...(post.featuredImage && { images: [post.featuredImage] }),
+    }),
   };
 }
 

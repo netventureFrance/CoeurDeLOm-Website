@@ -4,65 +4,51 @@ import { locales, type Locale, getDictionary } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StructuredData from "@/components/StructuredData";
+import { pageMetadata, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://coeurdelom.fr'),
-  title: {
-    default: "Cœur de l'OM - Naturopathie, Soins Vibratoires & Méditation",
-    template: "%s | Cœur de l'OM"
-  },
-  description: "Découvrez l'efficacité des soins vibratoires, naturopathie et méditation avec Valérie Heydlauf. Heilpraktikerin diplômée, spécialisée en Chromobio-Énergie. Cabinet en France.",
-  keywords: ["naturopathie", "soins vibratoires", "méditation", "chromobio-énergie", "reiki", "bien-être", "spiritualité", "thérapies douces", "heilpraktikerin", "énergétique"],
-  authors: [{ name: "Valérie Heydlauf" }],
-  creator: "Valérie Heydlauf",
-  publisher: "Cœur de l'OM",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'fr_FR',
-    alternateLocale: ['de_DE', 'en_US'],
-    url: 'https://coeurdelom.fr',
-    siteName: "Cœur de l'OM",
-    title: "Cœur de l'OM - Naturopathie, Soins Vibratoires & Méditation",
-    description: "Découvrez l'efficacité des soins vibratoires, naturopathie et méditation avec Valérie Heydlauf. Heilpraktikerin diplômée, spécialisée en Chromobio-Énergie.",
-    images: [
-      {
-        url: '/Coeur-de-lOm-Alpha-Kopie.png',
-        width: 1200,
-        height: 630,
-        alt: "Cœur de l'OM - Naturopathie et Soins Énergétiques",
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: "Cœur de l'OM - Naturopathie, Soins Vibratoires & Méditation",
-    description: "Découvrez l'efficacité des soins vibratoires, naturopathie et méditation avec Valérie Heydlauf.",
-    images: ['/Coeur-de-lOm-Alpha-Kopie.png'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  // Site-wide defaults only: canonical/hreflang and og:url are set per page, so a page
+  // that forgets them doesn't inherit the homepage's canonical.
+  const { alternates: _alternates, openGraph, ...home } = pageMetadata(lang, 'home');
+
+  return {
+    ...home,
+    openGraph: { ...openGraph, url: undefined },
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: (home.title as { absolute: string }).absolute,
+      template: `%s | ${SITE_NAME}`,
+    },
+    keywords: ["naturopathe Montpellier", "naturopathie", "soins vibratoires", "soins énergétiques", "méditation", "chromobio-énergie", "reiki", "heilpraktikerin", "Montpellier"],
+    authors: [{ name: "Valérie Heydlauf" }],
+    creator: "Valérie Heydlauf",
+    publisher: SITE_NAME,
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
-  },
-  verification: {
-    google: '', // Add your Google Search Console verification code here
-  },
-};
+    verification: {
+      google: '', // Add your Google Search Console verification code here
+    },
+  };
+}
 
 export default async function LangLayout({
   children,

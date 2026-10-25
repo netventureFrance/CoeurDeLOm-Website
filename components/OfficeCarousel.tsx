@@ -23,12 +23,19 @@ interface CarouselImage {
   remoteUrl: string;
 }
 
-export default function OfficeCarousel() {
+interface OfficeCarouselProps {
+  // Localised ALT text for the default images, in the same order
+  alts?: string[];
+}
+
+export default function OfficeCarousel({ alts }: OfficeCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [zoomDirection, setZoomDirection] = useState<'in' | 'out'>('in');
-  const [images, setImages] = useState<{ src: string; alt: string }[]>(defaultImages);
+  const [images, setImages] = useState<{ src: string; alt: string }[]>(
+    defaultImages.map((img, i) => ({ ...img, alt: alts?.[i] ?? img.alt }))
+  );
 
   // Load carousel images from manifest on mount
   useEffect(() => {

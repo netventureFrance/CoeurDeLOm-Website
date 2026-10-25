@@ -2,20 +2,11 @@ import { type Locale, getDictionary } from '@/lib/i18n';
 import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
+import { pageMetadata } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-
-  return {
-    title: 'Pourquoi Cœur de l\'OM - Expertise Holistique & Soins Énergétiques',
-    description: 'Découvrez pourquoi choisir Cœur de l\'OM : expertise holistique, techniques ancestrales, accompagnement personnalisé et environnement propice à la guérison.',
-    keywords: ['naturopathie', 'heilpraktikerin', 'soins énergétiques', 'médecine traditionnelle chinoise', 'reiki', 'chromobioénergie', 'bien-être holistique', 'thérapies alternatives'],
-    openGraph: {
-      title: 'Pourquoi Cœur de l\'OM - Expertise Holistique',
-      description: 'Expertise holistique, techniques ancestrales, accompagnement personnalisé dans un cadre propice à la guérison.',
-      images: ['/Coeur-de-lOm-Alpha-Kopie.png'],
-    },
-  };
+  return pageMetadata(lang, 'why');
 }
 
 export default async function WhyPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -76,7 +67,7 @@ export default async function WhyPage({ params }: { params: Promise<{ lang: stri
                 <div className="w-16 h-16 mb-3">
                   <img
                     src={feature.image}
-                    alt={why[feature.key].title}
+                    alt={why[feature.key].imageAlt}
                     className="w-full h-full object-contain"
                   />
                 </div>

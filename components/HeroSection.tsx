@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 
 interface HeroSectionProps {
   subtitle: string;
+  h1Tagline: string;
+  intro: string;
 }
 
-export default function HeroSection({ subtitle }: HeroSectionProps) {
+export default function HeroSection({ subtitle, h1Tagline, intro }: HeroSectionProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
 
@@ -80,6 +82,9 @@ export default function HeroSection({ subtitle }: HeroSectionProps) {
             }}
           >
             Cœur de l'Om
+            <span className="block mt-4 font-sans text-xl md:text-2xl text-purple-700 font-medium tracking-normal">
+              {h1Tagline}
+            </span>
           </h1>
 
           {/* Decorative elements */}
@@ -94,6 +99,10 @@ export default function HeroSection({ subtitle }: HeroSectionProps) {
         {/* Subtitle with fade-in effect */}
         <p className="text-2xl md:text-3xl text-gray-600 font-light leading-relaxed max-w-4xl mx-auto animate-fade-in">
           {subtitle}
+        </p>
+
+        <p className="mt-8 text-lg md:text-xl text-gray-500 leading-relaxed max-w-3xl mx-auto animate-fade-in">
+          {intro}
         </p>
       </div>
 

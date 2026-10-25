@@ -3,6 +3,13 @@ import HeroSection from "@/components/HeroSection";
 import OfficeCarousel from "@/components/OfficeCarousel";
 import NewsPromo from "@/components/NewsPromo";
 import { getNewsPromos } from "@/lib/airtable";
+import { pageMetadata } from "@/lib/seo";
+import type { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  return pageMetadata(lang, "home");
+}
 
 export default async function Home({
   params,
@@ -19,10 +26,10 @@ export default async function Home({
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section with Interactive Effects */}
-      <HeroSection subtitle={home.subtitle} />
+      <HeroSection subtitle={home.subtitle} h1Tagline={home.h1Tagline} intro={home.intro} />
 
       {/* Office Gallery Carousel */}
-      <OfficeCarousel />
+      <OfficeCarousel alts={home.galleryAlts} />
 
       {/* News & Promos Section */}
       <NewsPromo initialNews={newsPromos} />
