@@ -1,0 +1,2726 @@
+[
+  {
+    "id": 1,
+    "label": "Actif",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 2,
+    "label": "Admirable",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 3,
+    "label": "Affirmatif",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 4,
+    "label": "Ambitieux",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 5,
+    "label": "Animé",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 6,
+    "label": "Ardent",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 7,
+    "label": "Assertif",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 8,
+    "label": "Attractif",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 9,
+    "label": "Audacieux",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 10,
+    "label": "Autoritaire (juste)",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 11,
+    "label": "Autonome",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 12,
+    "label": "Aventureux",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 13,
+    "label": "Beau",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 14,
+    "label": "Brave",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 15,
+    "label": "Captivant",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 16,
+    "label": "Chaleureux",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 17,
+    "label": "Charismatique",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 18,
+    "label": "Combatif",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 19,
+    "label": "Compétitif",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 20,
+    "label": "Courageux",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 21,
+    "label": "Dynamique",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 22,
+    "label": "Éblouissant",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 23,
+    "label": "Éclatant",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 24,
+    "label": "Encourageant",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 25,
+    "label": "Énergique",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 26,
+    "label": "Engagé",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 27,
+    "label": "Enthousiaste",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 28,
+    "label": "Entreprenant",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 29,
+    "label": "Force créatrice",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 30,
+    "label": "Impliqué",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 31,
+    "label": "Infatigable",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 32,
+    "label": "Influent",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 33,
+    "label": "Inoubliable",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 34,
+    "label": "Inspiré",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 35,
+    "label": "Intrépide",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 36,
+    "label": "Leader",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 37,
+    "label": "Libéré",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 38,
+    "label": "Magistral",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 39,
+    "label": "Maître de soi",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 40,
+    "label": "Passionnant",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 41,
+    "label": "Passionné",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 42,
+    "label": "Persuasif",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 43,
+    "label": "Protecteur",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 44,
+    "label": "Pugnace",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 45,
+    "label": "Résolu",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 46,
+    "label": "Séduisant",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 47,
+    "label": "Sportif",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 48,
+    "label": "Stimulant",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 49,
+    "label": "Stratège",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 50,
+    "label": "Sûr de soi",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 51,
+    "label": "Talentueux",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 52,
+    "label": "Unique",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 53,
+    "label": "Vaillant",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 54,
+    "label": "Valeureux",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 55,
+    "label": "Vigoureux",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 56,
+    "label": "Vivace",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 57,
+    "label": "Volontaire",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 58,
+    "label": "Zèle",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 59,
+    "label": "Décidé",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 60,
+    "label": "Noble",
+    "element": "feu",
+    "type": "qualite"
+  },
+  {
+    "id": 61,
+    "label": "À l'écoute",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 62,
+    "label": "Accueillant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 63,
+    "label": "Adorable",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 64,
+    "label": "Affectueux",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 65,
+    "label": "Aidant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 66,
+    "label": "Aimable",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 67,
+    "label": "Aimant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 68,
+    "label": "Apaisant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 69,
+    "label": "Ardeur affective",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 70,
+    "label": "Attachant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 71,
+    "label": "Attentionné",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 72,
+    "label": "Bienfaisant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 73,
+    "label": "Bienveillant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 74,
+    "label": "Bon",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 75,
+    "label": "Câlin",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 76,
+    "label": "Charitable",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 77,
+    "label": "Clément",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 78,
+    "label": "Compatissant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 79,
+    "label": "Concerné",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 80,
+    "label": "Complaisant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 81,
+    "label": "Compréhensif",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 82,
+    "label": "Conciliant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 83,
+    "label": "Cordial",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 84,
+    "label": "Délicat",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 85,
+    "label": "Délicatesse",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 86,
+    "label": "Détendu",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 87,
+    "label": "Dévoué",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 88,
+    "label": "Douceur",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 89,
+    "label": "Émouvant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 90,
+    "label": "Empathique",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 91,
+    "label": "Galant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 92,
+    "label": "Humble",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 93,
+    "label": "Indulgent",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 94,
+    "label": "Intuitif",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 95,
+    "label": "Loyal (affectif)",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 96,
+    "label": "Méditatif",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 97,
+    "label": "Mignon",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 98,
+    "label": "Modeste",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 99,
+    "label": "Obligeant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 100,
+    "label": "Ouvert (cœur)",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 101,
+    "label": "Ouverture à autrui",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 102,
+    "label": "Pacificateur",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 103,
+    "label": "Pacifique",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 104,
+    "label": "Paisible",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 105,
+    "label": "Patient",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 106,
+    "label": "Prévenant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 107,
+    "label": "Propension à pardonner",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 108,
+    "label": "Pur",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 109,
+    "label": "Rassurant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 110,
+    "label": "Réceptif",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 111,
+    "label": "Réconfortant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 112,
+    "label": "Reconnaissant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 113,
+    "label": "Romantique",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 114,
+    "label": "Sage",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 115,
+    "label": "Sensible",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 116,
+    "label": "Serein",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 117,
+    "label": "Serviable",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 118,
+    "label": "Tendre",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 119,
+    "label": "Tranquille (intérieure)",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 120,
+    "label": "Zen",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 121,
+    "label": "Tempérant",
+    "element": "eau",
+    "type": "qualite"
+  },
+  {
+    "id": 122,
+    "label": "Abordable",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 123,
+    "label": "Accessible",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 124,
+    "label": "Adroit",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 125,
+    "label": "Affable",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 126,
+    "label": "Agréable",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 127,
+    "label": "Amical",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 128,
+    "label": "Amusant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 129,
+    "label": "Artistique",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 130,
+    "label": "Astucieux",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 131,
+    "label": "Avenant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 132,
+    "label": "Brillant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 133,
+    "label": "Chanceux",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 134,
+    "label": "Charmant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 135,
+    "label": "Charmeur",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 136,
+    "label": "Chouette",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 137,
+    "label": "Clarté",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 138,
+    "label": "Collaborateur",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 139,
+    "label": "Comique",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 140,
+    "label": "Communicatif",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 141,
+    "label": "Curieux",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 142,
+    "label": "Diplomate",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 143,
+    "label": "Drôle",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 144,
+    "label": "Éloquent",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 145,
+    "label": "Enjoué",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 146,
+    "label": "Épanoui",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 147,
+    "label": "Habileté",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 148,
+    "label": "Humoristique",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 149,
+    "label": "Imaginatif",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 150,
+    "label": "Indépendant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 151,
+    "label": "Ingénieux",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 152,
+    "label": "Inventif",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 153,
+    "label": "Jovial",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 154,
+    "label": "Joyeux",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 155,
+    "label": "Judicieux",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 156,
+    "label": "Libre d'esprit",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 157,
+    "label": "Logique",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 158,
+    "label": "Lucide",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 159,
+    "label": "Malin (positif)",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 160,
+    "label": "Naturel",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 161,
+    "label": "Nuancé",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 162,
+    "label": "Objectif (mental)",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 163,
+    "label": "Original",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 164,
+    "label": "Ouvert d'esprit",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 165,
+    "label": "Optimiste",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 166,
+    "label": "Philosophe",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 167,
+    "label": "Plaisant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 168,
+    "label": "Polyvalent",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 169,
+    "label": "Positif",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 170,
+    "label": "Pétillant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 171,
+    "label": "Raffiné",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 172,
+    "label": "Rationnel",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 173,
+    "label": "Réfléchi",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 174,
+    "label": "Rusé (positif)",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 175,
+    "label": "Savant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 176,
+    "label": "Sociable",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 177,
+    "label": "Social",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 178,
+    "label": "Souriant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 179,
+    "label": "Studieux",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 180,
+    "label": "Sympathique",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 181,
+    "label": "Tolérant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 182,
+    "label": "Vif",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 183,
+    "label": "Vigilant",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 184,
+    "label": "Vivacité",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 185,
+    "label": "Confiance (air)",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 186,
+    "label": "Pénétration d'esprit",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 187,
+    "label": "Diligent",
+    "element": "air",
+    "type": "qualite"
+  },
+  {
+    "id": 188,
+    "label": "Accompli",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 189,
+    "label": "Appliqué",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 190,
+    "label": "Assidu",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 191,
+    "label": "Attentif",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 192,
+    "label": "Authentique",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 193,
+    "label": "Bienséant",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 194,
+    "label": "Bûcheur",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 195,
+    "label": "Calme (ancré)",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 196,
+    "label": "Capable",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 197,
+    "label": "Civil",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 198,
+    "label": "Cohérent",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 199,
+    "label": "Concentré",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 200,
+    "label": "Consciencieux",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 201,
+    "label": "Conséquent",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 202,
+    "label": "Constant",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 203,
+    "label": "Convenable",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 204,
+    "label": "Courtois",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 205,
+    "label": "Déterminé",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 206,
+    "label": "Digne",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 207,
+    "label": "Digne de confiance",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 208,
+    "label": "Discipliné",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 209,
+    "label": "Droit",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 210,
+    "label": "Économe",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 211,
+    "label": "Efficace",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 212,
+    "label": "Endurant",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 213,
+    "label": "Ferme",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 214,
+    "label": "Fiable",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 215,
+    "label": "Gravité (sérieux)",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 216,
+    "label": "Intègre",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 217,
+    "label": "Juste",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 218,
+    "label": "Loyal (constant)",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 219,
+    "label": "Mature",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 220,
+    "label": "Méritant",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 221,
+    "label": "Méthodique",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 222,
+    "label": "Méticuleux",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 223,
+    "label": "Minutieux",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 224,
+    "label": "Moral",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 225,
+    "label": "Objectif (stable)",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 226,
+    "label": "Opiniâtre (juste)",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 227,
+    "label": "Organisé",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 228,
+    "label": "Persévérant",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 229,
+    "label": "Ponctuel",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 230,
+    "label": "Pondéré",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 231,
+    "label": "Pratique",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 232,
+    "label": "Précis",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 233,
+    "label": "Présent",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 234,
+    "label": "Prévoyant",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 235,
+    "label": "Productif",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 236,
+    "label": "Propre",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 237,
+    "label": "Prudent",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 238,
+    "label": "Raisonnable",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 239,
+    "label": "Réaliste",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 240,
+    "label": "Résistant",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 241,
+    "label": "Respectueux",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 242,
+    "label": "Responsable",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 243,
+    "label": "Rigoureux",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 244,
+    "label": "Sérieux",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 245,
+    "label": "Sincère",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 246,
+    "label": "Sobre",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 247,
+    "label": "Soigneux",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 248,
+    "label": "Solide",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 249,
+    "label": "Stable",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 250,
+    "label": "Structuré",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 251,
+    "label": "Tenace",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 252,
+    "label": "Scrupuleux",
+    "element": "terre",
+    "type": "qualite"
+  },
+  {
+    "id": 253,
+    "label": "Abrupt",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 254,
+    "label": "Accusateur",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 255,
+    "label": "Acerbe",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 256,
+    "label": "Agressif",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 257,
+    "label": "Aigri",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 258,
+    "label": "Arriviste",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 259,
+    "label": "Arrogant",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 260,
+    "label": "Autoritaire (abusif)",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 261,
+    "label": "Bagarreur",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 262,
+    "label": "Blessant",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 263,
+    "label": "Brute",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 264,
+    "label": "Bruyant",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 265,
+    "label": "Capricieux",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 266,
+    "label": "Caractériel",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 267,
+    "label": "Carriériste",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 268,
+    "label": "Cassant",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 269,
+    "label": "Casse-cou",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 270,
+    "label": "Colère",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 271,
+    "label": "Colérique",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 272,
+    "label": "Cruel",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 273,
+    "label": "Despotique",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 274,
+    "label": "Dominateur",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 275,
+    "label": "Égocentrique",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 276,
+    "label": "Égoïste",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 277,
+    "label": "Envahissant",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 278,
+    "label": "Envieux",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 279,
+    "label": "Excessif",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 280,
+    "label": "Fanatique",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 281,
+    "label": "Grossier",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 282,
+    "label": "Hautain",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 283,
+    "label": "Humiliant",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 284,
+    "label": "Impatient",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 285,
+    "label": "Imprudent",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 286,
+    "label": "Impulsif",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 287,
+    "label": "Intolérant",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 288,
+    "label": "Intransigeant",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 289,
+    "label": "Méprisant",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 290,
+    "label": "Narcissique",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 291,
+    "label": "Orgueilleux",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 292,
+    "label": "Prétentieux",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 293,
+    "label": "Provocateur",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 294,
+    "label": "Raciste",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 295,
+    "label": "Râleur",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 296,
+    "label": "Revanchard",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 297,
+    "label": "Révolté",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 298,
+    "label": "Stressé",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 299,
+    "label": "Tempétueux",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 300,
+    "label": "Vaniteux",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 301,
+    "label": "Vulgaire",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 302,
+    "label": "Coléreux",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 303,
+    "label": "Démesure",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 304,
+    "label": "Jaloux",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 305,
+    "label": "Irritable",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 306,
+    "label": "Haineux",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 307,
+    "label": "Intempérant",
+    "element": "feu",
+    "type": "defaut"
+  },
+  {
+    "id": 308,
+    "label": "Angoissé",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 309,
+    "label": "Anxieux",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 310,
+    "label": "Apathie",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 311,
+    "label": "Boudeur",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 312,
+    "label": "Catastrophiste",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 313,
+    "label": "Complexé",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 314,
+    "label": "Crédule",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 315,
+    "label": "Défaitiste",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 316,
+    "label": "Dépendance affective",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 317,
+    "label": "Dépression",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 318,
+    "label": "Distrait (rêverie)",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 319,
+    "label": "Docile (soumission)",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 320,
+    "label": "Émotif excessif",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 321,
+    "label": "Fainéant (torpeur)",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 322,
+    "label": "Hésitant",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 323,
+    "label": "Indifférence froide",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 324,
+    "label": "Hypocrisie affective",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 325,
+    "label": "Instabilité émotionnelle",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 326,
+    "label": "Laxiste",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 327,
+    "label": "Lunatique",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 328,
+    "label": "Mal à l'aise",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 329,
+    "label": "Naïf",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 330,
+    "label": "Nostalgique paralysant",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 331,
+    "label": "Paresseux (inertie)",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 332,
+    "label": "Passif",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 333,
+    "label": "Peureux",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 334,
+    "label": "Plaintif",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 335,
+    "label": "Apitoiement sur soi",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 336,
+    "label": "Paresse spirituelle",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 337,
+    "label": "Renfermé (émotionnel)",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 338,
+    "label": "Torpeur",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 339,
+    "label": "Pleurnicheur",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 340,
+    "label": "Possessif",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 341,
+    "label": "Rancunier",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 342,
+    "label": "Résigné",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 343,
+    "label": "Rêveur excessif",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 344,
+    "label": "Sensiblerie",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 345,
+    "label": "Solitaire (repli)",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 346,
+    "label": "Sombre",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 347,
+    "label": "Susceptible",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 348,
+    "label": "Timide (excessif)",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 349,
+    "label": "Triste",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 350,
+    "label": "Hypersensible",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 351,
+    "label": "Indécis",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 352,
+    "label": "Influençable",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 353,
+    "label": "Irrespect",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 354,
+    "label": "Indolent",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 355,
+    "label": "Insolent",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 356,
+    "label": "Négligent",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 357,
+    "label": "Froid (émotionnel)",
+    "element": "eau",
+    "type": "defaut"
+  },
+  {
+    "id": 358,
+    "label": "Baratineur",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 359,
+    "label": "Bavard (excessif)",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 360,
+    "label": "Brouillon",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 361,
+    "label": "Cachottier",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 362,
+    "label": "Calculateur",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 363,
+    "label": "Caricatural",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 364,
+    "label": "Caustique",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 365,
+    "label": "Censeur",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 366,
+    "label": "Compliqué",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 367,
+    "label": "Confus",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 368,
+    "label": "Cynique",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 369,
+    "label": "Débordé",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 370,
+    "label": "Désinvolte",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 371,
+    "label": "Désordonné",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 372,
+    "label": "Étourdi",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 373,
+    "label": "Excentrique",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 374,
+    "label": "Indiscret",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 375,
+    "label": "Instable (mental)",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 376,
+    "label": "Irréaliste",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 377,
+    "label": "Irresponsable",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 378,
+    "label": "Légèreté irresponsable",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 379,
+    "label": "Malhonnête",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 380,
+    "label": "Maniéré",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 381,
+    "label": "Manipulateur",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 382,
+    "label": "Médisant",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 383,
+    "label": "Menteur",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 384,
+    "label": "Moqueur",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 385,
+    "label": "Mythomane",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 386,
+    "label": "Nerveux",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 387,
+    "label": "Pédant",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 388,
+    "label": "Puéril",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 389,
+    "label": "Mauvaise foi",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 390,
+    "label": "Sans gêne",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 391,
+    "label": "Sarcastique",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 392,
+    "label": "Superficiel",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 393,
+    "label": "Versatile",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 394,
+    "label": "Dédain",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 395,
+    "label": "Irrévérence",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 396,
+    "label": "Caquetage",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 397,
+    "label": "Perfidie",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 398,
+    "label": "Dispersion",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 399,
+    "label": "Agitation mentale",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 400,
+    "label": "Scepticisme paralysant",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 401,
+    "label": "Arrogance intellectuelle",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 402,
+    "label": "Ruse malveillante",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 403,
+    "label": "Rumination",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 404,
+    "label": "Suffisant",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 405,
+    "label": "Présomptueux",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 406,
+    "label": "Vantard",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 407,
+    "label": "Prodigue (dépensier)",
+    "element": "air",
+    "type": "defaut"
+  },
+  {
+    "id": 408,
+    "label": "Amorphe",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 409,
+    "label": "Amateur (négligent)",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 410,
+    "label": "Assisté",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 411,
+    "label": "Avare",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 412,
+    "label": "Blasé",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 413,
+    "label": "Borné",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 414,
+    "label": "Conformiste",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 415,
+    "label": "Déloyauté",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 416,
+    "label": "Entêté",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 417,
+    "label": "Fataliste",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 418,
+    "label": "Fermeture",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 419,
+    "label": "Cupide",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 420,
+    "label": "Peur du changement",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 421,
+    "label": "Défiance",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 422,
+    "label": "Lent (refus d'avancer)",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 423,
+    "label": "Inaccessible",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 424,
+    "label": "Incompétent",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 425,
+    "label": "Mal élevé",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 426,
+    "label": "Maniaque",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 427,
+    "label": "Méfiant",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 428,
+    "label": "Médiocre",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 429,
+    "label": "Mesquin",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 430,
+    "label": "Mou",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 431,
+    "label": "Muet (taciturnité)",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 432,
+    "label": "Insatisfait (matériel)",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 433,
+    "label": "Étroitesse d'esprit",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 434,
+    "label": "Matérialisme excessif",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 435,
+    "label": "Nonchalant",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 436,
+    "label": "Obstiné",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 437,
+    "label": "Obtus",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 438,
+    "label": "Procrastinateur",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 439,
+    "label": "Radin",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 440,
+    "label": "Rétrograde",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 441,
+    "label": "Revêche",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 442,
+    "label": "Rigide",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 443,
+    "label": "Ringard",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 444,
+    "label": "Routinier",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 445,
+    "label": "Soupçonneux",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 446,
+    "label": "Strict (abusif)",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 447,
+    "label": "Tatillon",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 448,
+    "label": "Têtu",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 449,
+    "label": "Égoïsme pratique",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 450,
+    "label": "Mélancolie pesante",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 451,
+    "label": "Sans scrupules",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 452,
+    "label": "Irrégulier",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 453,
+    "label": "Misanthrope",
+    "element": "terre",
+    "type": "defaut"
+  },
+  {
+    "id": 454,
+    "label": "Peu fiable",
+    "element": "terre",
+    "type": "defaut"
+  }
+]

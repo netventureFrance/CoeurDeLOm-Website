@@ -940,6 +940,118 @@ export async function deleteAstroClient(id: string): Promise<void> {
   await base(ASTRO_TABLE).destroy(id);
 }
 
+// ── Test des 4 Éléments (admin) ─────────────────────────────────────────────
+const ELEMENTS_TABLE = 'Elements_Tests';
+
+export interface ElementsTestRecord {
+  id?: string;
+  client: string;
+  testDate?: string;
+  profil: string;
+  profilTitre: string;
+  dominantBlanc: string;
+  dominantNoir: string;
+  defautsPrioritaires: string[];
+  scores: unknown;        // stored as JSON
+  selections: unknown;    // { qualites: [{id, intensite}], defauts: [...] }, stored as JSON
+  notes: string;
+}
+
+// Best-effort table creation, same approach as ensureAstroClientsTable().
+async function ensureElementsTestsTable(): Promise<void> {
+  const baseId = process.env.AIRTABLE_BASE_ID as string;
+  const headers = {
+    Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
+    'Content-Type': 'application/json',
+  };
+  try {
+    const listRes = await fetch(`https://api.airtable.com/v0/meta/bases/${baseId}/tables`, { headers });
+    if (!listRes.ok) return;
+    const data = await listRes.json();
+    if ((data.tables || []).some((t: any) => t.name === ELEMENTS_TABLE)) return;
+    await fetch(`https://api.airtable.com/v0/meta/bases/${baseId}/tables`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        name: ELEMENTS_TABLE,
+        fields: [
+          { name: 'Client', type: 'singleLineText' },
+          { name: 'Test_Date', type: 'singleLineText' },
+          { name: 'Profil', type: 'singleLineText' },
+          { name: 'Profil_Titre', type: 'singleLineText' },
+          { name: 'Dominant_Blanc', type: 'singleLineText' },
+          { name: 'Dominant_Noir', type: 'singleLineText' },
+          { name: 'Defauts_Prioritaires', type: 'multilineText' },
+          { name: 'Notes', type: 'multilineText' },
+          { name: 'Scores', type: 'multilineText' },
+          { name: 'Selections', type: 'multilineText' },
+        ],
+      }),
+    });
+  } catch (e) {
+    console.error('ensureElementsTestsTable error:', e);
+  }
+}
+
+function parseJson(value: unknown): unknown {
+  try {
+    return JSON.parse(value as string);
+  } catch {
+    return null;
+  }
+}
+
+export async function getElementsTests(): Promise<ElementsTestRecord[]> {
+  try {
+    const records = await base(ELEMENTS_TABLE)
+      .select({ sort: [{ field: 'Test_Date', direction: 'desc' }] })
+      .all();
+    return records.map((r) => ({
+      id: r.id,
+      client: (r.fields.Client as string) || '',
+      testDate: (r.fields.Test_Date as string) || '',
+      profil: (r.fields.Profil as string) || '',
+      profilTitre: (r.fields.Profil_Titre as string) || '',
+      dominantBlanc: (r.fields.Dominant_Blanc as string) || '',
+      dominantNoir: (r.fields.Dominant_Noir as string) || '',
+      defautsPrioritaires: ((r.fields.Defauts_Prioritaires as string) || '').split('\n').filter(Boolean),
+      scores: parseJson(r.fields.Scores),
+      selections: parseJson(r.fields.Selections),
+      notes: (r.fields.Notes as string) || '',
+    }));
+  } catch (error) {
+    console.error('Error fetching elements tests:', error);
+    return [];
+  }
+}
+
+export async function saveElementsTest(data: ElementsTestRecord): Promise<string> {
+  await ensureElementsTestsTable();
+  const fields = {
+    Client: data.client,
+    Profil: data.profil,
+    Profil_Titre: data.profilTitre,
+    Dominant_Blanc: data.dominantBlanc,
+    Dominant_Noir: data.dominantNoir,
+    Defauts_Prioritaires: data.defautsPrioritaires.join('\n'),
+    Notes: data.notes,
+    Scores: JSON.stringify(data.scores),
+    Selections: JSON.stringify(data.selections),
+  };
+  if (data.id) {
+    await base(ELEMENTS_TABLE).update(data.id, fields);
+    return data.id;
+  }
+  const created = await base(ELEMENTS_TABLE).create([
+    { fields: { ...fields, Test_Date: new Date().toISOString() } },
+  ]);
+  return created[0].id;
+}
+
+export async function deleteElementsTest(id: string): Promise<void> {
+  await base(ELEMENTS_TABLE).destroy(id);
+}
+
 /**
  * Get contact info from a ChromoBio test record
  */

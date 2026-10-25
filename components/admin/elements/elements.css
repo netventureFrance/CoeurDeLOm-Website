@@ -1,0 +1,112 @@
+/* Test des 4 Éléments — palette et composants du brief v2 (docs/test-4-elements/brief-integration-v2.md) */
+.el-test {
+  --feu: #E67E22;   --feu-light: #FDEBD0;
+  --eau: #2E86C1;   --eau-light: #D6EAF8;
+  --air: #8E44AD;   --air-light: #E8DAEF;
+  --terre: #58A845; --terre-light: #E1F0D9;
+  --titre: #2C1B5E;
+  --texte: #555555;
+  --fond: #F5F5F7;
+  --carte: #FFFFFF;
+  color: var(--texte);
+}
+
+.el-panel {
+  background: var(--fond);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.el-title { color: var(--titre); font-weight: 700; }
+
+/* Element cards (same component as the /why page cards) */
+.el-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+@media (max-width: 1024px) { .el-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px)  { .el-cards { grid-template-columns: 1fr; } }
+
+.el-card {
+  background: var(--carte);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  padding: 28px 20px;
+  text-align: center;
+  line-height: 1.6;
+}
+.el-card img { width: 80px; height: 80px; object-fit: contain; margin: 0 auto 12px; display: block; }
+.el-card h3 { color: var(--titre); font-weight: 700; font-size: 18px; margin-bottom: 4px; }
+.el-card .el-card-sub { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.el-card p { font-size: 14px; }
+
+/* Selection tags — 4 states (intensity 0 → 3) */
+.el-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.el-tag {
+  border: 1.5px solid #D5D5DA;
+  color: #666;
+  background: #fff;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 150ms ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.el-tag:hover { border-color: #b9b9c2; }
+.el-tag[data-i="1"] { border-color: var(--c); border-width: 2px; color: var(--c); }
+.el-tag[data-i="2"] { border-color: var(--c); color: var(--c); background: var(--c-light); }
+.el-tag[data-i="3"] {
+  border-color: var(--c); color: #fff; background: var(--c);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--c) 35%, transparent);
+}
+.el-tag.el-bump { transform: scale(1.04); }
+@media (max-width: 640px) { .el-tag { padding: 12px 18px; } }
+
+.el-legend { font-size: 14px; color: var(--texte); }
+
+/* Small read-only chips (results) */
+.el-chip {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 14px;
+  margin: 0 6px 6px 0;
+}
+
+.el-progress { height: 6px; background: #e5e5ea; border-radius: 999px; overflow: hidden; }
+.el-progress > div { height: 100%; background: var(--titre); transition: width 300ms ease; }
+
+.el-btn {
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  border: 1.5px solid var(--titre);
+  transition: all 150ms ease;
+}
+.el-btn-primary { background: var(--titre); color: #fff; }
+.el-btn-primary:hover { background: #3d2a7a; }
+.el-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.el-btn-ghost { background: #fff; color: var(--titre); }
+.el-btn-ghost:hover { background: #f0edf8; }
+
+.el-input {
+  border: 1.5px solid #D5D5DA;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 15px;
+  background: #fff;
+  width: 100%;
+}
+.el-input:focus { outline: none; border-color: var(--titre); }
+
+.el-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.el-table th { text-align: left; color: var(--titre); font-weight: 600; padding: 8px; border-bottom: 2px solid #e5e5ea; }
+.el-table td { padding: 8px; border-bottom: 1px solid #eee; }
+.el-table td.num, .el-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.el-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }

@@ -6,6 +6,7 @@ import EventsEditor from './EventsEditor';
 import CarouselEditor from './CarouselEditor';
 import DreamInterpreter from './DreamInterpreter';
 import AstrologyTool from './AstrologyTool';
+import ElementsTest from './elements/ElementsTest';
 
 interface BlogPost {
   id: string;
@@ -44,7 +45,7 @@ interface CarouselImage {
   status: string;
 }
 
-type TabType = 'blog' | 'events' | 'carousel' | 'dreams' | 'astro' | 'airtable';
+type TabType = 'blog' | 'events' | 'carousel' | 'dreams' | 'astro' | 'elements' | 'airtable';
 
 interface AdminDashboardProps {
   onLogout: () => void;
@@ -447,6 +448,15 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
             Astrologie
           </button>
           <button
+            onClick={() => setActiveTab('elements')}
+            style={{
+              ...styles.tab,
+              ...(activeTab === 'elements' ? styles.tabActive : {}),
+            }}
+          >
+            4 Éléments
+          </button>
+          <button
             onClick={() => setActiveTab('airtable')}
             style={{
               ...styles.tab,
@@ -700,6 +710,11 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
         {/* Astrology Tab Content */}
         {activeTab === 'astro' && (
           <AstrologyTool />
+        )}
+
+        {/* 4 Elements Test Tab Content */}
+        {activeTab === 'elements' && (
+          <ElementsTest />
         )}
 
         {/* Airtable Tab Content */}
