@@ -1097,3 +1097,29 @@ export async function getChromoBioTestWithContact(testRecordId: string): Promise
     return null;
   }
 }
+
+/**
+ * Health check for the admin status panel: can we read the main tables, and
+ * can the token create/extend tables (schema scope, needed for Elements_Tests)?
+ */
+export async function checkAirtable() {
+  const tableStatus = async (name: string) => {
+    try {
+      await base(name).select({ maxRecords: 1 }).firstPage();
+      return 'ok';
+    } catch (e: any) {
+      return e?.statusCode === 404 || e?.error === 'NOT_FOUND' ? 'absente' : `erreur ${e?.statusCode ?? ''} ${e?.message ?? ''}`.trim();
+    }
+  };
+  const [blog, elements, astro] = await Promise.all([
+    tableStatus('Blog Posts'), tableStatus(ELEMENTS_TABLE), tableStatus(ASTRO_TABLE),
+  ]);
+  let schemaScope = false;
+  try {
+    const r = await fetch(`https://api.airtable.com/v0/meta/bases/${process.env.AIRTABLE_BASE_ID}/tables`, {
+      headers: { Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}` },
+    });
+    schemaScope = r.ok;
+  } catch { /* stays false */ }
+  return { tables: { 'Blog Posts': blog, [ELEMENTS_TABLE]: elements, [ASTRO_TABLE]: astro }, schemaScope };
+}

@@ -46,3 +46,6 @@ next-env.d.ts
 /public/images/blog/
 /public/audio/blog/
 /public/data/
+
+# Local Netlify folder
+.netlify
