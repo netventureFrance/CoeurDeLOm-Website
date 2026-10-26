@@ -5,6 +5,15 @@ export const CLAUDE_MODEL = 'claude-opus-5-5';
 
 type Effort = 'low' | 'medium' | 'high' | 'xhigh' | 'max';
 
+/** Thrown (with `onIncomplete: 'throw'`) when the reply was refused or cut off. */
+export class ClaudeIncompleteError extends Error {
+  stopReason: string;
+  constructor(stopReason: string) {
+    super(`Claude reply incomplete: ${stopReason}`);
+    this.stopReason = stopReason;
+  }
+}
+
 /**
  * Stream the text of a single-turn Claude reply.
  *
@@ -13,19 +22,24 @@ type Effort = 'low' | 'medium' | 'high' | 'xhigh' | 'max';
  * `fallbacks: "default"` re-runs a safety-classifier refusal on Anthropic's
  * recommended model inside the same call. Reads the raw event stream rather
  * than the SDK's MessageStream so newer block types never trip the
- * accumulator of the pinned SDK version. Ends with an HTML notice if the
- * reply was refused or cut off.
+ * accumulator of the pinned SDK version.
+ *
+ * If the reply was refused or cut off: `onIncomplete: 'html'` (default) ends
+ * the stream with a short HTML notice, `'throw'` raises ClaudeIncompleteError
+ * after the partial text, `'ignore'` just ends.
  */
 export async function* streamClaudeText({
   system,
   user,
   maxTokens = 16000,
   effort = 'medium',
+  onIncomplete = 'html',
 }: {
-  system: string;
+  system?: string;
   user: string;
   maxTokens?: number;
   effort?: Effort;
+  onIncomplete?: 'html' | 'throw' | 'ignore';
 }): AsyncGenerator<string> {
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const params: any = {
@@ -33,7 +47,7 @@ export async function* streamClaudeText({
     max_tokens: maxTokens,
     output_config: { effort },
     fallbacks: 'default',
-    system,
+    ...(system && { system }),
     messages: [{ role: 'user', content: user }],
     stream: true,
   };
@@ -48,7 +62,9 @@ export async function* streamClaudeText({
       stopReason = event.delta.stop_reason;
     }
   }
-  // The routes render the reply as HTML, so end-of-stream notices are HTML too
+  if (stopReason !== 'refusal' && stopReason !== 'max_tokens') return;
+  if (onIncomplete === 'throw') throw new ClaudeIncompleteError(stopReason);
+  if (onIncomplete === 'ignore') return;
   if (stopReason === 'refusal') {
     yield '<p><em>Le texte n\'a pas pu être généré. Réessayez.</em></p>';
   } else if (stopReason === 'max_tokens') {

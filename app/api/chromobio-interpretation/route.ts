@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { streamClaudeText } from '@/lib/claude';
 import { NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
@@ -24,10 +24,6 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
-
-    const anthropic = new Anthropic({
-      apiKey: process.env.ANTHROPIC_API_KEY,
-    });
 
     // Prepare color data for Claude
     const excessColors = colorResults.filter((c: ColorResult) => c.status === 'excess');
@@ -114,15 +110,11 @@ Important content guidelines:
     const readable = new ReadableStream<Uint8Array>({
       async start(controller) {
         try {
-          const stream = anthropic.messages.stream({
-            model: 'claude-opus-4-8',
-            max_tokens: 4000,
-            messages: [{ role: 'user', content: prompt }],
-          });
-          for await (const event of stream) {
-            if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-              controller.enqueue(encoder.encode(event.delta.text));
-            }
+          // Opus 5.5 always thinks: max_tokens covers thinking plus the reply.
+          // The client parses ===SECTION=== delimiters, so no HTML notice is appended.
+          const stream = streamClaudeText({ user: prompt, maxTokens: 12000, onIncomplete: 'ignore' });
+          for await (const text of stream) {
+            controller.enqueue(encoder.encode(text));
           }
           controller.close();
         } catch (err) {

@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { streamClaudeText } from '@/lib/claude';
 
 const languageNames: { [key: string]: string } = {
   fr: 'French',
@@ -23,16 +23,13 @@ export async function translateWithClaude(
   }
 
   try {
-    const anthropic = new Anthropic({
-      apiKey: process.env.ANTHROPIC_API_KEY,
-    });
-
     const targetLanguage = languageNames[targetLang];
 
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 4096,
-      temperature: 0,
+    // Streamed so long articles don't hit the HTTP timeout. Translation needs
+    // little reasoning (low effort); max_tokens covers thinking plus the text.
+    // A refused or truncated translation throws, so the French original is kept.
+    let translatedText = '';
+    for await (const chunk of streamClaudeText({
       system: `You are a translation engine. Your ONLY job is to translate French text to ${targetLanguage}.
 
 CRITICAL RULES:
@@ -42,17 +39,14 @@ CRITICAL RULES:
 - Preserve ALL HTML tags exactly as they appear (e.g., <h2>, <p>, <strong>, etc.)
 - Start your response immediately with the translated content
 - If the input contains HTML, output HTML with the same structure`,
-      messages: [
-        {
-          role: 'user',
-          content: text,
-        },
-      ],
-    });
-
-    const translatedText = message.content[0].type === 'text'
-      ? message.content[0].text.trim()
-      : text;
+      user: text,
+      maxTokens: 32000,
+      effort: 'low',
+      onIncomplete: 'throw',
+    })) {
+      translatedText += chunk;
+    }
+    translatedText = translatedText.trim() || text;
 
     console.log(`✅ Translated to ${targetLanguage}: ${translatedText.substring(0, 100)}...`);
     return translatedText;
