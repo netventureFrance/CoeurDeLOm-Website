@@ -11,10 +11,21 @@ interface PdfInput {
   profil: string;
   bardon: LectureBardon;
   radarSvg: SVGSVGElement | null;
+  lectureEl: HTMLElement | null;   // rendered in-depth reading (h3 / p / strong)
 }
 
-// jsPDF's built-in Helvetica has no emoji glyphs
-const noEmoji = (t: string) => t.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, '').trim();
+// jsPDF's built-in Helvetica only has WinAnsi (cp1252) glyphs: map arrows to a
+// readable equivalent and drop anything else it can't draw (emoji, symbols)
+const pdfSafe = (t: string) => t
+  .replace(/[→⇒➔⟶]/g, '»')
+  .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, '')
+  .replace(/[^\x20-\x7E\xA0-\xFF\n“”‘’–—…•€œŒšŠžŽŸƒˆ˜‰‹›™]/g, '')
+  .trim();
+// Same, without trimming: text runs sit next to each other inside a paragraph
+const pdfSafeRun = (t: string) => {
+  const [, lead, core, trail] = t.match(/^(\s*)([\s\S]*?)(\s*)$/)!;
+  return lead + pdfSafe(core) + trail;
+};
 
 const rgb = (hex: string): [number, number, number] =>
   [parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16)];
@@ -48,7 +59,7 @@ async function loadImageDataUrl(url: string): Promise<string | null> {
   } catch { return null; }
 }
 
-export async function exportElementsPdf({ client, testDate, scores, profil, bardon, radarSvg }: PdfInput) {
+export async function exportElementsPdf({ client, testDate, scores, profil, bardon, radarSvg, lectureEl }: PdfInput) {
   const jsPdfMod = await import('jspdf');
   const JsPDF: any = (jsPdfMod as any).default || (jsPdfMod as any).jsPDF;
   const pdf = new JsPDF({ orientation: 'p', unit: 'mm', format: 'a4', compress: true });
@@ -112,6 +123,50 @@ export async function exportElementsPdf({ client, testDate, scores, profil, bard
     chips(bardon.qualitesACultiver, bardon.dominantNoir, false);
   }
 
+  // In-depth reading, as real text: word-wrapped runs keep <strong> in bold
+  if (lectureEl) {
+    y += 2;
+    heading('Lecture approfondie');
+    const runs = (node: HTMLElement) => {
+      const out: { t: string; b: boolean }[] = [];
+      node.childNodes.forEach((ch) => {
+        if (ch.nodeType === 3) out.push({ t: pdfSafeRun(ch.textContent || ''), b: false });
+        else out.push({ t: pdfSafeRun(ch.textContent || ''), b: (ch as HTMLElement).tagName.toLowerCase() === 'strong' });
+      });
+      return out;
+    };
+    const drawRuns = (tokens: { t: string; b: boolean }[], size: number, color: [number, number, number], boldColor: [number, number, number]) => {
+      const lh = size * 0.5;
+      pdf.setFontSize(size);
+      let x = M;
+      ensure(lh);
+      for (const tok of tokens) {
+        for (const w of tok.t.split(/(\s+)/)) {
+          if (!w) continue;
+          const isSpace = /^\s+$/.test(w);
+          pdf.setFont('helvetica', tok.b ? 'bold' : 'normal');
+          const ww = pdf.getTextWidth(w);
+          if (!isSpace && x > M && x + ww > M + CW) { y += lh; x = M; ensure(lh); }
+          if (isSpace && x === M) continue;
+          pdf.setTextColor(...(tok.b ? boldColor : color));
+          pdf.text(w, x, y);
+          x += ww;
+        }
+      }
+      y += lh + 2;
+    };
+    for (const node of Array.from(lectureEl.children) as HTMLElement[]) {
+      const text = pdfSafe(node.textContent || '');
+      if (!text) continue;
+      if (node.tagName.toLowerCase() === 'h3') {
+        y += 2; ensure(14);
+        drawRuns([{ t: text, b: true }], 11.5, TITRE, TITRE);
+      } else {
+        drawRuns(runs(node), 10.5, TEXTE, TITRE);
+      }
+    }
+  }
+
   // 2. Radar + 3. Scores, side by side
   y += 2;
   heading('Force et Ombre des quatre éléments');
@@ -149,7 +204,7 @@ export async function exportElementsPdf({ client, testDate, scores, profil, bard
     pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(150, 150, 150);
     pdf.text("PROFIL ÉLÉMENTAIRE · LECTURE COMPLÉMENTAIRE CŒUR DE L'OM", M, y); y += 6;
     const startY = y - 4;
-    para(noEmoji(texte.titre), { bold: true, size: 13, color: rgb(texte.couleur) });
+    para(pdfSafe(texte.titre), { bold: true, size: 13, color: rgb(texte.couleur) });
     para(texte.sousTitre, { size: 9.5, color: [120, 120, 120] });
     para(`« ${texte.texte} »`, { italic: true });
     pdf.setFillColor(...rgb(texte.couleur)); pdf.rect(M - 5, startY, 1.6, y - startY - 2, 'F');

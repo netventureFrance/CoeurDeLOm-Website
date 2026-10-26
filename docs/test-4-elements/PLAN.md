@@ -85,3 +85,11 @@ Le test est protégé par la même authentification que le reste de l'admin (coo
 - Le test en cours survit à un rechargement de page (`sessionStorage`), vidé par « Nouveau test ».
 - Les mots sont présentés **par ordre alphabétique**, pas groupés par élément, pour ne pas souffler l'élément au client.
 - Vérification : `node scripts/test-elements-test.mjs`. Textes régénérés depuis la spec avec `python3 scripts/build-elements-interpretations.py`.
+
+## Lecture approfondie par Claude (26/10/2026)
+
+- Bouton « Générer la lecture approfondie » dans les résultats, juste après la lecture de Bardon. Claude Opus 5.5 rédige 600 à 900 mots à partir des mots cochés et de leur intensité, des scores, de la lecture de Bardon et du texte de profil (`app/api/admin/elements-interpretation/route.ts`).
+- Pour chaque défaut prioritaire, Claude choisit dans la liste de l'élément la qualité qui en est vraiment la polarité positive. Cela corrige la limite des « 6 premières qualités » de `score.js`.
+- Les notes de séance ne sont envoyées que si Valérie coche la case ; Claude ne les cite jamais.
+- La lecture est enregistrée dans Airtable (champ `Lecture_IA`, ajouté automatiquement à la table si besoin) et intégrée au PDF.
+- Si les réponses sont modifiées, la lecture est effacée pour ne pas rester décalée.

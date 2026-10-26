@@ -8,6 +8,7 @@ interface ElementsResultsProps {
   scores: Scores;
   profil: string;
   bardon: LectureBardon;
+  children?: React.ReactNode;   // in-depth reading, shown right after the Bardon block
 }
 
 const fmt = (n: number) => n.toFixed(1).replace('.', ',');
@@ -43,7 +44,7 @@ export function bardonSentences(bardon: LectureBardon) {
   return { blanc, noir, synthese };
 }
 
-export default function ElementsResults({ scores, profil, bardon }: ElementsResultsProps) {
+export default function ElementsResults({ scores, profil, bardon, children }: ElementsResultsProps) {
   const texte = INTERPRETATIONS[profil];
   const { blanc, noir, synthese } = bardonSentences(bardon);
 
@@ -71,6 +72,8 @@ export default function ElementsResults({ scores, profil, bardon }: ElementsResu
           </div>
         )}
       </section>
+
+      {children}
 
       {/* 2. Radar + 3. Tableau des scores */}
       <section className="el-card grid md:grid-cols-2 gap-6 items-center" style={{ textAlign: 'left', padding: 28 }}>

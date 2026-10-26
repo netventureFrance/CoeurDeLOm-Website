@@ -1,7 +1,7 @@
-import Anthropic from '@anthropic-ai/sdk';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import crypto from 'crypto';
+import { streamClaudeText } from '@/lib/claude';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -86,28 +86,17 @@ ZODIAQUE : ${meta?.zodiac || '?'} · MAISONS : ${meta?.houseSystem || '?'}
 
 ${summary}`;
 
-  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
   // Stream the text back so we don't hit the serverless sync-timeout on long
   // Opus generations. The client reads the body chunk by chunk.
   const encoder = new TextEncoder();
   const readable = new ReadableStream<Uint8Array>({
     async start(controller) {
       try {
-        // Thinking off: it shares the token budget and was truncating long
-        // (esp. German) readings. The prompt's depth/synthesis instructions
-        // carry the quality, and "respond directly" keeps reasoning out of the text.
-        const params: any = {
-          model: 'claude-opus-4-8',
-          max_tokens: 9000,
-          system: SYSTEM_PROMPT,
-          messages: [{ role: 'user', content: userPrompt }],
-        };
-        const stream = anthropic.messages.stream(params);
-        for await (const event of stream) {
-          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-            controller.enqueue(encoder.encode(event.delta.text));
-          }
+        // Opus 5.5 always thinks; max_tokens leaves room for thinking plus the
+        // 600–900-word reading (thinking off on 4.8 had been truncating German).
+        const stream = streamClaudeText({ system: SYSTEM_PROMPT, user: userPrompt, maxTokens: 20000 });
+        for await (const text of stream) {
+          controller.enqueue(encoder.encode(text));
         }
         controller.close();
       } catch (err) {

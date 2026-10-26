@@ -25,6 +25,7 @@ interface SavedTest {
   profil: string;
   profilTitre: string;
   notes: string;
+  lectureIA: string;
   selections: { qualites: Selection[]; defauts: Selection[] } | null;
 }
 
@@ -46,6 +47,10 @@ export default function ElementsTest() {
   const [history, setHistory] = useState<SavedTest[]>([]);
   const [showHistory, setShowHistory] = useState(false);
   const [restored, setRestored] = useState(false);
+  const [lecture, setLecture] = useState('');          // in-depth reading by Claude (HTML)
+  const [lectureBusy, setLectureBusy] = useState(false);
+  const [lectureError, setLectureError] = useState('');
+  const [useNotes, setUseNotes] = useState(false);
 
   // Keep the session in progress across an accidental reload (cleared on « Nouveau test »)
   useEffect(() => {
@@ -55,7 +60,7 @@ export default function ElementsTest() {
         const s = JSON.parse(raw);
         setStep(s.step ?? 'accueil'); setClient(s.client ?? '');
         setQualites(s.qualites ?? {}); setDefauts(s.defauts ?? {});
-        setNotes(s.notes ?? ''); setSavedId(s.savedId ?? null);
+        setNotes(s.notes ?? ''); setSavedId(s.savedId ?? null); setLecture(s.lecture ?? '');
         if (s.testDate) setTestDate(new Date(s.testDate));
       }
     } catch { /* storage unavailable */ }
@@ -66,9 +71,9 @@ export default function ElementsTest() {
   useEffect(() => {
     if (!restored) return;
     try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ step, client, qualites, defauts, notes, savedId, testDate }));
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ step, client, qualites, defauts, notes, savedId, testDate, lecture }));
     } catch { /* storage unavailable */ }
-  }, [restored, step, client, qualites, defauts, notes, savedId, testDate]);
+  }, [restored, step, client, qualites, defauts, notes, savedId, testDate, lecture]);
 
   async function loadHistory() {
     try {
@@ -97,6 +102,7 @@ export default function ElementsTest() {
   function newTest() {
     setStep('accueil'); setClient(''); setQualites({}); setDefauts({});
     setNotes(''); setSavedId(null); setSaveMsg(''); setGuardMsg(''); setTestDate(new Date());
+    setLecture(''); setLectureError('');
     try { sessionStorage.removeItem(STORAGE_KEY); } catch { /* storage unavailable */ }
   }
 
@@ -104,6 +110,7 @@ export default function ElementsTest() {
     if (!t.selections) { setSaveMsg('⚠ Ce test ne contient pas les mots cochés.'); return; }
     setClient(t.client); setQualites(toMap(t.selections.qualites)); setDefauts(toMap(t.selections.defauts));
     setNotes(t.notes); setSavedId(t.id); setTestDate(new Date(t.testDate)); setSaveMsg('');
+    setLecture(t.lectureIA || ''); setLectureError('');
     setStep('resultats'); setShowHistory(false);
   }
 
@@ -135,6 +142,7 @@ export default function ElementsTest() {
           scores: result.scores,
           selections: { qualites: toList(qualites), defauts: toList(defauts) },
           notes,
+          lectureIA: lecture,
         }),
       });
       const d = await r.json();
@@ -144,6 +152,36 @@ export default function ElementsTest() {
       loadHistory();
     } catch (e: any) {
       setSaveMsg(`⚠ ${e.message}`);
+    }
+  }
+
+  async function generateLecture() {
+    setLectureBusy(true); setLectureError(''); setLecture('');
+    try {
+      const r = await fetch('/api/admin/elements-interpretation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ qualites: toList(qualites), defauts: toList(defauts), notes: useNotes ? notes : '' }),
+      });
+      if (!r.ok || !r.body) {
+        const d = await r.json().catch(() => ({}));
+        throw new Error(d.error || `HTTP ${r.status}`);
+      }
+      // Stream the reading in as it's written
+      const reader = r.body.getReader();
+      const decoder = new TextDecoder();
+      let html = '';
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        html += decoder.decode(value, { stream: true });
+        setLecture(html);
+      }
+      if (savedId) setSaveMsg('Lecture générée : pensez à mettre à jour dans Airtable');
+    } catch (e: any) {
+      setLectureError(`Échec de la génération : ${e.message}`);
+    } finally {
+      setLectureBusy(false);
     }
   }
 
@@ -158,6 +196,7 @@ export default function ElementsTest() {
         profil: result.profil,
         bardon: result.bardon,
         radarSvg: document.querySelector('#el-radar svg'),
+        lectureEl: lecture ? document.getElementById('el-lecture') : null,
       });
     } catch (e) {
       console.error('PDF export error:', e);
@@ -263,9 +302,9 @@ export default function ElementsTest() {
               <div className="mb-4 rounded-xl bg-amber-50 border border-amber-200 px-4 py-3 text-amber-900">{guardMsg}</div>
             )}
             {step === 'blanc' ? (
-              <TagGrid key="blanc" words={QUALITES} selection={qualites} onChange={(update) => { setQualites(update); setGuardMsg(''); }} />
+              <TagGrid key="blanc" words={QUALITES} selection={qualites} onChange={(update) => { setQualites(update); setGuardMsg(''); setLecture(''); }} />
             ) : (
-              <TagGrid key="noir" words={DEFAUTS} selection={defauts} onChange={(update) => { setDefauts(update); setGuardMsg(''); }} />
+              <TagGrid key="noir" words={DEFAUTS} selection={defauts} onChange={(update) => { setDefauts(update); setGuardMsg(''); setLecture(''); }} />
             )}
             <div className="flex justify-between mt-8">
               <button className="el-btn el-btn-ghost" onClick={() => setStep(step === 'blanc' ? 'accueil' : 'blanc')}>Retour</button>
@@ -283,7 +322,32 @@ export default function ElementsTest() {
               <span className="text-sm text-gray-500">{testDate.toLocaleDateString('fr-FR')}</span>
             </div>
 
-            <ElementsResults scores={result.scores} profil={result.profil} bardon={result.bardon} />
+            <ElementsResults scores={result.scores} profil={result.profil} bardon={result.bardon}>
+              <section className="el-card" style={{ textAlign: 'left', padding: 28, borderTop: '4px solid var(--titre)' }}>
+                <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                  <div>
+                    <h3 style={{ fontSize: 20 }}>Lecture approfondie</h3>
+                    <p className="text-sm text-gray-500">
+                      Rédigée par Claude à partir des mots cochés, de leur intensité et de la lecture de Bardon.
+                    </p>
+                  </div>
+                  <button className="el-btn el-btn-primary" onClick={generateLecture} disabled={lectureBusy}>
+                    {lectureBusy ? 'Rédaction en cours…' : lecture ? 'Régénérer' : '✨ Générer la lecture approfondie'}
+                  </button>
+                </div>
+                <label className="flex items-center gap-2 text-sm mb-3">
+                  <input type="checkbox" checked={useNotes} onChange={(e) => setUseNotes(e.target.checked)} />
+                  Tenir compte des notes de séance (envoyées à Claude, jamais citées dans le texte)
+                </label>
+                {lectureError && <p className="text-sm text-red-700 mb-2">{lectureError}</p>}
+                {lectureBusy && !lecture && (
+                  <p className="text-sm text-gray-500">Claude réfléchit à la lecture… cela peut prendre une minute.</p>
+                )}
+                {lecture && (
+                  <div id="el-lecture" className="el-lecture" dangerouslySetInnerHTML={{ __html: lecture }} />
+                )}
+              </section>
+            </ElementsResults>
 
             <div className="el-card space-y-3" style={{ textAlign: 'left', padding: 24 }}>
               <label className="block font-semibold" style={{ color: 'var(--titre)' }}>

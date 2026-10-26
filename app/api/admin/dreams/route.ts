@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { streamClaudeText } from '@/lib/claude';
 import { NextResponse } from 'next/server';
 import { sendDreamInterpretation } from '@/lib/resend';
 
@@ -87,7 +87,6 @@ export async function POST(request: Request) {
     EN: `Interpret this dream in English:\n\n${dream}`,
   };
 
-  const anthropic = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
   const encoder = new TextEncoder();
 
   // Stream the interpretation so long Opus generations don't hit the serverless
@@ -96,17 +95,10 @@ export async function POST(request: Request) {
     async start(controller) {
       let full = '';
       try {
-        const stream = anthropic.messages.stream({
-          model: 'claude-opus-4-8',
-          max_tokens: 4000,
-          system: systemPrompts[lang],
-          messages: [{ role: 'user', content: userPrompts[lang] }],
-        });
-        for await (const event of stream) {
-          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-            full += event.delta.text;
-            controller.enqueue(encoder.encode(event.delta.text));
-          }
+        const stream = streamClaudeText({ system: systemPrompts[lang], user: userPrompts[lang], maxTokens: 12000 });
+        for await (const text of stream) {
+          full += text;
+          controller.enqueue(encoder.encode(text));
         }
         controller.close();
         // Fire-and-forget email with the full interpretation.
