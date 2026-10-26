@@ -974,7 +974,7 @@ const ELEMENTS_FIELDS = [
 
 // Best-effort table creation, same approach as ensureAstroClientsTable().
 // Also adds fields introduced after the table was first created.
-async function ensureElementsTestsTable(): Promise<void> {
+export async function ensureElementsTestsTable(): Promise<void> {
   const baseId = process.env.AIRTABLE_BASE_ID as string;
   const headers = {
     Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
@@ -1108,7 +1108,8 @@ export async function checkAirtable() {
       await base(name).select({ maxRecords: 1 }).firstPage();
       return 'ok';
     } catch (e: any) {
-      return e?.statusCode === 404 || e?.error === 'NOT_FOUND' ? 'absente' : `erreur ${e?.statusCode ?? ''} ${e?.message ?? ''}`.trim();
+      // Airtable answers 403 (not 404) for a table that doesn't exist in the base
+      return [403, 404].includes(e?.statusCode) || e?.error === 'NOT_FOUND' ? 'absente' : `erreur ${e?.statusCode ?? ''} ${e?.message ?? ''}`.trim();
     }
   };
   const [blog, elements, astro] = await Promise.all([

@@ -53,6 +53,21 @@ export default function SystemStatus() {
 
   useEffect(() => { run(false); }, []);
 
+  async function createTable() {
+    setLoading('check');
+    setError('');
+    try {
+      const r = await fetch('/api/admin/status', { method: 'POST' });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || `HTTP ${r.status}`);
+      if (d.airtable.tables.Elements_Tests !== 'ok') throw new Error('La table n\'a pas pu être créée.');
+      await run(false);
+    } catch (e: any) {
+      setError(e.message);
+      setLoading('');
+    }
+  }
+
   const c = status?.claude;
   const g = c?.generation;
 
@@ -135,6 +150,14 @@ export default function SystemStatus() {
                   ? 'sera créée au premier test enregistré' : state} />
             </Row>
           ))}
+          {status.airtable.tables.Elements_Tests === 'absente' && status.airtable.schemaScope && (
+            <div className="py-2">
+              <button onClick={createTable} disabled={!!loading}
+                className="rounded-lg border border-purple-300 bg-purple-50 px-4 py-2 text-sm font-medium text-purple-800 hover:bg-purple-100 disabled:opacity-50">
+                Créer la table Elements_Tests maintenant
+              </button>
+            </div>
+          )}
           <Row label="Création automatique des tables">
             <Badge ok={status.airtable.schemaScope} label={status.airtable.schemaScope ? 'autorisée' : 'non autorisée (créer à la main)'} />
           </Row>

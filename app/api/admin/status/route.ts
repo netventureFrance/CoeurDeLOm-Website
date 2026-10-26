@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import crypto from 'crypto';
 import { checkClaude, CLAUDE_FEATURES } from '@/lib/claude';
-import { checkAirtable } from '@/lib/airtable';
+import { checkAirtable, ensureElementsTestsTable } from '@/lib/airtable';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -43,4 +43,15 @@ export async function GET(request: Request) {
     },
     checkedAt: new Date().toISOString(),
   });
+}
+
+// POST /api/admin/status → create the Elements_Tests table now (needs schema scope)
+export async function POST() {
+  const cookieStore = await cookies();
+  if (!verifyAdmin(cookieStore.get('admin_token')?.value)) {
+    return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
+  }
+  await ensureElementsTestsTable();
+  const airtable = await checkAirtable();
+  return NextResponse.json({ airtable });
 }
