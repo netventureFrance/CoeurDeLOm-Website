@@ -3,11 +3,20 @@ import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
 import TherapyFAQ from '@/components/TherapyFAQ';
-import { pageMetadata } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-  return pageMetadata(lang, 'about', ['/Val-1.png']);
+
+  return {
+    title: "Qui suis-je ? - Valérie Heydlauf, Heilpraktikerin",
+    description: "Découvrez le parcours de Valérie Heydlauf, Heilpraktikerin diplômée en Allemagne depuis 2004, spécialisée en Chromobio-Énergie et soins vibratoires. Plus de 20 ans d'expérience en naturopathie holistique.",
+    keywords: ["Valérie Heydlauf", "Heilpraktikerin", "naturopathe", "diplôme Allemagne", "Chromobio-Énergie", "formation", "parcours", "expérience"],
+    openGraph: {
+      title: "Qui suis-je ? - Valérie Heydlauf | Cœur de l'OM",
+      description: "Heilpraktikerin diplômée en Allemagne depuis 2004, spécialisée en Chromobio-Énergie et soins vibratoires depuis plus de 20 ans.",
+      images: ['/Val-1.png'],
+    },
+  };
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -47,7 +56,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
                 <div className="absolute inset-0 bg-gradient-to-tl from-pink-200/20 via-yellow-200/20 to-cyan-200/20 rounded-full transform scale-110 blur-2xl animate-blob animation-delay-2000"></div>
                 <img
                   src="/Val-1.png"
-                  alt={about.portraitAlt}
+                  alt="Valérie Heydlauf, Heilpraktikerin diplômée - Cœur de l'OM"
                   className="relative z-10 rounded-full w-96 h-96 object-cover border-4 border-white/80 shadow-lg backdrop-blur-sm"
                 />
               </div>

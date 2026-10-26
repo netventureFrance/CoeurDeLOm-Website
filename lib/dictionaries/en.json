@@ -8,8 +8,7 @@
     "contact": "Contact",
     "appointment": "Book Appointment",
     "faq": "FAQ",
-    "chromobiotest": "ChromobioTest",
-    "logoAlt": "Cœur de l'Om logo, naturopathy practice in Montpellier"
+    "chromobiotest": "ChromobioTest"
   },
   "home": {
     "title": "Coeur de l'OM",
@@ -28,19 +27,7 @@
     "therapies": {
       "title": "Gentle Therapies",
       "description": "Energy healing and naturopathy to harmonize body and mind."
-    },
-    "h1Tagline": "Naturopathy and Vibratory Healing in Montpellier",
-    "intro": "In the heart of the Pioch Boutonnet district in Montpellier, the Cœur de l'Om practice welcomes you for naturopathy, vibratory healing and meditation sessions. Valérie Heydlauf, a certified Heilpraktikerin (naturopathic practitioner), brings over twenty years of experience.",
-    "galleryAlts": [
-      "Meditation space with cushions and a garden view at the Cœur de l'Om practice in Montpellier",
-      "Meditation room with Om symbol at the vibratory healing practice in Montpellier",
-      "Meditation circle with Tibetan singing bowls for group sessions in Montpellier",
-      "Treatment room with massage table for vibratory healing sessions in Montpellier",
-      "Desk equipped with chromotherapy tools for Chromobio-Energy sessions",
-      "Coloured chromotherapy bottles used during Chromobio-Energy sessions",
-      "Tibetan singing bowl on the massage table at the Cœur de l'Om practice in Montpellier",
-      "Meditation cushion with a mandala design in the meditation space in Montpellier"
-    ]
+    }
   },
   "contact": {
     "title": "Contact Us",
@@ -56,16 +43,12 @@
     "gdprRequired": "You must accept the privacy policy to continue",
     "securityQuestion": "Security question",
     "securityQuestionError": "Incorrect answer to security question",
-    "tooFast": "Please take your time to fill out the form",
-    "addressTitle": "The practice",
-    "byAppointment": "Open by appointment",
-    "directions": "Directions in Google Maps",
-    "mapTitle": "Map showing the Cœur de l'Om practice in Montpellier"
+    "tooFast": "Please take your time to fill out the form"
   },
   "about": {
     "title": "Who am I?",
     "paragraph1": "Trained in Germany over twenty years ago, I have always experienced naturopathy as an art of awakening and harmonizing the vital forces of body, mind, and soul. Over the years, my practice has opened to vibratory care, meditation, and an inner approach to healing where each gesture becomes a space of listening, presence, and rebalancing. I accompany each person at their own pace to rediscover inner harmony, clarity of heart, and vitality of being.",
-    "paragraph2": "My practice, located in Montpellier, also includes a meditation space where I welcome small groups for guided practices and moments of reconnection with oneself, to nourish inner life and support energetic and emotional blossoming.",
+    "paragraph2": "My practice also includes a meditation space where I welcome small groups for guided practices and moments of reconnection with oneself, to nourish inner life and support energetic and emotional blossoming.",
     "paragraph3": "I accompany you to find a guiding thread, a solid and harmonious inner path.",
     "diplomasButton": "Diplomas & Training",
     "diplomasTitle": "Diplomas & Training",
@@ -170,8 +153,7 @@
           "answer": "This combination of techniques offers my clients a complete and personalized energetic approach, promotes harmonization of energy flows according to their constitution and needs, and frames my other energy therapies ensuring coherence and safety"
         }
       ]
-    },
-    "portraitAlt": "Valérie Heydlauf, certified Heilpraktikerin and naturopath in Montpellier"
+    }
   },
   "blog": {
     "title": "Blog",
@@ -231,23 +213,19 @@
     "description": "The name « Cœur de l'OM » brings together several layers of meaning and resonance. « Cœur » (Heart) refers to the inner center, the seat of energy, intuition and consciousness, where the soul and inner vibration can fully express themselves. It is the place of balance, harmony and the meeting point between body, mind and vital energy.\n\n« OM » evokes the primordial vibration of the universe, present in Indian and Buddhist traditions, a symbol of unity and the circulation of cosmic energy. It is the original sound that connects humans to the universe and to their own intuitive vibration, fostering coherence and inner harmony.\n\nThe name also plays with « Cœur de l'Homme » (Heart of Man), emphasizing that all energetic and spiritual work begins with the opening of the human heart, where compassion, intuition, love and awakening meet.\n\nFrom an esoteric perspective, the soul expresses itself through the vibration of energy, and the heart is the center of the connection between the individual and universal life. Thus, « Cœur de l'OM » is not just a name, but a call to inner resonance, to intuition and to conscious presence – a place where one reconnects with their own light, their inner guidance and that of the universe.",
     "holistic": {
       "title": "Holistic Expertise",
-      "description": "Therapeutic approach integrating body, mind and soul for overall well-being.",
-      "imageAlt": "Icon representing the holistic expertise of the Cœur de l'Om practice"
+      "description": "Therapeutic approach integrating body, mind and soul for overall well-being."
     },
     "ancestral": {
       "title": "Ancestral Techniques",
-      "description": "Traditional Chinese Medicine, Reiki and Chromobioenergy for effective energy rebalancing.",
-      "imageAlt": "Icon representing the ancestral techniques used (TCM, Reiki, Chromobio-Energy)"
+      "description": "Traditional Chinese Medicine, Reiki and Chromobioenergy for effective energy rebalancing."
     },
     "personalized": {
       "title": "Personalized Support",
-      "description": "Tailor-made sessions adapted to your specific needs for optimal results.",
-      "imageAlt": "Icon representing the personalised guidance offered during sessions"
+      "description": "Tailor-made sessions adapted to your specific needs for optimal results."
     },
     "environment": {
       "title": "Healing-Friendly Environment",
-      "description": "Serene and harmonious environment promoting deep work.",
-      "imageAlt": "Icon representing the calm, healing-friendly setting of the practice"
+      "description": "Serene and harmonious environment promoting deep work."
     }
   },
   "therapies": {
@@ -321,8 +299,7 @@
             "answer": "Chakra work is part of individual Reiki sessions at the office and can be integrated into regular follow-up to support overall energetic balance."
           }
         ]
-      },
-      "imageAlt": "Icon illustrating a Reiki session, a Japanese energy therapy"
+      }
     },
     "vibratory": {
       "title": "Vibratory Healing",
@@ -409,8 +386,7 @@
             "answer": "Treatments are generally suitable for everyone, but certain contraindications may exist: people with a pacemaker, pregnant women in the first months, or any specific medical condition that requires medical advice. Each treatment is personalized and secured according to the client's energy profile and health."
           }
         ]
-      },
-      "imageAlt": "Illustration of vibratory healing using singing bowls and sound frequencies"
+      }
     },
     "meditation": {
       "title": "Meditation",
@@ -532,8 +508,7 @@
             "answer": "The practice is generally safe, but may not be suitable for people with vocal disorders or particular auditory sensitivity. If in doubt, it is advisable to consult a healthcare professional before participating."
           }
         ]
-      },
-      "imageAlt": "Illustration of a guided meditation session with the Om mantra"
+      }
     },
     "chromobio": {
       "title": "ChromoBioEnergy",
@@ -574,8 +549,7 @@
             "answer": "The practice is suitable for most people. Sessions are adjusted according to individual sensitivity, energetic profile, and general health status, ensuring personalized and safe support capable of respecting each person's unique rhythm and needs."
           }
         ]
-      },
-      "imageAlt": "Illustration of the ChromoBioEnergy method and its colour essences"
+      }
     },
     "tambour": {
       "title": "Shamanic Drum",
@@ -608,8 +582,7 @@
             "answer": "The shamanic drum is generally safe, but may not be suitable for people with severe psychiatric disorders or certain cardiac conditions sensitive to sound vibrations. It is recommended to consult a healthcare professional if you have specific concerns before participating in a session"
           }
         ]
-      },
-      "imageAlt": "Illustration of a shamanic drum session"
+      }
     },
     "amma": {
       "title": "Amma Massage",
@@ -654,8 +627,7 @@
             "answer": "Yes, Amma massage combines easily with other natural or therapeutic approaches to enhance effects and support overall well-being"
           }
         ]
-      },
-      "imageAlt": "Illustration of a seated Amma massage, a technique from traditional Chinese medicine"
+      }
     },
     "fengshui": {
       "title": "Energetic Feng Shui",
@@ -692,8 +664,7 @@
             "answer": "Some simple practices can be implemented by everyone but for precise and complete support it is recommended to consult a trained practitioner to benefit from harmonization adapted to your place and your personal energy"
           }
         ]
-      },
-      "imageAlt": "Illustration of energetic Feng Shui following the Eickermann method"
+      }
     }
   },
   "chromobioPretest": {

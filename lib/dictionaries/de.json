@@ -8,8 +8,7 @@
     "contact": "Kontakt",
     "appointment": "Termin buchen",
     "faq": "FAQ",
-    "chromobiotest": "ChromobioTest",
-    "logoAlt": "Logo Cœur de l'Om, Naturheilpraxis in Montpellier"
+    "chromobiotest": "ChromobioTest"
   },
   "home": {
     "title": "Coeur de l'OM",
@@ -28,19 +27,7 @@
     "therapies": {
       "title": "Sanfte Therapien",
       "description": "Energetische Behandlungen und Naturheilkunde zur Harmonisierung von Körper und Geist."
-    },
-    "h1Tagline": "Naturheilkunde und Schwingungstherapie in Montpellier",
-    "intro": "Mitten im Stadtviertel Pioch Boutonnet in Montpellier empfängt Sie die Praxis Cœur de l'Om für Sitzungen in Naturheilkunde, Schwingungstherapie und Meditation. Valérie Heydlauf, diplomierte Heilpraktikerin, begleitet Sie mit über zwanzig Jahren Erfahrung.",
-    "galleryAlts": [
-      "Meditationsraum mit Kissen und Gartenblick in der Praxis Cœur de l'Om in Montpellier",
-      "Meditationsraum mit Om-Symbol in der Praxis für Schwingungstherapie in Montpellier",
-      "Meditationskreis mit tibetischen Klangschalen für Gruppensitzungen in Montpellier",
-      "Behandlungsraum mit Massagetisch für Schwingungstherapie-Sitzungen in Montpellier",
-      "Arbeitsbereich mit Chromotherapie-Hilfsmitteln für Chromobio-Energie-Sitzungen",
-      "Farbige Chromotherapie-Flakons für die Chromobio-Energie-Behandlung",
-      "Tibetische Klangschale auf dem Massagetisch der Praxis Cœur de l'Om in Montpellier",
-      "Meditationskissen mit Mandala-Muster im Meditationsraum in Montpellier"
-    ]
+    }
   },
   "contact": {
     "title": "Kontaktieren Sie uns",
@@ -56,16 +43,12 @@
     "gdprRequired": "Sie müssen die Datenschutzrichtlinie akzeptieren, um fortzufahren",
     "securityQuestion": "Sicherheitsfrage",
     "securityQuestionError": "Falsche Antwort auf die Sicherheitsfrage",
-    "tooFast": "Bitte nehmen Sie sich Zeit, das Formular auszufüllen",
-    "addressTitle": "Die Praxis",
-    "byAppointment": "Praxis nach Terminvereinbarung geöffnet",
-    "directions": "Route in Google Maps",
-    "mapTitle": "Lageplan der Praxis Cœur de l'Om in Montpellier"
+    "tooFast": "Bitte nehmen Sie sich Zeit, das Formular auszufüllen"
   },
   "about": {
     "title": "Wer bin ich?",
     "paragraph1": "Vor über zwanzig Jahren in Deutschland ausgebildet, habe ich die Naturheilkunde immer als eine Kunst erlebt, die Lebenskräfte von Körper, Geist und Seele zu erwecken und zu harmonisieren. Im Laufe der Jahre hat sich meine Praxis für Schwingungsbehandlungen, Meditation und einen inneren Heilungsansatz geöffnet, bei dem jede Geste zu einem Raum des Zuhörens, der Präsenz und des Ausgleichs wird. Ich begleite jeden Menschen in seinem eigenen Rhythmus, um innere Harmonie, Klarheit des Herzens und Vitalität des Seins wiederzufinden.",
-    "paragraph2": "Meine Praxis in Montpellier umfasst auch einen Meditationsraum, in dem ich kleine Gruppen für geführte Praktiken und Momente der Rückverbindung mit sich selbst empfange, um das innere Leben zu nähren und die energetische und emotionale Entfaltung zu unterstützen.",
+    "paragraph2": "Meine Praxis umfasst auch einen Meditationsraum, in dem ich kleine Gruppen für geführte Praktiken und Momente der Rückverbindung mit sich selbst empfange, um das innere Leben zu nähren und die energetische und emotionale Entfaltung zu unterstützen.",
     "paragraph3": "Ich begleite Sie dabei, einen roten Faden, einen soliden und harmonischen inneren Weg zu finden.",
     "diplomasButton": "Diplome & Ausbildungen",
     "diplomasTitle": "Diplome & Ausbildungen",
@@ -170,8 +153,7 @@
           "answer": "Diese Kombination von Techniken bietet meinen Klienten einen vollständigen und personalisierten energetischen Ansatz, fördert die Harmonisierung der Energieflüsse entsprechend ihrer Konstitution und ihren Bedürfnissen und rahmt meine anderen Energietherapien ein, um Kohärenz und Sicherheit zu gewährleisten"
         }
       ]
-    },
-    "portraitAlt": "Valérie Heydlauf, diplomierte Heilpraktikerin in Montpellier"
+    }
   },
   "blog": {
     "title": "Blog",
@@ -231,23 +213,19 @@
     "description": "Der Name « Cœur de l'OM » vereint mehrere Bedeutungsebenen und Resonanzen. « Cœur » (Herz) bezieht sich auf das innere Zentrum, den Sitz der Energie, der Intuition und des Bewusstseins, wo sich Seele und innere Schwingung voll entfalten können. Es ist der Ort des Gleichgewichts, der Harmonie und der Begegnung zwischen Körper, Geist und Lebensenergie.\n\n« OM » evoziert die Urschwingung des Universums, die in den indischen und buddhistischen Traditionen präsent ist – Symbol der Einheit und der Zirkulation kosmischer Energie. Es ist der Urklang, der den Menschen mit dem Universum und seiner eigenen intuitiven Schwingung verbindet und Kohärenz sowie innere Harmonie fördert.\n\nDer Name spielt auch mit « Cœur de l'Homme » (Herz des Menschen) und unterstreicht, dass jede energetische und spirituelle Arbeit mit der Öffnung des menschlichen Herzens beginnt – dort, wo Mitgefühl, Intuition, Liebe und Erwachen zusammentreffen.\n\nAus esoterischer Perspektive drückt sich die Seele durch die Schwingung der Energie aus, und das Herz ist das Zentrum der Verbindung zwischen dem Individuum und dem universellen Leben. So ist « Cœur de l'OM » nicht nur ein Name, sondern ein Ruf zur inneren Resonanz, zur Intuition und zur bewussten Präsenz – ein Ort, an dem man sich mit seinem eigenen Licht, seiner inneren Führung und der des Universums wieder verbindet.",
     "holistic": {
       "title": "Ganzheitliche Expertise",
-      "description": "Therapeutischer Ansatz, der Körper, Geist und Seele für umfassendes Wohlbefinden integriert.",
-      "imageAlt": "Symbol für die ganzheitliche Expertise der Praxis Cœur de l'Om"
+      "description": "Therapeutischer Ansatz, der Körper, Geist und Seele für umfassendes Wohlbefinden integriert."
     },
     "ancestral": {
       "title": "Traditionelle Techniken",
-      "description": "Traditionelle Chinesische Medizin, Reiki und Chromobioenergie für ein effektives Energiegleichgewicht.",
-      "imageAlt": "Symbol für die angewandten traditionellen Techniken (TCM, Reiki, Chromobio-Energie)"
+      "description": "Traditionelle Chinesische Medizin, Reiki und Chromobioenergie für ein effektives Energiegleichgewicht."
     },
     "personalized": {
       "title": "Persönliche Begleitung",
-      "description": "Maßgeschneiderte Sitzungen, die auf Ihre spezifischen Bedürfnisse für optimale Ergebnisse zugeschnitten sind.",
-      "imageAlt": "Symbol für die individuelle Begleitung während der Sitzungen"
+      "description": "Maßgeschneiderte Sitzungen, die auf Ihre spezifischen Bedürfnisse für optimale Ergebnisse zugeschnitten sind."
     },
     "environment": {
       "title": "Heilungsfördernde Umgebung",
-      "description": "Ruhige und harmonische Umgebung, die tiefgreifende Arbeit fördert.",
-      "imageAlt": "Symbol für die ruhige, heilungsfördernde Atmosphäre der Praxis"
+      "description": "Ruhige und harmonische Umgebung, die tiefgreifende Arbeit fördert."
     }
   },
   "therapies": {
@@ -321,8 +299,7 @@
             "answer": "Die Arbeit an den Chakren ist Teil der individuellen Reiki-Sitzungen in der Praxis und kann in eine regelmäßige Betreuung integriert werden, um das gesamte energetische Gleichgewicht zu unterstützen."
           }
         ]
-      },
-      "imageAlt": "Symbol für eine Reiki-Sitzung, japanische Energietherapie"
+      }
     },
     "vibratory": {
       "title": "Schwingungstherapie",
@@ -409,8 +386,7 @@
             "answer": "Die Behandlungen sind im Allgemeinen für alle geeignet, aber bestimmte Kontraindikationen können existieren: Personen mit Herzschrittmacher, schwangere Frauen in den ersten Monaten oder jede spezifische medizinische Bedingung, die ärztlichen Rat erfordert. Jede Behandlung ist personalisiert und gemäß dem Energieprofil und der Gesundheit des Klienten gesichert."
           }
         ]
-      },
-      "imageAlt": "Illustration der Schwingungstherapie mit Klangschalen und Klangfrequenzen"
+      }
     },
     "meditation": {
       "title": "Meditation",
@@ -532,8 +508,7 @@
             "answer": "Die Praxis ist im Allgemeinen sicher, kann aber für Menschen mit Stimmstörungen oder besonderer auditiver Empfindlichkeit nicht geeignet sein. Im Zweifelsfall ist es ratsam, vor der Teilnahme einen Gesundheitsfachmann zu konsultieren."
           }
         ]
-      },
-      "imageAlt": "Illustration einer geführten Meditationssitzung mit dem Om-Mantra"
+      }
     },
     "chromobio": {
       "title": "ChromoBioEnergie",
@@ -574,8 +549,7 @@
             "answer": "Die Praxis ist für die Mehrheit der Menschen geeignet. Die Sitzungen werden entsprechend der individuellen Sensibilität, dem energetischen Profil und dem allgemeinen Gesundheitszustand angepasst und gewährleisten eine personalisierte und sichere Begleitung, die den einzigartigen Rhythmus und die Bedürfnisse jedes Einzelnen respektiert."
           }
         ]
-      },
-      "imageAlt": "Illustration der ChromoBioEnergie-Methode mit Farbessenzen"
+      }
     },
     "tambour": {
       "title": "Schamanische Trommel",
@@ -608,8 +582,7 @@
             "answer": "Die schamanische Trommel ist im Allgemeinen sicher, kann aber für Menschen mit schweren psychiatrischen Störungen oder bestimmten Herzerkrankungen, die empfindlich auf Schallschwingungen reagieren, nicht geeignet sein. Es wird empfohlen, einen Gesundheitsfachmann zu konsultieren, wenn Sie spezifische Bedenken haben, bevor Sie an einer Sitzung teilnehmen"
           }
         ]
-      },
-      "imageAlt": "Illustration einer schamanischen Trommelsitzung"
+      }
     },
     "amma": {
       "title": "Amma-Massage",
@@ -654,8 +627,7 @@
             "answer": "Ja, Amma-Massage lässt sich leicht mit anderen natürlichen oder therapeutischen Ansätzen kombinieren, um die Wirkung zu verstärken und das allgemeine Wohlbefinden zu unterstützen"
           }
         ]
-      },
-      "imageAlt": "Illustration einer Amma-Sitzmassage, eine Technik der traditionellen chinesischen Medizin"
+      }
     },
     "fengshui": {
       "title": "Energetisches Feng Shui",
@@ -692,8 +664,7 @@
             "answer": "Einige einfache Praktiken können von jedem umgesetzt werden, aber für eine präzise und vollständige Begleitung wird empfohlen, einen ausgebildeten Praktizierenden zu konsultieren, um von einer auf Ihren Ort und Ihre persönliche Energie abgestimmten Harmonisierung zu profitieren"
           }
         ]
-      },
-      "imageAlt": "Illustration des energetischen Feng Shui nach der Eickermann-Methode"
+      }
     }
   },
   "chromobioPretest": {

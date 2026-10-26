@@ -44,31 +44,31 @@ All copy/ALT/meta text is **already authored** in the handover docs — this pha
 
 ### 1.1 Fix the broken language signals *(High — Quick)*
 The fr/de/en pages currently share identical French title/description, and `og:locale` is hardcoded to `fr_FR`. Search engines read all three as the same page.
-- [x] `app/[lang]/layout.tsx` — make `og:locale` dynamic per `lang` (`fr_FR` / `de_DE` / `en_US`); `alternateLocale` already lists the other two.
-- [x] Add per-page `alternates.languages` (fr/de/en + `canonical`) to each `generateMetadata`, mirroring the pattern already in `app/[lang]/chromobiotest/page.tsx`.
-- [x] Pull each page's title/description from the dictionaries (or the appendix values) so they differ per language.
+- [ ] `app/[lang]/layout.tsx` — make `og:locale` dynamic per `lang` (`fr_FR` / `de_DE` / `en_US`); `alternateLocale` already lists the other two.
+- [ ] Add per-page `alternates.languages` (fr/de/en + `canonical`) to each `generateMetadata`, mirroring the pattern already in `app/[lang]/chromobiotest/page.tsx`.
+- [ ] Pull each page's title/description from the dictionaries (or the appendix values) so they differ per language.
 - [ ] After deploy, run **Merkle hreflang tester** — each version must reference all three, including itself.
 
 ### 1.2 Work Montpellier + Pioch Boutonnet into visible copy *(High — Quick)*
 Right now no visible page text names a city; only the legal notice has the address.
-- [x] Homepage: add the new intro paragraph under the existing tagline (Regional Copy doc, all 3 langs) → `lib/dictionaries/{fr,de,en}.json` (`home.*`), rendered by `app/[lang]/page.tsx`.
-- [x] About / Qui-suis-je: revised "meditation space … located in Montpellier" paragraph → dict `about.*`.
-- [x] Contact: add the visible **address block** (see 1.4).
-- [x] Update H1s per the Regional Copy doc.
+- [ ] Homepage: add the new intro paragraph under the existing tagline (Regional Copy doc, all 3 langs) → `lib/dictionaries/{fr,de,en}.json` (`home.*`), rendered by `app/[lang]/page.tsx`.
+- [ ] About / Qui-suis-je: revised "meditation space … located in Montpellier" paragraph → dict `about.*`.
+- [ ] Contact: add the visible **address block** (see 1.4).
+- [ ] Update H1s per the Regional Copy doc.
 
 ### 1.3 Add Montpellier to Therapies / Why / ChromobioTest meta *(High — Quick)*
 These three were *not* covered by the Regional Copy doc and currently carry no location in their meta.
-- [x] Add "Montpellier" to title + description (all 3 langs) in each page's `generateMetadata`. Values in the [Appendix](#appendix--drop-in-meta-copy) (from the Keyword Map).
+- [ ] Add "Montpellier" to title + description (all 3 langs) in each page's `generateMetadata`. Values in the [Appendix](#appendix--drop-in-meta-copy) (from the Keyword Map).
 
 ### 1.4 Visible address + embedded map on Contact *(High — Quick)*
-- [x] `app/[lang]/contact/page.tsx` — add address block above/beside the form:
+- [ ] `app/[lang]/contact/page.tsx` — add address block above/beside the form:
   `Cœur de l'Om · 140 rue Pioch Boutonnet, 34090 Montpellier · Cabinet ouvert sur rendez-vous` (localised — see Regional Copy doc).
-- [x] Embed a map of the address — done with OpenStreetMap (no cookies/consent needed) plus a Google Maps directions link.
+- [ ] Embed a Google Map of the address.
 
 ### 1.5 Localise every image ALT text *(High — Quick)*
 `components/OfficeCarousel.tsx` hardcodes **French** ALT on all language versions.
-- [x] Move ALT strings into the dictionaries (or a per-lang manifest) and look them up by `lang`. Full FR/DE/EN ALT text for all 8 gallery photos, the About portrait, the logo, the 7 therapy icons and the 4 "Why" icons is in **Additional Content §1** — drop-in.
-- [x] Therapy-icon ALT already uses `therapy.title` (localised) — verify it matches the doc's intent (therapy name, not Montpellier).
+- [ ] Move ALT strings into the dictionaries (or a per-lang manifest) and look them up by `lang`. Full FR/DE/EN ALT text for all 8 gallery photos, the About portrait, the logo, the 7 therapy icons and the 4 "Why" icons is in **Additional Content §1** — drop-in.
+- [ ] Therapy-icon ALT already uses `therapy.title` (localised) — verify it matches the doc's intent (therapy name, not Montpellier).
 
 ### 1.6 Sitemap + Search Console *(High — Quick — see reality-check)*
 - [ ] Confirm `https://coeurdelom.fr/sitemap.xml` and `/robots.txt` resolve on the **production** deploy (they exist in code as `app/sitemap.ts` / `app/robots.ts`).

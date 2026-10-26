@@ -2,7 +2,6 @@ import { type Locale, getDictionary } from '@/lib/i18n';
 import { Metadata } from 'next';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
-import { languageAlternates, openGraphFor } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -22,11 +21,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return {
     title: titles[lang as Locale] || titles.fr,
     description: descriptions[lang as Locale] || descriptions.fr,
-    alternates: languageAlternates(lang, '/legal'),
-    openGraph: openGraphFor(lang, '/legal', {
-      title: `${titles[lang as Locale] || titles.fr} | Cœur de l'Om`,
+    keywords: ["mentions légales", "conditions d'utilisation", "propriété intellectuelle", "données personnelles", "legal notice", "terms of use", "Impressum"],
+    openGraph: {
+      title: `${titles[lang as Locale] || titles.fr} | Cœur de l'OM`,
       description: descriptions[lang as Locale] || descriptions.fr,
-    }),
+      images: ['/Coeur-de-lOm-Alpha-Kopie.png'],
+    },
   };
 }
 

@@ -4,11 +4,20 @@ import AnimatedBackground from '@/components/AnimatedBackground';
 import InteractiveTitle from '@/components/InteractiveTitle';
 import TherapyFAQ from '@/components/TherapyFAQ';
 import TherapyCard from '@/components/TherapyCard';
-import { pageMetadata } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
-  return pageMetadata(lang, 'therapies');
+
+  return {
+    title: "Mes Soins - Reiki, Chromobio-Énergie, Méditation & Soins Vibratoires",
+    description: "Découvrez mes approches thérapeutiques : Reiki, soins vibratoires, Chromobio-Énergie, méditation guidée et massage Amma. Thérapies douces et énergétiques pour votre bien-être holistique.",
+    keywords: ["Reiki", "Chromobio-Énergie", "soins vibratoires", "méditation", "massage Amma", "thérapies énergétiques", "bien-être holistique", "soins naturels", "harmonisation énergétique"],
+    openGraph: {
+      title: "Mes Soins - Thérapies Énergétiques | Cœur de l'OM",
+      description: "Reiki, soins vibratoires, Chromobio-Énergie, méditation guidée et massage Amma pour votre harmonisation énergétique et votre bien-être.",
+      images: ['/Coeur-de-lOm-Alpha-Kopie.png'],
+    },
+  };
 }
 
 export default async function TherapiesPage({ params }: { params: Promise<{ lang: string }> }) {
@@ -24,8 +33,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       rotation: '-rotate-12',
       description: t.reiki.description,
       benefits: t.reiki.benefits,
-      faq: t.reiki.faq,
-      imageAlt: t.reiki.imageAlt
+      faq: t.reiki.faq
     },
     {
       title: t.vibratory.title,
@@ -34,8 +42,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       rotation: '-rotate-6',
       description: t.vibratory.description,
       benefits: t.vibratory.benefits,
-      faq: t.vibratory.faq,
-      imageAlt: t.vibratory.imageAlt
+      faq: t.vibratory.faq
     },
     {
       title: t.meditation.title,
@@ -44,8 +51,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       rotation: 'rotate-0',
       description: t.meditation.description,
       benefits: t.meditation.benefits,
-      faq: t.meditation.faq,
-      imageAlt: t.meditation.imageAlt
+      faq: t.meditation.faq
     },
     {
       title: t.chromobio.title,
@@ -54,8 +60,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       rotation: 'rotate-6',
       description: t.chromobio.description,
       benefits: t.chromobio.benefits,
-      faq: t.chromobio.faq,
-      imageAlt: t.chromobio.imageAlt
+      faq: t.chromobio.faq
     },
     {
       title: t.tambour.title,
@@ -64,8 +69,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       rotation: 'rotate-3',
       description: t.tambour.description,
       benefits: t.tambour.benefits,
-      faq: t.tambour.faq,
-      imageAlt: t.tambour.imageAlt
+      faq: t.tambour.faq
     },
     {
       title: t.amma.title,
@@ -74,8 +78,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       rotation: 'rotate-12',
       description: t.amma.description,
       benefits: t.amma.benefits,
-      faq: t.amma.faq,
-      imageAlt: t.amma.imageAlt
+      faq: t.amma.faq
     },
     {
       title: t.fengshui.title,
@@ -84,8 +87,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
       rotation: '-rotate-3',
       description: t.fengshui.description,
       benefits: t.fengshui.benefits,
-      faq: t.fengshui.faq,
-      imageAlt: t.fengshui.imageAlt
+      faq: t.fengshui.faq
     },
   ];
 
@@ -145,7 +147,7 @@ export default async function TherapiesPage({ params }: { params: Promise<{ lang
                   >
                     <img
                       src={therapy.image}
-                      alt={therapy.imageAlt}
+                      alt={therapy.title}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 p-4"
                     />
                   </div>

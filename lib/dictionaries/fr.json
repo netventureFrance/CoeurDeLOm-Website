@@ -8,8 +8,7 @@
     "contact": "Contact",
     "appointment": "Prendre RDV",
     "faq": "FAQ",
-    "chromobiotest": "ChromobioTest",
-    "logoAlt": "Logo Cœur de l'Om, cabinet de naturopathie à Montpellier"
+    "chromobiotest": "ChromobioTest"
   },
   "home": {
     "title": "Coeur de l'OM",
@@ -28,19 +27,7 @@
     "therapies": {
       "title": "Thérapies douces",
       "description": "Soins énergétiques et naturopathie pour harmoniser corps et esprit."
-    },
-    "h1Tagline": "Naturopathie et Soins Vibratoires à Montpellier",
-    "intro": "Au cœur du quartier Pioch Boutonnet à Montpellier, le cabinet Cœur de l'Om vous accueille pour des séances de naturopathie, soins vibratoires et méditation. Valérie Heydlauf, Heilpraktikerin diplômée, vous accompagne avec plus de vingt ans d'expérience.",
-    "galleryAlts": [
-      "Espace de méditation avec coussins et vue sur le jardin, cabinet Cœur de l'Om à Montpellier",
-      "Salle de méditation avec symbole Om, cabinet de soins vibratoires à Montpellier",
-      "Cercle de méditation avec bols chantants tibétains pour les séances de groupe à Montpellier",
-      "Espace de soin avec table de massage pour les séances de soins vibratoires à Montpellier",
-      "Bureau équipé d'outils de chromothérapie pour les séances de Chromobio-Énergie",
-      "Flacons colorés de chromothérapie utilisés lors des séances de Chromobio-Énergie",
-      "Bol tibétain posé sur la table de massage du cabinet Cœur de l'Om à Montpellier",
-      "Coussin de méditation orné d'un mandala dans l'espace de méditation à Montpellier"
-    ]
+    }
   },
   "contact": {
     "title": "Contactez-nous",
@@ -56,16 +43,12 @@
     "gdprRequired": "Vous devez accepter la politique de confidentialité pour continuer",
     "securityQuestion": "Question de sécurité",
     "securityQuestionError": "Réponse incorrecte à la question de sécurité",
-    "tooFast": "Veuillez prendre le temps de remplir le formulaire",
-    "addressTitle": "Le cabinet",
-    "byAppointment": "Cabinet ouvert sur rendez-vous",
-    "directions": "Itinéraire sur Google Maps",
-    "mapTitle": "Plan d'accès au cabinet Cœur de l'Om à Montpellier"
+    "tooFast": "Veuillez prendre le temps de remplir le formulaire"
   },
   "about": {
     "title": "Qui suis-je ?",
     "paragraph1": "Formée en Allemagne il y a plus de vingt ans, j'ai toujours vécu la naturopathie comme un art de réveiller et harmoniser les forces vitales du corps, de l'esprit et de l'âme. Au fil des années, ma pratique s'est ouverte aux soins vibratoires, à la méditation et à une approche intérieure du soin où chaque geste devient un espace d'écoute, de présence et de rééquilibrage. J'accompagne chacun dans son propre rythme pour retrouver l'harmonie intérieure, la clarté du cœur et la vitalité de l'être.",
-    "paragraph2": "Mon cabinet, situé à Montpellier, inclut également un espace de méditation où j'accueille de petits groupes pour des pratiques guidées et des moments de reconnexion à soi, afin de nourrir la vie intérieure et soutenir l'épanouissement énergétique et émotionnel.",
+    "paragraph2": "Mon cabinet inclut également un espace de méditation où j'accueille de petits groupes pour des pratiques guidées et des moments de reconnexion à soi, afin de nourrir la vie intérieure et soutenir l'épanouissement énergétique et émotionnel.",
     "paragraph3": "Je vous accompagne pour retrouver un fil conducteur, un chemin intérieur solide et harmonieux.",
     "diplomasButton": "Diplômes & Formations",
     "diplomasTitle": "Diplômes & formations",
@@ -170,8 +153,7 @@
           "answer": "Cette combinaison de techniques offre à mes clients une approche énergétique complète et personnalisée, favorise l'harmonisation des flux énergétiques selon leur constitution et leurs besoins et encadre mes autres thérapies énergétiques en assurant cohérence et sécurité"
         }
       ]
-    },
-    "portraitAlt": "Valérie Heydlauf, Heilpraktikerin diplômée et naturopathe à Montpellier"
+    }
   },
   "blog": {
     "title": "Blog",
@@ -231,23 +213,19 @@
     "description": "Le nom « Cœur de l'OM » rassemble plusieurs niveaux de sens et de résonance. « Cœur » fait référence au centre intérieur, siège de l'énergie, de l'intuition et de la conscience, là où l'âme et la vibration intérieure peuvent s'exprimer pleinement. C'est le lieu de l'équilibre, de l'harmonie et de la rencontre entre le corps, l'esprit et l'énergie vitale.\n\n« OM » évoque la vibration primordiale de l'univers, présente dans les traditions indiennes et bouddhistes, symbole de l'unité et de la circulation de l'énergie cosmique. C'est le son originel qui relie l'homme à l'univers et à sa propre vibration intuitive, favorisant la cohérence et l'harmonie intérieure.\n\nLe nom joue aussi avec le « Cœur de l'Homme », soulignant que tout travail énergétique et spirituel commence par l'ouverture du cœur humain, là où se rencontrent compassion, intuition, amour et éveil.\n\nDans une perspective ésotérique, l'âme s'exprime à travers la vibration de l'énergie et le cœur est le centre du lien entre l'individu et la vie universelle. Ainsi, « Cœur de l'OM » n'est pas seulement un nom, mais un appel à la résonance intérieure, à l'intuition et à la présence consciente, un lieu où l'on se reconnecte à sa propre lumière, à sa guidance intérieure et à celle de l'univers.",
     "holistic": {
       "title": "Expertise holistique",
-      "description": "Approche thérapeutique intégrant corps, esprit et âme pour un bien-être global.",
-      "imageAlt": "Icône représentant l'expertise holistique du cabinet Cœur de l'Om"
+      "description": "Approche thérapeutique intégrant corps, esprit et âme pour un bien-être global."
     },
     "ancestral": {
       "title": "Techniques ancestrales",
-      "description": "Médecine Traditionnelle Chinoise, Reiki et Chromobioénergie pour un rééquilibrage efficace des énergies.",
-      "imageAlt": "Icône représentant les techniques ancestrales utilisées (MTC, Reiki, Chromobioénergie)"
+      "description": "Médecine Traditionnelle Chinoise, Reiki et Chromobioénergie pour un rééquilibrage efficace des énergies."
     },
     "personalized": {
       "title": "Accompagnement personnalisé",
-      "description": "Séances sur mesure adaptées à vos besoins spécifiques pour un résultat optimal.",
-      "imageAlt": "Icône représentant l'accompagnement personnalisé proposé en séance"
+      "description": "Séances sur mesure adaptées à vos besoins spécifiques pour un résultat optimal."
     },
     "environment": {
       "title": "Cadre propice à la guérison",
-      "description": "Environnement serein et harmonieux favorisant un travail en profondeur.",
-      "imageAlt": "Icône représentant le cadre serein et propice à la guérison du cabinet"
+      "description": "Environnement serein et harmonieux favorisant un travail en profondeur."
     }
   },
   "therapies": {
@@ -321,8 +299,7 @@
             "answer": "Le travail sur les chakras fait partie des séances de Reiki individuelles au cabinet et peut être intégré dans un suivi régulier pour soutenir l'équilibre énergétique global."
           }
         ]
-      },
-      "imageAlt": "Symbole illustrant une séance de Reiki, thérapie énergétique japonaise"
+      }
     },
     "vibratory": {
       "title": "Soins vibratoires",
@@ -409,8 +386,7 @@
             "answer": "Les soins sont généralement adaptés à tous, mais certaines contre-indications peuvent exister : personnes portant un stimulateur cardiaque, femmes enceintes dans les premiers mois, ou toute condition médicale spécifique qui nécessite un avis médical. Chaque soin est personnalisé et sécurisé selon le profil énergétique et la santé du client."
           }
         ]
-      },
-      "imageAlt": "Illustration des soins vibratoires par bols chantants et fréquences sonores"
+      }
     },
     "meditation": {
       "title": "Méditation",
@@ -532,8 +508,7 @@
             "answer": "La pratique est généralement sûre, mais elle peut ne pas convenir aux personnes ayant des troubles vocaux ou une sensibilité auditive particulière. En cas de doute, il est conseillé de consulter un professionnel de santé avant de participer."
           }
         ]
-      },
-      "imageAlt": "Illustration d'une séance de méditation guidée avec le mantra Om"
+      }
     },
     "chromobio": {
       "title": "ChromoBioÉnergie",
@@ -574,8 +549,7 @@
             "answer": "La pratique est adaptée à la majorité des personnes. Les séances sont modulées en fonction de la sensibilité individuelle, du profil énergétique et de l'état général de santé, garantissant un accompagnement personnalisé et sûr, capable de respecter le rythme et les besoins uniques de chacun."
           }
         ]
-      },
-      "imageAlt": "Illustration de la méthode ChromoBioÉnergie et de ses essences de couleurs"
+      }
     },
     "tambour": {
       "title": "Tambour Chamanique",
@@ -608,8 +582,7 @@
             "answer": "Le tambour chamanique est généralement sûr, mais il peut ne pas convenir aux personnes souffrant de troubles psychiatriques sévères ou de certaines conditions cardiaques sensibles aux vibrations sonores. Il est recommandé de consulter un professionnel de santé si vous avez des préoccupations spécifiques avant de participer à une séance"
           }
         ]
-      },
-      "imageAlt": "Illustration d'une séance de tambour chamanique"
+      }
     },
     "amma": {
       "title": "Massage Amma",
@@ -654,8 +627,7 @@
             "answer": "Oui, le massage Amma se combine facilement avec d'autres approches naturelles ou thérapeutiques pour renforcer les effets et soutenir le bien-être global"
           }
         ]
-      },
-      "imageAlt": "Illustration d'un massage Amma assis, technique issue de la médecine chinoise"
+      }
     },
     "fengshui": {
       "title": "Feng Shui énergétique",
@@ -692,8 +664,7 @@
             "answer": "Certaines pratiques simples peuvent être mises en place par chacun mais pour un accompagnement précis et complet il est recommandé de faire appel à un praticien formé pour bénéficier d'une harmonisation adaptée à votre lieu et à votre énergie personnelle"
           }
         ]
-      },
-      "imageAlt": "Illustration du Feng Shui énergétique selon la méthode Eickermann"
+      }
     }
   },
   "chromobioPretest": {
